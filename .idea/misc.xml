@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Course/HSEApple/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.124" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/drawable/background_chat_input.xml" value="0.124" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/drawable/background_content_top.xml" value="0.124" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/drawable/baseline_add_moderator_24.xml" value="0.124" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/drawable/baseline_info_outline_24.xml" value="0.124" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/drawable/baseline_question_mark_24.xml" value="0.2295" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/drawable/ic_note_24.xml" value="0.2295" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/drawable/profile.xml" value="0.124" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/drawable/search.xml" value="0.124" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_create_group_chat.xml" value="0.11302083333333333" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_splash.xml" value="0.1" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/component_event.xml" value="0.4" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/component_grade.xml" value="0.264" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/component_list_course.xml" value="0.4361111111111111" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/component_row_conversation.xml" value="0.11302083333333333" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/component_test.xml" value="0.11302083333333333" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_available_courses.xml" value="0.1" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_create_news.xml" value="0.25416666666666665" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_news.xml" value="0.264" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_profile.xml" value="0.4" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_tests.xml" value="0.11302083333333333" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/item_container_received_message.xml" value="0.11302083333333333" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/item_container_sent_message.xml" value="0.11302083333333333" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/layout_available_courses.xml" value="0.11302083333333333" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/layout_chat.xml" value="0.11302083333333333" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/layout_event.xml" value="0.11302083333333333" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/layout_status.xml" value="0.11302083333333333" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/layout_test.xml" value="0.11302083333333333" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/menu/menu.xml" value="0.11302083333333333" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/menu/menu_available_courses.xml" value="0.11302083333333333" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/menu/menu_news.xml" value="0.264" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/menu/menu_tests.xml" value="0.11302083333333333" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.124" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

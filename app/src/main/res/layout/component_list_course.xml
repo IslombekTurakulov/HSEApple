@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/layout_bg_outlined"
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp"
+    android:paddingRight="10dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/courseImage"
+        android:layout_width="@dimen/_90sdp"
+        android:layout_height="@dimen/_90sdp"
+        android:background="@drawable/circle_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/nameOfCourseField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/futuramedium"
+        android:maxLines="3"
+        android:ems="14"
+        android:text="НИС по iOS разработке 2 курс"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14sdp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/courseImage"
+        app:layout_constraintTop_toTopOf="@+id/courseImage" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/courseButton"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="@dimen/_45sdp"
+        android:backgroundTint="@color/almostDark"
+        android:paddingStart="@dimen/_40sdp"
+        android:paddingTop="@dimen/_20sdp"
+        android:paddingEnd="@dimen/_10sdp"
+        android:text="Подать заявку"
+        android:textColor="@color/hse_green"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:background="#E4E4E4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseImage" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

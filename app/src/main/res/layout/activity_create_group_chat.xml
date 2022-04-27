@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/almostDark"
+    android:padding="@dimen/_20sdp"
+    tools:context=".view.activities.CreateGroupChatActivity">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/groupChatAvatar"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/app_logo"
+        app:civ_border_color="@color/white"
+        app:civ_border_width="@dimen/_1sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:counterEnabled="true"
+        app:counterMaxLength="50"
+        app:counterTextColor="@color/white"
+        app:errorTextColor="@color/red"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/groupChatAvatar"
+        app:startIconContentDescription="info_title_icon"
+        app:startIconDrawable="@drawable/ic_info">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/groupTitleEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@color/white"
+            android:hint="Type group title"
+            android:inputType="text"
+            android:maxLength="50"
+            android:maxLines="1"
+            android:padding="@dimen/_10sdp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:counterEnabled="true"
+        app:counterMaxLength="256"
+        app:counterTextColor="@color/white"
+        app:errorTextColor="@color/red"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutTitle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/groupDescriptionEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@color/white"
+            android:hint="Group description"
+            android:text="@string/lorem_ipsum_example"
+            android:inputType="textCapSentences|textMultiLine|textImeMultiLine"
+            android:textColorLink="@color/blue"
+            android:scrollbars="vertical"
+            android:maxLength="256"
+            android:minHeight="@dimen/_100sdp"
+            android:padding="@dimen/_10sdp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/createGroupButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        android:contentDescription="create_group_desc"
+        android:src="@drawable/ic_add_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

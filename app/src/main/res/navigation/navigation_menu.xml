@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/navigation_chat">
+
+    <fragment
+        android:id="@+id/navigation_chat"
+        android:name="com.iuturakulov.hseapple.view.fragments.NavigationFragment"
+        android:label="Chats"
+        tools:layout="@layout/activity_cometchat_unified">
+        <action
+            android:id="@+id/action_firstFragment_to_secondFragment"
+            app:destination="@id/tests_chat" />
+    </fragment>
+    <fragment
+        android:id="@+id/tests_chat"
+        android:name="com.iuturakulov.hseapple.view.fragments.TestsFragment"
+        android:label="Tests"
+        tools:layout="@layout/fragment_tests">
+        <action
+            android:id="@+id/action_secondFragment_to_thirdFragment"
+            app:destination="@id/news_chat" />
+    </fragment>
+    <fragment
+        android:id="@+id/news_chat"
+        android:name="com.iuturakulov.hseapple.view.fragments.NewsFragment"
+        android:label="Navigation"
+        tools:layout="@layout/fragment_news">
+        <action
+            android:id="@+id/action_thirdFragment_to_fourthFragment"
+            app:destination="@id/profile_person" />
+        <action
+            android:id="@+id/action_create_event"
+            app:destination="@id/create_event" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profile_person"
+        android:name="com.iuturakulov.hseapple.view.fragments.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/create_event"
+        android:name="com.iuturakulov.hseapple.view.fragments.CreateNewsFragment"
+        android:label="Create event"
+        tools:layout="@layout/fragment_create_news" />
+</navigation>

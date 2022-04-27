@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.iuturakulov.hseapple">
+
+    <application
+        android:name=".view.activities.App"
+        android:allowBackup="true"
+        android:icon="@drawable/app_logo"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/app_logo"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.HSEApple"
+        tools:replace="android:icon">
+        <activity
+            android:name=".view.activities.AvailableCoursesActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".view.activities.LoginAuthActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.HSEApple"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="auth.hse.ru"
+                    android:scheme="com.iuturakulov.hseapple" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.activities.CreateGroupChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activities.MainActivity"
+            android:exported="false"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activities.SplashActivity"
+            android:exported="true"
+            android:launchMode="singleInstance">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="com.hse.auth.accountmanager.AuthService"
+            android:exported="false" />
+
+
+        <meta-data
+            android:name="auth.hse.ru.client_id"
+            android:value="e137efa7-22db-4ed6-9e7f-8d6a6b9f3fbf" />
+        <meta-data
+            android:name="auth.hse.ru.redirect_uri"
+            android:value="com.iuturakulov.hseapple://auth.hse.ru/adfs/oauth2/callback" />
+
+    </application>
+
+</manifest>

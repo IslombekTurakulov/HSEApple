@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/almostDark"
+    android:orientation="vertical"
+    tools:context=".view.fragments.ProfileFragment">
+
+    <LinearLayout
+        android:id="@+id/profileLayoutInformation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        app:layout_constraintBottom_toTopOf="@+id/layoutOfSettings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_90sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:background="@drawable/circle_bg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:background="@color/almostDark"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:ems="10"
+                android:fontFamily="@font/futuramedium"
+                android:maxLines="3"
+                android:text="Туракулов Исломбек Улугбекович"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/courseInfo"
+                style="@style/MaterialAlertDialog.Material3.Body.Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/futuramedium"
+                android:paddingTop="@dimen/_6sdp"
+                android:text="@string/status_student_second"
+                android:textColor="@color/hse_dark_blue"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:id="@+id/layoutOfSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profileLayoutInformation">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@color/almostDark"
+                    android:fontFamily="@font/futuramedium"
+                    android:text="@string/requests"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10sdp"
+                    app:icon="@drawable/baseline_receipt_long_24"
+                    app:iconPadding="@dimen/_8sdp"
+                    app:iconTint="@color/white" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@color/almostDark"
+                    android:fontFamily="@font/futuramedium"
+                    android:text="@string/users"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10sdp"
+                    app:icon="@drawable/baseline_people_24"
+                    app:iconPadding="@dimen/_8sdp"
+                    app:iconTint="@color/white" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@color/almostDark"
+                    android:fontFamily="@font/futuramedium"
+                    android:text="@string/assistants"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10sdp"
+                    app:icon="@drawable/baseline_add_moderator_24"
+                    app:iconPadding="@dimen/_8sdp"
+                    app:iconTint="@color/white" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@color/almostDark"
+                    android:fontFamily="@font/futuramedium"
+                    android:text="@string/help"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10sdp"
+                    app:icon="@drawable/baseline_question_mark_24"
+                    app:iconPadding="@dimen/_8sdp"
+                    app:iconTint="@color/white" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@color/almostDark"
+                    android:fontFamily="@font/futuramedium"
+                    android:text="@string/about_the_app"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10sdp"
+                    app:icon="@drawable/baseline_info_outline_24"
+                    app:iconPadding="@dimen/_8sdp"
+                    app:iconTint="@color/white" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@color/almostDark"
+                    android:fontFamily="@font/futuramedium"
+                    android:text="@string/go_to_the_courses"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10sdp"
+                    app:icon="@drawable/baseline_exit_to_app_24"
+                    app:iconPadding="@dimen/_8sdp"
+                    app:iconTint="@color/white" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@color/almostDark"
+                    android:fontFamily="@font/futuramedium"
+                    android:text="@string/language"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10sdp"
+                    app:icon="@drawable/baseline_language_24"
+                    app:iconPadding="@dimen/_8sdp"
+                    app:iconTint="@color/white" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/ThemeOverlay.Material3.Button.TonalButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:backgroundTint="@color/almostDark"
+                    android:fontFamily="@font/futuramedium"
+                    android:text="@string/log_out"
+                    android:textAlignment="center"
+                    android:textColor="#FF6E40"
+                    android:textSize="@dimen/_12sdp" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

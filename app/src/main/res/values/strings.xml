@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">HSEApple</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <string name="pref_title_ringtone" translatable="false">Ringtone</string>
+    <string name="pref_ringtone_silent" translatable="false">Silent</string>
+
+    <string name="lorem_ipsum_example" translatable="false">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer</string>
+    <string name="app_name_logo">HSE Apple</string>
+    <string name="current_tests">Current tests</string>
+    <string name="completed_tests">Completed tests</string>
+    <string name="requests">Requests</string>
+    <string name="users">Users</string>
+    <string name="assistants">Assistants</string>
+    <string name="help">Help</string>
+    <string name="about_the_app">About the app</string>
+    <string name="go_to_the_courses">Go to the courses</string>
+    <string name="log_out">Log out</string>
+    <string name="language">Language</string>
+    <string name="auth_info_login">Sign in with SmartPoint</string>
+    <string name="navigation_menu_text">Navigation</string>
+    <string name="tests_menu_text">Tests</string>
+    <string name="news_menu_text">News</string>
+    <string name="profile_menu_text">Profile</string>
+    <string name="status_student_second">Student, 2 course</string>
+    <string name="status_student_third">Student, 3 course</string>
+    <string name="status_teacher">Преподаватель</string>
+    <string name="create_lab_task">Create Lab task</string>
+    <string name="create_test">Create test</string>
+    <string name="second_course">SRC for iOS development 2nd course</string>
+    <string name="third_course">SRC for iOS development 3nd course</string>
+    <string name="course_navigate">Enter</string>
+    <string name="create_event">Create Event</string>
+</resources>

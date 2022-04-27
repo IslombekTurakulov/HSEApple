@@ -1,0 +1,115 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+}
+android {
+    compileSdk 32
+
+    defaultConfig {
+        applicationId "com.iuturakulov.hseapple"
+        minSdk 28
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [file_provider: "com.iuturakulov.hseapple"]
+
+        ndk {
+            abiFilters "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
+    implementation "androidx.cardview:cardview:1.0.0"
+
+    // PreferenceManager
+    implementation 'androidx.preference:preference-ktx:1.2.0'
+    // Swipe refresh
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation platform('com.google.firebase:firebase-bom:26.2.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx:20.1.2'
+    // implementation 'com.google.firebase:firebase-crashlytics-ktx:18.2.9'
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.0.3'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.1.1'
+    implementation 'com.google.firebase:firebase-storage-ktx:20.0.1'
+    implementation 'com.google.firebase:firebase-database-ktx:20.0.4'
+
+    implementation 'com.google.dagger:dagger:2.41'
+    implementation 'androidx.room:room-common:2.4.2'
+    implementation 'androidx.room:room-ktx:2.4.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    kapt 'com.google.dagger:dagger-compiler:2.38.1'
+
+    implementation 'com.github.bumptech.glide:glide:4.13.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
+    // Comet
+    implementation 'com.cometchat:pro-android-chat-sdk:3.0.4'
+    // ChatKit
+    implementation 'com.github.stfalcon-studio:Chatkit:0.4.1'
+
+    implementation 'com.github.hseapp:HSECore-Android:0.8.1'
+    implementation 'com.github.hseapp:HseAuth-Android:0.9.16'
+    // MultiDex
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    // AvatarGenerator
+    implementation 'com.github.amoskorir:avatarimagegenerator:1.5.0'
+    // GSON
+    implementation 'com.google.code.gson:gson:2.8.8'
+    // Image Picker
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
+    // Scalable sp
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.intuit.ssp:ssp-android:1.0.6'
+    // Smooth Bottom Bar
+    implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.9'
+    // Shimmer Recycler View
+    implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'
+
+    // Material Design
+    implementation 'com.google.android.material:material:1.5.0'
+    // Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    // Better log messages
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+    // Circle Image View
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}

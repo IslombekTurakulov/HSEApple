@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/almostDark"
+    android:padding="@dimen/_20sdp"
+    tools:context=".view.fragments.CreateNewsFragment">
+
+    <ImageView
+        android:id="@+id/newsImageCreate"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_200sdp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/app_logo"
+        app:civ_border_color="@color/white"
+        app:civ_border_width="@dimen/_1sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textNewsTitleCreate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:counterEnabled="true"
+        app:counterMaxLength="50"
+        app:counterTextColor="@color/white"
+        app:errorTextColor="@color/red"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newsImageCreate"
+        app:startIconContentDescription="info_title_icon"
+        app:startIconDrawable="@drawable/ic_info">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textNewsEditCreate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@color/white"
+            android:hint="Type event title"
+            android:inputType="text"
+            android:maxLength="50"
+            android:maxLines="1"
+            android:padding="@dimen/_10sdp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:counterEnabled="true"
+        app:counterMaxLength="1024"
+        app:counterTextColor="@color/white"
+        app:errorTextColor="@color/red"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textNewsTitleCreate">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/newsEditDescriptionCreate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@color/white"
+            android:hint="Event description"
+            android:inputType="textCapSentences|textMultiLine|textImeMultiLine"
+            android:maxLength="1024"
+            android:minHeight="@dimen/_100sdp"
+            android:padding="@dimen/_20sdp"
+            android:scrollbars="vertical"
+            android:isScrollContainer="true"
+            android:text="@string/lorem_ipsum_example"
+            android:textColorLink="@color/blue" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/createNewsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        android:backgroundTint="@color/white"
+        android:contentDescription="create_event_desc"
+        android:src="@drawable/ic_add_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
