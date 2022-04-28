@@ -28,4 +28,6 @@
     <string name="third_course">НИС по iOS разработке 3 курс</string>
     <string name="course_navigate">Перейти</string>
     <string name="create_event">Создать событие</string>
+    <string name="delete_content">Delete content</string>
+    <string name="edit_content">Edit content</string>
 </resources>

@@ -41,17 +41,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
+        android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="@dimen/_5sdp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_20sdp"
+                android:layout_margin="@dimen/_10sdp"
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -66,6 +68,8 @@
 
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
+                    android:fillViewport="true"
+                    android:clipToPadding="true"
                     android:layout_height="@dimen/_250sdp">
 
                     <com.cooltechworks.views.shimmer.ShimmerRecyclerView
@@ -88,7 +92,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_20sdp"
+                android:layout_margin="@dimen/_10sdp"
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -103,6 +107,7 @@
 
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
+                    android:fillViewport="true"
                     android:layout_height="@dimen/_250sdp">
 
                     <com.cooltechworks.views.shimmer.ShimmerRecyclerView

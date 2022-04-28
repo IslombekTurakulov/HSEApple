@@ -30,4 +30,7 @@
     <color name="green">#4CAF50</color>
     <color name="greenDark">#28852C</color>
     <color name="fullGreen">#30E421</color>
+
+    <color name="recycler_view_item_swipe_right_background">#FF0000</color>
+    <color name="recycler_view_item_swipe_left_background">#00BB00</color>
 </resources>

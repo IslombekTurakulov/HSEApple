@@ -35,4 +35,6 @@
     <string name="third_course">SRC for iOS development 3nd course</string>
     <string name="course_navigate">Enter</string>
     <string name="create_event">Create Event</string>
+    <string name="delete_content">Delete content</string>
+    <string name="edit_content">Edit content</string>
 </resources>

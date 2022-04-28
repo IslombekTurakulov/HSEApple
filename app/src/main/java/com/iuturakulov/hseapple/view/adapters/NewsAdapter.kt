@@ -6,19 +6,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.iuturakulov.hseapple.R
+import com.iuturakulov.hseapple.model.api.PostEntity
 import com.iuturakulov.hseapple.model.models.News
 import kotlinx.android.synthetic.main.component_event.view.*
 
 class NewsAdapter(
-    private val news: ArrayList<News>
+    private val news: Array<PostEntity>
 ) : RecyclerView.Adapter<NewsAdapter.DataViewHolder>() {
 
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(itemNews: News) {
-            itemView.newsTitleItem.text = itemNews.titleOfNewsItem
-            itemView.newsDescriptionItem.text = itemNews.descriptionOfNews
+        fun bind(itemNews: PostEntity) {
+            itemView.newsTitleItem.text = itemNews.title
+            itemView.newsDescriptionItem.text = itemNews.content
             Glide.with(itemView.imageNewsItem.context)
-                .load(itemNews.image)
+                .load(itemNews.mediaLink)
                 .into(itemView.imageNewsItem)
         }
     }
@@ -35,9 +36,5 @@ class NewsAdapter(
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) =
         holder.bind(news[position])
-
-    fun addData(list: List<News>) {
-        news.addAll(list)
-    }
 
 }

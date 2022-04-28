@@ -16,18 +16,20 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.gson.Gson
 import com.iuturakulov.hseapple.R
-import com.iuturakulov.hseapple.model.models.News
-import com.iuturakulov.hseapple.utils.CourseSelection
-import com.iuturakulov.hseapple.utils.SELECTION
+import com.iuturakulov.hseapple.model.api.PostEntity
+import com.iuturakulov.hseapple.utils.TOKEN_API
+import com.iuturakulov.hseapple.utils.asDateTime
 import com.iuturakulov.hseapple.utils.validateNews
 import com.iuturakulov.hseapple.utils.validateTitle
 import com.iuturakulov.hseapple.view.activities.CreateGroupChatActivity
+import com.squareup.okhttp.*
 import kotlinx.android.synthetic.main.activity_create_group_chat.*
 import kotlinx.android.synthetic.main.fragment_create_news.*
-import timber.log.Timber
 import java.io.ByteArrayOutputStream
+import java.io.IOException
+import java.time.LocalDateTime
 import java.util.*
 
 
@@ -72,29 +74,59 @@ class CreateNewsFragment : Fragment(R.layout.fragment_create_news) {
 
 
     private fun createEvent() {
-        val list: ArrayList<News> = arrayListOf(
-            News(
-                textNewsEditCreate.text.toString(),
-                newsEditDescriptionCreate.text.toString(),
-                image = if (imageUri.path == null) {
-                    resources.getDrawable(R.drawable.good_night_img).toString()
-                } else {
-                    encodeUri(imageUri)
-                }
-            )
+        val client = OkHttpClient()
+        val requestGet = Request.Builder()
+            .url("https://stoplight.io/mocks/hseapple/nis-app/38273133/course/0/post?start=0")
+            .get()
+            .addHeader("Content-Type", "application/json")
+            .addHeader("token", TOKEN_API)
+            .build()
+        var responsePost: Response? = null
+        try {
+            responsePost = client.newCall(requestGet).execute()
+        } catch (e: IOException) {
+            e.printStackTrace();
+        }
+        var res: Array<PostEntity>? = null
+        if (responsePost != null) {
+            res =
+                Gson().fromJson(
+                    responsePost.body().string(),
+                    Array<PostEntity>::class.java
+                )
+        }
+        val mediaType = MediaType.parse("application/json")
+        val body = RequestBody.create(
+            mediaType,
+            """{
+          "courseId": ${if (!res.isNullOrEmpty()) res.size - 1 else 0},
+          "title": "${textNewsEditCreate.text.toString()}",
+          "content": "${groupDescriptionEditText.text.toString()}",
+          "media_link": "${encodeUri(imageUri)}",
+          "createdAt": "${LocalDateTime.now().toString().asDateTime()}"
+        }"""
         )
-        val course =
-            if (SELECTION == CourseSelection.CHOSEN_SECOND) "second_course" else "third_course"
-        val db = FirebaseFirestore.getInstance().document(course)
-        db.collection("news")
-            .add(list)
-            .addOnSuccessListener { documentReference ->
-                Timber.d("DocumentSnapshot added with ID: ${documentReference.id}")
-            }
-            .addOnFailureListener { e ->
-                Timber.w("Error adding document")
-            }
-
+        val requestPost = Request.Builder()
+            .url(
+                "https://stoplight.io/mocks/hseapple/nis-app/38273133/course/${
+                    if (!res.isNullOrEmpty()) res[res.size - 1].courseid?.plus(
+                        1
+                    ) else 0
+                }/post"
+            )
+            .post(body)
+            .addHeader("Content-Type", "application/json")
+            .addHeader("token", TOKEN_API)
+            .build()
+        var responseGet: Response? = null
+        try {
+            responseGet = client.newCall(requestPost).execute()
+        } catch (e: IOException) {
+            e.printStackTrace();
+        }
+        if (responseGet != null) {
+            println(responseGet.body().toString())
+        }
     }
 
     private fun encodeUri(imageUri: Uri): String {

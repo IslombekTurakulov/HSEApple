@@ -16,7 +16,7 @@ class AvailableCoursesActivity : AppCompatActivity(R.layout.fragment_available_c
         val list: ArrayList<Courses> = arrayListOf()
         list.add(Courses(resources.getString(R.string.second_course), null))
         list.add(Courses(resources.getString(R.string.third_course), null))
-        updateItems(list)
+        // updateItems(list)
     }
 
     private fun updateItems(list: ArrayList<Courses>) {

@@ -6,17 +6,18 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.gson.Gson
 import com.iuturakulov.hseapple.R
-import com.iuturakulov.hseapple.model.models.News
-import com.iuturakulov.hseapple.utils.CourseSelection
-import com.iuturakulov.hseapple.utils.SELECTION
-import com.iuturakulov.hseapple.utils.replaceFragment
-import com.iuturakulov.hseapple.utils.showToast
+import com.iuturakulov.hseapple.model.api.PostEntity
+import com.iuturakulov.hseapple.utils.*
 import com.iuturakulov.hseapple.view.adapters.NewsAdapter
+import com.squareup.okhttp.OkHttpClient
+import com.squareup.okhttp.Request
+import com.squareup.okhttp.Response
 import kotlinx.android.synthetic.main.fragment_available_courses.swipe_refresh_layout
 import kotlinx.android.synthetic.main.fragment_news.*
-import timber.log.Timber
+import java.io.IOException
+
 
 class NewsFragment : Fragment(R.layout.fragment_news) {
 
@@ -48,26 +49,27 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
     }
 
     private fun updateDatabase() {
-        val course =
-            if (SELECTION == CourseSelection.CHOSEN_SECOND) "second_course" else "third_course"
-        val db = FirebaseFirestore.getInstance().document(course)
-        db.collection("news")
+        val client = OkHttpClient()
+        val request = Request.Builder()
+            .url("https://stoplight.io/mocks/hseapple/nis-app/38273133/course/${if (SELECTION != CourseSelection.CHOSEN_SECOND) 0 else 1}/post")
             .get()
-            .addOnSuccessListener { result ->
-                if (result.isEmpty) {
-                    Timber.w("Document News is empty!")
-                } else {
-                    val list: ArrayList<News> =
-                        result.toObjects(News::class.java) as ArrayList<News>
-                    updateUI(list);
-                }
-            }
-            .addOnFailureListener {
-                Timber.w("Error getting documents.")
-            }
+            .addHeader("Content-Type", "application/json")
+            .addHeader("token", TOKEN_API)
+            .build()
+        var response: Response? = null
+        try {
+            response = client.newCall(request).execute()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        if (response != null) {
+            val res: Array<PostEntity> =
+                Gson().fromJson(response.body().string(), Array<PostEntity>::class.java)
+            updateUI(res)
+        }
     }
 
-    private fun updateUI(list: ArrayList<News>) {
+    private fun updateUI(list: Array<PostEntity>) {
         val coursesAdapter = NewsAdapter(list)
         newsRecyclerView.adapter = coursesAdapter
     }

@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.model.models.Courses
@@ -55,43 +54,16 @@ class CoursesAdapter(
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
         holder.bind(courses[position])
-        val db = FirebaseFirestore.getInstance().document("requests")
-        initializeData(db, holder)
         holder.itemView.courseButton.setOnClickListener {
-            if (holder.itemView.courseButton.tooltipText == null) {
-                val array: ArrayList<String> = arrayListOf()
-                val boolArray: ArrayList<Boolean> = arrayListOf()
-                if (holder.itemView.nameOfCourseField.text != holder.itemView.resources.getString(R.string.second_course)) {
-                    boolArray.add(true)
+            SELECTION =
+                if (courses[position].nameOfCourse == holder.itemView.resources.getString(R.string.second_course)) {
+                    CourseSelection.CHOSEN_SECOND
+                } else {
+                    CourseSelection.CHOSEN_THIRD
                 }
-                boolArray.add(true)
-                array.add(holder.itemView.nameOfCourseField.text.toString())
-                val user = hashMapOf(
-                    KEY_NAME to USER.fullName,
-                    KEY_EMAIL to USER.email,
-                    KEY_USER_ID to USER.clientId,
-                    "accepted" to boolArray,
-                    "course_name" to array
-                )
-                db.collection("courses")
-                    .add(user)
-                    .addOnSuccessListener { documentReference ->
-                        Timber.d("DocumentSnapshot added with ID: ${documentReference.id}")
-                    }
-                    .addOnFailureListener { e ->
-                        Timber.w("Error adding document")
-                    }
-            } else {
-                SELECTION =
-                    if (courses[position].nameOfCourse == holder.itemView.resources.getString(R.string.second_course)) {
-                        CourseSelection.CHOSEN_SECOND
-                    } else {
-                        CourseSelection.CHOSEN_THIRD
-                    }
-                val intent = Intent(holder.itemView.context, MainActivity::class.java)
-                holder.itemView.context.startActivity(intent)
-                Toast.makeText(holder.itemView.context, "Loading", Toast.LENGTH_SHORT).show()
-            }
+            val intent = Intent(holder.itemView.context, MainActivity::class.java)
+            holder.itemView.context.startActivity(intent)
+            Toast.makeText(holder.itemView.context, "Loading", Toast.LENGTH_SHORT).show()
         }
     }
 

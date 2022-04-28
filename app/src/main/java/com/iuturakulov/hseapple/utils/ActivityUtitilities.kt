@@ -81,7 +81,7 @@ fun String.asDateTime(): String {
 }
 
 fun TextInputEditText.validateTitle(): Boolean {
-    if (this.text != null) {
+    if (!this.text.isNullOrEmpty()) {
         this.setText(this.text?.trim())
         return this.text!!.length in 4..50
     }
@@ -89,7 +89,7 @@ fun TextInputEditText.validateTitle(): Boolean {
 }
 
 fun TextInputEditText.validateDescription(): Boolean {
-    if (this.text != null) {
+    if (!this.text.isNullOrEmpty()) {
         this.setText(this.text?.trim())
         return this.text!!.length in 0..256
     }
@@ -97,7 +97,7 @@ fun TextInputEditText.validateDescription(): Boolean {
 }
 
 fun TextInputEditText.validateNews(): Boolean {
-    if (this.text != null) {
+    if (!this.text.isNullOrEmpty()) {
         this.setText(this.text?.trim())
         return this.text!!.length in 0..1024
     }

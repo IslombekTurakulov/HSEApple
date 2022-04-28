@@ -19,7 +19,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="news image" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textNewsTitleCreate"
@@ -47,7 +48,6 @@
             android:maxLines="1"
             android:padding="@dimen/_10sdp" />
     </com.google.android.material.textfield.TextInputLayout>
-
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
