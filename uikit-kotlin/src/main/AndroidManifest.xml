@@ -61,7 +61,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui_components.messages.forward_message.CometChatForwardMessageActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 

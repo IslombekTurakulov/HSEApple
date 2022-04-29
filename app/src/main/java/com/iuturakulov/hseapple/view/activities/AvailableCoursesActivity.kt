@@ -2,21 +2,20 @@ package com.iuturakulov.hseapple.view.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.model.models.Courses
 import com.iuturakulov.hseapple.view.adapters.CoursesAdapter
-import kotlinx.android.synthetic.main.fragment_available_courses.*
+import kotlinx.android.synthetic.main.activity_available_courses.*
 
-
-class AvailableCoursesActivity : AppCompatActivity(R.layout.fragment_available_courses) {
+class AvailableCoursesActivity : AppCompatActivity(R.layout.activity_available_courses) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_available_courses)
         title = "Доступные курсы"
         val list: ArrayList<Courses> = arrayListOf()
-        list.add(Courses(resources.getString(R.string.second_course), null))
-        list.add(Courses(resources.getString(R.string.third_course), null))
-        // updateItems(list)
+        list.add(Courses(resources.getString(R.string.second_course), ""))
+        list.add(Courses(resources.getString(R.string.third_course), ""))
+        updateItems(list)
     }
 
     private fun updateItems(list: ArrayList<Courses>) {

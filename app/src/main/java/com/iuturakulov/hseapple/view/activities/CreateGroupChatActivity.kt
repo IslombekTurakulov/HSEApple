@@ -12,8 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.utils.AUTH
 import com.iuturakulov.hseapple.utils.validateDescription
@@ -67,7 +65,7 @@ class CreateGroupChatActivity : AppCompatActivity(R.layout.activity_create_group
         createGroupButton.setOnClickListener {
             if (validateInputFields()) {
                 if (imageUri.path == null) {
-                    createGroup()
+                    // createGroup()
                 }
                 Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
             }
@@ -92,15 +90,6 @@ class CreateGroupChatActivity : AppCompatActivity(R.layout.activity_create_group
         hashMap["groupIcon"] = imageUri.toString()
         hashMap["timestamp"] = time
         hashMap["createdBy"] = AUTH.getClientId()
-
-        val database: DatabaseReference = FirebaseDatabase.getInstance().getReference("groups")
-        database.child(time).setValue(hashMap).addOnSuccessListener {
-            // created success
-            Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
-        }.addOnFailureListener {
-            // failure
-            Toast.makeText(this, "Failure", Toast.LENGTH_SHORT).show()
-        }
 
     }
 

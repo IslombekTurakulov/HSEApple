@@ -11,11 +11,10 @@ import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.model.api.PostEntity
 import com.iuturakulov.hseapple.utils.*
 import com.iuturakulov.hseapple.view.adapters.NewsAdapter
-import com.squareup.okhttp.OkHttpClient
-import com.squareup.okhttp.Request
-import com.squareup.okhttp.Response
-import kotlinx.android.synthetic.main.fragment_available_courses.swipe_refresh_layout
 import kotlinx.android.synthetic.main.fragment_news.*
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import java.io.IOException
 
 
@@ -31,9 +30,9 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        updateDatabase()
+        // updateDatabase()
         swipe_refresh_layout.setOnRefreshListener {
-            updateDatabase()
+            // updateDatabase()
             swipe_refresh_layout.isRefreshing = false
         }
     }
@@ -64,7 +63,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         }
         if (response != null) {
             val res: Array<PostEntity> =
-                Gson().fromJson(response.body().string(), Array<PostEntity>::class.java)
+                Gson().fromJson(response.body()?.string() ?: "", Array<PostEntity>::class.java)
             updateUI(res)
         }
     }

@@ -6,9 +6,9 @@
 
     <fragment
         android:id="@+id/navigation_chat"
-        android:name="com.iuturakulov.hseapple.view.fragments.TestsFragment"
+        android:name="com.cometchat.pro.uikit.ui_components.cometchat_ui.CometChatUI"
         android:label="Chats"
-        tools:layout="@layout/fragment_tests">
+        tools:layout="@layout/activity_cometchat_unified">
         <action
             android:id="@+id/action_firstFragment_to_secondFragment"
             app:destination="@id/tests_chat" />

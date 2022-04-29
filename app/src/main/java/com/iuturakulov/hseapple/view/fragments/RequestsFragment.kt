@@ -18,10 +18,9 @@ import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.model.api.RequestEntity
 import com.iuturakulov.hseapple.utils.TOKEN_API
 import com.iuturakulov.hseapple.view.adapters.RequestsAdapter
-import com.squareup.okhttp.*
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
-import kotlinx.android.synthetic.main.fragment_available_courses.*
 import kotlinx.android.synthetic.main.fragment_requests.*
+import okhttp3.*
 import java.io.IOException
 
 class RequestsFragment : Fragment(R.layout.fragment_requests) {
@@ -38,10 +37,10 @@ class RequestsFragment : Fragment(R.layout.fragment_requests) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        swipe_refresh_layout.setOnRefreshListener {
+        request_swipe_refresh.setOnRefreshListener {
             mAdapter = RequestsAdapter(requireContext())
             recycler_view.adapter = mAdapter
-            swipe_refresh_layout.isRefreshing = false
+            request_swipe_refresh.isRefreshing = false
         }
         recycler_view.layoutManager = LinearLayoutManager(requireContext())
         recycler_view.addItemDecoration(

@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.model.models.Courses
 import com.iuturakulov.hseapple.utils.*
@@ -67,64 +65,6 @@ class CoursesAdapter(
         }
     }
 
-    private fun initializeData(
-        db: DocumentReference,
-        holder: DataViewHolder
-    ) {
-        db.collection("courses")
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    if (document.data.containsValue(USER.email)) {
-                        holder.itemView.courseButton.text =
-                            holder.itemView.resources.getString(R.string.course_navigate)
-                        holder.itemView.courseButton.tooltipText =
-                            holder.itemView.resources.getString(R.string.course_navigate)
-                        val array: ArrayList<String> =
-                            document.data.getValue("course_name") as ArrayList<String>;
-                        val boolArray: ArrayList<Boolean> =
-                            document.data.getValue("accepted") as ArrayList<Boolean>;
-                        if (array.contains(holder.itemView.resources.getString(R.string.second_course))) {
-                            boolArray[0] = true
-                            array.remove(holder.itemView.resources.getString(R.string.second_course))
-                            addUpdatedData(array, document, boolArray, db)
-                        }
-                        if (array.contains(holder.itemView.resources.getString(R.string.third_course))) {
-                            boolArray[1] = true
-                            array.remove(holder.itemView.resources.getString(R.string.third_course))
-                            addUpdatedData(array, document, boolArray, db)
-                        }
-                    }
-                    Timber.d("${document.id} => ${document.data}")
-                }
-            }
-            .addOnFailureListener {
-                Timber.w("Error getting documents.")
-            }
-    }
-
-    private fun addUpdatedData(
-        array: ArrayList<String>,
-        document: QueryDocumentSnapshot,
-        boolArray: ArrayList<Boolean>,
-        db: DocumentReference
-    ) {
-        val user = hashMapOf(
-            KEY_NAME to document.data.getValue(KEY_NAME),
-            KEY_EMAIL to document.data.getValue(KEY_EMAIL),
-            KEY_USER_ID to document.data.getValue(KEY_USER_ID),
-            "accepted" to boolArray,
-            "course_name" to array
-        )
-        db.collection("courses")
-            .add(user)
-            .addOnSuccessListener { documentReference ->
-                Timber.d("DocumentSnapshot added with ID: ${documentReference.id}")
-            }
-            .addOnFailureListener { e ->
-                Timber.w("Error adding document")
-            }
-    }
 
     fun addData(list: List<Courses>) {
         courses.addAll(list)

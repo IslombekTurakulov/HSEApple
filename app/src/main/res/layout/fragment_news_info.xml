@@ -57,7 +57,7 @@
                     android:id="@+id/textNewsTitleCreate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:counterEnabled="true"
+                    app:counterEnabled="false"
                     app:counterMaxLength="50"
                     app:counterTextColor="@color/almostDark"
                     app:errorTextColor="@color/red"
@@ -77,9 +77,10 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutDesc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:counterEnabled="true"
+                    app:counterEnabled="false"
                     app:counterMaxLength="1024"
                     app:counterTextColor="@color/almostDark"
                     app:errorTextColor="@color/red">

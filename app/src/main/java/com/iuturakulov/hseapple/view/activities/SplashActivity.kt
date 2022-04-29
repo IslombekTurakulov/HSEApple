@@ -17,18 +17,6 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val appSettings =
-            AppSettings.AppSettingsBuilder().subscribePresenceForAllUsers().setRegion("EUROPE")
-                .build()
-        CometChat.init(this, APP_ID, appSettings, object : CometChat.CallbackListener<String>() {
-            override fun onSuccess(successMessage: String) {
-                Timber.d("Initialization completed successfully")
-            }
-
-            override fun onError(e: CometChatException) {
-                Timber.d("Initialization failed with exception: %s", e.message)
-            }
-        })
         Handler().postDelayed({
             if (isLoggedIn()) {
                 val startupIntent = Intent(this, AvailableCoursesActivity::class.java)

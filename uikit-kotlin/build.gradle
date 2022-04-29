@@ -2,8 +2,7 @@ apply plugin: 'com.android.library'
 
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.crashlytics'
+
 android {
     compileSdkVersion 30
 
@@ -55,8 +54,6 @@ dependencies {
     implementation 'androidx.preference:preference:1.1.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.2.9'
-    implementation 'com.google.firebase:firebase-analytics-ktx:20.1.2'
     testImplementation 'junit:junit:4.12'
 
     implementation 'androidx.annotation:annotation:1.1.0'

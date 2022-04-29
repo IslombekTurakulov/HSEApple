@@ -208,7 +208,7 @@ class CometChatConversationList : Fragment(), TextWatcher {
     }
 
     private fun checkDarkMode() {
-        if (Utils.isDarkMode(context!!)) {
+        if (Utils.isDarkMode(requireContext())) {
             tvTitle?.setTextColor(resources.getColor(R.color.textColorWhite))
         } else {
             tvTitle?.setTextColor(resources.getColor(R.color.primaryTextColor))
@@ -274,7 +274,7 @@ class CometChatConversationList : Fragment(), TextWatcher {
      * @see CometChat.addMessageListener
      */
     private fun addConversationListener() {
-        CometChat.addMessageListener(TAG, object : CometChat.MessageListener() {
+        addMessageListener(TAG, object : CometChat.MessageListener() {
             override fun onTextMessageReceived(message: TextMessage) {
                 if (rvConversation != null) {
                     rvConversation?.refreshConversation(message)
@@ -312,7 +312,7 @@ class CometChatConversationList : Fragment(), TextWatcher {
                 if (rvConversation != null) rvConversation?.refreshConversation(message)
             }
         })
-        CometChat.addGroupListener(TAG, object : GroupListener() {
+        addGroupListener(TAG, object : GroupListener() {
             override fun onGroupMemberKicked(action: Action, kickedUser: User, kickedBy: User, kickedFrom: Group) {
                 Log.e(TAG, "onGroupMemberKicked: $kickedUser")
                 if (kickedUser.uid == CometChat.getLoggedInUser().uid) {
@@ -371,8 +371,8 @@ class CometChatConversationList : Fragment(), TextWatcher {
      * This method is used to remove the conversationlistener.
      */
     private fun removeConversationListener() {
-        CometChat.removeMessageListener(TAG)
-        CometChat.removeGroupListener(TAG)
+        removeMessageListener(TAG)
+        removeGroupListener(TAG)
     }
 
     override fun onResume() {

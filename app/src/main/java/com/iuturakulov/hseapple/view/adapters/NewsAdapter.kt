@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.model.api.PostEntity
+import com.iuturakulov.hseapple.utils.postInfo
 import com.iuturakulov.hseapple.view.activities.NewsInfoActivity
 import kotlinx.android.synthetic.main.component_event.view.*
 
@@ -39,7 +40,8 @@ class NewsAdapter(
         holder.bind(news[position])
         holder.itemView.seeNewsItem.setOnClickListener {
             val intent =
-                Intent(holder.itemView.context, NewsInfoActivity(news[position])::class.java)
+                Intent(holder.itemView.context, NewsInfoActivity::class.java)
+            postInfo = news[position]
             intent.flags =
                 Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             holder.itemView.context.startActivity(intent)

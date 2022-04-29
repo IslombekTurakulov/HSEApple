@@ -9,10 +9,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import com.cometchat.pro.core.AppSettings
+import com.cometchat.pro.core.CometChat
+import com.cometchat.pro.exceptions.CometChatException
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.utils.APP_ACTIVITY
+import com.iuturakulov.hseapple.utils.APP_ID
 import com.iuturakulov.hseapple.utils.preferences
 import kotlinx.android.synthetic.main.activity_main.*
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,6 +31,18 @@ class MainActivity : AppCompatActivity() {
         preferences = getSharedPreferences(
             "${packageName}_preferences", Context.MODE_PRIVATE
         )
+        val appSettings =
+            AppSettings.AppSettingsBuilder().subscribePresenceForAllUsers().setRegion("EUROPE")
+                .build()
+        CometChat.init(this, APP_ID, appSettings, object : CometChat.CallbackListener<String>() {
+            override fun onSuccess(successMessage: String) {
+                Timber.d("Initialization completed successfully")
+            }
+
+            override fun onError(e: CometChatException) {
+                Timber.d("Initialization failed with exception: %s", e.message)
+            }
+        })
         setupSmoothBottomMenu()
     }
 

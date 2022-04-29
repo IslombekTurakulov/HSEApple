@@ -3,6 +3,7 @@ package com.iuturakulov.hseapple.utils
 import android.content.SharedPreferences
 import com.cometchat.pro.models.User
 import com.hse.auth.AuthHelper
+import com.iuturakulov.hseapple.model.api.PostEntity
 import com.iuturakulov.hseapple.model.api.UserEntity
 
 lateinit var AUTH: AuthHelper
@@ -24,6 +25,8 @@ enum class CourseSelection {
 var role: RoleOfUsers = RoleOfUsers.STUDENT
 
 var SELECTION: CourseSelection = CourseSelection.CHOSEN_SECOND
+
+lateinit var postInfo: PostEntity
 
 const val VIEW_TYPE_SENT = 1
 const val VIEW_TYPE_RECEIVED = 2

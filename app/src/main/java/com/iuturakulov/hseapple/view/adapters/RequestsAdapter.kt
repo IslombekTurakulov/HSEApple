@@ -11,9 +11,9 @@ import com.google.gson.Gson
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.model.api.RequestEntity
 import com.iuturakulov.hseapple.utils.TOKEN_API
-import com.squareup.okhttp.OkHttpClient
-import com.squareup.okhttp.Request
-import com.squareup.okhttp.Response
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import timber.log.Timber
 import java.io.IOException
 
@@ -42,7 +42,7 @@ internal class RequestsAdapter(context: Context) :
             if (response != null) {
                 mItems.addAll(
                     Gson().fromJson(
-                        response.body().string(),
+                        response.body()?.string() ?: "",
                         Array<RequestEntity>::class.java
                     )
                 )

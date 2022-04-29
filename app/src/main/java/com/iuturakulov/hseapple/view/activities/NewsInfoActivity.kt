@@ -10,32 +10,43 @@ import androidx.appcompat.app.AppCompatActivity
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.model.api.PostEntity
 import com.iuturakulov.hseapple.utils.*
+import kotlinx.android.synthetic.main.activity_create_group_chat.*
 import kotlinx.android.synthetic.main.fragment_news.*
 import kotlinx.android.synthetic.main.fragment_news_info.*
 
 
-class NewsInfoActivity(val news: PostEntity) : AppCompatActivity() {
+class NewsInfoActivity : AppCompatActivity() {
+
+    companion object {
+        lateinit var news: PostEntity
+    }
+
+    private var editMode: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_news_info)
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
+        news = postInfo
         topAppBar.title = news.title
         if (role != RoleOfUsers.TEACHER) {
             topAppBar.menu.getItem(R.id.edit_event_menu).isVisible = false
             topAppBar.menu.getItem(R.id.delete_event_menu).isVisible = false
         }
-        textsInitializers()
-        topAppBar.menu.hasVisibleItems().not()
+        newsTitleItem.setText(news.title)
+        newsDescriptionItem.setText(news.content)
+        fieldOptionsInitializer(false)
         imageNewsItem.setImageBitmap(news.mediaLink?.let { decodeString(it) })
         newsToolBar.setNavigationOnClickListener { onBackPressed() }
         confirmButtonEdit.setOnClickListener {
             if (validateInputFields()) {
                 Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                fieldOptionsInitializer(false)
             }
         }
-        dateTimeNewsItem.text =
-            "${getString(R.string.created_time)} ${if (news.updatedAt == null) news.createdAt.toString() else news.updatedAt.toString()}"
+        "${getString(R.string.created_time)} ${if (news.updatedAt == null) news.createdAt.toString() else news.updatedAt.toString()}".also {
+            dateTimeNewsItem.text = it
+        }
     }
 
     private fun validateInputFields(): Boolean {
@@ -50,47 +61,47 @@ class NewsInfoActivity(val news: PostEntity) : AppCompatActivity() {
         return true
     }
 
-    private fun textsInitializers() {
-        newsTitleItem.setText(news.title)
-        newsDescriptionItem.setText(news.content)
-        newsTitleItem.isClickable = false
-        newsDescriptionItem.isClickable = false
-        newsTitleItem.isFocusable = false
-        newsDescriptionItem.isFocusable = false
-        newsTitleItem.isFocusableInTouchMode = false
-        newsDescriptionItem.isFocusableInTouchMode = false
-        newsTitleItem.tag = newsTitleItem.keyListener
-        newsDescriptionItem.tag = newsDescriptionItem.keyListener
-    }
-
     override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
-        if (menuItem.itemId === R.id.edit_event_menu) {
-            newsTitleItem.isClickable = true
-            newsDescriptionItem.isClickable = true
-            newsTitleItem.isFocusable = true
-            newsDescriptionItem.isFocusable = true
-            newsTitleItem.isFocusableInTouchMode = true
-            newsDescriptionItem.isFocusableInTouchMode = true
-            confirmButtonEdit.visibility = View.VISIBLE
-        } else if (menuItem.itemId == R.id.delete_event_menu) {
-            val dialogClickListener: DialogInterface.OnClickListener =
-                DialogInterface.OnClickListener { dialog, which ->
-                    when (which) {
-                        DialogInterface.BUTTON_POSITIVE -> {
-                            Toast.makeText(this, "YES", Toast.LENGTH_SHORT).show()
-                        }
-                        DialogInterface.BUTTON_NEGATIVE -> {
-                            Toast.makeText(this, "No", Toast.LENGTH_SHORT).show()
+        when (menuItem.itemId) {
+            R.id.edit_event_menu -> {
+                fieldOptionsInitializer(true)
+            }
+            R.id.delete_event_menu -> {
+                val dialogClickListener: DialogInterface.OnClickListener =
+                    DialogInterface.OnClickListener { dialog, which ->
+                        when (which) {
+                            DialogInterface.BUTTON_POSITIVE -> {
+                                Toast.makeText(this, "YES", Toast.LENGTH_SHORT).show()
+                            }
+                            DialogInterface.BUTTON_NEGATIVE -> {
+                                Toast.makeText(this, "No", Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
-                }
 
-            val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-            builder.setMessage(getString(R.string.arsure_dialog))
-                .setPositiveButton(getString(R.string.yes_status), dialogClickListener)
-                .setNegativeButton(getString(R.string.no_status), dialogClickListener).show()
+                val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+                builder.setMessage(getString(R.string.arsure_dialog))
+                    .setPositiveButton(getString(R.string.yes_status), dialogClickListener)
+                    .setNegativeButton(getString(R.string.no_status), dialogClickListener).show()
+            }
         }
         return super.onOptionsItemSelected(menuItem)
     }
 
+    private fun fieldOptionsInitializer(flag: Boolean) {
+        editMode = flag
+        newsTitleItem.isClickable = flag
+        newsDescriptionItem.isClickable = flag
+        newsTitleItem.isFocusable = flag
+        newsDescriptionItem.isFocusable = flag
+        newsTitleItem.isFocusableInTouchMode = flag
+        newsDescriptionItem.isFocusableInTouchMode = flag
+        if (!flag) {
+            newsTitleItem.tag = newsTitleItem.keyListener
+            newsDescriptionItem.tag = newsDescriptionItem.keyListener
+        }
+        textInputLayoutDesc.isCounterEnabled = flag
+        textInputLayoutTitle.isCounterEnabled = flag
+        confirmButtonEdit.visibility = if (flag) View.VISIBLE else View.GONE
+    }
 }

@@ -24,9 +24,9 @@ import com.iuturakulov.hseapple.utils.asDateTime
 import com.iuturakulov.hseapple.utils.validateNews
 import com.iuturakulov.hseapple.utils.validateTitle
 import com.iuturakulov.hseapple.view.activities.CreateGroupChatActivity
-import com.squareup.okhttp.*
 import kotlinx.android.synthetic.main.activity_create_group_chat.*
 import kotlinx.android.synthetic.main.fragment_create_news.*
+import okhttp3.*
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.time.LocalDateTime
@@ -91,7 +91,7 @@ class CreateNewsFragment : Fragment(R.layout.fragment_create_news) {
         if (responsePost != null) {
             res =
                 Gson().fromJson(
-                    responsePost.body().string(),
+                    responsePost.body()?.string() ?: "",
                     Array<PostEntity>::class.java
                 )
         }

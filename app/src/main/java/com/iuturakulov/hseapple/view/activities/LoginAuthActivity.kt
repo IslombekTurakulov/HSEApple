@@ -7,7 +7,6 @@ import com.auth0.android.jwt.JWT
 import com.cometchat.pro.core.CometChat
 import com.cometchat.pro.exceptions.CometChatException
 import com.cometchat.pro.models.User
-import com.hse.auth.AuthHelper
 import com.hse.auth.utils.AuthConstants
 import com.hse.core.BaseApplication
 import com.hse.core.ui.BaseActivity
@@ -31,19 +30,17 @@ class LoginAuthActivity : BaseActivity() {
         preferenceManager = PreferenceManager(this)
         authLogButton.setOnClickListener {
             authLogButton!!.isClickable = false
-            /*  USER = UserAccountData(
-                  "iuturakulov@edu.hse.ru",
-                  "",
-                  "Туракулов Исломбек Улугбекович",
-                  "",
-                  "",
-                  2000L,
-                  2000L,
-                  "asfkcmxblksnfkas"
-              )
-              initializeChatAndLogin()
-              createUser()*/
-            AuthHelper.login(this, 1)
+            UserEntity(
+                id = 1,
+                firstname =
+                "Туракулов",
+                lastname = "Исломбек",
+                fullName = "Туракулов Исломбек Улугбекович",
+                email = "iturakulov@edu.hse.ru",
+                createdAt = null
+            ).also { USER = it }
+            initializeChatAndLogin()
+            // AuthHelper.login(this, 1)
         }
     }
 
@@ -55,7 +52,6 @@ class LoginAuthActivity : BaseActivity() {
             }
             ACCESS_TOKEN = data.getStringExtra(AuthConstants.KEY_ACCESS_TOKEN)!!
             REFRESH_TOKEN = data.getStringExtra(AuthConstants.KEY_REFRESH_TOKEN)!!
-            AuthHelper.getClientId()
             Timber.d("Token got, success")
             Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
             val parsedJWT = JWT(ACCESS_TOKEN)
@@ -104,12 +100,6 @@ class LoginAuthActivity : BaseActivity() {
 
                         override fun onError(e: CometChatException) {
                             authLogButton!!.isClickable = true
-                            Toast.makeText(
-                                applicationContext,
-                                e.details,
-                                Toast.LENGTH_SHORT
-                            )
-                                .show()
                         }
                     })
             }
