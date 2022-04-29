@@ -37,4 +37,8 @@
     <string name="create_event">Create Event</string>
     <string name="delete_content">Delete content</string>
     <string name="edit_content">Edit content</string>
+    <string name="created_time">Created</string>
+    <string name="arsure_dialog">Are you sure?</string>
+    <string name="yes_status">Yes</string>
+    <string name="no_status">No</string>
 </resources>

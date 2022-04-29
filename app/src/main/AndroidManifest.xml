@@ -13,7 +13,7 @@
         android:theme="@style/Theme.HSEApple"
         tools:replace="android:icon">
         <activity
-            android:name=".view.fragments.RequestsFragment"
+            android:name=".view.activities.NewsInfoActivity"
             android:exported="false" />
         <activity
             android:name=".view.activities.AvailableCoursesActivity"

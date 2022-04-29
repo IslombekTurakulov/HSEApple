@@ -21,6 +21,8 @@ enum class CourseSelection {
     CHOSEN_THIRD
 }
 
+var role: RoleOfUsers = RoleOfUsers.STUDENT
+
 var SELECTION: CourseSelection = CourseSelection.CHOSEN_SECOND
 
 const val VIEW_TYPE_SENT = 1

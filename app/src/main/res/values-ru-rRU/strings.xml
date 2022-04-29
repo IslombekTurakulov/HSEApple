@@ -28,6 +28,10 @@
     <string name="third_course">НИС по iOS разработке 3 курс</string>
     <string name="course_navigate">Перейти</string>
     <string name="create_event">Создать событие</string>
-    <string name="delete_content">Delete content</string>
-    <string name="edit_content">Edit content</string>
+    <string name="delete_content">Удалить данные</string>
+    <string name="edit_content">Изменить данные</string>
+    <string name="created_time">Создано</string>
+    <string name="arsure_dialog">Вы уверены?</string>
+    <string name="yes_status">Да</string>
+    <string name="no_status">Нет</string>
 </resources>
