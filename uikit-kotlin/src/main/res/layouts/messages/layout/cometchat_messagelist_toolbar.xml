@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/darkModeBackground"
     android:stateListAnimator="@animator/toolbar_elevation">
 
     <RelativeLayout
@@ -14,9 +15,9 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_close_24dp"
-            android:tint="@color/colorPrimary"
+            android:tint="@color/textColorWhite"
             android:visibility="gone"
-            tools:visibility="visible"/>
+            tools:visibility="visible" />
 
         <ImageView
             android:id="@+id/iv_back_arrow"
@@ -26,7 +27,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:src="@drawable/ic_back"
-            android:tint="@color/colorPrimary"/>
+            android:tint="@color/textColorWhite" />
 
         <com.cometchat.pro.uikit.ui_components.shared.cometchatAvatar.CometChatAvatar
             android:id="@+id/iv_chat_avatar"
@@ -56,17 +57,17 @@
                 android:ellipsize="marquee"
                 android:maxWidth="150dp"
                 android:singleLine="true"
-                android:textColor="@color/primaryTextColor"
+                android:textColor="@color/textColorWhite"
                 android:textSize="16sp"
                 tools:text="@tools:sample/full_names" />
 
-<!--            <ImageView-->
-<!--                android:id="@+id/iv_user_info"-->
-<!--                android:layout_width="20dp"-->
-<!--                android:layout_height="20dp"-->
-<!--                android:layout_alignBottom="@+id/tv_name"-->
-<!--                android:layout_toEndOf="@+id/tv_name"-->
-<!--                android:src="@drawable/ic_outline_info_24" />-->
+            <!--            <ImageView-->
+            <!--                android:id="@+id/iv_user_info"-->
+            <!--                android:layout_width="20dp"-->
+            <!--                android:layout_height="20dp"-->
+            <!--                android:layout_alignBottom="@+id/tv_name"-->
+            <!--                android:layout_toEndOf="@+id/tv_name"-->
+            <!--                android:src="@drawable/ic_outline_info_24" />-->
 
             <TextView
                 android:id="@+id/tv_status"
@@ -76,9 +77,9 @@
                 android:ellipsize="end"
                 android:maxWidth="200dp"
                 android:maxLines="1"
+                android:textColor="@color/green"
                 android:textSize="12sp"
-                tools:text="online"
-                android:textColor="@color/colorPrimary"/>
+                tools:text="online" />
         </RelativeLayout>
 
         <LinearLayout
@@ -95,39 +96,39 @@
                 android:id="@+id/iv_video_call_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
                 android:padding="8dp"
-                android:layout_gravity="center"
                 android:src="@drawable/ic_video_call"
-                android:background="@android:color/transparent"
-                android:tint="@color/colorPrimary" />
+                android:tint="@color/colorPrimary"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/iv_audio_call_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
                 android:padding="8dp"
-                android:layout_gravity="center"
                 android:src="@drawable/ic_audio_call"
-                android:tint="@color/colorPrimary" />
+                android:tint="@color/textColorWhite" />
 
             <ImageView
                 android:id="@+id/iv_user_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:layout_gravity="center"
                 android:layout_alignBottom="@+id/tv_name"
+                android:layout_gravity="center"
                 android:layout_toEndOf="@+id/tv_name"
+                android:padding="8dp"
                 android:src="@drawable/ic_info"
-                android:tint="@color/colorPrimary"/>
+                android:tint="@color/textColorWhite" />
         </LinearLayout>
 
     </RelativeLayout>
-
 
 
 </androidx.appcompat.widget.Toolbar>

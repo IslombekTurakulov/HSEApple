@@ -31,18 +31,6 @@ class MainActivity : AppCompatActivity() {
         preferences = getSharedPreferences(
             "${packageName}_preferences", Context.MODE_PRIVATE
         )
-        val appSettings =
-            AppSettings.AppSettingsBuilder().subscribePresenceForAllUsers().setRegion("EUROPE")
-                .build()
-        CometChat.init(this, APP_ID, appSettings, object : CometChat.CallbackListener<String>() {
-            override fun onSuccess(successMessage: String) {
-                Timber.d("Initialization completed successfully")
-            }
-
-            override fun onError(e: CometChatException) {
-                Timber.d("Initialization failed with exception: %s", e.message)
-            }
-        })
         setupSmoothBottomMenu()
     }
 

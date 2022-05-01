@@ -63,7 +63,7 @@
                         android:layout_centerVertical="true"
                         android:padding="8dp"
                         android:src="@drawable/ic_video_call"
-                        android:tint="@color/colorPrimary" />
+                        android:tint="@color/darkModeBackground" />
 
                     <TextView
                         android:id="@+id/call_message"
@@ -72,8 +72,8 @@
                         android:layout_marginTop="8dp"
                         android:layout_toEndOf="@+id/icon"
                         android:padding="10dp"
-                        android:textSize="16sp"
                         android:textColor="@color/primaryTextColor"
+                        android:textSize="16sp"
                         tools:text="Someone has shared whiteboard. Click below join button to check whiteboard" />
                 </RelativeLayout>
 
@@ -86,10 +86,10 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="6dp"
                     android:text="@string/join"
-                    android:textColor="@color/colorPrimary"
+                    android:textAllCaps="false"
+                    android:textColor="@color/darkModeBackground"
                     app:backgroundTint="@color/textColorWhite"
-                    app:cornerRadius="8dp"
-                    android:textAllCaps="false"/>
+                    app:cornerRadius="8dp" />
             </RelativeLayout>
 
             <HorizontalScrollView

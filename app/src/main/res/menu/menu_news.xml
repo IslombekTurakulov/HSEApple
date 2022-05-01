@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/profile_person"
+        android:id="@+id/create_event"
         android:icon="@drawable/ic_note_24"
         android:iconTintMode="src_atop"
         android:iconTint="@color/white"

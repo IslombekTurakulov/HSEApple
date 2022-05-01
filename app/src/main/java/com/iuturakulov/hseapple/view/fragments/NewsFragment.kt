@@ -1,15 +1,14 @@
 package com.iuturakulov.hseapple.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.model.api.PostEntity
 import com.iuturakulov.hseapple.utils.*
+import com.iuturakulov.hseapple.view.activities.CreateNewsActivity
 import com.iuturakulov.hseapple.view.adapters.NewsAdapter
 import kotlinx.android.synthetic.main.fragment_news.*
 import okhttp3.OkHttpClient
@@ -31,17 +30,22 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // updateDatabase()
-        swipe_refresh_layout.setOnRefreshListener {
-            // updateDatabase()
-            swipe_refresh_layout.isRefreshing = false
-        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.create_event -> {
                 showToast("Create event")
-                replaceFragment(CreateNewsFragment(), false)
+                val startupIntent =
+                    Intent(APP_ACTIVITY.applicationContext, CreateNewsActivity::class.java)
+                startupIntent.flags =
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(startupIntent)
+                APP_ACTIVITY.overridePendingTransition(
+                    android.R.anim.fade_in,
+                    android.R.anim.fade_out
+                )
+                // updateDatabase()
             }
         }
         return super.onOptionsItemSelected(item)

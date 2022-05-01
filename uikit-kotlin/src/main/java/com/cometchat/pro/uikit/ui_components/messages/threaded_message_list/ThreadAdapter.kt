@@ -42,7 +42,6 @@ import com.cometchat.pro.uikit.ui_settings.FeatureRestriction
 import com.cometchat.pro.uikit.ui_settings.UIKitSettings
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import kotlinx.coroutines.launch
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.*
@@ -443,7 +442,7 @@ class ThreadAdapter(context: Context, messageList: List<BaseMessage>, type: Stri
         setAvatar(viewHolder.view.ivUser, baseMessage.sender.avatar, baseMessage.sender.name)
         viewHolder.view.tvUser.text = baseMessage.sender.name
 
-        viewHolder.view.goImgMessage.setImageDrawable(context.resources.getDrawable(R.drawable.ic_defaulf_image))
+        viewHolder.view.goImgMessage.setImageDrawable(context.resources.getDrawable(R.drawable.ic_default_image))
 
         FeatureRestriction.isImageModerationEnabled(object : FeatureRestriction.OnSuccessListener{
             override fun onSuccess(p0: Boolean) {

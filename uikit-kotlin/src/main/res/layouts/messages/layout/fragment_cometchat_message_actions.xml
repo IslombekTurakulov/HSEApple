@@ -3,7 +3,6 @@
     android:id="@+id/message_actions"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#2D2B2B"
     android:elevation="4dp"
     android:orientation="vertical"
     android:padding="8dp">
@@ -29,13 +28,12 @@
         android:clickable="true"
         android:drawableStart="@drawable/ic_threaded_message"
         android:drawablePadding="16dp"
-        android:drawableTint="@color/textColorWhite"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:padding="16dp"
         android:text="@string/start_thread"
-        android:textColor="@color/optionsColor"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/optionsColor"/>
 
     <TextView
         android:id="@+id/reply_message"
@@ -44,13 +42,12 @@
         android:clickable="true"
         android:drawableStart="@drawable/ic_reply_message"
         android:drawablePadding="16dp"
-        android:drawableTint="@color/textColorWhite"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:padding="16dp"
         android:text="@string/reply_message"
-        android:textColor="@color/optionsColor"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/optionsColor"/>
 
     <TextView
         android:id="@+id/copy_message"
@@ -58,15 +55,13 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:drawableStart="@drawable/ic_copy_paste"
-
         android:drawablePadding="16dp"
-        android:drawableTint="@color/textColorWhite"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:padding="16dp"
         android:text="@string/copy_message"
-        android:textColor="@color/optionsColor"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/optionsColor"/>
 
     <TextView
         android:id="@+id/forward_message"
@@ -75,13 +70,12 @@
         android:clickable="true"
         android:drawableStart="@drawable/ic_forward_message"
         android:drawablePadding="16dp"
-        android:drawableTint="@color/textColorWhite"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:padding="16dp"
         android:text="@string/forward_message"
-        android:textColor="@color/optionsColor"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/optionsColor"/>
 
     <TextView
         android:id="@+id/share_message"
@@ -89,15 +83,13 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:drawableStart="@drawable/ic_share"
-
         android:drawablePadding="16dp"
-        android:drawableTint="@color/textColorWhite"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:padding="16dp"
         android:text="@string/share_message"
-        android:textColor="@color/optionsColor"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/optionsColor"/>
 
     <TextView
         android:id="@+id/edit_message"
@@ -106,13 +98,12 @@
         android:clickable="true"
         android:drawableStart="@drawable/ic_edit"
         android:drawablePadding="16dp"
-        android:drawableTint="@color/textColorWhite"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:padding="16dp"
         android:text="@string/edit_message"
-        android:textColor="@color/optionsColor"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/optionsColor"/>
 
     <TextView
         android:id="@+id/send_message_privately"
@@ -125,9 +116,8 @@
         android:gravity="center_vertical"
         android:padding="16dp"
         android:text="@string/send_message_privately"
-        android:textColor="@color/optionsColor"
         android:textStyle="bold"
-        android:visibility="gone" />
+        android:textColor="@color/optionsColor"/>
 
     <TextView
         android:id="@+id/reply_privately"
@@ -140,9 +130,8 @@
         android:gravity="center_vertical"
         android:padding="16dp"
         android:text="@string/reply_privately"
-        android:textColor="@color/optionsColor"
         android:textStyle="bold"
-        android:visibility="gone" />
+        android:textColor="@color/optionsColor"/>
 
     <TextView
         android:id="@+id/delete_message"
@@ -169,9 +158,8 @@
         android:gravity="center_vertical"
         android:padding="16dp"
         android:text="@string/message_information"
-        android:textColor="@color/optionsColor"
         android:textStyle="bold"
-        android:visibility="gone" />
+        android:textColor="@color/optionsColor"/>
 
 
 </LinearLayout>

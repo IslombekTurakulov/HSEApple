@@ -13,8 +13,6 @@ import com.iuturakulov.hseapple.utils.*
 import com.iuturakulov.hseapple.view.activities.MainActivity
 import com.iuturakulov.hseapple.view.adapters.CoursesAdapter.DataViewHolder
 import kotlinx.android.synthetic.main.component_list_course.view.*
-import timber.log.Timber
-
 
 class CoursesAdapter(
     private var courses: ArrayList<Courses>
@@ -23,18 +21,18 @@ class CoursesAdapter(
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(itemNews: Courses) {
             itemView.nameOfCourseField.text = itemNews.nameOfCourse
-            if (itemNews.image != null) {
+            if (!itemNews.image.isNullOrEmpty()) {
                 Glide.with(itemView.courseImage.context)
                     .load(itemNews.image)
                     .into(itemView.courseImage)
             } else {
-                itemView.courseImage.setImageDrawable(itemView.resources.getDrawable(R.drawable.app_logo))
+                itemView.courseImage.setImageDrawable(itemView.context.getDrawable(R.drawable.app_logo))
             }
         }
     }
 
     fun updateData(users: ArrayList<Courses>?) {
-        if (users != null) {
+        if (!users.isNullOrEmpty()) {
             courses = users
             notifyDataSetChanged()
         }

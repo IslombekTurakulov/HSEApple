@@ -21,52 +21,57 @@
             android:layout_marginBottom="4dp"
             android:layout_marginStart="4dp"
             android:layout_height="50dp"/>
+
         <TextView
             android:id="@+id/tv_user"
-            tools:text="Iron Man"
-            android:textSize="@dimen/fourteen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_toEndOf="@+id/iv_user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textSize="@dimen/fourteen"
+            tools:text="Iron Man" />
+
         <RelativeLayout
-            android:layout_below="@+id/tv_user"
             android:id="@+id/cv_message_container"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/iv_user"
+            android:layout_below="@+id/tv_user"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="1dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginBottom="1dp"
+            android:layout_toEndOf="@id/iv_user"
             android:background="@color/message_bubble_grey"
-            android:layout_marginStart="4dp"
-            android:padding="8dp"
-            android:layout_marginBottom="1dp">
+            android:padding="8dp">
+
             <TextView
                 android:id="@+id/title"
-                android:layout_margin="8dp"
-                android:gravity="center_vertical"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:text="Audio File"
-                android:textColor="@color/primaryTextColor"
-                android:layout_toLeftOf="@+id/playBtn"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_toLeftOf="@+id/playBtn"
+                android:gravity="center_vertical"
+                android:text="Audio File"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/primaryTextColor" />
+
             <ImageView
                 android:id="@+id/playBtn"
-                android:layout_alignParentEnd="true"
-                android:padding="8dp"
-                android:background="@drawable/ic_circle_grey_32dp"
-                android:src="@drawable/ic_play_arrow_black_24dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/ic_circle_grey_32dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_play_arrow_black_24dp" />
+
             <TextView
                 android:id="@+id/audiolength_tv"
-                android:layout_marginLeft="8dp"
-                android:layout_below="@+id/title"
-                tools:text="125 KB"
-                android:textColor="@color/secondaryTextColor"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title"
+                android:layout_marginLeft="8dp"
+                android:textColor="@color/secondaryTextColor"
+                tools:text="125 KB" />
         </RelativeLayout>
         <com.google.android.material.chip.ChipGroup
             android:layout_gravity="center_vertical"

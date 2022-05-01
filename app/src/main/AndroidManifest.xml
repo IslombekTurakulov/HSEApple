@@ -8,12 +8,16 @@
         android:allowBackup="true"
         android:icon="@drawable/app_logo"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@drawable/app_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.HSEApple"
         tools:replace="android:icon">
         <activity
             android:name=".view.activities.NewsInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activities.CreateNewsActivity"
             android:exported="false" />
         <activity
             android:name=".view.activities.AvailableCoursesActivity"

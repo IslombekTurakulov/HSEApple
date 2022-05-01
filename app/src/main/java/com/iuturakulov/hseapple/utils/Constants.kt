@@ -28,8 +28,6 @@ var SELECTION: CourseSelection = CourseSelection.CHOSEN_SECOND
 
 lateinit var postInfo: PostEntity
 
-const val VIEW_TYPE_SENT = 1
-const val VIEW_TYPE_RECEIVED = 2
 const val REQUEST_LOGIN = 1
 
 const val APP_ID = "2080788f45f25844"

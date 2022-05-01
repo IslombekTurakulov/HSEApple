@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/almostDark"
     android:padding="@dimen/_20sdp"
-    tools:context=".view.fragments.CreateNewsFragment">
+    tools:context=".view.activities.CreateNewsActivity">
 
     <ImageView
         android:id="@+id/newsImageCreate"
@@ -23,7 +23,7 @@
         android:contentDescription="news image" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textNewsTitleCreate"
+        android:id="@+id/createTextLayoutTitleNews"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:counterEnabled="true"
@@ -37,7 +37,7 @@
         app:startIconDrawable="@drawable/ic_info">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textNewsEditCreate"
+            android:id="@+id/createTextTitleNews"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -59,10 +59,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textNewsTitleCreate">
+        app:layout_constraintTop_toBottomOf="@+id/createTextLayoutTitleNews">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/newsEditDescriptionCreate"
+            android:id="@+id/createTextDescNews"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"

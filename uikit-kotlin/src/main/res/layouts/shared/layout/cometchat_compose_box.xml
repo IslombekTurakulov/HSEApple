@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
-    android:background="#2D2B2B">
+    android:background="@color/darkModeBackground">
 
     <RelativeLayout
         android:id="@+id/rlActionContainers"
@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:animateLayoutChanges="true"
-        android:background="#2D2B2B"
         android:visibility="gone">
 
         <ImageView
@@ -72,20 +71,21 @@
         android:layout_marginBottom="4dp"
         android:layout_toStartOf="@+id/boxEndLayout"
         android:layout_toEndOf="@id/ivArrow"
-        android:background="@drawable/compose_box">
+        android:background="@drawable/search_box_white">
 
         <com.cometchat.pro.uikit.ui_components.shared.cometchatComposeBox.CometChatEditText
             android:id="@+id/etComposeBox"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:background="@android:color/transparent"
             android:hint="@string/message"
             android:imeOptions="actionSend"
             android:inputType="textMultiLine"
-            android:maxLines="5"
+            android:maxLines="3"
             android:padding="8dp"
+            android:paddingStart="16dp"
             android:singleLine="false"
-            android:textColor="@color/textColorWhite" />
+            android:textColor="@color/darkModeBackground" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -155,9 +155,9 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="?selectableItemBackground"
-            android:padding="8dp"
-            android:src="@drawable/ic_microphone_circle"
-            android:tint="@color/textColorWhite" />
+            android:padding="7dp"
+            android:tint="@color/textColorWhite"
+            android:src="@drawable/ic_microphone_circle" />
 
         <ImageView
             android:id="@+id/ivSend"

@@ -21,9 +21,9 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/forward_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            app:title="Forward Message"
             app:navigationIcon="@drawable/ic_back"
-            app:title="Forward Message" />
+            android:layout_height="wrap_content"/>
 
         <!--Search_View - This layout is used to search conversations-->
         <RelativeLayout

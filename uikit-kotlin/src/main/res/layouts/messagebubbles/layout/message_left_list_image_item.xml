@@ -58,7 +58,7 @@
                     android:adjustViewBounds="true"
                     android:background="@color/textColorWhite"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_defaulf_image" />
+                    android:src="@drawable/ic_default_image" />
             </RelativeLayout>
 
             <RelativeLayout

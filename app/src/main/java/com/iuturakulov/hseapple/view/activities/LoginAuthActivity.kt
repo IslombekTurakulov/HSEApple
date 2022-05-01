@@ -36,7 +36,7 @@ class LoginAuthActivity : BaseActivity() {
                 "Туракулов",
                 lastname = "Исломбек",
                 fullName = "Туракулов Исломбек Улугбекович",
-                email = "iturakulov@edu.hse.ru",
+                email = "iuturakulov@edu.hse.ru",
                 createdAt = null
             ).also { USER = it }
             initializeChatAndLogin()

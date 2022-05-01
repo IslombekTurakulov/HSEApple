@@ -6,9 +6,9 @@
 
     <fragment
         android:id="@+id/navigation_chat"
-        android:name="com.cometchat.pro.uikit.ui_components.cometchat_ui.CometChatUI"
+        android:name="com.iuturakulov.hseapple.view.fragments.ChatsFragment"
         android:label="Chats"
-        tools:layout="@layout/activity_cometchat_unified">
+        tools:layout="@layout/activity_load_fragment">
         <action
             android:id="@+id/action_firstFragment_to_secondFragment"
             app:destination="@id/tests_chat" />
@@ -41,9 +41,9 @@
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
 
-    <fragment
+<!--    <fragment
         android:id="@+id/create_event"
-        android:name="com.iuturakulov.hseapple.view.fragments.CreateNewsFragment"
+        android:name="com.iuturakulov.hseapple.view.activities.CreateNewsActivity"
         android:label="Create event"
-        tools:layout="@layout/fragment_create_news" />
+        tools:layout="@layout/activity_create_news" />-->
 </navigation>

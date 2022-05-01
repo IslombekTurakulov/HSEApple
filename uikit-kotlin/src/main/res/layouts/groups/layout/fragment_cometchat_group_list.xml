@@ -1,96 +1,116 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/darkModeBackground"
     tools:context=".ui_components.groups.group_list.CometChatGroupList">
+
     <RelativeLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
-            android:text="@string/groups"
             android:id="@+id/tv_title"
-            android:textSize="22sp"
-            android:textColor="@color/primaryTextColor"
-            android:textStyle="bold"
-            android:layout_margin="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toStartOf="@+id/create_group"/>
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_toStartOf="@+id/create_group"
+            android:text="@string/groups"
+            android:textColor="@color/textColorWhite"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
         <ImageView
+            android:id="@+id/create_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:clickable="true"
             android:foreground="?attr/selectableItemBackground"
-            android:id="@+id/create_group"
-            android:layout_margin="16dp"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_create"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:tint="@color/textColorWhite"
+            android:src="@drawable/ic_create" />
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/searchBar_vw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/topBar"
-        android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_marginBottom="8dp">
+
         <EditText
             android:id="@+id/search_bar"
-            android:hint="@string/search"
-            android:imeOptions="actionSearch"
-            android:maxLines="1"
-            android:inputType="text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_box_white"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="5dp"
-            android:padding="8dp"
-            android:background="@drawable/search_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:hint="@string/search"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:textColor="@color/darkModeBackground"
+            android:maxLines="1"
+            android:padding="8dp" />
+
         <ImageView
-            android:visibility="gone"
-            android:clickable="true"
-            android:layout_marginEnd="8sp"
-            android:foreground="?attr/selectableItemBackground"
             android:id="@+id/clear_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:layout_marginEnd="8sp"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
             android:src="@drawable/ic_close_24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:visibility="gone" />
     </RelativeLayout>
+
     <LinearLayout
-        tools:visibility="visible"
         android:id="@+id/no_group_layout"
-        android:visibility="gone"
-        android:alpha="0.6"
-        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_centerInParent="true"
+        android:alpha="0.6"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
         <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/no_groups"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:visibility="gone"
+            android:src="@drawable/no_groups" />
+
         <TextView
-            android:text="@string/no_group_available"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/no_group_available"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
     </LinearLayout>
+
     <com.cometchat.pro.uikit.ui_components.shared.cometchatGroups.CometChatGroups
         android:id="@+id/rv_group_list"
-        android:layout_below="@+id/searchBar_vw"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/group_list_item"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        android:layout_below="@+id/searchBar_vw"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/group_list_item" />
 
-    <include layout="@layout/conversation_shimmer"/>
+    <include layout="@layout/conversation_shimmer" />
 
 </RelativeLayout>

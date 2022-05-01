@@ -34,6 +34,8 @@
         app:indicatorRadius="@dimen/_16sdp"
         app:itemPadding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu"
         app:sideMargins="10dp"
         app:textColor="@color/almostDark"

@@ -52,7 +52,7 @@
                     android:id="@+id/go_video_message"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
-                    android:src="@drawable/ic_defaulf_image"
+                    android:src="@drawable/ic_default_image"
                     android:background="@color/textColorWhite"
                     android:scaleType="centerCrop"
                     android:adjustViewBounds="true" />

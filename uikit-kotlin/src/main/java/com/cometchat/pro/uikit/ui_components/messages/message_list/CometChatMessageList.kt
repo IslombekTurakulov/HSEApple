@@ -296,10 +296,10 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewComponent(view)
-        if (isReplyPrivately && replyMessageJson != null) {
+        if (isReplyPrivately) {
             if (replyMessageJson.has("category")) {
                 baseMessage = CometChatHelper.processMessage(replyMessageJson)
-                Log.e(TAG, "onCreate: base"+baseMessage )
+                Log.e(TAG, "onCreate: base$baseMessage")
                 replyMessage()
             }
 

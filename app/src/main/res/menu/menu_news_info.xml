@@ -16,5 +16,4 @@
         android:contentDescription="@string/delete_content"
         app:showAsAction="ifRoom" />
 
-
 </menu>

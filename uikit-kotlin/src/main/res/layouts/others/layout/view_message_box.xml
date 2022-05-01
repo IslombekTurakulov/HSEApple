@@ -1,175 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout android:animateLayoutChanges="true"
     android:id="@+id/message_box"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:animateLayoutChanges="true"
-    android:background="#2D2B2B">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
-        android:id="@+id/rlActionContainers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_centerVertical="true"
         android:animateLayoutChanges="true"
-        android:visibility="gone">
-
+        android:id="@+id/rlActionContainers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/ivAudio"
             android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
             android:layout_marginStart="8dp"
+            android:layout_centerVertical="true"
             android:src="@drawable/ic_library_music_24dp"
-            android:tint="@color/textColorWhite" />
-
+            android:layout_height="30dp"/>
         <ImageView
             android:id="@+id/ivCamera"
             android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
             android:layout_marginStart="8dp"
-            android:layout_toEndOf="@+id/ivAudio"
+            android:layout_centerVertical="true"
             android:src="@drawable/ic_camera"
-            android:tint="@color/textColorWhite" />
+            android:layout_toEndOf="@+id/ivAudio"
+            android:layout_height="30dp"/>
 
         <ImageView
             android:id="@+id/ivImage"
             android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@id/ivCamera"
+            android:layout_centerVertical="true"
             android:src="@drawable/ic_photo"
-            android:tint="@color/textColorWhite" />
+            android:layout_height="30dp"/>
 
         <ImageView
             android:id="@+id/ivFile"
             android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
             android:layout_marginStart="8dp"
+            android:tint="@color/colorPrimary"
             android:layout_toEndOf="@id/ivImage"
+            android:layout_centerVertical="true"
             android:src="@drawable/ic_insert_drive_file_black_24dp"
-            android:tint="@color/textColorWhite" />
+            android:layout_height="30dp"/>
 
     </RelativeLayout>
 
     <ImageView
         android:id="@+id/ivArrow"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/rlActionContainers"
         android:padding="8dp"
+        android:layout_toEndOf="@id/rlActionContainers"
+        android:layout_centerVertical="true"
         android:src="@drawable/ic_add_circle_grey_32dp"
-        android:tint="@color/textColorWhite" />
+        android:layout_height="wrap_content"/>
 
     <RelativeLayout
         android:id="@+id/flBox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
-        android:layout_toStartOf="@+id/boxEndLayout"
-        android:layout_toEndOf="@id/ivArrow"
         android:background="@drawable/compose_box"
-        android:backgroundTint="@color/textColorWhite">
-
+        android:layout_toEndOf="@id/ivArrow"
+        android:layout_toStartOf="@+id/boxEndLayout"
+        android:layout_height="wrap_content">
         <EditText
-            android:id="@+id/etComposeBox"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
             android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:id="@+id/etComposeBox"
             android:hint="@string/message"
-            android:imeOptions="actionSend"
-            android:inputType="textMultiLine"
-            android:maxLines="2"
-            android:padding="8dp"
             android:paddingStart="16dp"
-            android:singleLine="false" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/voiceMessageLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/boxEndLayout"
-        android:layout_toStartOf="@+id/boxEndLayout">
-
-        <ImageView
-            android:id="@+id/delete_voice_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/record_time"
+            android:singleLine="false"
+            android:inputType="textMultiLine"
             android:padding="8dp"
+            android:maxLines="2"
+            android:imeOptions="actionSend"
+            android:layout_height="40dp"/>
+        </RelativeLayout>
+    <RelativeLayout
+        android:layout_alignBottom="@+id/boxEndLayout"
+        android:id="@+id/voiceMessageLayout"
+        android:layout_toStartOf="@+id/boxEndLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:padding="8dp"
+            tools:visibility="visible"
+            android:layout_alignBottom="@+id/record_time"
+            android:visibility="gone"
+            android:id="@+id/delete_voice_message"
             android:src="@drawable/ic_delete_24dp"
-            android:visibility="gone"
-            tools:visibility="visible" />
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <SeekBar
-            android:id="@+id/voice_message_seekbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/record_time"
-            android:layout_toEndOf="@+id/delete_voice_message"
+            tools:visibility="visible"
             android:visibility="gone"
-            tools:visibility="visible" />
-
-        <com.cometchat.pro.uikit.ui_resources.utils.audio_visualizer.AudioRecordView
-            android:id="@+id/record_audio_visualizer"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:id="@+id/voice_message_seekbar"
             android:layout_toEndOf="@+id/delete_voice_message"
+            android:layout_above="@+id/record_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <com.cometchat.pro.uikit.ui_resources.utils.audio_visualizer.AudioRecordView
+            tools:visibility="visible"
+            android:layout_toEndOf="@+id/delete_voice_message"
+            android:id="@+id/record_audio_visualizer"
             app:chunkAlignTo="bottom"
-            app:chunkColor="@color/textColorWhite"
             app:chunkMaxHeight="150dp"
-            app:chunkMinHeight="1dp"
+            app:chunkColor="@color/colorPrimary"
             app:chunkSpace="1dp"
             app:chunkWidth="2dp"
-            tools:visibility="visible" />
-
+            app:chunkMinHeight="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
         <Chronometer
-            android:id="@+id/record_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/delete_voice_message"
+            android:layout_width="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/record_time"
             android:elevation="8dp"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:layout_marginLeft="8dp"
+            android:layout_height="wrap_content"/>
     </RelativeLayout>
-
     <LinearLayout
-        android:id="@+id/boxEndLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:animateLayoutChanges="true"
-        android:orientation="horizontal">
-
+        android:orientation="horizontal"
+        android:id="@+id/boxEndLayout"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
         <ImageView
+            android:clickable="true"
+            android:foreground="?selectableItemBackground"
             android:id="@+id/ivMic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:clickable="true"
-            android:foreground="?selectableItemBackground"
+            android:src="@drawable/ic_mic_grey_24dp"
             android:padding="8dp"
-            android:tint="@color/textColorWhite"
-            android:src="@drawable/ic_mic_grey_24dp" />
-
+            android:background="@android:color/transparent"/>
         <ImageView
+            tools:visibility="visible"
+            android:visibility="gone"
             android:id="@+id/ivSend"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:padding="8dp"
             android:src="@drawable/ic_send"
-            android:visibility="gone"
-            android:cropToPadding="true"
-            android:tint="@color/textColorWhite"
-            tools:visibility="visible" />
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </RelativeLayout>
