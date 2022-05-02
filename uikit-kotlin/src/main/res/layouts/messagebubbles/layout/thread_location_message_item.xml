@@ -21,23 +21,22 @@
 
 
             <com.cometchat.pro.uikit.ui_components.shared.cometchatAvatar.CometChatAvatar
-                android:id="@+id/iv_user"
                 android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginBottom="4dp"
-                app:border_color="@color/colorPrimary"
+                android:id="@+id/iv_user"
+                tools:src="@tools:sample/avatars"
                 app:border_width="0.5dp"
-                tools:src="@tools:sample/avatars" />
-
+                app:border_color="@color/colorPrimary"
+                android:layout_marginBottom="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_height="50dp"/>
             <TextView
                 android:id="@+id/tv_user"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                tools:text="Iron Man"
+                android:textSize="@dimen/fourteen"
                 android:layout_marginLeft="10dp"
                 android:layout_toEndOf="@+id/iv_user"
-                android:textSize="@dimen/fourteen"
-                tools:text="Iron Man" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
             <androidx.cardview.widget.CardView
                 android:layout_below="@+id/tv_user"
                 android:id="@+id/cv_message_container"
@@ -58,40 +57,37 @@
                         android:id="@+id/iv_map"/>
 
                     <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/iv_map"
-                        android:orientation="vertical">
-
+                        android:layout_below="@+id/iv_map">
                         <TextView
-                            android:id="@+id/tv_place_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/tv_place_name"
                             android:layout_marginLeft="20dp"
-                            android:padding="4dp"
-                            android:text="Address"
+                            android:textStyle="bold"
                             android:textSize="15sp"
-                            android:textStyle="bold" />
-
+                            android:padding="4dp"
+                            android:text="Address"/>
                         <TextView
                             android:id="@+id/sender_location_txt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tv_place_name"
                             android:layout_marginLeft="20dp"
-                            android:paddingLeft="4dp"
-                            android:paddingBottom="4dp"
                             android:text="Shared Location"
-                            android:textStyle="italic" />
-
+                            android:layout_below="@+id/tv_place_name"
+                            android:paddingLeft="4dp"
+                            android:textStyle="italic"
+                            android:paddingBottom="4dp"/>
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/navigate_btn"
-                            style="@style/Widget.MaterialComponents.Button.TextButton"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/navigate"
                             android:textColor="@color/primaryTextColor"
-                            app:cornerRadius="8dp" />
+                            android:text="@string/navigate"
+                            app:cornerRadius="8dp"
+                            style="@style/Widget.MaterialComponents.Button.TextButton"
+                            android:id="@+id/navigate_btn"
+                            android:layout_height="wrap_content"/>
                     </LinearLayout>
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>

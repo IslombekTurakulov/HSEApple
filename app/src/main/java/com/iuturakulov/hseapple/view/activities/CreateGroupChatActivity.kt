@@ -34,10 +34,7 @@ class CreateGroupChatActivity : AppCompatActivity(R.layout.activity_create_group
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_group_chat)
-        actionBar = supportActionBar!!
-        actionBar.setDisplayShowHomeEnabled(true)
-        actionBar.setDisplayHomeAsUpEnabled(true)
-        actionBar.title = "Create Group"
+        initializeTopAppBar()
         cameraPermissions = arrayOf(
             android.Manifest.permission.CAMERA,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -45,6 +42,13 @@ class CreateGroupChatActivity : AppCompatActivity(R.layout.activity_create_group
         storagePermission = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
         setListeners()
+    }
+
+    private fun initializeTopAppBar() {
+        actionBar = supportActionBar!!
+        actionBar.setDisplayShowHomeEnabled(true)
+        actionBar.setDisplayHomeAsUpEnabled(true)
+        actionBar.title = "Create Group"
     }
 
     override fun onSupportNavigateUp(): Boolean {

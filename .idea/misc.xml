@@ -19,27 +19,34 @@
         <entry key="..\:/Course/HSEApple/app/src/main/res/drawable/ic_person_add_24.xml" value="0.1655" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/drawable/profile.xml" value="0.124" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/drawable/search.xml" value="0.124" />
-        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_create_group_chat.xml" value="0.2" />
-        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_create_news.xml" value="0.11302083333333333" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/drawable/user_avatar.xml" value="0.2165" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout-land/activity_splash.xml" value="0.2585585585585586" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_available_courses.xml" value="0.25416666666666665" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_create_group_chat.xml" value="0.264" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_create_news.xml" value="0.264" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_list_of_users.xml" value="0.23854166666666668" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_load_fragment.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_login.xml" value="0.136" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_main.xml" value="0.176" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_requests.xml" value="0.2" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_requests_fragment.xml" value="0.15625" />
-        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_splash.xml" value="0.136" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_splash.xml" value="0.152" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/cc_dialog.xml" value="0.23854166666666668" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/component_event.xml" value="0.4" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/component_grade.xml" value="0.264" />
-        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/component_list_course.xml" value="0.4361111111111111" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/component_list_course.xml" value="0.152" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/component_row_conversation.xml" value="0.11302083333333333" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/component_test.xml" value="0.4" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_available_courses.xml" value="0.264" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_chat.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_chats.xml" value="0.4" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_create_news.xml" value="0.176" />
-        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_news.xml" value="0.12" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_first.xml" value="0.10885416666666667" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_news.xml" value="0.264" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_news_info.xml" value="0.264" />
-        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_profile.xml" value="0.4" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_profile.xml" value="0.264" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_requests.xml" value="0.25416666666666665" />
-        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_tests.xml" value="0.136" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_tests.xml" value="0.264" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/item_container_received_message.xml" value="0.11302083333333333" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/item_container_sent_message.xml" value="0.11302083333333333" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/layout_available_courses.xml" value="0.11302083333333333" />
@@ -57,9 +64,21 @@
         <entry key="..\:/Course/HSEApple/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.124" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/cc_message_bubble_left.xml" value="0.2295" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/cc_message_bubble_right.xml" value="0.2295" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/ic_add_24dp.xml" value="0.1" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/ic_add_circle_grey_32dp.xml" value="0.2295" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/ic_call_outgoing_24dp.xml" value="0.2295" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/ic_defaulf_image.xml" value="0.1" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/ic_default_image.xml" value="0.1" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/ic_done_all_black_24dp.xml" value="0.1" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/ic_object_24dp.xml" value="0.1" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/ic_places_24dp.xml" value="0.1" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/ic_play_button.xml" value="0.1" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/ic_report_problem_24dp.xml" value="0.1" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/ic_send.xml" value="0.2295" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/ic_stop_white_24dp.xml" value="0.1" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/ic_thread_24dp.xml" value="0.1" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/ic_videocam_green_24dp.xml" value="0.1" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/ic_videocam_white_24dp.xml" value="0.1" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/left_border.xml" value="0.2295" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/left_border_dark.xml" value="0.2295" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/left_border_lmessage.xml" value="0.2295" />
@@ -67,8 +86,11 @@
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/rounded_border.xml" value="0.2295" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/search_box.xml" value="0.2295" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/search_box_shimmer.xml" value="0.217" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/shimmer_circle.xml" value="0.1" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/smart_reply.xml" value="0.1" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/tab_background_state.xml" value="0.217" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/tab_layout_background.xml" value="0.217" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/drawable/tab_layout_background_active.xml" value="0.1" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layout/activity_start_conversation_from_chat.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layout/dialog_permission_alert.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/calls/layout/activity_cometchat_callmanager.xml" value="0.25416666666666665" />
@@ -81,7 +103,7 @@
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/chats/layout/cometchat_conversation_list_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/chats/layout/conversation_shimmer.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/chats/layout/conversation_shimmer_item.xml" value="0.25416666666666665" />
-        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/chats/layout/fragment_conversation_screen.xml" value="0.25416666666666665" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/chats/layout/fragment_conversation_screen.xml" value="0.176" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/cometchat_ui/layout/activity_cometchat_unified.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/groups/layout/activity_cometchat_ban_members.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/groups/layout/activity_cometchat_group_detail.xml" value="0.4380610412926391" />
@@ -89,14 +111,14 @@
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/groups/layout/fragment_cometchat_add_member.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/groups/layout/fragment_cometchat_admin_moderator_list.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/groups/layout/fragment_cometchat_ban_member.xml" value="0.25416666666666665" />
-        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/groups/layout/fragment_cometchat_create_group.xml" value="0.4" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/groups/layout/fragment_cometchat_create_group.xml" value="0.152" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/groups/layout/fragment_cometchat_group_list.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messagebubbles/layout/message_action_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messagebubbles/layout/message_left_audio_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messagebubbles/layout/message_left_custom_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messagebubbles/layout/message_left_delete_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messagebubbles/layout/message_left_file_item.xml" value="0.25416666666666665" />
-        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messagebubbles/layout/message_left_group_call_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messagebubbles/layout/message_left_group_call_item.xml" value="0.4" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messagebubbles/layout/message_left_link_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messagebubbles/layout/message_left_list_image_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messagebubbles/layout/message_left_list_video_item.xml" value="0.25416666666666665" />
@@ -121,7 +143,7 @@
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messagebubbles/layout/message_right_sticker_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messagebubbles/layout/message_right_text_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messagebubbles/layout/message_right_whiteboard_item.xml" value="0.25416666666666665" />
-        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messagebubbles/layout/message_right_writeboard_item.xml" value="0.4" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messagebubbles/layout/message_right_writeboard_item.xml" value="0.2" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messagebubbles/layout/thread_location_message_item.xml" value="0.536" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messagebubbles/layout/thread_message_audio_item.xml" value="0.6" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messagebubbles/layout/thread_message_file_item.xml" value="0.25416666666666665" />
@@ -139,19 +161,30 @@
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messages/layout/cometchat_edit_message_view.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messages/layout/cometchat_error_message_view.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messages/layout/cometchat_messagedate_header.xml" value="0.25416666666666665" />
-        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messages/layout/cometchat_messagelist_toolbar.xml" value="0.4" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messages/layout/cometchat_messagelist_toolbar.xml" value="0.264" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messages/layout/cometchat_receipts_item.xml" value="0.4" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messages/layout/cometchat_reply_message_view.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messages/layout/cometchat_threadlist_toolbar.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messages/layout/fragment_cometchat_message_actions.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messages/layout/fragment_cometchat_messagelist.xml" value="0.25416666666666665" />
-        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messages/layout/fragment_cometchat_thread_message.xml" value="0.4" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messages/layout/fragment_cometchat_thread_message.xml" value="0.264" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messages/layout/message_placeholder.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/messages/layout/messages_shimmer.xml" value="0.25416666666666665" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/drawable/ic_add_circle.xml" value="0.1" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/drawable/ic_add_circle_filled.xml" value="0.1" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/drawable/ic_calls_selected.xml" value="0.2295" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/drawable/ic_message_delivered.xml" value="0.1" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/drawable/ic_privacy.xml" value="0.1" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/drawable/ic_reply_message.xml" value="0.1" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/drawable/ic_reply_message_in_private.xml" value="0.1" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/drawable/ic_send_message_in_private.xml" value="0.1" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/drawable/ic_share.xml" value="0.1" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/drawable/ic_take_photo.xml" value="0.1" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/drawable/ic_threaded_message.xml" value="0.1" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/drawable/ic_users.xml" value="0.2295" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/drawable/ic_video_call.xml" value="0.2295" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/drawable/ic_video_call_selected.xml" value="0.2295" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/drawable/ic_wait.xml" value="0.1" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/drawable/radio_button_background.xml" value="0.2295" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/drawable/regular_state.xml" value="0.217" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/drawable/search_box_white.xml" value="0.217" />
@@ -160,7 +193,7 @@
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/layout/cc_dialog.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/layout/cometchat_reaction_window.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/layout/cometchat_sticker_view.xml" value="0.25416666666666665" />
-        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/layout/create_poll_layout.xml" value="0.4" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/layout/create_poll_layout.xml" value="0.2" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/layout/custom_toast.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/layout/divider.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/others/layout/footer_decor.xml" value="0.25416666666666665" />
@@ -178,7 +211,7 @@
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/shared/layout/cometchat_badge_count.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/shared/layout/cometchat_compose_box.xml" value="0.4" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/shared/layout/cometchat_shared_media.xml" value="0.25416666666666665" />
-        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/shared/layout/cometchat_shared_media_file_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/shared/layout/cometchat_shared_media_file_item.xml" value="0.4" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/shared/layout/cometchat_shared_media_image_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/shared/layout/cometchat_shared_media_video_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/uikit-kotlin/src/main/res/layouts/shared/layout/cometchat_smart_reply.xml" value="0.25416666666666665" />

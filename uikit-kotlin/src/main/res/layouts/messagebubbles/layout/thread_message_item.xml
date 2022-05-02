@@ -47,15 +47,16 @@
                 android:background="@drawable/cc_message_bubble_left"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="1dp">
+
                 <include
-                    android:layout_below="@id/go_txt_message"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="8dp"
                     layout="@layout/message_left_reply_item"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/go_txt_message"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="8dp" />
 <!--                <RelativeLayout-->
 <!--                    android:background="@color/red_600"-->
 <!--                    android:visibility="gone"-->

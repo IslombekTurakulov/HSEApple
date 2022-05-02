@@ -75,7 +75,7 @@
             android:scrollbars="vertical"
             android:maxLength="256"
             android:minHeight="@dimen/_100sdp"
-            android:padding="@dimen/_10sdp" />
+            android:padding="@dimen/_20sdp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

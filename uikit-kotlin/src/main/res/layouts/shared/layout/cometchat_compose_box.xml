@@ -71,21 +71,22 @@
         android:layout_marginBottom="4dp"
         android:layout_toStartOf="@+id/boxEndLayout"
         android:layout_toEndOf="@id/ivArrow"
-        android:background="@drawable/search_box_white">
+        android:backgroundTint="@color/textColorWhite">
 
         <com.cometchat.pro.uikit.ui_components.shared.cometchatComposeBox.CometChatEditText
             android:id="@+id/etComposeBox"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@android:color/transparent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/compose_box"
+            android:backgroundTint="@color/textColorWhite"
+            android:backgroundTintMode="src_over"
             android:hint="@string/message"
             android:imeOptions="actionSend"
             android:inputType="textMultiLine"
-            android:maxLines="3"
+            android:maxLines="10"
             android:padding="8dp"
             android:paddingStart="16dp"
-            android:singleLine="false"
-            android:textColor="@color/darkModeBackground" />
+            android:singleLine="false" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -155,9 +156,9 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="?selectableItemBackground"
-            android:padding="7dp"
-            android:tint="@color/textColorWhite"
-            android:src="@drawable/ic_microphone_circle" />
+            android:padding="8dp"
+            android:src="@drawable/ic_microphone_circle"
+            android:tint="@color/textColorWhite" />
 
         <ImageView
             android:id="@+id/ivSend"
@@ -168,15 +169,5 @@
             android:tint="@color/textColorWhite"
             android:visibility="gone"
             tools:visibility="visible" />
-
-        <ImageView
-            android:id="@+id/btn_live_reaction"
-            android:layout_width="21dp"
-            android:layout_height="17dp"
-            android:layout_gravity="center"
-            android:layout_margin="8dp"
-            android:src="@drawable/heart_reaction"
-            android:visibility="gone" />
-
     </LinearLayout>
 </RelativeLayout>

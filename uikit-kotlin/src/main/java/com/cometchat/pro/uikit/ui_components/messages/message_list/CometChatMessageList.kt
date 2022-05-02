@@ -296,10 +296,10 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewComponent(view)
-        if (isReplyPrivately) {
+        if (isReplyPrivately && replyMessageJson != null) {
             if (replyMessageJson.has("category")) {
                 baseMessage = CometChatHelper.processMessage(replyMessageJson)
-                Log.e(TAG, "onCreate: base$baseMessage")
+                Log.e(TAG, "onCreate: base"+baseMessage )
                 replyMessage()
             }
 
@@ -319,10 +319,10 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
 //        if (type == CometChatConstants.RECEIVER_TYPE_USER)
 //            composeBox?.isStartVideoCall = false
         liveReactionLayout = view?.findViewById(R.id.live_reactions_layout)
-        composeBox?.btnLiveReaction?.setOnClickListener {
+       /* composeBox?.btnLiveReaction?.setOnClickListener {
             if (isReactionEnded)
                 sendLiveReaction()
-        }
+        }*/
         messageShimmer = view?.findViewById(R.id.shimmer_layout)
         setComposeBoxListener()
 
@@ -472,11 +472,11 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                 if (keyboardVisible) {
                     scrollToBottom()
                     composeBox?.ivMic?.visibility = View.GONE
-                    composeBox?.btnLiveReaction?.visibility = View.GONE
+                    // composeBox?.btnLiveReaction?.visibility = View.GONE
                     composeBox?.ivSend?.visibility = View.VISIBLE
                 } else {
                     composeBox?.ivSend?.visibility = View.GONE
-                    composeBox?.btnLiveReaction?.visibility = View.VISIBLE
+                    // composeBox?.btnLiveReaction?.visibility = View.VISIBLE
                     composeBox?.ivMic?.visibility = View.VISIBLE
                     FeatureRestriction.isVoiceNotesEnabled(object : FeatureRestriction.OnSuccessListener{
                         override fun onSuccess(p0: Boolean) {

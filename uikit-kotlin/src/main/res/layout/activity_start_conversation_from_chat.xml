@@ -4,34 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/darkModeBackground"
     tools:context=".ui_components.chats.CometChatStartConversation">
-    
+
     <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/start_chat_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:id="@+id/start_chat_toolbar"
-        app:navigationIcon="@drawable/ic_back"/>
+        app:navigationIcon="@drawable/ic_back"
+        android:backgroundTintMode="src_atop"
+        app:titleTextColor="@color/textColorWhite"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_margin="12dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/tab_layout_background"
+        android:layout_below="@id/start_chat_toolbar"
+        android:layout_margin="12dp"
+        android:background="@drawable/compose_box"
         app:tabBackground="@drawable/tab_background_state"
         app:tabGravity="fill"
-        app:tabIndicatorGravity="bottom"
         app:tabIndicatorFullWidth="false"
-        app:tabTextColor="@color/colorPrimary"
-        app:tabSelectedTextColor="@color/textColorWhite"
+        app:tabIndicatorGravity="bottom"
         app:tabMode="fixed"
-        android:layout_below="@id/start_chat_toolbar">
-    </com.google.android.material.tabs.TabLayout>
+        app:tabSelectedTextColor="@color/darkModeBackground"
+        app:tabTextColor="@color/colorPrimary" />
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
+        android:background="@color/textColorWhite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tabLayout">
-    </androidx.viewpager.widget.ViewPager>
+        android:layout_below="@id/tabLayout" />
 
 </RelativeLayout>

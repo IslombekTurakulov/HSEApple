@@ -6,7 +6,6 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    android:background="@color/darkModeBackground"
     tools:context=".ui_components.groups.group_list.CometChatGroupList">
 
     <RelativeLayout
@@ -18,13 +17,10 @@
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_margin="16dp"
             android:layout_toStartOf="@+id/create_group"
             android:text="@string/groups"
-            android:textColor="@color/textColorWhite"
+            android:textColor="@color/primaryTextColor"
             android:textSize="22sp"
             android:textStyle="bold" />
 
@@ -37,9 +33,9 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/darkModeBackground"
             android:clickable="true"
             android:foreground="?attr/selectableItemBackground"
-            android:tint="@color/textColorWhite"
             android:src="@drawable/ic_create" />
     </RelativeLayout>
 
@@ -56,13 +52,12 @@
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/search_box_white"
+            android:background="@drawable/search_box"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="5dp"
             android:hint="@string/search"
             android:imeOptions="actionSearch"
             android:inputType="text"
-            android:textColor="@color/darkModeBackground"
             android:maxLines="1"
             android:padding="8dp" />
 
@@ -93,7 +88,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone"
             android:src="@drawable/no_groups" />
 
         <TextView

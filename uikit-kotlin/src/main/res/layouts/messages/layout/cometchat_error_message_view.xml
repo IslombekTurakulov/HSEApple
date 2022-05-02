@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/iv_error_icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:tint="@color/textColorWhite"
             android:src="@drawable/warning_icon"
             android:layout_margin="4dp"/>

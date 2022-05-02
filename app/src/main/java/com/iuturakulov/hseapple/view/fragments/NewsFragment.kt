@@ -29,7 +29,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // updateDatabase()
+        updateDatabase()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -45,19 +45,22 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
                     android.R.anim.fade_in,
                     android.R.anim.fade_out
                 )
-                // updateDatabase()
+                updateDatabase()
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
+    val temp = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJtaWNyb3NvZnQ6aWRlbnRpdHlzZXJ2ZXI6MGQ0NmFlMDUtM2JiYy00MzQ2LWEzYTMtMWQ3MzJiNDllYTUzIiwiaXNzIjoiaHR0cDovL2F1dGguaHNlLnJ1L2FkZnMvc2VydmljZXMvdHJ1c3QiLCJpYXQiOjE2NTExMzgyNzIsIm5iZiI6MTY1MTEzODI3MiwiZXhwIjoxNjUxMTQxODcyLCJnaXZlbl9uYW1lIjoi0JPRgNC40LPQvtGA0LjQuSIsImNvbW1vbm5hbWUiOiLQodC-0YHQvdC-0LLRgdC60LjQuSDQk9GA0LjQs9C-0YDQuNC5INCc0LjRhdCw0LnQu9C-0LLQuNGHIiwiZmFtaWx5X25hbWUiOiLQodC-0YHQvdC-0LLRgdC60LjQuSIsImVtYWlsIjoiZ21zb3Nub3Zza2l5QGVkdS5oc2UucnUiLCJhcHB0eXBlIjoiUHVibGljIiwiYXBwaWQiOiIwZDQ2YWUwNS0zYmJjLTQzNDYtYTNhMy0xZDczMmI0OWVhNTMiLCJhdXRobWV0aG9kIjoidXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6Mi4wOmFjOmNsYXNzZXM6UGFzc3dvcmRQcm90ZWN0ZWRUcmFuc3BvcnQiLCJhdXRoX3RpbWUiOiIyMDIyLTA0LTI3VDE1OjU3OjI2LjU5M1oiLCJ2ZXIiOiIxLjAifQ.mG2KAlMopVguX952qDxahpNsJvCylxCCEldK-_filqo"
+
     private fun updateDatabase() {
         val client = OkHttpClient()
         val request = Request.Builder()
-            .url("https://stoplight.io/mocks/hseapple/nis-app/38273133/course/${if (SELECTION != CourseSelection.CHOSEN_SECOND) 0 else 1}/post")
-            .get()
+                // /course/:courseID/post?start=1&limit=2
+            .url("https://80.66.64.53:8080/course/1/post?start=1&limit=2")
             .addHeader("Content-Type", "application/json")
-            .addHeader("token", TOKEN_API)
+            .addHeader("Authorization", temp)
+            .get()
             .build()
         var response: Response? = null
         try {

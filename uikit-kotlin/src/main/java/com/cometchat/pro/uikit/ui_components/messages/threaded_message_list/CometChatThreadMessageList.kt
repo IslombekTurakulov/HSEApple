@@ -460,10 +460,10 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
         })
 
         liveReactionLayout = view.findViewById(R.id.live_reactions_layout)
-        composeBox?.btnLiveReaction?.setOnClickListener {
+       /* composeBox?.btnLiveReaction?.setOnClickListener {
             if (isReactionEnded)
                 sendLiveReaction()
-        }
+        }*/
 
         addReaction = view.findViewById(R.id.add_reaction)
         reactionLayout = view.findViewById(R.id.reactions_layout)

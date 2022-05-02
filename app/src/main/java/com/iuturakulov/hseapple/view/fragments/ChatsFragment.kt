@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.cometchat.pro.constants.CometChatConstants
@@ -20,6 +21,7 @@ import com.cometchat.pro.models.User
 import com.cometchat.pro.uikit.ui_components.chats.CometChatConversationList
 import com.cometchat.pro.uikit.ui_components.groups.group_list.CometChatGroupList
 import com.cometchat.pro.uikit.ui_components.messages.message_list.CometChatMessageListActivity
+import com.cometchat.pro.uikit.ui_components.users.user_list.CometChatUserList
 import com.cometchat.pro.uikit.ui_resources.constants.UIKitConstants
 import com.cometchat.pro.uikit.ui_resources.utils.ErrorMessagesUtils
 import com.cometchat.pro.uikit.ui_resources.utils.custom_alertDialog.CustomAlertDialogHelper
@@ -49,6 +51,11 @@ class ChatsFragment : Fragment(), OnAlertDialogButtonClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadFragment(CometChatConversationList())
+        CometChatUserList.setItemClickListener(object : OnItemClickListener<Any>() {
+            override fun OnItemClick(t: Any, position: Int) {
+                Toast.makeText(requireContext(), (t as User).name, Toast.LENGTH_SHORT).show()
+            }
+        })
         CometChatGroupList.setItemClickListener(object : OnItemClickListener<Any>() {
             override fun OnItemClick(t: Any, position: Int) {
                 group = t as Group
@@ -76,7 +83,7 @@ class ChatsFragment : Fragment(), OnAlertDialogButtonClickListener {
                     startGroupIntent(conversation.conversationWith as Group)
                 } else {
                     val user = conversation.conversationWith as User
-                    userIntent(user)
+                    Toast.makeText(requireContext(), user.name, Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -87,16 +94,6 @@ class ChatsFragment : Fragment(), OnAlertDialogButtonClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.frame, fragment).commit()
         }
-    }
-
-    fun userIntent(user: User) {
-        val intent = Intent(requireContext(), CometChatMessageListActivity::class.java)
-        intent.putExtra(UIKitConstants.IntentStrings.UID, user.uid)
-        intent.putExtra(UIKitConstants.IntentStrings.AVATAR, user.avatar)
-        intent.putExtra(UIKitConstants.IntentStrings.STATUS, user.status)
-        intent.putExtra(UIKitConstants.IntentStrings.NAME, user.name)
-        intent.putExtra(UIKitConstants.IntentStrings.TYPE, CometChatConstants.RECEIVER_TYPE_USER)
-        startActivity(intent)
     }
 
     private fun startGroupIntent(group: Group?) {

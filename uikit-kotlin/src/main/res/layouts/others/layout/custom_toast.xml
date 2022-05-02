@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/group_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/group_layout"
     android:background="@drawable/cc_message_bubble_right"
-    android:backgroundTint="@color/primaryTextColor"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:backgroundTint="@color/primaryTextColor">
+
     <TextView
-        android:textColor="@color/textColorWhite"
         android:id="@+id/message"
-        android:layout_margin="16dp"
-        tools:text="@tools:sample/full_names"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="16dp"
         android:gravity="center_horizontal"
-        android:layout_centerHorizontal="true"/>
+        android:textColor="@color/textColorWhite"
+        tools:text="@tools:sample/full_names" />
 </RelativeLayout>

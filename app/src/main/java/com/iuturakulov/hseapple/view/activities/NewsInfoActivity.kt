@@ -26,6 +26,11 @@ class NewsInfoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_news_info)
+        initializeTopAppBar()
+        initializeFields()
+    }
+
+    private fun initializeTopAppBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
         news = postInfo
         topAppBar.title = news.title
@@ -33,6 +38,9 @@ class NewsInfoActivity : AppCompatActivity() {
             topAppBar.menu.getItem(R.id.edit_event_menu).isVisible = false
             topAppBar.menu.getItem(R.id.delete_event_menu).isVisible = false
         }
+    }
+
+    private fun initializeFields() {
         newsTitleItem.setText(news.title)
         newsDescriptionItem.setText(news.content)
         fieldOptionsInitializer(false)

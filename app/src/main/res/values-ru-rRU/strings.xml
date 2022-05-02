@@ -34,4 +34,6 @@
     <string name="arsure_dialog">Вы уверены?</string>
     <string name="yes_status">Да</string>
     <string name="no_status">Нет</string>
+    <string name="make_a_request_course">Подать заявку</string>
+    <string name="get_a_request_course">Войти</string>
 </resources>

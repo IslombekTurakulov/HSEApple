@@ -170,26 +170,31 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
         sharedMediaView!!.setRecieverId(guid)
         sharedMediaView!!.setRecieverType(CometChatConstants.RECEIVER_TYPE_GROUP)
         sharedMediaView!!.reload()
-        rvMemberList!!.addOnItemTouchListener(RecyclerTouchListener(this, rvMemberList!!, object : ClickListener() {
-            override fun onClick(var1: View, var2: Int) {
-                val user = var1.getTag(R.string.user) as GroupMember
-                if (loggedInUserScope != null && ((loggedInUserScope == CometChatConstants.SCOPE_ADMIN) || (loggedInUserScope == CometChatConstants.SCOPE_MODERATOR))) {
-                    groupMember = user
-                    val isAdmin = (user.scope == CometChatConstants.SCOPE_ADMIN)
-                    val isSelf = (loggedInUser.uid == user.uid)
-                    val isOwner = (loggedInUser.uid == ownerId)
-                    if (!isSelf) {
-                        if (!isAdmin || isOwner) {
-                            if (banningGroupMembersEnabled || kickingGroupMembersEnabled) {
-                                registerForContextMenu(rvMemberList)
-                                openContextMenu(var1)
+        rvMemberList!!.addOnItemTouchListener(
+            RecyclerTouchListener(
+                this,
+                rvMemberList!!,
+                object : ClickListener() {
+                    override fun onClick(var1: View, var2: Int) {
+                        val user = var1.getTag(R.string.user) as GroupMember
+                        if (loggedInUserScope != null && ((loggedInUserScope == CometChatConstants.SCOPE_ADMIN) || (loggedInUserScope == CometChatConstants.SCOPE_MODERATOR))) {
+                            groupMember = user
+                            val isAdmin = (user.scope == CometChatConstants.SCOPE_ADMIN)
+                            val isSelf = (loggedInUser.uid == user.uid)
+                            val isOwner = (loggedInUser.uid == ownerId)
+                            if (!isSelf) {
+                                if (!isAdmin || isOwner) {
+                                    if (banningGroupMembersEnabled || kickingGroupMembersEnabled) {
+                                        registerForContextMenu(rvMemberList)
+                                        openContextMenu(var1)
+                                    }
+                                }
                             }
                         }
                     }
-                }
-            }
 
-        }))
+                })
+        )
         tvLoadMore!!.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
                 groupMembers
@@ -199,15 +204,25 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
             if (loggedInUser.uid == ownerId) {
                 showTransferOwnershipDialog()
             } else {
-                createDialog(resources.getString(R.string.leave_group), resources.getString(R.string.leave_group_message),
-                        resources.getString(R.string.leave_group), resources.getString(R.string.cancel), R.drawable.ic_exit_to_app)
+                createDialog(
+                    resources.getString(R.string.leave_group),
+                    resources.getString(R.string.leave_group_message),
+                    resources.getString(R.string.leave_group),
+                    resources.getString(R.string.cancel),
+                    R.drawable.ic_exit_to_app
+                )
             }
         }
 //        callBtn!!.setOnClickListener(View.OnClickListener { view: View? -> checkOnGoingCall(CometChatConstants.CALL_TYPE_AUDIO) })
 //        videoCallBtn!!.setOnClickListener(View.OnClickListener { view: View? -> checkOnGoingCall(CometChatConstants.CALL_TYPE_VIDEO) })
         tvDelete!!.setOnClickListener(View.OnClickListener { view: View? ->
-            createDialog(resources.getString(R.string.delete_group), resources.getString(R.string.delete_group_message),
-                    resources.getString(R.string.delete_group), resources.getString(R.string.cancel), R.drawable.ic_delete_24dp)
+            createDialog(
+                resources.getString(R.string.delete_group),
+                resources.getString(R.string.delete_group_message),
+                resources.getString(R.string.delete_group),
+                resources.getString(R.string.cancel),
+                R.drawable.ic_delete_24dp
+            )
         })
 
 
@@ -237,7 +252,8 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
 //        callBtn!!.visibility = View.GONE
 //        videoCallBtn!!.visibility = View.GONE
 
-        FeatureRestriction.isBanningGroupMembersEnabled(object : FeatureRestriction.OnSuccessListener {
+        FeatureRestriction.isBanningGroupMembersEnabled(object :
+            FeatureRestriction.OnSuccessListener {
             override fun onSuccess(p0: Boolean) {
                 if (!p0) rlBanMembers!!.visibility = View.GONE
             }
@@ -248,13 +264,15 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
             }
 
         })
-        FeatureRestriction.isBanningGroupMembersEnabled(object : FeatureRestriction.OnSuccessListener {
+        FeatureRestriction.isBanningGroupMembersEnabled(object :
+            FeatureRestriction.OnSuccessListener {
             override fun onSuccess(p0: Boolean) {
                 banningGroupMembersEnabled = p0
             }
         })
 
-        FeatureRestriction.isKickingGroupMembersEnabled(object : FeatureRestriction.OnSuccessListener {
+        FeatureRestriction.isKickingGroupMembersEnabled(object :
+            FeatureRestriction.OnSuccessListener {
             override fun onSuccess(p0: Boolean) {
                 kickingGroupMembersEnabled = p0
             }
@@ -340,12 +358,22 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
         val call = Call((recieverID)!!, receiverType, callType)
         CometChat.initiateCall(call, object : CallbackListener<Call>() {
             override fun onSuccess(call: Call) {
-                Utils.startGroupCallIntent(this@CometChatGroupDetailActivity, (call.callReceiver as Group), call.type, true, call.sessionId)
+                Utils.startGroupCallIntent(
+                    this@CometChatGroupDetailActivity,
+                    (call.callReceiver as Group),
+                    call.type,
+                    true,
+                    call.sessionId
+                )
             }
 
             override fun onError(e: CometChatException) {
                 Log.e(TAG, "onError: " + e.message)
-                if (rvMemberList != null) Snackbar.make(rvMemberList!!, resources.getString(R.string.call_initiate_error) + ":" + e.message, Snackbar.LENGTH_LONG).show()
+                if (rvMemberList != null) Snackbar.make(
+                    rvMemberList!!,
+                    resources.getString(R.string.call_initiate_error) + ":" + e.message,
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
         })
     }
@@ -358,17 +386,32 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
      * @param negativeText
      * @param drawableRes
      */
-    private fun createDialog(title: String, message: String, positiveText: String, negativeText: String, drawableRes: Int) {
-        Log.e(TAG, "createDialog: "+ownerId+ " logged in: "+loggedInUser.uid)
-        val alertDialog = MaterialAlertDialogBuilder(this@CometChatGroupDetailActivity,
-            com.cometchat.pro.R.style.Theme_AppCompat)
+    private fun createDialog(
+        title: String,
+        message: String,
+        positiveText: String,
+        negativeText: String,
+        drawableRes: Int
+    ) {
+        Log.e(TAG, "createDialog: " + ownerId + " logged in: " + loggedInUser.uid)
+        val alertDialog = MaterialAlertDialogBuilder(
+            this@CometChatGroupDetailActivity,
+            androidx.appcompat.R.style.AlertDialog_AppCompat
+        )
         alertDialog.setTitle(title)
         alertDialog.setMessage(message)
         alertDialog.setPositiveButton(positiveText) { dialogInterface: DialogInterface?, i: Int ->
             if (positiveText.equals(resources.getString(R.string.leave_group), ignoreCase = true))
                 leaveGroup()
-            else if ((positiveText.equals(resources.getString(R.string.delete_group), ignoreCase = true)
-                        && loggedInUserScope.equals(CometChatConstants.SCOPE_ADMIN, ignoreCase = true)))
+            else if ((positiveText.equals(
+                    resources.getString(R.string.delete_group),
+                    ignoreCase = true
+                )
+                        && loggedInUserScope.equals(
+                    CometChatConstants.SCOPE_ADMIN,
+                    ignoreCase = true
+                ))
+            )
                 deleteGroup()
         }
         alertDialog.setNegativeButton(negativeText, object : DialogInterface.OnClickListener {
@@ -381,18 +424,25 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
     }
 
     private fun showTransferOwnershipDialog() {
-        val alertDialog = MaterialAlertDialogBuilder(this@CometChatGroupDetailActivity,
-                com.cometchat.pro.R.style.ThemeOverlay_AppCompat)
+        val alertDialog = MaterialAlertDialogBuilder(
+            this@CometChatGroupDetailActivity,
+            com.cometchat.pro.R.style.AlertDialog_AppCompat
+        )
 //        alertDialog.setTitle(R.string.group_alert)
         alertDialog.setMessage(R.string.transfer_ownership_message)
-        alertDialog.setPositiveButton(R.string.transfer, DialogInterface.OnClickListener { dialog, which ->
-            val intent = Intent(this@CometChatGroupDetailActivity, CometChatGroupMemberListActivity::class.java)
-            intent.putExtra(UIKitConstants.IntentStrings.GUID, guid)
-            intent.putExtra(UIKitConstants.IntentStrings.SHOW_MODERATORLIST, false)
-            intent.putExtra(UIKitConstants.IntentStrings.TRANSFER_OWNERSHIP, true)
-            finish()
-            startActivity(intent)
-        }).setNegativeButton(R.string.cancel, DialogInterface.OnClickListener { dialog, which ->
+        alertDialog.setPositiveButton(
+            R.string.transfer,
+            DialogInterface.OnClickListener { dialog, which ->
+                val intent = Intent(
+                    this@CometChatGroupDetailActivity,
+                    CometChatGroupMemberListActivity::class.java
+                )
+                intent.putExtra(UIKitConstants.IntentStrings.GUID, guid)
+                intent.putExtra(UIKitConstants.IntentStrings.SHOW_MODERATORLIST, false)
+                intent.putExtra(UIKitConstants.IntentStrings.TRANSFER_OWNERSHIP, true)
+                finish()
+                startActivity(intent)
+            }).setNegativeButton(R.string.cancel, DialogInterface.OnClickListener { dialog, which ->
             dialog.dismiss()
         })
         alertDialog.create()
@@ -433,7 +483,9 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
         }
         if (intent.hasExtra(UIKitConstants.IntentStrings.AVATAR)) {
             val avatar = intent.getStringExtra(UIKitConstants.IntentStrings.AVATAR)
-            if (avatar != null && avatar.isNotEmpty()) groupIcon.setAvatar(avatar) else groupIcon.setInitials((gName)!!)
+            if (avatar != null && avatar.isNotEmpty()) groupIcon.setAvatar(avatar) else groupIcon.setInitials(
+                (gName)!!
+            )
         }
         if (intent.hasExtra(UIKitConstants.IntentStrings.GROUP_DESC)) {
             gDesc = intent.getStringExtra(UIKitConstants.IntentStrings.GROUP_DESC)
@@ -512,7 +564,10 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
                 }
 
                 override fun onError(e: CometChatException) {
-                    ErrorMessagesUtils.cometChatErrorMessage(this@CometChatGroupDetailActivity, e.code)
+                    ErrorMessagesUtils.cometChatErrorMessage(
+                        this@CometChatGroupDetailActivity,
+                        e.code
+                    )
                     Log.e(TAG, "onError: " + e.message)
                 }
             })
@@ -573,22 +628,22 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
     }
 
     private val bannedMemberCount: Unit
-    private get () {
-        banMemberRequest = BannedGroupMembersRequestBuilder(guid).setLimit(100).build()
-        banMemberRequest!!.fetchNext(object : CallbackListener<List<GroupMember?>>() {
-            override fun onSuccess(groupMembers: List<GroupMember?>) {
-                if (groupMembers.size >= 99) {
-                    tvBanMemberCount!!.text = "99+"
-                } else {
-                    tvBanMemberCount!!.text = groupMembers.size.toString() + ""
+        private get() {
+            banMemberRequest = BannedGroupMembersRequestBuilder(guid).setLimit(100).build()
+            banMemberRequest!!.fetchNext(object : CallbackListener<List<GroupMember?>>() {
+                override fun onSuccess(groupMembers: List<GroupMember?>) {
+                    if (groupMembers.size >= 99) {
+                        tvBanMemberCount!!.text = "99+"
+                    } else {
+                        tvBanMemberCount!!.text = groupMembers.size.toString() + ""
+                    }
                 }
-            }
 
-            override fun onError(e: CometChatException) {
-                Log.e(TAG, "onError: " + e.message + "\n" + e.code)
-            }
-        })
-    }
+                override fun onError(e: CometChatException) {
+                    Log.e(TAG, "onError: " + e.message + "\n" + e.code)
+                }
+            })
+        }
 
     /**
      * This method is used to get list of group members. It also helps to update other things like
@@ -598,53 +653,60 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
      * @see GroupMember
      */
     private val groupMembers: List<GroupMember>?
-    private get () {
-        if (groupMembersRequest == null) {
-            groupMembersRequest = GroupMembersRequestBuilder(guid).setLimit(LIMIT).build()
-        }
-        groupMembersRequest!!.fetchNext(object : CallbackListener<List<GroupMember>?>() {
-            override fun onSuccess(groupMembers: List<GroupMember>?) {
-                Log.e(TAG, "onSuccess: groupMem " + groupMembers!!.size)
-                if (groupMembers != null && groupMembers.isNotEmpty()) {
-                    adminCount = 0
-                    moderatorCount = 0
-                    groupMemberUids.clear()
-                    s = arrayOfNulls(groupMembers.size)
-                    for (j in groupMembers.indices) {
-                        groupMemberUids.add(groupMembers[j].uid)
-                        if ((groupMembers[j].scope == CometChatConstants.SCOPE_ADMIN)) {
-                            adminCount++
+        private get() {
+            if (groupMembersRequest == null) {
+                groupMembersRequest = GroupMembersRequestBuilder(guid).setLimit(LIMIT).build()
+            }
+            groupMembersRequest!!.fetchNext(object : CallbackListener<List<GroupMember>?>() {
+                override fun onSuccess(groupMembers: List<GroupMember>?) {
+                    Log.e(TAG, "onSuccess: groupMem " + groupMembers!!.size)
+                    if (groupMembers != null && groupMembers.isNotEmpty()) {
+                        adminCount = 0
+                        moderatorCount = 0
+                        groupMemberUids.clear()
+                        s = arrayOfNulls(groupMembers.size)
+                        for (j in groupMembers.indices) {
+                            groupMemberUids.add(groupMembers[j].uid)
+                            if ((groupMembers[j].scope == CometChatConstants.SCOPE_ADMIN)) {
+                                adminCount++
+                            }
+                            if ((groupMembers[j].scope == CometChatConstants.SCOPE_MODERATOR)) {
+                                moderatorCount++
+                            }
+                            s[j] = groupMembers[j].name
                         }
-                        if ((groupMembers[j].scope == CometChatConstants.SCOPE_MODERATOR)) {
-                            moderatorCount++
-                        }
-                        s[j] = groupMembers[j].name
-                    }
 //                        tvAdminCount!!.text = adminCount.toString() + ""
 //                        tvModeratorCount!!.text = moderatorCount.toString() + ""
-                    if (groupMemberAdapter == null) {
-                        groupMemberAdapter = GroupMemberAdapter(this@CometChatGroupDetailActivity, groupMembers, ownerId)
-                        rvMemberList!!.adapter = groupMemberAdapter
+                        if (groupMemberAdapter == null) {
+                            groupMemberAdapter = GroupMemberAdapter(
+                                this@CometChatGroupDetailActivity,
+                                groupMembers,
+                                ownerId
+                            )
+                            rvMemberList!!.adapter = groupMemberAdapter
+                        } else {
+                            groupMemberAdapter!!.addAll(groupMembers)
+                        }
+                        if (groupMembers.size < LIMIT) {
+                            tvLoadMore!!.visibility = View.GONE
+                        }
                     } else {
-                        groupMemberAdapter!!.addAll(groupMembers)
-                    }
-                    if (groupMembers.size < LIMIT) {
                         tvLoadMore!!.visibility = View.GONE
                     }
-                } else {
-                    tvLoadMore!!.visibility = View.GONE
+                    groupMemberList = groupMembers
                 }
-                groupMemberList = groupMembers
-            }
 
-            override fun onError(e: CometChatException) {
-                ErrorMessagesUtils.cometChatErrorMessage(this@CometChatGroupDetailActivity, e.code)
-                Log.e(TAG, "onError: " + e.message)
-                groupMemberList = emptyList();
-            }
-        })
-        return groupMemberList
-    }
+                override fun onError(e: CometChatException) {
+                    ErrorMessagesUtils.cometChatErrorMessage(
+                        this@CometChatGroupDetailActivity,
+                        e.code
+                    )
+                    Log.e(TAG, "onError: " + e.message)
+                    groupMemberList = emptyList();
+                }
+            })
+            return groupMemberList
+        }
 
     /**
      * This method is used to leave the loggedIn User from respective group.
@@ -659,7 +721,10 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
                 }
 
                 override fun onError(e: CometChatException) {
-                    ErrorMessagesUtils.cometChatErrorMessage(this@CometChatGroupDetailActivity, e.code)
+                    ErrorMessagesUtils.cometChatErrorMessage(
+                        this@CometChatGroupDetailActivity,
+                        e.code
+                    )
                     Log.e(TAG, "onError: " + e.message)
                 }
             })
@@ -683,21 +748,43 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
                 if ((leftGroup.guid == guid)) updateGroupMember(leftUser, true, false, action)
             }
 
-            override fun onGroupMemberKicked(action: Action, kickedUser: User, kickedBy: User, kickedFrom: Group) {
+            override fun onGroupMemberKicked(
+                action: Action,
+                kickedUser: User,
+                kickedBy: User,
+                kickedFrom: Group
+            ) {
                 Log.d(TAG, "onGroupMemberKicked: ")
                 if ((kickedFrom.guid == guid)) updateGroupMember(kickedUser, true, false, action)
             }
 
-            override fun onGroupMemberScopeChanged(action: Action, updatedBy: User, updatedUser: User, scopeChangedTo: String, scopeChangedFrom: String, group: Group) {
+            override fun onGroupMemberScopeChanged(
+                action: Action,
+                updatedBy: User,
+                updatedUser: User,
+                scopeChangedTo: String,
+                scopeChangedFrom: String,
+                group: Group
+            ) {
                 Log.d(TAG, "onGroupMemberScopeChanged: ")
                 if ((group.guid == guid)) updateGroupMember(updatedUser, false, true, action)
             }
 
-            override fun onMemberAddedToGroup(action: Action, addedby: User, userAdded: User, addedTo: Group) {
+            override fun onMemberAddedToGroup(
+                action: Action,
+                addedby: User,
+                userAdded: User,
+                addedTo: Group
+            ) {
                 if ((addedTo.guid == guid)) updateGroupMember(userAdded, false, false, action)
             }
 
-            override fun onGroupMemberBanned(action: Action, bannedUser: User, bannedBy: User, bannedFrom: Group) {
+            override fun onGroupMemberBanned(
+                action: Action,
+                bannedUser: User,
+                bannedBy: User,
+                bannedFrom: Group
+            ) {
                 if ((bannedFrom.guid == guid)) {
 //                    var count = tvBanMemberCount!!.text.toString().toInt()
 //                    tvBanMemberCount!!.setText(++count)
@@ -705,7 +792,12 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
                 }
             }
 
-            override fun onGroupMemberUnbanned(action: Action, unbannedUser: User, unbannedBy: User, unbannedFrom: Group) {
+            override fun onGroupMemberUnbanned(
+                action: Action,
+                unbannedUser: User,
+                unbannedBy: User,
+                unbannedFrom: Group
+            ) {
                 if ((unbannedFrom.guid == guid)) {
                     var count = tvBanMemberCount!!.text.toString().toInt()
                     tvBanMemberCount!!.setText(--count)
@@ -731,14 +823,31 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
      *
      * @see utils.Utils.UserToGroupMember
      */
-    private fun updateGroupMember(user: User, isRemoved: Boolean, isScopeUpdate: Boolean, action: Action) {
+    private fun updateGroupMember(
+        user: User,
+        isRemoved: Boolean,
+        isScopeUpdate: Boolean,
+        action: Action
+    ) {
         if (groupMemberAdapter != null) {
             if (!isRemoved && !isScopeUpdate) {
-                groupMemberAdapter!!.addGroupMember(Utils.UserToGroupMember(user, false, action.oldScope)!!)
+                groupMemberAdapter!!.addGroupMember(
+                    Utils.UserToGroupMember(
+                        user,
+                        false,
+                        action.oldScope
+                    )!!
+                )
                 val count = ++groupMemberCount
                 tvMemberCount!!.text = "$count Members"
             } else if (isRemoved && !isScopeUpdate) {
-                groupMemberAdapter!!.removeGroupMember(Utils.UserToGroupMember(user, false, action.oldScope))
+                groupMemberAdapter!!.removeGroupMember(
+                    Utils.UserToGroupMember(
+                        user,
+                        false,
+                        action.oldScope
+                    )
+                )
                 val count = --groupMemberCount
                 tvMemberCount!!.text = "$count Members"
                 if (action.newScope != null) {
@@ -751,7 +860,13 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
                     }
                 }
             } else if (!isRemoved) {
-                groupMemberAdapter!!.updateMember(Utils.UserToGroupMember(user, true, action.newScope)!!)
+                groupMemberAdapter!!.updateMember(
+                    Utils.UserToGroupMember(
+                        user,
+                        true,
+                        action.newScope
+                    )!!
+                )
                 if ((action.newScope == CometChatConstants.SCOPE_ADMIN)) {
                     adminCount = adminCount + 1
                     tvAdminCount!!.text = adminCount.toString()
@@ -815,7 +930,12 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
             groupNewPwdLayout.visibility = View.VISIBLE
         }
         groupTypeSp.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
                 if (parent.selectedItemPosition == 2) {
                     if (gPassword == null) {
                         groupOldPwdLayout.visibility = View.GONE
@@ -847,9 +967,12 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
                 if (groupName.text.toString().isEmpty()) {
                     groupName.error = getString(R.string.fill_this_field)
                 } else if (groupTypeSp.selectedItemPosition == 2) {
-                    if (gPassword != null && groupOldPwd.text.toString().trim { it <= ' ' }.isEmpty()) {
+                    if (gPassword != null && groupOldPwd.text.toString().trim { it <= ' ' }
+                            .isEmpty()) {
                         groupOldPwd.error = resources.getString(R.string.fill_this_field)
-                    } else if (gPassword != null && groupOldPwd.text.toString().trim { it <= ' ' } != gPassword!!.trim { it <= ' ' }) {
+                    } else if (gPassword != null && groupOldPwd.text.toString()
+                            .trim { it <= ' ' } != gPassword!!.trim { it <= ' ' }
+                    ) {
                         groupOldPwd.error = resources.getString(R.string.password_not_matched)
                     } else if (groupNewPwd.text.toString().trim { it <= ' ' }.isEmpty()) {
                         groupNewPwd.error = resources.getString(R.string.fill_this_field)
@@ -896,7 +1019,10 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
 
             override fun onError(e: CometChatException) {
                 if (rvMemberList != null) {
-                    ErrorMessagesUtils.cometChatErrorMessage(this@CometChatGroupDetailActivity, e.code)
+                    ErrorMessagesUtils.cometChatErrorMessage(
+                        this@CometChatGroupDetailActivity,
+                        e.code
+                    )
                 }
                 dialog.dismiss()
             }
@@ -916,25 +1042,28 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
      * @see CometChat.getGroup
      */
     private val group: Unit
-    private get () {
-        CometChat.getGroup((guid)!!, object : CallbackListener<Group>() {
-            override fun onSuccess(group: Group) {
-                gName = group.name
-                tvGroupName!!.text = gName
-                groupIcon.setAvatar(group.icon)
-                loggedInUserScope = group.scope
-                groupMemberCount = group.membersCount
-                groupType = group.groupType
-                gDesc = group.description
-                tvMemberCount!!.text = "$groupMemberCount Members"
-            }
+        private get() {
+            CometChat.getGroup((guid)!!, object : CallbackListener<Group>() {
+                override fun onSuccess(group: Group) {
+                    gName = group.name
+                    tvGroupName!!.text = gName
+                    groupIcon.setAvatar(group.icon)
+                    loggedInUserScope = group.scope
+                    groupMemberCount = group.membersCount
+                    groupType = group.groupType
+                    gDesc = group.description
+                    tvMemberCount!!.text = "$groupMemberCount Members"
+                }
 
-            override fun onError(e: CometChatException) {
+                override fun onError(e: CometChatException) {
 //                    Toast.makeText(this@CometChatGroupDetailActivity, "Error:" + e.message, Toast.LENGTH_LONG).show()
-                ErrorMessagesUtils.cometChatErrorMessage(this@CometChatGroupDetailActivity, e.code)
-            }
-        })
-    }
+                    ErrorMessagesUtils.cometChatErrorMessage(
+                        this@CometChatGroupDetailActivity,
+                        e.code
+                    )
+                }
+            })
+        }
 
     override fun onResume() {
         super.onResume()

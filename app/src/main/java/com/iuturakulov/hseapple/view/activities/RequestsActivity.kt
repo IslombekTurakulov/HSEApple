@@ -1,14 +1,10 @@
-package com.iuturakulov.hseapple.view.fragments
+package com.iuturakulov.hseapple.view.activities
 
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,38 +15,30 @@ import com.iuturakulov.hseapple.model.api.RequestEntity
 import com.iuturakulov.hseapple.utils.TOKEN_API
 import com.iuturakulov.hseapple.view.adapters.RequestsAdapter
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
-import kotlinx.android.synthetic.main.fragment_requests.*
+import kotlinx.android.synthetic.main.activity_requests.*
 import okhttp3.*
+import timber.log.Timber
 import java.io.IOException
 
-class RequestsFragment : Fragment(R.layout.fragment_requests) {
+class RequestsActivity : AppCompatActivity() {
 
-    private var mAdapter: RequestsAdapter? = null
+    private var requestsAdapter: RequestsAdapter? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_news, container, false)
-    }
+    val tempApi =
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Il9KLTZ5TzRqSTMzZk9IOUxsYjdyRzJoTXVGOCIsImtpZCI6Il9KLTZ5TzRqSTMzZk9IOUxsYjdyRzJoTXVGOCJ9.eyJhdWQiOiJtaWNyb3NvZnQ6aWRlbnRpdHlzZXJ2ZXI6MGQ0NmFlMDUtM2JiYy00MzQ2LWEzYTMtMWQ3MzJiNDllYTUzIiwiaXNzIjoiaHR0cDovL2F1dGguaHNlLnJ1L2FkZnMvc2VydmljZXMvdHJ1c3QiLCJpYXQiOjE2NTExMzgyNzIsIm5iZiI6MTY1MTEzODI3MiwiZXhwIjoxNjUxMTQxODcyLCJnaXZlbl9uYW1lIjoi0JjRgdC70L7QvNCx0LXQuiIsImNvbW1vbm5hbWUiOiLQotGD0YDQsNC60YPQu9C-0LIg0JjRgdC70L7QvNCx0LXQuiDQo9C70YPQs9Cx0LXQutC-0LLQuNGHIiwiZmFtaWx5X25hbWUiOiLQotGD0YDQsNC60YPQu9C-0LIiLCJlbWFpbCI6Iml1dHVyYWt1bG92QGVkdS5oc2UucnUiLCJhcHB0eXBlIjoiUHVibGljIiwiYXBwaWQiOiIwZDQ2YWUwNS0zYmJjLTQzNDYtYTNhMy0xZDczMmI0OWVhNTMiLCJhdXRobWV0aG9kIjoidXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6Mi4wOmFjOmNsYXNzZXM6UGFzc3dvcmRQcm90ZWN0ZWRUcmFuc3BvcnQiLCJhdXRoX3RpbWUiOiIyMDIyLTA0LTI3VDE1OjU3OjI2LjU5M1oiLCJ2ZXIiOiIxLjAifQ.FeYIZyEk7K1IfFUBONDFz7jwIgXraGFhuAhEVhWriya4rnYklfG2bE_QoFaYyOtZ2AHu9kCrdcGqo9CHgGSGpnk78X_dA0MCnVFouvo8ed1WlTxVO8bqWrfCdYILEbjRkU1hOsMw-htRwI41rREIGDHpQYFj9fCJ2ctxvR-gQsdd4izLltkDueZwl-cckw6iCEnW-_QmsNb4IrpX5d5nHBvZ21OgzSl7W8ESEBKovfFgtols4D6a9JqQWZdgMaUdq1MO8kGwRuKlwGRJe3-cDvRJ4kvwwyfdURoD7ppl7KvftnMWpnGSQEgaTdDDTKmp-DAC-bRvmW5V76xxpC886g"
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        request_swipe_refresh.setOnRefreshListener {
-            mAdapter = RequestsAdapter(requireContext())
-            recycler_view.adapter = mAdapter
-            request_swipe_refresh.isRefreshing = false
-        }
-        recycler_view.layoutManager = LinearLayoutManager(requireContext())
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_requests)
+        recycler_view.layoutManager = LinearLayoutManager(this)
         recycler_view.addItemDecoration(
             DividerItemDecoration(
-                requireContext(),
+                this,
                 LinearLayoutManager.VERTICAL
             )
         )
-        mAdapter = RequestsAdapter(requireContext())
-        recycler_view.adapter = mAdapter
+        requestsAdapter = RequestsAdapter(this)
+        recycler_view.adapter = requestsAdapter
         val callback: ItemTouchHelper.SimpleCallback = initializeCallBacks()
         val itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(recycler_view)
@@ -70,7 +58,7 @@ class RequestsFragment : Fragment(R.layout.fragment_requests) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 try {
                     val position = viewHolder.adapterPosition
-                    val item: RequestEntity? = mAdapter!!.removeItem(position)
+                    val item: RequestEntity? = requestsAdapter!!.removeItem(position)
                     val snack = Snackbar.make(
                         viewHolder.itemView,
                         "Item " + (if (direction == ItemTouchHelper.RIGHT) "denied" else "accepted") + ".",
@@ -78,14 +66,14 @@ class RequestsFragment : Fragment(R.layout.fragment_requests) {
                     )
                     snack.setAction(android.R.string.cancel) {
                         try {
-                            mAdapter!!.addItem(item!!, position)
+                            requestsAdapter!!.addItem(item!!, position)
                         } catch (e: Exception) {
-                            Log.e("RequestFragment", e.message!!)
+                            Timber.e(e.message!!)
                         }
                     }
                     snack.show()
                 } catch (e: Exception) {
-                    Log.e("RequestFragment", e.message!!)
+                    Timber.e(e.message!!)
                 }
             }
 
@@ -109,14 +97,14 @@ class RequestsFragment : Fragment(R.layout.fragment_requests) {
                 )
                     .addSwipeLeftBackgroundColor(
                         ContextCompat.getColor(
-                            requireContext(),
+                            this@RequestsActivity,
                             R.color.recycler_view_item_swipe_left_background
                         )
                     )
                     .addSwipeLeftActionIcon(R.drawable.ic_person_add_24)
                     .addSwipeRightBackgroundColor(
                         ContextCompat.getColor(
-                            requireContext(),
+                            this@RequestsActivity,
                             R.color.recycler_view_item_swipe_right_background
                         )
                     )
@@ -144,23 +132,24 @@ class RequestsFragment : Fragment(R.layout.fragment_requests) {
 
     override fun onDestroy() {
         super.onDestroy()
-        val items = mAdapter!!.getAllItems()
+        val items = requestsAdapter!!.getAllItems()
         val client = OkHttpClient()
         val mediaType = MediaType.parse("application/json")
         val body = RequestBody.create(mediaType, "{\n  \"approved\": true\n}")
         for (item in items) {
             val request = Request.Builder()
-                .url("https://stoplight.io/mocks/hseapple/nis-app/38273133/request/${item.courseID}/${item.userID}")
+                .url("80.66.64.53:8080/request/${item.courseID}/${item.userID}")
                 .put(body)
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Prefer", "code=200")
                 .addHeader("token", TOKEN_API)
+                .addHeader("Authorization", tempApi)
                 .build()
             var response: Response? = null
             try {
                 response = client.newCall(request).execute()
             } catch (e: IOException) {
-                e.printStackTrace();
+                e.printStackTrace()
             }
             if (response != null) {
                 println(response.body().toString())

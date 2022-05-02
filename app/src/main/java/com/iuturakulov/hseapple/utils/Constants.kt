@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import com.cometchat.pro.models.User
 import com.hse.auth.AuthHelper
 import com.iuturakulov.hseapple.model.api.PostEntity
+import com.iuturakulov.hseapple.model.api.RequestEntity
 import com.iuturakulov.hseapple.model.api.UserEntity
 
 lateinit var AUTH: AuthHelper
@@ -14,8 +15,11 @@ lateinit var CURRENT_UID: String
 lateinit var ACCESS_TOKEN: String
 lateinit var REFRESH_TOKEN: String
 lateinit var USER: UserEntity
+
 lateinit var USER_CHAT: User
 lateinit var CURRENT_COURSE: CurrentCourse
+
+lateinit var arrayOfRequestCourses: ArrayList<RequestEntity>
 
 enum class CourseSelection {
     CHOSEN_SECOND,

@@ -87,7 +87,7 @@
                     android:layout_marginBottom="6dp"
                     android:text="@string/join"
                     android:textAllCaps="false"
-                    android:textColor="@color/darkModeBackground"
+                    android:textColor="@color/colorPrimary"
                     app:backgroundTint="@color/textColorWhite"
                     app:cornerRadius="8dp" />
             </RelativeLayout>

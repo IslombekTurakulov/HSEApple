@@ -26,7 +26,7 @@
                 android:layout_height="70dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/ic_insert_drive_file_black_24dp"
-                android:tint="@color/textColorWhite" />
+                android:tint="@color/grey" />
 
             <TextView
                 android:id="@+id/extension_tv"
@@ -35,7 +35,7 @@
                 android:layout_centerInParent="true"
                 android:gravity="center"
                 android:maxLines="1"
-                android:textColor="@color/darkModeBackground"
+                android:textColor="@color/textColorWhite"
                 tools:text="PDF" />
         </RelativeLayout>
 
@@ -44,7 +44,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:textColor="@color/textColorWhite"
             android:maxLines="1" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

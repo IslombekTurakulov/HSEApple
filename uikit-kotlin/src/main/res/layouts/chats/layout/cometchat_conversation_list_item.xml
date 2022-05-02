@@ -61,7 +61,6 @@
                     android:layout_marginEnd="16dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:textColor="@color/textColorWhite"
                     android:textSize="@dimen/name"
                     android:textStyle="bold"
                     tools:text="@tools:sample/full_names" />
@@ -75,7 +74,6 @@
                     android:layout_marginEnd="16dp"
                     android:ellipsize="marquee"
                     android:singleLine="true"
-                    android:textColor="@color/textColorWhite"
                     android:textSize="@dimen/fourteen"
                     android:visibility="visible"
                     tools:text="@string/online" />
@@ -98,7 +96,6 @@
                 android:layout_alignTop="@id/rl_name_and_status_layout"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="16dp"
-                android:textColor="@color/textColorWhite"
                 android:textSize="12sp"
                 android:visibility="visible"
                 tools:text="11:50"

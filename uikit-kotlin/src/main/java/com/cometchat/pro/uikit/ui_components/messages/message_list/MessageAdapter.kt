@@ -1194,7 +1194,7 @@ class MessageAdapter(context: Context, messageList: List<BaseMessage>, type: Str
                         viewHolder.view.tvUser.text = baseMessage.sender.name
                     }
                 }
-                viewHolder.view.stickerView.setImageDrawable(context.resources.getDrawable(R.drawable.ic_default_image))
+                viewHolder.view.stickerView.setImageDrawable(context.resources.getDrawable(R.drawable.ic_defaulf_image))
                 try {
                     Glide.with(context).load((baseMessage as CustomMessage).customData.getString("url")).into(viewHolder.view.stickerView)
                 } catch (e: JSONException) {
@@ -1266,7 +1266,7 @@ class MessageAdapter(context: Context, messageList: List<BaseMessage>, type: Str
             }
             else{
                 viewHolder as RightStickerMessageViewHolder
-                viewHolder.view.stickerView.setImageDrawable(context.resources.getDrawable(R.drawable.ic_default_image))
+                viewHolder.view.stickerView.setImageDrawable(context.resources.getDrawable(R.drawable.ic_defaulf_image))
                 try {
                     Glide.with(context).load((baseMessage as CustomMessage).customData.getString("url")).into(viewHolder.view.stickerView)
                 } catch (e: JSONException) {
@@ -1952,7 +1952,7 @@ class MessageAdapter(context: Context, messageList: List<BaseMessage>, type: Str
                 setAvatar(viewHolder.view.ivUser, baseMessage.sender.avatar, baseMessage.sender.name)
                 viewHolder.view.tvUser.text = baseMessage.sender.name
             }
-            viewHolder.view.goImgMessage.setImageDrawable(context.resources.getDrawable(R.drawable.ic_default_image))
+            viewHolder.view.goImgMessage.setImageDrawable(context.resources.getDrawable(R.drawable.ic_defaulf_image))
 
             FeatureRestriction.isImageModerationEnabled(object : FeatureRestriction.OnSuccessListener {
                 override fun onSuccess(p0: Boolean) {
@@ -2055,7 +2055,7 @@ class MessageAdapter(context: Context, messageList: List<BaseMessage>, type: Str
             setReactionSupport(baseMessage, viewHolder.view.reactionsLayout)
         } else {
             viewHolder = view as RightImageMessageViewHolder
-            viewHolder.view.goImgMessage.setImageDrawable(context.resources.getDrawable(R.drawable.ic_default_image))
+            viewHolder.view.goImgMessage.setImageDrawable(context.resources.getDrawable(R.drawable.ic_defaulf_image))
 
 //            if (FeatureRestriction.isImageModerationEnabled())
 //                isImageNotSafe = Extensions.getImageModeration(context, baseMessage)

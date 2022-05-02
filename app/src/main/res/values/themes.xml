@@ -51,6 +51,15 @@
         <!-- For filled buttons, your theme's colorPrimary provides the default background color of the component -->
         <item name="colorPrimary">@color/almostDark</item>
     </style>
+
+    <style name="Theme.HSEApple.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.HSEApple.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.HSEApple.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     <!--  <style name="Theme.HSEApple.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
           &lt;!&ndash; Primary brand color. &ndash;&gt;
           <item name="colorPrimary">@color/green</item>

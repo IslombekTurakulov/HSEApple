@@ -1,7 +1,6 @@
 package com.iuturakulov.hseapple.view.adapters
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,8 +25,9 @@ internal class RequestsAdapter(context: Context) :
         try {
             mItems = ArrayList()
             val client = OkHttpClient()
+            // Third course validation
             val request = Request.Builder()
-                .url("https://stoplight.io/mocks/hseapple/nis-app/38273133/course/courseID/application/list?approved=false")
+                .url("80.66.64.53:8080/course/1/application/list?approved=false")
                 .get()
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Prefer", "code=200")
@@ -48,7 +48,7 @@ internal class RequestsAdapter(context: Context) :
                 )
             }
         } catch (e: Exception) {
-            Log.e(TAG, e.message!!)
+            Timber.e(e.message!!)
         }
     }
 
@@ -83,7 +83,7 @@ internal class RequestsAdapter(context: Context) :
             mItems.add(position, item)
             notifyItemInserted(position)
         } catch (e: Exception) {
-            Log.e("MainActivity", e.message!!)
+            Timber.e(e.message!!)
         }
     }
 
@@ -100,16 +100,12 @@ internal class RequestsAdapter(context: Context) :
             mItems.removeAt(position)
             notifyItemRemoved(position)
         } catch (e: Exception) {
-            Log.e(TAG, e.message!!)
+            Timber.e(e.message!!)
         }
         return item
     }
 
-    companion object {
-        private const val TAG = "ADAPTER"
-    }
-
-    fun getAllItems() : ArrayList<RequestEntity> {
+    fun getAllItems(): ArrayList<RequestEntity> {
         return mItems
     }
 

@@ -64,7 +64,7 @@ class CreateNewsActivity : AppCompatActivity(R.layout.activity_create_news) {
     private fun createEvent() {
         val client = OkHttpClient()
         val requestGet = Request.Builder()
-            .url("https://stoplight.io/mocks/hseapple/nis-app/38273133/course/0/post?start=0")
+            .url("80.66.64.53:8080/course/0/post?start=0")
             .get()
             .addHeader("Content-Type", "application/json")
             .addHeader("token", TOKEN_API)

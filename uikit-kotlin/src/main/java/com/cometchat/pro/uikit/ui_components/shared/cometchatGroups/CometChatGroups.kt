@@ -46,7 +46,7 @@ class CometChatGroups : RecyclerView {
     }
 
     private fun getAttributes(attributeSet: AttributeSet?) {
-        val a = getContext().theme.obtainStyledAttributes(attributeSet, R.styleable.CometChatGroupList, 0, 0)
+        val a = context.theme.obtainStyledAttributes(attributeSet, R.styleable.CometChatGroupList, 0, 0)
     }
 
     private fun setViewModel() {

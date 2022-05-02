@@ -16,9 +16,17 @@ import com.cometchat.pro.uikit.ui_settings.enum.ConversationMode
 import com.cometchat.pro.uikit.ui_settings.enum.GroupMode
 import com.cometchat.pro.uikit.ui_settings.enum.UserMode
 
-class UIKitSettings(var context: Context) {
+class UIKitSettings(context: Context) {
+
+    public var context: Context
+
+    init {
+        this.context = context
+    }
 
     companion object {
+
+
         //style
         var color = "#03A9F4"
 
@@ -420,7 +428,6 @@ class UIKitSettings(var context: Context) {
 
 
     }
-
     fun addConnectionListener(tag: String) {
         CometChat.addConnectionListener(tag, object : CometChat.ConnectionListener {
             override fun onConnected() {

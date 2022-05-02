@@ -24,7 +24,7 @@
             android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_20sdp"
-            android:background="@drawable/circle_bg"
+            android:background="@drawable/user_avatar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,6 +37,7 @@
             android:orientation="vertical">
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/fullNameOfProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -56,7 +57,8 @@
                 android:fontFamily="@font/futuramedium"
                 android:paddingTop="@dimen/_6sdp"
                 android:text="@string/status_student_second"
-                android:textColor="@color/hse_dark_blue"
+                android:textAllCaps="true"
+                android:textColor="@color/blueInactive"
                 android:textSize="@dimen/_12sdp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -89,12 +91,13 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:id="@+id/profileRequestBtn"
+                    style="@style/ThemeOverlay.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:background="@color/almostDark"
+                    android:backgroundTint="@color/almostDark"
                     android:fontFamily="@font/futuramedium"
                     android:text="@string/requests"
                     android:textAlignment="viewStart"
@@ -105,12 +108,13 @@
                     app:iconTint="@color/white" />
 
                 <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:id="@+id/profileUsersBtn"
+                    style="@style/ThemeOverlay.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:background="@color/almostDark"
+                    android:backgroundTint="@color/almostDark"
                     android:fontFamily="@font/futuramedium"
                     android:text="@string/users"
                     android:textAlignment="viewStart"
@@ -121,12 +125,13 @@
                     app:iconTint="@color/white" />
 
                 <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:id="@+id/profileAssistantsBtn"
+                    style="@style/ThemeOverlay.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:background="@color/almostDark"
+                    android:backgroundTint="@color/almostDark"
                     android:fontFamily="@font/futuramedium"
                     android:text="@string/assistants"
                     android:textAlignment="viewStart"
@@ -148,12 +153,13 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:id="@+id/profileHelpBtn"
+                    style="@style/ThemeOverlay.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:background="@color/almostDark"
+                    android:backgroundTint="@color/almostDark"
                     android:fontFamily="@font/futuramedium"
                     android:text="@string/help"
                     android:textAlignment="viewStart"
@@ -164,12 +170,13 @@
                     app:iconTint="@color/white" />
 
                 <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:id="@+id/profileAboutBtn"
+                    style="@style/ThemeOverlay.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:background="@color/almostDark"
+                    android:backgroundTint="@color/almostDark"
                     android:fontFamily="@font/futuramedium"
                     android:text="@string/about_the_app"
                     android:textAlignment="viewStart"
@@ -180,12 +187,13 @@
                     app:iconTint="@color/white" />
 
                 <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:id="@+id/profileCoursesBtn"
+                    style="@style/ThemeOverlay.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:background="@color/almostDark"
+                    android:backgroundTint="@color/almostDark"
                     android:fontFamily="@font/futuramedium"
                     android:text="@string/go_to_the_courses"
                     android:textAlignment="viewStart"
@@ -196,12 +204,13 @@
                     app:iconTint="@color/white" />
 
                 <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:id="@+id/profileLanguageBtn"
+                    style="@style/ThemeOverlay.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:background="@color/almostDark"
+                    android:backgroundTint="@color/almostDark"
                     android:fontFamily="@font/futuramedium"
                     android:text="@string/language"
                     android:textAlignment="viewStart"
@@ -212,6 +221,7 @@
                     app:iconTint="@color/white" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/profileLogOutBtn"
                     style="@style/ThemeOverlay.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

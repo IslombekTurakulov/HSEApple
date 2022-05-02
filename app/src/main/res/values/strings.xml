@@ -1,44 +1,55 @@
 <resources>
-    <string name="app_name">HSEApple</string>
+    <string name="app_name" translatable="false">HSEApple</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
+    <string name="messages_header" translatable="false">Messages</string>
+    <string name="sync_header" translatable="false">Sync</string>
 
     <string name="pref_title_ringtone" translatable="false">Ringtone</string>
     <string name="pref_ringtone_silent" translatable="false">Silent</string>
 
     <string name="lorem_ipsum_example" translatable="false">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer</string>
-    <string name="app_name_logo">HSE Apple</string>
-    <string name="current_tests">Current tests</string>
-    <string name="completed_tests">Completed tests</string>
-    <string name="requests">Requests</string>
+    <string name="app_name_logo" translatable="false">HSE Apple</string>
+    <string name="current_tests" translatable="false">Current tests</string>
+    <string name="completed_tests" translatable="false">Completed tests</string>
+    <string name="requests" translatable="false">Requests</string>
     <string name="users">Users</string>
-    <string name="assistants">Assistants</string>
-    <string name="help">Help</string>
-    <string name="about_the_app">About the app</string>
-    <string name="go_to_the_courses">Go to the courses</string>
-    <string name="log_out">Log out</string>
-    <string name="language">Language</string>
-    <string name="auth_info_login">Sign in with SmartPoint</string>
-    <string name="navigation_menu_text">Navigation</string>
-    <string name="tests_menu_text">Tests</string>
-    <string name="news_menu_text">News</string>
-    <string name="profile_menu_text">Profile</string>
-    <string name="status_student_second">Student, 2 course</string>
-    <string name="status_student_third">Student, 3 course</string>
-    <string name="status_teacher">Преподаватель</string>
-    <string name="create_lab_task">Create Lab task</string>
-    <string name="create_test">Create test</string>
-    <string name="second_course">SRC for iOS development 2nd course</string>
-    <string name="third_course">SRC for iOS development 3nd course</string>
-    <string name="course_navigate">Enter</string>
-    <string name="create_event">Create Event</string>
-    <string name="delete_content">Delete content</string>
-    <string name="edit_content">Edit content</string>
-    <string name="created_time">Created</string>
-    <string name="arsure_dialog">Are you sure?</string>
-    <string name="yes_status">Yes</string>
-    <string name="no_status">No</string>
+    <string name="assistants" translatable="false">Assistants</string>
+    <string name="help" translatable="false">Help</string>
+    <string name="about_the_app" translatable="false">About the app</string>
+    <string name="go_to_the_courses" translatable="false">Go to the courses</string>
+    <string name="log_out" translatable="false">Log out</string>
+    <string name="language" translatable="false">Language</string>
+    <string name="auth_info_login" translatable="false">Sign in with SmartPoint</string>
+    <string name="navigation_menu_text" translatable="false">Navigation</string>
+    <string name="tests_menu_text" translatable="false">Tests</string>
+    <string name="news_menu_text" translatable="false">News</string>
+    <string name="profile_menu_text" translatable="false">Profile</string>
+    <string name="status_student_second" translatable="false">Student, 2 course</string>
+    <string name="status_student_third" translatable="false">Student, 3 course</string>
+    <string name="status_teacher" translatable="false">Преподаватель</string>
+    <string name="create_lab_task" translatable="false">Create Lab task</string>
+    <string name="create_test" translatable="false">Create test</string>
+    <string name="second_course" translatable="false">SRC for iOS development 2nd course</string>
+    <string name="third_course" translatable="false">SRC for iOS development 3nd course</string>
+    <string name="course_navigate" translatable="false">Enter</string>
+    <string name="create_event" translatable="false">Create Event</string>
+    <string name="delete_content" translatable="false">Delete content</string>
+    <string name="edit_content" translatable="false">Edit content</string>
+    <string name="created_time" translatable="false">Created</string>
+    <string name="arsure_dialog" translatable="false">Are you sure?</string>
+    <string name="yes_status" translatable="false">Yes</string>
+    <string name="no_status" translatable="false">No</string>
+    <string name="make_a_request_course" translatable="false">Request</string>
+    <string name="get_a_request_course" translatable="false">Enter</string>
+    <string name="title_activity_list_of_users">ListOfUsersActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>

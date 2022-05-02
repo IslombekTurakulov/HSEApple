@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey_100"
     android:animateLayoutChanges="true">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -36,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/chatList_toolbar"
-        android:background="@color/blue_100"
+        android:background="@color/green_600"
         android:padding="8dp"
         android:visibility="gone"
         tools:visibility="visible">

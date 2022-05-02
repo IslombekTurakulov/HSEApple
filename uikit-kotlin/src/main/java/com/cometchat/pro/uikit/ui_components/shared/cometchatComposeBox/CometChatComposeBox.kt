@@ -57,7 +57,6 @@ import org.webrtc.ContextUtils.getApplicationContext
 
 class CometChatComposeBox : RelativeLayout, View.OnClickListener {
     private var type: String? = null
-    public var btnLiveReaction: ImageView? = null
     private var audioRecordView: AudioRecordView? = null
     private var mediaRecorder: MediaRecorder? = null
     private var mediaPlayer: MediaPlayer? = null
@@ -65,7 +64,6 @@ class CometChatComposeBox : RelativeLayout, View.OnClickListener {
     private val seekHandler = Handler(Looper.getMainLooper())
     private var timer: Timer? = Timer()
     private var audioFileNameWithPath: String? = null
-    private var isOpen = false
     private var isRecording = false
     private var isPlaying = false
     private var voiceMessage = false
@@ -84,7 +82,6 @@ class CometChatComposeBox : RelativeLayout, View.OnClickListener {
     private var flBox: RelativeLayout? = null
     private var voiceMessageLayout: RelativeLayout? = null
     private var rlActionContainer: RelativeLayout? = null
-    private val hasFocus = false
     private lateinit var composeActionListener: ComposeActionListener
     private var c: Context? = null
     private var color = 0
@@ -134,12 +131,11 @@ class CometChatComposeBox : RelativeLayout, View.OnClickListener {
                 }
             }, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN)
         }
-        btnLiveReaction = findViewById(R.id.btn_live_reaction)
-        FeatureRestriction.isLiveReactionsEnabled(object : FeatureRestriction.OnSuccessListener{
+ /*       FeatureRestriction.isLiveReactionsEnabled(object : FeatureRestriction.OnSuccessListener{
             override fun onSuccess(p0: Boolean) {
                 if (p0) btnLiveReaction?.visibility = View.VISIBLE else btnLiveReaction?.visibility = View.GONE
             }
-        })
+        })*/
         composeBox = findViewById(R.id.message_box)
         flBox = findViewById(R.id.flBox)
         ivMic = findViewById(R.id.ivMic)

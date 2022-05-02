@@ -74,7 +74,7 @@
     <string name="as_a_moderator">в качестве модератора</string>
     <string name="as_a_admin">в качестве администратора</string>
     <string name="add_members">Добавить участников</string>
-    <string name="actions">Действия</string>
+    <string name="actions">ПОСТУПКИ</string>
     <string name="privacy_and_support">КОНФИДЕНЦИАЛЬНОСТЬ И ПОДДЕРЖКА</string>
     <string name="send_message">Отправить сообщение</string>
     <string name="add_in">Добавить в</string>
@@ -320,14 +320,14 @@
     <string name="shared_location">%1$s поделился местоположением</string>
     <string name="no">Нет</string>
     <string name="turn_on_gps">Включить GPS</string>
-    <string name="on">Да</string>
+    <string name="on">НА</string>
     <string name="gps_enabled">GPS включен</string>
     <string name="gps_disabled">GPS отключен</string>
     <string name="option">Опции</string>
     <string name="sending_media_message">Отправка сообщения мультимедиа</string>
     <string name="add_a_new_option">Добавить новый параметр</string>
     <string name="unable_to_get_location">Не удается получить ваше местоположение</string>
-    <string name="ended">Завершён</string>
+    <string name="ended">Закончил</string>
     <string name="ongoing">Продолжается</string>
     <string name="share_whiteboard">Совместная доска</string>
     <string name="shared_a_whiteboard">Общий доступ к доске для совместной работы</string>
@@ -375,8 +375,7 @@
     <string name="view_profile">Просмотреть профиль</string>
 
 
-    <string name="transfer">перевести</string>
+    <string name="transfer">трансфер»</string>
     <string name="leave_group_message">Вы уверены, что хотите покинуть эту группу?»</string>
     <string name="transfer_ownership_message">Вы являетесь владельцем группы. Прежде чем покинуть группу, передайте право собственности члену.</string>
-    <string name="replyTxt" translatable="false">ответить</string>
 </resources>
