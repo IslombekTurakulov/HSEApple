@@ -45,4 +45,5 @@
     <string name="get_a_request_course" translatable="false">Enter</string>
     <string name="title_activity_list_of_users" translatable="false">ListOfUsersActivity</string>
     <string name="no_assistants" translatable="false">No assistants</string>
+    <string name="no_events">No events</string>
 </resources>

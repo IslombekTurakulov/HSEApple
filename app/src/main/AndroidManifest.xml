@@ -14,22 +14,27 @@
         tools:replace="android:icon">
         <activity
             android:name=".view.activities.ListOfAssistantsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity
             android:name=".view.activities.ListOfUsersActivity"
             android:exported="false"
-            android:theme="@style/Theme.HSEApple.NoActionBar" />
+            android:theme="@style/Theme.HSEApple.NoActionBar"
+            android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity
             android:name=".view.activities.RequestsActivity"
             android:exported="false"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.HSEApple.NoActionBar" />
+            android:theme="@style/Theme.HSEApple.NoActionBar"
+            android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity
             android:name=".view.activities.NewsInfoActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity
             android:name=".view.activities.CreateNewsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity
             android:name=".view.activities.AvailableCoursesActivity"
             android:exported="false"

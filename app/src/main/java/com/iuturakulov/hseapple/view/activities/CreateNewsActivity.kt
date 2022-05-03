@@ -13,16 +13,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.gson.Gson
 import com.iuturakulov.hseapple.R
-import com.iuturakulov.hseapple.model.api.PostEntity
 import com.iuturakulov.hseapple.utils.*
-import kotlinx.android.synthetic.main.activity_create_group_chat.*
 import kotlinx.android.synthetic.main.activity_create_news.*
 import okhttp3.*
 import java.io.ByteArrayOutputStream
 import java.io.IOException
-import java.time.LocalDateTime
 import java.util.*
 
 
@@ -31,7 +27,7 @@ class CreateNewsActivity : AppCompatActivity(R.layout.activity_create_news) {
     private lateinit var cameraPermissions: Array<String>
     private lateinit var storagePermission: Array<String>
 
-    private lateinit var imageUri: Uri
+    private var imageUri: Uri = Uri.EMPTY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,50 +35,14 @@ class CreateNewsActivity : AppCompatActivity(R.layout.activity_create_news) {
         setListeners()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        val client = OkHttpClient().newBuilder()
-            .build()
-        val mediaType = MediaType.parse("application/json")
-        val body = RequestBody.create(
-            mediaType,
-            """{
-                      "courseId": ${if (SELECTION == CourseSelection.CHOSEN_SECOND) 1 else 2} ,
-                      "title": "${createTextTitleNews.text}",
-                      "media_link": "$imageUri",
-                      "content": "${createTextDescNews.text}"
-                    }"""
-        )
-        val request = Request.Builder()
-            .url("http://80.66.64.53:8080/course/post")
-            .method("POST", body)
-            .addHeader(
-                "Authorization",
-                TEMP_TOKEN
-            )
-            .addHeader("Content-Type", "application/json")
-            .addHeader("Cookie", "JSESSIONID=53530B6092B00A54239E5E86BAEE3EE6")
-            .build()
-        try {
-            val response = client.newCall(request).execute()
-            Toast.makeText(
-                this,
-                if (response.isSuccessful) "Success" else "Fail",
-                Toast.LENGTH_SHORT
-            ).show()
-        } catch (exception: IOException) {
-            exception.printStackTrace()
-        }
-    }
-
     private fun setListeners() {
-        createGroupButton.setOnClickListener {
+        create_event_button.setOnClickListener {
             if (validateInputFields()) {
                 createEvent()
                 finish()
             }
         }
-        groupChatAvatar.setOnClickListener {
+        newsImageCreate.setOnClickListener {
             if (!checkCameraPermissions()) {
                 requestCameraPermissions()
             }
@@ -95,49 +55,28 @@ class CreateNewsActivity : AppCompatActivity(R.layout.activity_create_news) {
 
 
     private fun createEvent() {
-        val client = OkHttpClient()
-        val requestGet = Request.Builder()
-            .url("80.66.64.53:8080/course/0/post?start=0")
-            .get()
-            .addHeader("Content-Type", "application/json")
-            .addHeader("token", TOKEN_API)
-            .build()
-        var responsePost: Response? = null
-        try {
-            responsePost = client.newCall(requestGet).execute()
-        } catch (e: IOException) {
-            e.printStackTrace();
-        }
-        var res: Array<PostEntity>? = null
-        if (responsePost != null) {
-            res =
-                Gson().fromJson(
-                    responsePost.body()?.string() ?: "",
-                    Array<PostEntity>::class.java
-                )
-        }
+        val client = OkHttpClient().newBuilder().build()
         val mediaType = MediaType.parse("application/json")
         val body = RequestBody.create(
             mediaType,
             """{
-          "courseId": ${if (!res.isNullOrEmpty()) res.size - 1 else 0},
+          "courseID": ${if (SELECTION == CourseSelection.CHOSEN_SECOND) 1 else 2},
           "title": "${createTextTitleNews.text.toString()}",
           "content": "${createTextDescNews.text.toString()}",
-          "media_link": "${encodeUri(imageUri)}",
-          "createdAt": "${LocalDateTime.now().toString().asDateTime()}"
+          "mediaLink": "${if (!imageUri.path.isNullOrEmpty()) encodeUri(imageUri) else null}"
         }"""
         )
         val requestPost = Request.Builder()
             .url(
-                "https://stoplight.io/mocks/hseapple/nis-app/38273133/course/${
-                    if (!res.isNullOrEmpty()) res[res.size - 1].courseid?.plus(
-                        1
-                    ) else 0
-                }/post"
+                "http://80.66.64.53:8080/course/post"
             )
-            .post(body)
+            .method("POST", body)
+            .addHeader(
+                "Authorization",
+                TEMP_TOKEN
+            )
             .addHeader("Content-Type", "application/json")
-            .addHeader("token", TOKEN_API)
+            .addHeader("Cookie", "JSESSIONID=53530B6092B00A54239E5E86BAEE3EE6")
             .build()
         var responseGet: Response? = null
         try {
@@ -146,7 +85,9 @@ class CreateNewsActivity : AppCompatActivity(R.layout.activity_create_news) {
             e.printStackTrace();
         }
         if (responseGet != null) {
-            println(responseGet.body().toString())
+            Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Failure", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -155,7 +96,9 @@ class CreateNewsActivity : AppCompatActivity(R.layout.activity_create_news) {
         val baos = ByteArrayOutputStream()
         BitmapFactory.decodeStream(input, null, null)
             ?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        return Base64.getEncoder().encodeToString(baos.toByteArray())
+        val result = Base64.getEncoder().encodeToString(baos.toByteArray())
+        Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
+        return result
     }
 
 

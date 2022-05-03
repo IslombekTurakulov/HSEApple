@@ -10,17 +10,17 @@
 
     <ImageView
         android:id="@+id/newsImageCreate"
-        android:layout_width="@dimen/_200sdp"
-        android:layout_height="@dimen/_200sdp"
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_150sdp"
         android:layout_marginTop="60dp"
+        android:contentDescription="news image"
         android:src="@drawable/app_logo"
         app:civ_border_color="@color/white"
         app:civ_border_width="@dimen/_1sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="news image" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/createTextLayoutTitleNews"
@@ -46,7 +46,7 @@
             android:inputType="text"
             android:maxLength="50"
             android:maxLines="1"
-            android:padding="@dimen/_10sdp" />
+            android:padding="@dimen/_20sdp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -69,24 +69,25 @@
             android:background="@color/white"
             android:hint="Event description"
             android:inputType="textCapSentences|textMultiLine|textImeMultiLine"
+            android:isScrollContainer="true"
             android:maxLength="1024"
             android:minHeight="@dimen/_100sdp"
             android:padding="@dimen/_20sdp"
             android:scrollbars="vertical"
-            android:isScrollContainer="true"
-            android:text="@string/lorem_ipsum_example"
             android:textColorLink="@color/blue" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/createNewsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:id="@+id/create_event_button"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
         android:layout_marginBottom="4dp"
         android:backgroundTint="@color/blueInactive"
         android:contentDescription="create_event_desc"
+        android:gravity="center"
         android:src="@drawable/ic_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:tint="@color/almostDark" />
 </androidx.constraintlayout.widget.ConstraintLayout>

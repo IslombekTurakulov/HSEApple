@@ -37,4 +37,5 @@
     <string name="make_a_request_course">Подать заявку</string>
     <string name="get_a_request_course">Войти</string>
     <string name="no_assistants">Нет ассистестентов</string>
+    <string name="no_events">Нет новостей</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.iuturakulov.hseapple.view.activities
 
 import android.content.DialogInterface
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -13,6 +14,7 @@ import kotlinx.android.synthetic.main.fragment_news_info.*
 import kotlinx.android.synthetic.main.toolbar_news_info.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import java.util.*
 
 
 class NewsInfoActivity : AppCompatActivity() {
@@ -50,7 +52,7 @@ class NewsInfoActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
         news = postInfo
         news_info.text = news.title
-        if (role != RoleOfUsers.TEACHER) {
+        if (USER_CHAT.role != "teacher") {
             edit_things_layout.visibility = View.GONE
         } else {
             edit_things_layout.visibility = View.VISIBLE
@@ -85,7 +87,13 @@ class NewsInfoActivity : AppCompatActivity() {
         newsTitleItem.setText(news.title)
         newsDescriptionItem.setText(news.content)
         fieldOptionsInitializer(false)
-        imageNewsItem.setImageBitmap(news.mediaLink?.let { decodeString(it) })
+        if (news.mediaLink.isNullOrEmpty()) {
+            imageNewsItem.setImageDrawable(getDrawable(R.drawable.good_night_img))
+        } else {
+            val bytes: ByteArray = Base64.getDecoder().decode(news.mediaLink)
+            val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+            imageNewsItem.setImageBitmap(bitmap)
+        }
         confirmButtonEdit.setOnClickListener {
             if (validateInputFields()) {
                 Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()

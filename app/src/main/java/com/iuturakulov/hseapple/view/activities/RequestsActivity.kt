@@ -16,6 +16,7 @@ import com.iuturakulov.hseapple.utils.TEMP_TOKEN
 import com.iuturakulov.hseapple.view.adapters.RequestsAdapter
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import kotlinx.android.synthetic.main.activity_requests.*
+import kotlinx.android.synthetic.main.toolbar_requests.*
 import okhttp3.*
 import timber.log.Timber
 import java.io.IOException
@@ -33,6 +34,9 @@ class RequestsActivity : AppCompatActivity() {
                 LinearLayoutManager.VERTICAL
             )
         )
+        back_arrow_requests.setOnClickListener {
+            onBackPressed()
+        }
         requestsAdapter = RequestsAdapter(this)
         recycler_view.adapter = requestsAdapter
         val callback: ItemTouchHelper.SimpleCallback = initializeCallBacks()

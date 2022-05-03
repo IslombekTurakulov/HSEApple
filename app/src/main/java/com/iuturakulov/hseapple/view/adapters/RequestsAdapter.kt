@@ -1,11 +1,13 @@
 package com.iuturakulov.hseapple.view.adapters
 
 import android.content.Context
+import android.os.StrictMode
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.cometchat.pro.models.User
 import com.google.gson.Gson
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.model.api.RequestEntity
@@ -45,12 +47,15 @@ internal class RequestsAdapter(context: Context) :
                 e.printStackTrace();
             }
             if (response != null) {
-                mItems.addAll(
-                    Gson().fromJson(
-                        response.body()?.string() ?: "",
-                        Array<RequestEntity>::class.java
-                    )
+                val res = Gson().fromJson(
+                    response.body()?.string() ?: "",
+                    Array<RequestEntity>::class.java
                 )
+                if (!res.isNullOrEmpty()) {
+                    mItems.addAll(
+                        res
+                    )
+                }
             }
         } catch (e: Exception) {
             Timber.e(e.message!!)
@@ -115,7 +120,13 @@ internal class RequestsAdapter(context: Context) :
     }
 
     init {
-        reloadItems()
+        val SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8) {
+            val policy: StrictMode.ThreadPolicy = StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            reloadItems()
+        }
         this.context = context
     }
 }

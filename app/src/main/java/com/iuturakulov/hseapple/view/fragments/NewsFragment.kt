@@ -2,20 +2,18 @@ package com.iuturakulov.hseapple.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.StrictMode
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.gson.Gson
 import com.iuturakulov.hseapple.R
-import com.iuturakulov.hseapple.model.api.PostEntity
-import com.iuturakulov.hseapple.utils.*
+import com.iuturakulov.hseapple.utils.APP_ACTIVITY
+import com.iuturakulov.hseapple.utils.USER_CHAT
+import com.iuturakulov.hseapple.utils.showToast
 import com.iuturakulov.hseapple.view.activities.CreateNewsActivity
 import com.iuturakulov.hseapple.view.adapters.NewsAdapter
 import kotlinx.android.synthetic.main.fragment_news.*
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import java.io.IOException
-
+import kotlinx.android.synthetic.main.toolbar_create_news.*
 
 class NewsFragment : Fragment(R.layout.fragment_news) {
 
@@ -23,65 +21,44 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_news, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val SDK_INT = android.os.Build.VERSION.SDK_INT;
-        if (SDK_INT > 8) {
-            val policy: StrictMode.ThreadPolicy = StrictMode.ThreadPolicy.Builder()
-                .permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-            updateDatabase()
+        news_info.text = "Новости"
+        if (USER_CHAT.role != "teacher") {
+            create_event_layout.visibility = View.GONE
+        } else {
+            create_event_layout.visibility = View.VISIBLE
         }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.create_event -> {
-                showToast("Create event")
-                val startupIntent =
-                    Intent(APP_ACTIVITY.applicationContext, CreateNewsActivity::class.java)
-                startupIntent.flags =
-                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                startActivity(startupIntent)
-                APP_ACTIVITY.overridePendingTransition(
-                    android.R.anim.fade_in,
-                    android.R.anim.fade_out
-                )
-                updateDatabase()
+        val newsAdapter = NewsAdapter(APP_ACTIVITY.applicationContext)
+        newsRecyclerView.adapter = newsAdapter
+        if (newsAdapter.getAllItems().isNotEmpty()) {
+            isEventsEmptyImage.visibility = View.GONE
+            isEventsEmptyText.visibility = View.GONE
+        } else {
+            isEventsEmptyImage.visibility = View.VISIBLE
+            isEventsEmptyText.visibility = View.VISIBLE
+        }
+        create_event_tool.setOnClickListener {
+            showToast("Create event")
+            val startupIntent =
+                Intent(APP_ACTIVITY.applicationContext, CreateNewsActivity::class.java)
+            startActivity(startupIntent)
+            APP_ACTIVITY.overridePendingTransition(
+                android.R.anim.fade_in,
+                android.R.anim.fade_out
+            )
+            val coursesAdapter = NewsAdapter(requireContext())
+            newsRecyclerView.adapter = coursesAdapter
+            if (coursesAdapter.getAllItems().isNotEmpty()) {
+                isEventsEmptyImage.visibility = View.GONE
+                isEventsEmptyText.visibility = View.GONE
+            } else {
+                isEventsEmptyImage.visibility = View.VISIBLE
+                isEventsEmptyText.visibility = View.VISIBLE
             }
         }
-        return super.onOptionsItemSelected(item)
-    }
-
-    private fun updateDatabase() {
-        val client = OkHttpClient().newBuilder()
-            .build()
-        val request = Request.Builder()
-            .url("http://80.66.64.53:8080/course/2/post?start=1&limit=10")
-            .method("GET", null)
-            .addHeader(
-                "Authorization",
-                TEMP_TOKEN
-            )
-            .addHeader("Content-Type", "application/json")
-            .addHeader("Cookie", "JSESSIONID=53530B6092B00A54239E5E86BAEE3EE6")
-            .build()
-        try {
-            val response = client.newCall(request).execute()
-            val res: Array<PostEntity> =
-                Gson().fromJson(response.body()?.string() ?: "", Array<PostEntity>::class.java)
-            updateUI(res)
-        } catch (exception: IOException) {
-            exception.printStackTrace()
-        }
-    }
-
-    private fun updateUI(list: Array<PostEntity>) {
-        val coursesAdapter = NewsAdapter(list)
-        newsRecyclerView.adapter = coursesAdapter
     }
 }

@@ -5,12 +5,12 @@
         android:id="@+id/create_lab"
         android:title="@string/create_lab_task"
         android:contentDescription="Laboratory task"
-        app:showAsAction="collapseActionView" />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/create_test"
         android:title="@string/create_test"
         android:contentDescription="Test"
-        app:showAsAction="collapseActionView" />
+        app:showAsAction="ifRoom" />
 
 </menu>

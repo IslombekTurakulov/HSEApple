@@ -1,34 +1,113 @@
 package com.iuturakulov.hseapple.view.adapters
 
 import android.content.ContentResolver
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.StrictMode
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.model.api.PostEntity
+import com.iuturakulov.hseapple.utils.CourseSelection
+import com.iuturakulov.hseapple.utils.SELECTION
+import com.iuturakulov.hseapple.utils.TEMP_TOKEN
 import com.iuturakulov.hseapple.utils.postInfo
 import com.iuturakulov.hseapple.view.activities.NewsInfoActivity
 import kotlinx.android.synthetic.main.component_event.view.*
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import timber.log.Timber
 import java.io.ByteArrayOutputStream
+import java.io.IOException
 import java.util.*
 
 class NewsAdapter(
-    private val news: Array<PostEntity>
+    context: Context
 ) : RecyclerView.Adapter<NewsAdapter.DataViewHolder>() {
+
+    private var news: ArrayList<PostEntity> = arrayListOf()
+
+    private fun reloadItems() {
+        val client = OkHttpClient().newBuilder()
+            .build()
+        val request = Request.Builder()
+            .url("http://80.66.64.53:8080/course/${if (SELECTION == CourseSelection.CHOSEN_SECOND) 1 else 2}/post?start=1")
+            .method("GET", null)
+            .addHeader(
+                "Authorization",
+                TEMP_TOKEN
+            )
+            .addHeader("Content-Type", "application/json")
+            .addHeader("Cookie", "JSESSIONID=53530B6092B00A54239E5E86BAEE3EE6")
+            .build()
+        try {
+            val response = client.newCall(request).execute()
+            Timber.d("News: ${response.isSuccessful}")
+            if (response.isSuccessful) {
+                val tempArr =
+                    Gson().fromJson(response.body()?.string() ?: "", Array<PostEntity>::class.java)
+                if (!tempArr.isNullOrEmpty()) {
+                    news.addAll(tempArr)
+                }
+            }
+        } catch (exception: IOException) {
+            exception.printStackTrace()
+        }
+    }
+
+    fun getAllItems(): ArrayList<PostEntity> {
+        return news
+    }
+
+    init {
+        val sdkInt = android.os.Build.VERSION.SDK_INT;
+        if (sdkInt > 8) {
+            val policy: StrictMode.ThreadPolicy = StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            reloadItems()
+        }
+    }
 
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(itemNews: PostEntity) {
             itemView.newsTitleItem.text = itemNews.title
             itemView.newsDescriptionItem.text = itemNews.content
-            Glide.with(itemView.imageNewsItem.context)
-                .load(itemNews.mediaLink)
-                .into(itemView.imageNewsItem)
+            if (itemNews.mediaLink.isNullOrEmpty()) {
+                itemView.imageNewsItem.setImageDrawable(itemView.context.getDrawable(R.drawable.good_night_img))
+            } else {
+                val bytes: ByteArray = Base64.getDecoder().decode(itemNews.mediaLink)
+                val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                itemView.imageNewsItem.setImageBitmap(bitmap)
+            }
+            itemView.seeNewsItem.setOnClickListener {
+                val intent =
+                    Intent(itemView.context, NewsInfoActivity::class.java)
+                postInfo = itemNews
+                itemView.context.startActivity(intent)
+            }
+        }
+
+        private fun encodeDrawable(
+        ): ByteArrayOutputStream {
+            val input = itemView.context.contentResolver.openInputStream(
+                (Uri.Builder())
+                    .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+                    .authority(itemView.resources.getResourcePackageName(R.drawable.good_night_img))
+                    .appendPath(itemView.resources.getResourceTypeName(R.drawable.good_night_img))
+                    .appendPath(itemView.resources.getResourceEntryName(R.drawable.good_night_img))
+                    .build()
+            )
+            val baos = ByteArrayOutputStream()
+            BitmapFactory.decodeStream(input, null, null)
+                ?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            return baos
         }
     }
 
@@ -44,40 +123,6 @@ class NewsAdapter(
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
         holder.bind(news[position])
-        val rnd = Random()
-        val random = rnd.nextInt()
-        if (news[position].mediaLink.isNullOrEmpty()) {
-            holder.itemView.imageNewsItem.setImageDrawable(holder.itemView.context.getDrawable(if (random % 2 == 0) R.drawable.good_night_img else R.drawable.good_morning_img))
-        }
-        holder.itemView.seeNewsItem.setOnClickListener {
-            val intent =
-                Intent(holder.itemView.context, NewsInfoActivity::class.java)
-            postInfo = news[position]
-            val baos = encodeDrawable(random, holder)
-            postInfo.mediaLink = Base64.getEncoder().encodeToString(baos.toByteArray())
-            holder.itemView.context.startActivity(intent)
-        }
     }
-
-    private fun encodeDrawable(
-        random: Int,
-        holder: DataViewHolder
-    ): ByteArrayOutputStream {
-        val resourceId: Int =
-            if (random % 2 == 0) R.drawable.good_night_img else R.drawable.good_morning_img
-        val input = holder.itemView.context.contentResolver.openInputStream(
-            (Uri.Builder())
-                .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
-                .authority(holder.itemView.resources.getResourcePackageName(resourceId))
-                .appendPath(holder.itemView.resources.getResourceTypeName(resourceId))
-                .appendPath(holder.itemView.resources.getResourceEntryName(resourceId))
-                .build()
-        )
-        val baos = ByteArrayOutputStream()
-        BitmapFactory.decodeStream(input, null, null)
-            ?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        return baos
-    }
-
 
 }
