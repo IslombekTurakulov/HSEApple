@@ -2,11 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/create_lab"
         android:title="@string/create_lab_task"
         android:contentDescription="Laboratory task"
         app:showAsAction="collapseActionView" />
 
     <item
+        android:id="@+id/create_test"
         android:title="@string/create_test"
         android:contentDescription="Test"
         app:showAsAction="collapseActionView" />

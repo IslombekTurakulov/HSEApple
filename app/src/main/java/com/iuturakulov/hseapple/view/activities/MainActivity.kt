@@ -39,24 +39,6 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.navigation_chat -> {
-                showToast("Another Menu Item 1 Selected")
-            }
-            R.id.tests_chat -> {
-                showToast("Another Menu Item 2 Selected")
-            }
-            R.id.news_chat -> {
-                showToast("Another Menu Item 3 Selected")
-            }
-            R.id.profile_person -> {
-                showToast("Another Menu Item 4 Selected")
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     private fun showToast(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }

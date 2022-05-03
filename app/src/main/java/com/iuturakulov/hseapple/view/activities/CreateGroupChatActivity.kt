@@ -69,7 +69,7 @@ class CreateGroupChatActivity : AppCompatActivity(R.layout.activity_create_group
         createGroupButton.setOnClickListener {
             if (validateInputFields()) {
                 if (imageUri.path == null) {
-                    // createGroup()
+                    createGroup()
                 }
                 Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
             }
@@ -86,14 +86,6 @@ class CreateGroupChatActivity : AppCompatActivity(R.layout.activity_create_group
     }
 
     private fun createGroup() {
-        val hashMap: HashMap<String, String> = HashMap()
-        val time = System.currentTimeMillis().toString()
-        hashMap["groupId"] = time
-        hashMap["groupTitle"] = groupTitleEditText.text.toString()
-        hashMap["groupDescription"] = groupDescriptionEditText.text.toString()
-        hashMap["groupIcon"] = imageUri.toString()
-        hashMap["timestamp"] = time
-        hashMap["createdBy"] = AUTH.getClientId()
 
     }
 

@@ -33,7 +33,7 @@ class CometChatStartConversation : AppCompatActivity() {
         viewPager = findViewById(R.id.viewPager)
         adapter = TabAdapter(supportFragmentManager)
 
-        val cometChatUserList = CometChatUserList()
+        val cometChatUserList = CometChatUserList("")
         cometChatUserList.setTitleVisible(false)
         val cometChatGroupList = CometChatGroupList()
         cometChatGroupList.setTitleVisible(false)

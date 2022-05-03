@@ -2,7 +2,6 @@ package com.iuturakulov.hseapple.view.activities
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -10,9 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.model.api.PostEntity
 import com.iuturakulov.hseapple.utils.*
-import kotlinx.android.synthetic.main.activity_create_group_chat.*
-import kotlinx.android.synthetic.main.fragment_news.*
 import kotlinx.android.synthetic.main.fragment_news_info.*
+import kotlinx.android.synthetic.main.toolbar_news_info.*
+import okhttp3.OkHttpClient
+import okhttp3.Request
 
 
 class NewsInfoActivity : AppCompatActivity() {
@@ -30,13 +30,54 @@ class NewsInfoActivity : AppCompatActivity() {
         initializeFields()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        val client = OkHttpClient().newBuilder()
+            .build()
+        val request = Request.Builder()
+            .url("http://80.66.64.53:8080/course/2/post?start=1&limit=10")
+            .method("GET", null)
+            .addHeader(
+                "Authorization",
+                TEMP_TOKEN
+            )
+            .addHeader("Content-Type", "application/json")
+            .addHeader("Cookie", "JSESSIONID=53530B6092B00A54239E5E86BAEE3EE6")
+            .build()
+    }
+
     private fun initializeTopAppBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
         news = postInfo
-        topAppBar.title = news.title
+        news_info.text = news.title
         if (role != RoleOfUsers.TEACHER) {
-            topAppBar.menu.getItem(R.id.edit_event_menu).isVisible = false
-            topAppBar.menu.getItem(R.id.delete_event_menu).isVisible = false
+            edit_things_layout.visibility = View.GONE
+        } else {
+            edit_things_layout.visibility = View.VISIBLE
+        }
+        back_arrow_news.setOnClickListener {
+            onBackPressed()
+        }
+        edit_event.setOnClickListener {
+            fieldOptionsInitializer(true)
+        }
+        delete_event.setOnClickListener {
+            val dialogClickListener: DialogInterface.OnClickListener =
+                DialogInterface.OnClickListener { dialog, which ->
+                    when (which) {
+                        DialogInterface.BUTTON_POSITIVE -> {
+                            Toast.makeText(this, "YES", Toast.LENGTH_SHORT).show()
+                        }
+                        DialogInterface.BUTTON_NEGATIVE -> {
+                            Toast.makeText(this, "No", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+
+            val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+            builder.setMessage(getString(R.string.arsure_dialog))
+                .setPositiveButton(getString(R.string.yes_status), dialogClickListener)
+                .setNegativeButton(getString(R.string.no_status), dialogClickListener).show()
         }
     }
 
@@ -45,7 +86,6 @@ class NewsInfoActivity : AppCompatActivity() {
         newsDescriptionItem.setText(news.content)
         fieldOptionsInitializer(false)
         imageNewsItem.setImageBitmap(news.mediaLink?.let { decodeString(it) })
-        newsToolBar.setNavigationOnClickListener { onBackPressed() }
         confirmButtonEdit.setOnClickListener {
             if (validateInputFields()) {
                 Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
@@ -69,33 +109,6 @@ class NewsInfoActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
-        when (menuItem.itemId) {
-            R.id.edit_event_menu -> {
-                fieldOptionsInitializer(true)
-            }
-            R.id.delete_event_menu -> {
-                val dialogClickListener: DialogInterface.OnClickListener =
-                    DialogInterface.OnClickListener { dialog, which ->
-                        when (which) {
-                            DialogInterface.BUTTON_POSITIVE -> {
-                                Toast.makeText(this, "YES", Toast.LENGTH_SHORT).show()
-                            }
-                            DialogInterface.BUTTON_NEGATIVE -> {
-                                Toast.makeText(this, "No", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    }
-
-                val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-                builder.setMessage(getString(R.string.arsure_dialog))
-                    .setPositiveButton(getString(R.string.yes_status), dialogClickListener)
-                    .setNegativeButton(getString(R.string.no_status), dialogClickListener).show()
-            }
-        }
-        return super.onOptionsItemSelected(menuItem)
-    }
-
     private fun fieldOptionsInitializer(flag: Boolean) {
         editMode = flag
         newsTitleItem.isClickable = flag
@@ -109,7 +122,7 @@ class NewsInfoActivity : AppCompatActivity() {
             newsDescriptionItem.tag = newsDescriptionItem.keyListener
         }
         textInputLayoutDesc.isCounterEnabled = flag
-        textInputLayoutTitle.isCounterEnabled = flag
+        textNewsTitleCreate.isCounterEnabled = flag
         confirmButtonEdit.visibility = if (flag) View.VISIBLE else View.GONE
     }
 }

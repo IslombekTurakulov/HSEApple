@@ -3,29 +3,36 @@ package com.iuturakulov.hseapple.view.activities
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.cometchat.pro.models.User
+import com.cometchat.pro.uikit.ui_components.users.user_list.CometChatUserList
 import com.google.android.material.snackbar.Snackbar
 import com.iuturakulov.hseapple.R
-import com.iuturakulov.hseapple.model.api.RequestEntity
-import com.iuturakulov.hseapple.utils.TEMP_TOKEN
-import com.iuturakulov.hseapple.view.adapters.RequestsAdapter
+import com.iuturakulov.hseapple.view.adapters.AssistantsAdapter
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
+import kotlinx.android.synthetic.main.activity_list_of_assistants.*
 import kotlinx.android.synthetic.main.activity_requests.*
+import kotlinx.android.synthetic.main.activity_requests.recycler_view
 import okhttp3.*
 import timber.log.Timber
 import java.io.IOException
 
-class RequestsActivity : AppCompatActivity() {
+class ListOfAssistantsActivity : AppCompatActivity() {
 
-    private var requestsAdapter: RequestsAdapter? = null
+    private var assistantAdapter: AssistantsAdapter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_requests)
+        setContentView(R.layout.activity_list_of_assistants)
+
+
         recycler_view.layoutManager = LinearLayoutManager(this)
         recycler_view.addItemDecoration(
             DividerItemDecoration(
@@ -33,16 +40,19 @@ class RequestsActivity : AppCompatActivity() {
                 LinearLayoutManager.VERTICAL
             )
         )
-        requestsAdapter = RequestsAdapter(this)
-        recycler_view.adapter = requestsAdapter
+        assistantAdapter = AssistantsAdapter(this)
+        recycler_view.adapter = assistantAdapter
+        if (assistantAdapter!!.getAllItems().isNotEmpty()) {
+            isAssistantsEmptyImage.visibility = View.GONE
+            isAssistantsEmptyText.visibility = View.GONE
+        }
         val callback: ItemTouchHelper.SimpleCallback = initializeCallBacks()
         val itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(recycler_view)
     }
-
     private fun initializeCallBacks(): ItemTouchHelper.SimpleCallback {
         val callback: ItemTouchHelper.SimpleCallback = object :
-            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT) {
+            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
@@ -51,26 +61,32 @@ class RequestsActivity : AppCompatActivity() {
                 return false
             }
 
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                try {
-                    val position = viewHolder.adapterPosition
-                    val item: RequestEntity? = requestsAdapter!!.removeItem(position)
-                    val snack = Snackbar.make(
-                        viewHolder.itemView,
-                        "Item " + (if (direction == ItemTouchHelper.RIGHT) "denied" else "accepted") + ".",
-                        Snackbar.LENGTH_LONG
-                    )
-                    snack.setAction(android.R.string.cancel) {
-                        try {
-                            requestsAdapter!!.addItem(item!!, position)
-                        } catch (e: Exception) {
-                            Timber.e(e.message!!)
-                        }
-                    }
-                    snack.show()
-                } catch (e: Exception) {
-                    Timber.e(e.message!!)
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) = try {
+                val position = viewHolder.adapterPosition
+                val item: User? = assistantAdapter!!.removeItem(position)
+                if (assistantAdapter!!.getAllItems().isNotEmpty()) {
+                    isAssistantsEmptyImage.visibility = View.GONE
+                    isAssistantsEmptyText.visibility = View.GONE
                 }
+                val snack = Snackbar.make(
+                    viewHolder.itemView,
+                    "Item ${if (direction == ItemTouchHelper.RIGHT) "denied" else "accepted"}.",
+                    Snackbar.LENGTH_LONG
+                )
+                snack.setAction(android.R.string.cancel) {
+                    try {
+                        assistantAdapter!!.addItem(item!!, position)
+                        if (assistantAdapter!!.getAllItems().isNotEmpty()) {
+                            isAssistantsEmptyImage.visibility = View.GONE
+                            isAssistantsEmptyText.visibility = View.GONE
+                        }
+                    } catch (e: Exception) {
+                        Timber.e(e.message!!)
+                    }
+                }
+                snack.show()
+            } catch (e: Exception) {
+                Timber.e(e.message!!)
             }
 
             override fun onChildDraw(
@@ -91,25 +107,15 @@ class RequestsActivity : AppCompatActivity() {
                     actionState,
                     isCurrentlyActive
                 )
-                    .addSwipeLeftBackgroundColor(
-                        ContextCompat.getColor(
-                            this@RequestsActivity,
-                            R.color.recycler_view_item_swipe_left_background
-                        )
-                    )
-                    .addSwipeLeftActionIcon(R.drawable.ic_person_add_24)
                     .addSwipeRightBackgroundColor(
                         ContextCompat.getColor(
-                            this@RequestsActivity,
+                            this@ListOfAssistantsActivity,
                             R.color.recycler_view_item_swipe_right_background
                         )
                     )
                     .addSwipeRightActionIcon(R.drawable.ic_delete_white_24dp)
                     .addSwipeRightLabel("User deleted")
                     .setSwipeRightLabelColor(Color.WHITE)
-                    .addSwipeLeftLabel("User accepted")
-                    .setSwipeLeftLabelColor(Color.WHITE) //.addCornerRadius(TypedValue.COMPLEX_UNIT_DIP, 16)
-                    //.addPadding(TypedValue.COMPLEX_UNIT_DIP, 8, 16, 8)
                     .create()
                     .decorate()
                 super.onChildDraw(
@@ -128,20 +134,19 @@ class RequestsActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        val items = requestsAdapter!!.getAllItems()
+        val items = assistantAdapter!!.getAllItems()
         val client = OkHttpClient()
         val mediaType = MediaType.parse("application/json")
-        val body = RequestBody.create(mediaType, "{\n  \"approved\": true\n}")
         for (item in items) {
+            val body = RequestBody.create(
+                mediaType,
+                "{\"name\":\"${item.name}\",\"avatar\":\"${item.avatar}\",\"link\":\"${item.link}\",\"role\":\"default\",\"metadata\":${item.metadata},\"tags\":${item.tags},\"unset\":${item.tags}}"
+            )
             val request = Request.Builder()
-                .url("80.66.64.53:8080/request/${item.courseID}/${item.userID}")
-                .method("PUT", body)
-                .addHeader(
-                    "Authorization",
-                    TEMP_TOKEN
-                )
+                .url("https://2080788f45f25844.api-eu.cometchat.io/v3/users/iturakulov")
+                .put(body)
+                .addHeader("Accept", "application/json")
                 .addHeader("Content-Type", "application/json")
-                .addHeader("Cookie", "JSESSIONID=53530B6092B00A54239E5E86BAEE3EE6")
                 .build()
             var response: Response? = null
             try {
@@ -150,8 +155,16 @@ class RequestsActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
             if (response != null) {
-                println(response.body().toString())
+                Timber.w(if (response.isSuccessful) "${item.name} deleted" else "${item.name} with failure")
             }
         }
+    }
+
+    private fun loadFragment(fragment: Fragment?): Boolean {
+        if (fragment != null) {
+            supportFragmentManager.beginTransaction().replace(R.id.frameOfUsers, fragment).commit()
+            return true
+        }
+        return false
     }
 }

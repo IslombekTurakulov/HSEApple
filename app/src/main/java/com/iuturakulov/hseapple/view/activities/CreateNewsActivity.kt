@@ -16,10 +16,7 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.gson.Gson
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.model.api.PostEntity
-import com.iuturakulov.hseapple.utils.TOKEN_API
-import com.iuturakulov.hseapple.utils.asDateTime
-import com.iuturakulov.hseapple.utils.validateNews
-import com.iuturakulov.hseapple.utils.validateTitle
+import com.iuturakulov.hseapple.utils.*
 import kotlinx.android.synthetic.main.activity_create_group_chat.*
 import kotlinx.android.synthetic.main.activity_create_news.*
 import okhttp3.*
@@ -42,11 +39,47 @@ class CreateNewsActivity : AppCompatActivity(R.layout.activity_create_news) {
         setListeners()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        val client = OkHttpClient().newBuilder()
+            .build()
+        val mediaType = MediaType.parse("application/json")
+        val body = RequestBody.create(
+            mediaType,
+            """{
+                      "courseId": ${if (SELECTION == CourseSelection.CHOSEN_SECOND) 1 else 2} ,
+                      "title": "${createTextTitleNews.text}",
+                      "media_link": "$imageUri",
+                      "content": "${createTextDescNews.text}"
+                    }"""
+        )
+        val request = Request.Builder()
+            .url("http://80.66.64.53:8080/course/post")
+            .method("POST", body)
+            .addHeader(
+                "Authorization",
+                TEMP_TOKEN
+            )
+            .addHeader("Content-Type", "application/json")
+            .addHeader("Cookie", "JSESSIONID=53530B6092B00A54239E5E86BAEE3EE6")
+            .build()
+        try {
+            val response = client.newCall(request).execute()
+            Toast.makeText(
+                this,
+                if (response.isSuccessful) "Success" else "Fail",
+                Toast.LENGTH_SHORT
+            ).show()
+        } catch (exception: IOException) {
+            exception.printStackTrace()
+        }
+    }
+
     private fun setListeners() {
         createGroupButton.setOnClickListener {
             if (validateInputFields()) {
                 createEvent()
-                Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
+                finish()
             }
         }
         groupChatAvatar.setOnClickListener {

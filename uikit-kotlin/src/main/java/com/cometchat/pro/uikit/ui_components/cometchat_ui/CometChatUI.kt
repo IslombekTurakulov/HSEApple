@@ -198,7 +198,7 @@ class CometChatUI : AppCompatActivity(), BottomNavigationView.OnNavigationItemSe
             callListEnabled -> loadFragment(CometChatCallList())
             groupListEnabled -> loadFragment(CometChatGroupList())
             userSettingsEnabled -> loadFragment(CometChatUserProfile())
-            userListEnabled -> loadFragment(CometChatUserList())
+            userListEnabled -> loadFragment(CometChatUserList(""))
         }
     }
 
@@ -375,7 +375,7 @@ class CometChatUI : AppCompatActivity(), BottomNavigationView.OnNavigationItemSe
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_users -> {
-                fragment = CometChatUserList()
+                fragment = CometChatUserList("")
             }
             R.id.menu_group -> {
                 fragment = CometChatGroupList()

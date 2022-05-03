@@ -63,11 +63,11 @@ class ChatsFragment : Fragment(), OnAlertDialogButtonClickListener {
                     startGroupIntent(group)
                 } else {
                     if (group!!.groupType == CometChatConstants.GROUP_TYPE_PASSWORD) {
-                        val dialogview = layoutInflater.inflate(R.layout.cc_dialog, null)
-                        val tvTitle = dialogview.findViewById<TextView>(R.id.textViewDialogueTitle)
+                        val dialogue = layoutInflater.inflate(R.layout.cc_dialog, null)
+                        val tvTitle = dialogue.findViewById<TextView>(R.id.textViewDialogueTitle)
                         tvTitle.text = ""
                         CustomAlertDialogHelper(
-                            requireContext(), "Password", dialogview, "Join",
+                            requireContext(), "Password", dialogue, "Join",
                             "", "Cancel", this@ChatsFragment, 1, false
                         )
                     } else if (group!!.groupType == CometChatConstants.GROUP_TYPE_PUBLIC) {

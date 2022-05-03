@@ -6,7 +6,6 @@ import android.widget.Toast
 import com.cometchat.pro.core.CometChat
 import com.cometchat.pro.exceptions.CometChatException
 import com.cometchat.pro.models.User
-import com.google.gson.Gson
 import com.hse.auth.utils.AuthConstants
 import com.hse.core.BaseApplication
 import com.hse.core.ui.BaseActivity
@@ -14,12 +13,7 @@ import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.model.api.UserEntity
 import com.iuturakulov.hseapple.utils.*
 import kotlinx.android.synthetic.main.activity_login.*
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
 import timber.log.Timber
-import java.io.IOException
-import java.sql.Timestamp
 
 class LoginAuthActivity : BaseActivity() {
 
@@ -27,23 +21,21 @@ class LoginAuthActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         BaseApplication.appComponent.inject(this)
-
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_login)
         preferenceManager = PreferenceManager(this)
         authLogButton.setOnClickListener {
             authLogButton!!.isClickable = false
-             UserEntity(
-                 id = 1,
-                 firstname =
-                 "Туракулов",
-                 lastname = "Исломбек",
-                 fullName = "Туракулов Исломбек Улугбекович",
-                 email = "gsosnovskij@hse.ru",
-                 createdAt = null
-             ).also { USER = it }
-            createUser()
+            UserEntity(
+                id = 1,
+                firstname =
+                "Туракулов",
+                lastname = "Исломбек",
+                fullName = "Туракулов Исломбек Улугбекович",
+                email = "gsosnovskij@edu.hse.ru",
+                createdAt = null
+            ).also { USER = it }
+            initializeChatAndLogin()
             // AuthHelper.login(this, 1)
         }
     }
@@ -58,39 +50,18 @@ class LoginAuthActivity : BaseActivity() {
             REFRESH_TOKEN = data.getStringExtra(AuthConstants.KEY_REFRESH_TOKEN)!!
             Timber.d("Token got, success")
             Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
-            initializeToken()
         }
     }
 
-    private fun initializeToken() {
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .url("ip/auth")
-            .get()
-            .addHeader("Content-Type", "application/json")
-            .addHeader("Authorization", ACCESS_TOKEN)
-            .build()
-        var response: Response? = null
-        try {
-            response = client.newCall(request).execute()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        if (response != null) {
-            val res: UserEntity =
-                Gson().fromJson(response.body()?.string() ?: "", UserEntity::class.java)
-            UserEntity(
-                id = res.id,
-                firstname = "",
-                lastname = "",
-                fullName = res.fullName,
-                email = res.email,
-                createdAt = Timestamp.valueOf(res.createdAt.toString())
-            ).also { USER = it }
-            createUser()
-        }
+    private fun initializeChatAndLogin() {
+        createUser()
+        val startupIntent = Intent(this, AvailableCoursesActivity::class.java)
+        startupIntent.flags =
+            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(startupIntent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        finish()
     }
-
 
     private fun createUser() {
         val email = USER.email!!.split("@")[0]
@@ -119,9 +90,7 @@ class LoginAuthActivity : BaseActivity() {
     private fun login(user: User) {
         CometChat.login(user.uid, AUTH_KEY, object : CometChat.CallbackListener<User?>() {
             override fun onSuccess(user: User?) {
-                if (user != null) {
-                    USER_CHAT = user
-                }
+                USER_CHAT = user!!
             }
 
             override fun onError(e: CometChatException) {
@@ -129,9 +98,5 @@ class LoginAuthActivity : BaseActivity() {
                     .show()
             }
         })
-        val startupIntent = Intent(this, AvailableCoursesActivity::class.java)
-        startActivity(startupIntent)
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-        finish()
     }
 }

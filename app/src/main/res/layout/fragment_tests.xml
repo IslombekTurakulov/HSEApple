@@ -29,9 +29,12 @@
                 app:layout_collapseMode="parallax" />
 
             <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolBar_tests"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
+                app:titleTextColor="@color/almostDark"
+                app:subtitleTextColor="@color/almostDark"
                 app:menu="@menu/menu_tests"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
 
@@ -74,6 +77,7 @@
                     android:layout_height="@dimen/_250sdp">
 
                     <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+                        android:id="@+id/currentTestsRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_7sdp"
@@ -112,6 +116,7 @@
                     android:layout_height="@dimen/_250sdp">
 
                     <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+                        android:id="@+id/completedTestsRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_7sdp"

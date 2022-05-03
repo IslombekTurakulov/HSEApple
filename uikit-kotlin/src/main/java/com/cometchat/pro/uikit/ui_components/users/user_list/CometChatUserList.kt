@@ -22,8 +22,6 @@ import com.cometchat.pro.exceptions.CometChatException
 import com.cometchat.pro.models.User
 import com.cometchat.pro.uikit.R
 import com.cometchat.pro.uikit.ui_components.shared.cometchatUsers.CometChatUsers
-import com.cometchat.pro.uikit.ui_components.shared.cometchatUsers.CometChatUsersAdapter
-import com.cometchat.pro.uikit.ui_resources.constants.UIKitConstants
 import com.cometchat.pro.uikit.ui_resources.utils.ErrorMessagesUtils
 import com.cometchat.pro.uikit.ui_resources.utils.FontUtils
 import com.cometchat.pro.uikit.ui_resources.utils.Utils
@@ -32,7 +30,6 @@ import com.cometchat.pro.uikit.ui_settings.FeatureRestriction
 import com.cometchat.pro.uikit.ui_settings.UIKitSettings
 import com.cometchat.pro.uikit.ui_settings.enum.UserMode
 import com.facebook.shimmer.ShimmerFrameLayout
-import java.util.*
 
 /*
  * Copyright 2019 The Android Open Source Project
@@ -62,12 +59,9 @@ import java.util.*
 * Modified on  - 23rd March 2020
 
 */
-class CometChatUserList constructor() : Fragment() {
+class CometChatUserList(val role: String) : Fragment() {
     private var isTitleVisible: Boolean = true
-    private val LIMIT: Int = 30
     private var c: Context? = null
-    private val isSearching: Boolean = false
-    private val userListAdapter: CometChatUsersAdapter? = null
     private var usersRequest // Use to fetch users
             : UsersRequest? = null
     private var rvUserList // Use to display list of users
@@ -81,8 +75,11 @@ class CometChatUserList constructor() : Fragment() {
     private var rlSearchBox: RelativeLayout? = null
     private var noUserLayout: LinearLayout? = null
     private val userList: MutableList<User> = ArrayList()
-    public override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                                     savedInstanceState: Bundle?): View? {
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_cometchat_userlist, container, false)
         title = view.findViewById(R.id.tv_title)
@@ -96,10 +93,9 @@ class CometChatUserList constructor() : Fragment() {
 
         val fragment = fragmentManager?.findFragmentByTag("startChat")
         if (fragment != null && fragment.isVisible) {
-            Log.e(TAG, "onCreateView: user " + fragment.toString())
+            Log.e(TAG, "onCreateView: user $fragment")
             title?.visibility = View.GONE
         }
-
         FeatureRestriction.isUserSearchEnabled(object : FeatureRestriction.OnSuccessListener {
             override fun onSuccess(p0: Boolean) {
                 if (!p0) {
@@ -109,15 +105,29 @@ class CometChatUserList constructor() : Fragment() {
             }
 
         })
-        if (Utils.isDarkMode(context!!)) {
+        if (Utils.isDarkMode(requireContext())) {
             title!!.setTextColor(resources.getColor(R.color.textColorWhite))
         } else {
             title!!.setTextColor(resources.getColor(R.color.primaryTextColor))
         }
         etSearch!!.addTextChangedListener(object : TextWatcher {
-            public override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            public override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            public override fun afterTextChanged(editable: Editable) {
+            override fun beforeTextChanged(
+                charSequence: CharSequence,
+                i: Int,
+                i1: Int,
+                i2: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                charSequence: CharSequence,
+                i: Int,
+                i1: Int,
+                i2: Int
+            ) {
+            }
+
+            override fun afterTextChanged(editable: Editable) {
                 if (editable.isEmpty()) {
                     // if etSearch is empty then fetch all users.
                     usersRequest = null
@@ -130,7 +140,11 @@ class CometChatUserList constructor() : Fragment() {
             }
         })
         etSearch!!.setOnEditorActionListener(object : OnEditorActionListener {
-            public override fun onEditorAction(textView: TextView, i: Int, keyEvent: KeyEvent?): Boolean {
+            override fun onEditorAction(
+                textView: TextView,
+                i: Int,
+                keyEvent: KeyEvent?
+            ): Boolean {
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
                     searchUser(textView.text.toString())
                     clearSearch!!.visibility = View.VISIBLE
@@ -143,7 +157,8 @@ class CometChatUserList constructor() : Fragment() {
             etSearch!!.setText("")
             clearSearch!!.visibility = View.GONE
             searchUser(etSearch?.text.toString())
-            val inputMethodManager: InputMethodManager = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val inputMethodManager: InputMethodManager =
+                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             // Hide the soft keyboard
             inputMethodManager.hideSoftInputFromWindow(etSearch!!.windowToken, 0)
         }
@@ -151,7 +166,7 @@ class CometChatUserList constructor() : Fragment() {
 
         // Uses to fetch next list of user if rvUserList (RecyclerView) is scrolled in upward direction.
         rvUserList!!.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            public override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if (!recyclerView.canScrollVertically(1)) {
                     fetchUsers()
                 }
@@ -160,7 +175,7 @@ class CometChatUserList constructor() : Fragment() {
 
         // Used to trigger event on click of user item in rvUserList (RecyclerView)
         rvUserList!!.setItemClickListener(object : OnItemClickListener<User?>() {
-            public override fun OnItemClick(t: Any, position: Int) {
+            override fun OnItemClick(t: Any, position: Int) {
                 if (events != null) events!!.OnItemClick(t as User, position)
             }
         })
@@ -173,7 +188,7 @@ class CometChatUserList constructor() : Fragment() {
         shimmerFrameLayout?.visibility = View.GONE
     }
 
-    public override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fetchUsers()
         if (isTitleVisible)
@@ -189,12 +204,14 @@ class CometChatUserList constructor() : Fragment() {
      */
     private fun fetchUsers() {
         if (usersRequest == null) {
-            if (UIKitSettings.userInMode == UserMode.FRIENDS) usersRequest = UsersRequestBuilder().setLimit(30)
+            if (UIKitSettings.userInMode == UserMode.FRIENDS) usersRequest =
+                UsersRequestBuilder().setLimit(30)
                     .friendsOnly(true).build()
-            else if (UIKitSettings.userInMode == UserMode.ALL_USER) usersRequest = UsersRequestBuilder().setLimit(30).build()
+            else if (UIKitSettings.userInMode == UserMode.ALL_USER) usersRequest =
+                UsersRequestBuilder().setLimit(30).build()
         }
         usersRequest!!.fetchNext(object : CallbackListener<List<User>>() {
-            public override fun onSuccess(users: List<User>) {
+            override fun onSuccess(users: List<User>) {
                 Log.e(TAG, "onfetchSuccess: " + users.size)
                 userList.addAll(users)
                 stopHideShimmer()
@@ -208,7 +225,7 @@ class CometChatUserList constructor() : Fragment() {
                 }
             }
 
-            public override fun onError(e: CometChatException) {
+            override fun onError(e: CometChatException) {
                 Log.e(TAG, "onError: " + e.message)
                 stopHideShimmer()
                 if (activity != null) ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
@@ -224,27 +241,25 @@ class CometChatUserList constructor() : Fragment() {
      * @see UsersRequest
      */
     private fun searchUser(s: String) {
-        val usersRequest: UsersRequest = UsersRequestBuilder().setSearchKeyword(s).setLimit(100).build()
+        val usersRequest: UsersRequest =
+            UsersRequestBuilder().setSearchKeyword(s).setLimit(100).build()
         usersRequest.fetchNext(object : CallbackListener<List<User?>?>() {
-            public override fun onSuccess(users: List<User?>?) {
-                rvUserList!!.searchUserList(users) // set the users to rvUserList i.e CometChatUserList Component.
+            override fun onSuccess(users: List<User?>?) {
+                if (role.isNotEmpty()) {
+                    val filteredItems = users?.filter { it?.role != role }
+                    rvUserList!!.searchUserList(filteredItems)
+                } else {
+                    rvUserList!!.searchUserList(users)
+                }
             }
 
-            public override fun onError(e: CometChatException) {
+            override fun onError(e: CometChatException) {
                 ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
             }
         })
     }
 
-    public override fun onResume() {
-        super.onResume()
-    }
-
-    public override fun onPause() {
-        super.onPause()
-    }
-
-    public override fun onAttach(context: Context) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         this.c = context
     }

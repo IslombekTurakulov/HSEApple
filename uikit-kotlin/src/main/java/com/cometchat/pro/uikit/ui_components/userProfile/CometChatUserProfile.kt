@@ -59,7 +59,7 @@ class CometChatUserProfile constructor() : Fragment() {
 //            DrawableCompat.setTint(wrappedDrawable, widgetColor)
 //            moreInfoScreenBinding?.ivSecurity?.setImageDrawable(wrappedDrawable)
 //        }
-        if (Utils.isDarkMode(context!!)) {
+        if (Utils.isDarkMode(requireContext())) {
             moreInfoScreenBinding?.tvTitle?.setTextColor(resources.getColor(R.color.textColorWhite))
             moreInfoScreenBinding?.tvSeperator?.setBackgroundColor(resources.getColor(R.color.grey))
             moreInfoScreenBinding?.tvSeperator1?.setBackgroundColor(resources.getColor(R.color.grey))
@@ -96,7 +96,7 @@ class CometChatUserProfile constructor() : Fragment() {
         }
         avatar_url.addTextChangedListener(object : TextWatcher {
             public override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            public override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
             public override fun afterTextChanged(s: Editable) {
                 if (s.toString().isNotEmpty()) {
                     avatar.visibility = View.VISIBLE
@@ -106,18 +106,17 @@ class CometChatUserProfile constructor() : Fragment() {
         })
         val alertDialog: AlertDialog = dialog!!.create()
         alertDialog.setView(view)
-        updateUserBtn.setOnClickListener(object : View.OnClickListener {
-            public override fun onClick(v: View) {
-                val user: User = User()
-                if (username.text.toString().isEmpty()) username.error = getString(R.string.fill_this_field) else {
-                    user.name = username.text.toString()
-                    user.uid = CometChat.getLoggedInUser().uid
-                    user.avatar = avatar_url.text.toString()
-                    updateUser(user)
-                    alertDialog.dismiss()
-                }
+        updateUserBtn.setOnClickListener {
+            val user: User = User()
+            if (username.text.toString().isEmpty()) username.error =
+                getString(R.string.fill_this_field) else {
+                user.name = username.text.toString()
+                user.uid = CometChat.getLoggedInUser().uid
+                user.avatar = avatar_url.text.toString()
+                updateUser(user)
+                alertDialog.dismiss()
             }
-        })
+        }
         cancelBtn.setOnClickListener { alertDialog.dismiss() }
         alertDialog.show()
     }

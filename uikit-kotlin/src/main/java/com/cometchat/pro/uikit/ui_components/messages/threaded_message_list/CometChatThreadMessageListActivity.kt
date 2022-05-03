@@ -14,9 +14,7 @@ import com.cometchat.pro.uikit.ui_components.cometchat_ui.CometChatUI
 import com.cometchat.pro.uikit.ui_components.messages.message_actions.listener.MessageActionCloseListener
 import com.cometchat.pro.uikit.ui_components.messages.message_actions.listener.OnMessageLongClick
 import com.cometchat.pro.uikit.ui_resources.constants.UIKitConstants
-import com.cometchat.pro.uikit.ui_settings.FeatureRestriction
 import com.cometchat.pro.uikit.ui_settings.UIKitSettings
-import java.util.*
 
 class CometChatThreadMessageListActivity : AppCompatActivity(), ThreadAdapter.OnMessageLongClick {
     var fragment: Fragment = CometChatThreadMessageList()
@@ -51,38 +49,61 @@ class CometChatThreadMessageListActivity : AppCompatActivity(), ThreadAdapter.On
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cometchat_message_list)
 
-        if (UIKitSettings.color != null)
-            window.statusBarColor = Color.parseColor(UIKitSettings.color)
+        window.statusBarColor = Color.parseColor(UIKitSettings.color)
 
         if (intent != null) {
             val bundle = Bundle()
-            if (intent.hasExtra(UIKitConstants.IntentStrings.MESSAGE_CATEGORY)) messageCategory = intent.getStringExtra(UIKitConstants.IntentStrings.MESSAGE_CATEGORY)
-            if (intent.hasExtra(UIKitConstants.IntentStrings.LOCATION_LONGITUDE)) longitude = intent.getDoubleExtra(UIKitConstants.IntentStrings.LOCATION_LONGITUDE, 0.0)
-            if (intent.hasExtra(UIKitConstants.IntentStrings.LOCATION_LATITUDE)) latitude = intent.getDoubleExtra(UIKitConstants.IntentStrings.LOCATION_LATITUDE, 0.0)
-            if (intent.hasExtra(UIKitConstants.IntentStrings.CONVERSATION_NAME)) conversationName = intent.getStringExtra(UIKitConstants.IntentStrings.CONVERSATION_NAME)
-            if (intent.hasExtra(UIKitConstants.IntentStrings.PARENT_ID)) messageId = intent.getIntExtra(UIKitConstants.IntentStrings.PARENT_ID, 0)
-            if (intent.hasExtra(UIKitConstants.IntentStrings.REPLY_COUNT)) replyCount = intent.getIntExtra(UIKitConstants.IntentStrings.REPLY_COUNT, 0)
-            if (intent.hasExtra(UIKitConstants.IntentStrings.AVATAR)) avatar = intent.getStringExtra(UIKitConstants.IntentStrings.AVATAR)
-            if (intent.hasExtra(UIKitConstants.IntentStrings.NAME)) name = intent.getStringExtra(UIKitConstants.IntentStrings.NAME)
-            if (intent.hasExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE)) messageType = intent.getStringExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE)
-            if (intent.hasExtra(UIKitConstants.IntentStrings.UID)) uid = intent.getStringExtra(UIKitConstants.IntentStrings.UID)
-            if (intent.hasExtra(UIKitConstants.IntentStrings.SENTAT)) sentAt = intent.getLongExtra(UIKitConstants.IntentStrings.SENTAT, 0)
-            if (intent.hasExtra(UIKitConstants.IntentStrings.TEXTMESSAGE)) message = intent.getStringExtra(UIKitConstants.IntentStrings.TEXTMESSAGE)
-            if (intent.hasExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME)) messagefileName = intent.getStringExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME)
-            if (intent.hasExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_SIZE)) mediaSize = intent.getIntExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_SIZE, 0)
-            if (intent.hasExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_URL)) mediaUrl = intent.getStringExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_URL)
-            if (intent.hasExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_EXTENSION)) mediaExtension = intent.getStringExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_EXTENSION)
-            if (intent.hasExtra(UIKitConstants.IntentStrings.TYPE)) type = intent.getStringExtra(UIKitConstants.IntentStrings.TYPE)
-            if (intent.hasExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_MIME_TYPE)) mediaMime = intent.getStringExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_MIME_TYPE)
-            if (intent.hasExtra(UIKitConstants.IntentStrings.POLL_QUESTION)) pollQuestion = intent.getStringExtra(UIKitConstants.IntentStrings.POLL_QUESTION)
-            if (intent.hasExtra(UIKitConstants.IntentStrings.POLL_OPTION)) pollOptions = intent.getStringExtra(UIKitConstants.IntentStrings.POLL_OPTION)
-            if (intent.hasExtra(UIKitConstants.IntentStrings.POLL_RESULT)) pollResult = intent.getStringArrayListExtra(UIKitConstants.IntentStrings.POLL_RESULT)
-            if (intent.hasExtra(UIKitConstants.IntentStrings.POLL_VOTE_COUNT)) voteCount = intent.getIntExtra(UIKitConstants.IntentStrings.POLL_VOTE_COUNT, 0)
+            if (intent.hasExtra(UIKitConstants.IntentStrings.MESSAGE_CATEGORY)) messageCategory =
+                intent.getStringExtra(UIKitConstants.IntentStrings.MESSAGE_CATEGORY)
+            if (intent.hasExtra(UIKitConstants.IntentStrings.LOCATION_LONGITUDE)) longitude =
+                intent.getDoubleExtra(UIKitConstants.IntentStrings.LOCATION_LONGITUDE, 0.0)
+            if (intent.hasExtra(UIKitConstants.IntentStrings.LOCATION_LATITUDE)) latitude =
+                intent.getDoubleExtra(UIKitConstants.IntentStrings.LOCATION_LATITUDE, 0.0)
+            if (intent.hasExtra(UIKitConstants.IntentStrings.CONVERSATION_NAME)) conversationName =
+                intent.getStringExtra(UIKitConstants.IntentStrings.CONVERSATION_NAME)
+            if (intent.hasExtra(UIKitConstants.IntentStrings.PARENT_ID)) messageId =
+                intent.getIntExtra(UIKitConstants.IntentStrings.PARENT_ID, 0)
+            if (intent.hasExtra(UIKitConstants.IntentStrings.REPLY_COUNT)) replyCount =
+                intent.getIntExtra(UIKitConstants.IntentStrings.REPLY_COUNT, 0)
+            if (intent.hasExtra(UIKitConstants.IntentStrings.AVATAR)) avatar =
+                intent.getStringExtra(UIKitConstants.IntentStrings.AVATAR)
+            if (intent.hasExtra(UIKitConstants.IntentStrings.NAME)) name =
+                intent.getStringExtra(UIKitConstants.IntentStrings.NAME)
+            if (intent.hasExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE)) messageType =
+                intent.getStringExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE)
+            if (intent.hasExtra(UIKitConstants.IntentStrings.UID)) uid =
+                intent.getStringExtra(UIKitConstants.IntentStrings.UID)
+            if (intent.hasExtra(UIKitConstants.IntentStrings.SENTAT)) sentAt =
+                intent.getLongExtra(UIKitConstants.IntentStrings.SENTAT, 0)
+            if (intent.hasExtra(UIKitConstants.IntentStrings.TEXTMESSAGE)) message =
+                intent.getStringExtra(UIKitConstants.IntentStrings.TEXTMESSAGE)
+            if (intent.hasExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME)) messagefileName =
+                intent.getStringExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME)
+            if (intent.hasExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_SIZE)) mediaSize =
+                intent.getIntExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_SIZE, 0)
+            if (intent.hasExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_URL)) mediaUrl =
+                intent.getStringExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_URL)
+            if (intent.hasExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_EXTENSION)) mediaExtension =
+                intent.getStringExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_EXTENSION)
+            if (intent.hasExtra(UIKitConstants.IntentStrings.TYPE)) type =
+                intent.getStringExtra(UIKitConstants.IntentStrings.TYPE)
+            if (intent.hasExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_MIME_TYPE)) mediaMime =
+                intent.getStringExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_MIME_TYPE)
+            if (intent.hasExtra(UIKitConstants.IntentStrings.POLL_QUESTION)) pollQuestion =
+                intent.getStringExtra(UIKitConstants.IntentStrings.POLL_QUESTION)
+            if (intent.hasExtra(UIKitConstants.IntentStrings.POLL_OPTION)) pollOptions =
+                intent.getStringExtra(UIKitConstants.IntentStrings.POLL_OPTION)
+            if (intent.hasExtra(UIKitConstants.IntentStrings.POLL_RESULT)) pollResult =
+                intent.getStringArrayListExtra(UIKitConstants.IntentStrings.POLL_RESULT)
+            if (intent.hasExtra(UIKitConstants.IntentStrings.POLL_VOTE_COUNT)) voteCount =
+                intent.getIntExtra(UIKitConstants.IntentStrings.POLL_VOTE_COUNT, 0)
 
             if (type == CometChatConstants.RECEIVER_TYPE_GROUP) {
-                if (intent.hasExtra(UIKitConstants.IntentStrings.GUID)) Id = intent.getStringExtra(UIKitConstants.IntentStrings.GUID)
+                if (intent.hasExtra(UIKitConstants.IntentStrings.GUID)) Id =
+                    intent.getStringExtra(UIKitConstants.IntentStrings.GUID)
             } else {
-                if (intent.hasExtra(UIKitConstants.IntentStrings.UID)) Id = intent.getStringExtra(UIKitConstants.IntentStrings.UID)
+                if (intent.hasExtra(UIKitConstants.IntentStrings.UID)) Id =
+                    intent.getStringExtra(UIKitConstants.IntentStrings.UID)
             }
             bundle.putString(UIKitConstants.IntentStrings.MESSAGE_CATEGORY, messageCategory)
             bundle.putString(UIKitConstants.IntentStrings.ID, Id)
@@ -96,7 +117,8 @@ class CometChatThreadMessageListActivity : AppCompatActivity(), ThreadAdapter.On
             bundle.putString(UIKitConstants.IntentStrings.UID, uid)
             bundle.putLong(UIKitConstants.IntentStrings.SENTAT, sentAt)
             if (intent.hasExtra(UIKitConstants.IntentStrings.REACTION_INFO)) {
-                reactionInfo = intent.getSerializableExtra(UIKitConstants.IntentStrings.REACTION_INFO) as HashMap<String, String>
+                reactionInfo =
+                    intent.getSerializableExtra(UIKitConstants.IntentStrings.REACTION_INFO) as HashMap<String, String>
                 bundle.putSerializable(UIKitConstants.IntentStrings.REACTION_INFO, reactionInfo)
             }
             if (messageType == CometChatConstants.MESSAGE_TYPE_TEXT)
@@ -106,7 +128,10 @@ class CometChatThreadMessageListActivity : AppCompatActivity(), ThreadAdapter.On
                 bundle.putDouble(UIKitConstants.IntentStrings.LOCATION_LONGITUDE, longitude)
             } else if (messageType == UIKitConstants.IntentStrings.STICKERS) {
                 bundle.putString(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_URL, mediaUrl)
-                bundle.putString(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME, messagefileName)
+                bundle.putString(
+                    UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME,
+                    messagefileName
+                )
             } else if (messageType == UIKitConstants.IntentStrings.WHITEBOARD || messageType == UIKitConstants.IntentStrings.WRITEBOARD) {
                 bundle.putString(UIKitConstants.IntentStrings.TEXTMESSAGE, message)
             } else if (messageType == UIKitConstants.IntentStrings.POLLS) {
@@ -114,13 +139,21 @@ class CometChatThreadMessageListActivity : AppCompatActivity(), ThreadAdapter.On
                 bundle.putString(UIKitConstants.IntentStrings.POLL_QUESTION, pollQuestion)
                 bundle.putString(UIKitConstants.IntentStrings.POLL_OPTION, pollOptions)
                 bundle.putInt(UIKitConstants.IntentStrings.POLL_VOTE_COUNT, voteCount)
-            }
-            else {
+            } else {
                 bundle.putString(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_URL, mediaUrl)
-                bundle.putString(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME, messagefileName)
-                bundle.putString(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_EXTENSION, mediaExtension)
+                bundle.putString(
+                    UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME,
+                    messagefileName
+                )
+                bundle.putString(
+                    UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_EXTENSION,
+                    mediaExtension
+                )
                 bundle.putInt(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_SIZE, mediaSize)
-                bundle.putString(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_MIME_TYPE, mediaMime)
+                bundle.putString(
+                    UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_MIME_TYPE,
+                    mediaMime
+                )
             }
             fragment.arguments = bundle
             supportFragmentManager.beginTransaction().replace(R.id.ChatFragment, fragment).commit()
@@ -131,7 +164,12 @@ class CometChatThreadMessageListActivity : AppCompatActivity(), ThreadAdapter.On
         super.onActivityResult(requestCode, resultCode, data)
         Log.d(TAG, "onActivityResult: ")
     }
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String?>, grantResults: IntArray) {
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         Log.d(TAG, "onRequestPermissionsResult: ")
     }
@@ -150,7 +188,8 @@ class CometChatThreadMessageListActivity : AppCompatActivity(), ThreadAdapter.On
         startActivity(Intent(this, CometChatUI::class.java))
         finish()
     }
-    companion object{
+
+    companion object {
         private const val TAG = "CometChatMessageListAct"
     }
 

@@ -43,13 +43,6 @@
     <string name="no_status" translatable="false">No</string>
     <string name="make_a_request_course" translatable="false">Request</string>
     <string name="get_a_request_course" translatable="false">Enter</string>
-    <string name="title_activity_list_of_users">ListOfUsersActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_list_of_users" translatable="false">ListOfUsersActivity</string>
+    <string name="no_assistants" translatable="false">No assistants</string>
 </resources>

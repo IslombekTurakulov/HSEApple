@@ -69,6 +69,8 @@ class CoursesAdapter(
                     CourseSelection.CHOSEN_THIRD
                 }
             val intent = Intent(holder.itemView.context, MainActivity::class.java)
+            intent.flags =
+                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             holder.itemView.context.startActivity(intent)
             Toast.makeText(holder.itemView.context, "Loading", Toast.LENGTH_SHORT).show()
          /*   if (holder.itemView.courseButton.text == holder.itemView.resources.getString(R.string.make_a_request_course)) {

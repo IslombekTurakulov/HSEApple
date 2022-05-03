@@ -13,14 +13,15 @@
         android:theme="@style/Theme.HSEApple"
         tools:replace="android:icon">
         <activity
+            android:name=".view.activities.ListOfAssistantsActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activities.ListOfUsersActivity"
             android:exported="false"
-            android:label="@string/title_activity_list_of_users"
             android:theme="@style/Theme.HSEApple.NoActionBar" />
         <activity
             android:name=".view.activities.RequestsActivity"
             android:exported="false"
-            android:label="Requests"
             android:launchMode="singleTask"
             android:theme="@style/Theme.HSEApple.NoActionBar" />
         <activity
@@ -77,7 +78,6 @@
         <meta-data
             android:name="auth.hse.ru.redirect_uri"
             android:value="com.iuturakulov.hseapple://auth.hse.ru/adfs/oauth2/callback" />
-
     </application>
 
 </manifest>

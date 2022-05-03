@@ -11,6 +11,6 @@ data class PostEntity(
     var content: String? = null,
     var mediaLink: String? = null,
     var docLink: String? = null,
-    var createdAt: Timestamp? = null,
-    var updatedAt: Timestamp? = null
+    var createdAt: String? = null,
+    var updatedAt: String? = null
 )
