@@ -13,28 +13,35 @@
         android:theme="@style/Theme.HSEApple"
         tools:replace="android:icon">
         <activity
-            android:name=".view.activities.ListOfAssistantsActivity"
+            android:name=".view.activities.TaskInfoActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan|adjustResize" />
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".view.activities.CreateTestsActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".view.activities.ListOfAssistantsActivity"
+            android:exported="false" />
         <activity
             android:name=".view.activities.ListOfUsersActivity"
             android:exported="false"
             android:theme="@style/Theme.HSEApple.NoActionBar"
-            android:windowSoftInputMode="adjustPan|adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.activities.RequestsActivity"
             android:exported="false"
             android:launchMode="singleTask"
             android:theme="@style/Theme.HSEApple.NoActionBar"
-            android:windowSoftInputMode="adjustPan|adjustResize" />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".view.activities.NewsInfoActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan|adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.activities.CreateNewsActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan|adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.activities.AvailableCoursesActivity"
             android:exported="false"
@@ -44,7 +51,7 @@
             android:exported="true"
             android:launchMode="singleTask"
             android:theme="@style/Theme.HSEApple"
-            android:windowSoftInputMode="adjustResize|stateHidden">
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -58,7 +65,8 @@
         </activity>
         <activity
             android:name=".view.activities.CreateGroupChatActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.activities.MainActivity"
             android:exported="false" />

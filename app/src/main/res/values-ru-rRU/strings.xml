@@ -38,4 +38,8 @@
     <string name="get_a_request_course">Войти</string>
     <string name="no_assistants">Нет ассистестентов</string>
     <string name="no_events">Нет новостей</string>
+    <string name="deadline">Дедлайн:</string>
+    <string name="change_deadline">Поменять дедлайн</string>
+    <string name="your_repository_link">Ваша ссылка на репозиторий:</string>
+    <string name="create_test_info">Создать задание</string>
 </resources>
