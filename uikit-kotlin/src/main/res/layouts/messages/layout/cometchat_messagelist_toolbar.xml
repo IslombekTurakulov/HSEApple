@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/darkModeBackground"
     android:stateListAnimator="@animator/toolbar_elevation">
 
     <RelativeLayout
@@ -27,7 +26,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:src="@drawable/ic_back"
-            android:tint="@color/colorPrimary"/>
+            android:tint="@color/colorPrimary" />
 
         <com.cometchat.pro.uikit.ui_components.shared.cometchatAvatar.CometChatAvatar
             android:id="@+id/iv_chat_avatar"
@@ -57,7 +56,7 @@
                 android:ellipsize="marquee"
                 android:maxWidth="150dp"
                 android:singleLine="true"
-                android:textColor="@color/textColorWhite"
+                android:textColor="@color/darkModeBackground"
                 android:textSize="16sp"
                 tools:text="@tools:sample/full_names" />
 

@@ -106,27 +106,29 @@
             android:layout_above="@+id/record_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
         <com.cometchat.pro.uikit.ui_resources.utils.audio_visualizer.AudioRecordView
-            tools:visibility="visible"
-            android:layout_toEndOf="@+id/delete_voice_message"
             android:id="@+id/record_audio_visualizer"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_toEndOf="@+id/delete_voice_message"
             app:chunkAlignTo="bottom"
-            app:chunkMaxHeight="150dp"
             app:chunkColor="@color/colorPrimary"
+            app:chunkMaxHeight="150dp"
+            app:chunkMinHeight="1dp"
             app:chunkSpace="1dp"
             app:chunkWidth="2dp"
-            app:chunkMinHeight="1dp"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"/>
+            tools:visibility="visible" />
+
         <Chronometer
-            android:layout_toRightOf="@+id/delete_voice_message"
-            android:layout_width="wrap_content"
-            android:layout_alignParentBottom="true"
             android:id="@+id/record_time"
-            android:elevation="8dp"
-            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_marginLeft="8dp"
-            android:layout_height="wrap_content"/>
+            android:layout_toRightOf="@+id/delete_voice_message"
+            android:elevation="8dp"
+            android:textSize="12sp" />
     </RelativeLayout>
     <LinearLayout
         android:animateLayoutChanges="true"
