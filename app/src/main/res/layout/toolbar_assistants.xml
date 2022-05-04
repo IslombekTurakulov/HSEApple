@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/back_arrow_requests"
+            android:id="@+id/back_arrow_assistants"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -21,22 +21,23 @@
             app:tint="@color/colorPrimary" />
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="244dp"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/back_arrow_requests"
+            android:layout_alignTop="@id/back_arrow_assistants"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:layout_toEndOf="@+id/back_arrow_requests">
+            android:layout_marginEnd="127dp"
+            android:layout_toEndOf="@+id/back_arrow_assistants">
 
             <TextView
-                android:id="@+id/requests_name"
+                android:id="@+id/assistants_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="0dp"
                 android:ellipsize="marquee"
                 android:fontFamily="@font/futuramedium"
-                android:maxWidth="150dp"
+                android:maxWidth="250dp"
                 android:singleLine="true"
                 android:textColor="@color/textColorWhite"
                 android:textSize="@dimen/big_text"

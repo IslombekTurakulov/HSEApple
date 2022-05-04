@@ -55,10 +55,10 @@
                         android:id="@+id/newsTitleItem"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@color/white"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:background="@color/white"
-                        android:padding="@dimen/_10sdp"
+                        android:padding="@dimen/_15sdp"
                         android:text="@string/create_event"
                         android:textSize="@dimen/_14sdp" />
 
@@ -95,23 +95,33 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_10sdp">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/dateTimeNewsItem"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Created: 29.04.2022 14:54" />
+                        android:text="Created: 29.04.2022 14:54"
+                        android:textSize="@dimen/_12sdp"/>
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/confirmButtonEdit"
-                        style="@style/ThemeOverlay.Material3.Button.ElevatedButton"
-                        android:layout_width="@dimen/_80sdp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_70sdp"
-                        android:backgroundTint="@color/almostDark"
-                        android:text="Confirm"
-                        android:visibility="gone" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/confirmButtonEdit"
+                            style="@style/ThemeOverlay.Material3.Button.ElevatedButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_50sdp"
+                            android:backgroundTint="@color/almostDark"
+                            android:text="Confirm"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

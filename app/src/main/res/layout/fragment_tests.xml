@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/textInputLayout"
+    android:orientation="vertical"
     tools:context=".view.fragments.TestsFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -15,27 +15,24 @@
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="100dp"
             app:contentScrim="@color/almostDark"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
             app:title="Navigation">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="150dp"
                 android:contentDescription="topAppBarImage"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/good_night_img"
-                app:layout_collapseMode="parallax" />
+                app:layout_collapseMode="parallax"
+                app:srcCompat="@drawable/good_night_img" />
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolBar_tests"
+            <include
+                layout="@layout/toolbar_news"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:titleTextColor="@color/almostDark"
-                app:subtitleTextColor="@color/almostDark"
-                app:menu="@menu/menu_tests"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -51,13 +48,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_5sdp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/_5sdp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
+                android:layout_margin="@dimen/_15sdp"
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -72,32 +69,60 @@
 
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
-                    android:fillViewport="true"
+                    android:layout_height="@dimen/_150sdp"
+                    android:background="@color/grey"
                     android:clipToPadding="true"
-                    android:layout_height="@dimen/_250sdp">
+                    android:fillViewport="true">
 
-                    <com.cooltechworks.views.shimmer.ShimmerRecyclerView
-                        android:id="@+id/currentTestsRecyclerView"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_7sdp"
-                        android:layout_marginEnd="@dimen/_7sdp"
-                        android:clipToPadding="false"
-                        android:orientation="vertical"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:shimmer_demo_angle="20"
-                        app:shimmer_demo_child_count="10"
-                        app:shimmer_demo_layout="@layout/layout_test"
-                        app:shimmer_demo_layout_manager_type="linear_vertical"
-                        app:spanCount="1"
-                        tools:listitem="@layout/component_test" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/isCurrentTestsEmptyImage"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="@dimen/_100sdp"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="12dp"
+                            android:contentDescription="Empty events"
+                            android:padding="@dimen/_10sdp"
+                            android:src="@drawable/app_logo" />
+
+                        <TextView
+                            android:id="@+id/isCurrentTestsEmptyText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/futuramedium"
+                            android:gravity="center"
+                            android:text="@string/no_events"
+                            android:textColor="@color/almostDark"
+                            android:textSize="@dimen/big_text" />
+
+                        <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+                            android:id="@+id/currentTestsRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_7sdp"
+                            android:layout_marginEnd="@dimen/_7sdp"
+                            android:clipToPadding="false"
+                            android:orientation="vertical"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:shimmer_demo_angle="20"
+                            app:shimmer_demo_child_count="10"
+                            app:shimmer_demo_layout="@layout/layout_test"
+                            app:shimmer_demo_layout_manager_type="linear_vertical"
+                            app:spanCount="1"
+                            tools:listitem="@layout/component_test" />
+                    </LinearLayout>
+
                 </androidx.core.widget.NestedScrollView>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
+                android:layout_margin="@dimen/_15sdp"
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -112,24 +137,51 @@
 
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
-                    android:fillViewport="true"
-                    android:layout_height="@dimen/_250sdp">
+                    android:layout_height="@dimen/_150sdp"
+                    android:background="@color/grey"
+                    android:fillViewport="true">
 
-                    <com.cooltechworks.views.shimmer.ShimmerRecyclerView
-                        android:id="@+id/completedTestsRecyclerView"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_7sdp"
-                        android:layout_marginEnd="@dimen/_7sdp"
-                        android:clipToPadding="false"
-                        android:orientation="vertical"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:shimmer_demo_angle="20"
-                        app:shimmer_demo_child_count="10"
-                        app:shimmer_demo_layout="@layout/layout_test"
-                        app:shimmer_demo_layout_manager_type="linear_vertical"
-                        app:spanCount="1"
-                        tools:listitem="@layout/component_test" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/isCompletedTestsEmptyImage"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="@dimen/_100sdp"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="12dp"
+                            android:contentDescription="Empty events"
+                            android:padding="@dimen/_10sdp"
+                            android:src="@drawable/app_logo" />
+
+                        <TextView
+                            android:id="@+id/isCompletedTestsEmptyText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/futuramedium"
+                            android:gravity="center"
+                            android:text="@string/no_events"
+                            android:textColor="@color/almostDark"
+                            android:textSize="@dimen/big_text" />
+
+                        <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+                            android:id="@+id/completedTestsRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_7sdp"
+                            android:layout_marginEnd="@dimen/_7sdp"
+                            android:clipToPadding="false"
+                            android:orientation="vertical"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:shimmer_demo_angle="20"
+                            app:shimmer_demo_child_count="10"
+                            app:shimmer_demo_layout="@layout/layout_test"
+                            app:shimmer_demo_layout_manager_type="linear_vertical"
+                            app:spanCount="1"
+                            tools:listitem="@layout/component_test" />
+                    </LinearLayout>
                 </androidx.core.widget.NestedScrollView>
             </LinearLayout>
         </LinearLayout>
