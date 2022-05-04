@@ -90,7 +90,7 @@ class CometChatAddMembers : Fragment() {
             etSearch!!.setText("")
             clearSearch!!.visibility = View.GONE
             searchUser(etSearch!!.text.toString())
-            val inputMethodManager = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             // Hide the soft keyboard
             inputMethodManager.hideSoftInputFromWindow(etSearch!!.windowToken, 0)
         })
@@ -125,8 +125,8 @@ class CometChatAddMembers : Fragment() {
     }
 
     private fun checkDarkMode() {
-        if (Utils.isDarkMode(context!!)) {
-            toolbar!!.setTitleTextColor(resources.getColor(R.color.textColorWhite))
+        if (Utils.isDarkMode(requireContext())) {
+            toolbar!!.setTitleTextColor(resources.getColor(R.color.primaryTextColor))
         } else {
             toolbar!!.setTitleTextColor(resources.getColor(R.color.primaryTextColor))
         }
@@ -142,9 +142,9 @@ class CometChatAddMembers : Fragment() {
 
     private fun handleArguments() {
         if (arguments != null) {
-            guid = arguments!!.getString(UIKitConstants.IntentStrings.GUID)
-            groupName = arguments!!.getString(UIKitConstants.IntentStrings.GROUP_NAME)
-            groupMembersUids = arguments!!.getStringArrayList(UIKitConstants.IntentStrings.GROUP_MEMBER)
+            guid = requireArguments().getString(UIKitConstants.IntentStrings.GUID)
+            groupName = requireArguments().getString(UIKitConstants.IntentStrings.GROUP_NAME)
+            groupMembersUids = requireArguments().getStringArrayList(UIKitConstants.IntentStrings.GROUP_MEMBER)
         }
     }
 
@@ -154,7 +154,7 @@ class CometChatAddMembers : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            if (activity != null) activity!!.onBackPressed()
+            if (activity != null) requireActivity().onBackPressed()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -204,12 +204,12 @@ class CometChatAddMembers : Fragment() {
 
     private fun setAdapter(users: List<User>) {
         if (userListAdapter == null) {
-            userListAdapter = CometChatUsersAdapter(context!!)
+            userListAdapter = CometChatUsersAdapter(requireContext())
             val stickyHeaderDecoration = StickyHeaderDecoration(userListAdapter!!)
             rvUserList!!.addItemDecoration(stickyHeaderDecoration, 0)
             rvUserList!!.adapter = userListAdapter
         } else {
-            userListAdapter!!.updateList(Utils.userSort(users)!!)
+            userListAdapter!!.updateList(Utils.userSort(users))
         }
     }
 

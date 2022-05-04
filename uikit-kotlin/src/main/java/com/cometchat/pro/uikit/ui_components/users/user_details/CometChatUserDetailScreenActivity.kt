@@ -124,7 +124,7 @@ class CometChatUserDetailScreenActivity constructor() : AppCompatActivity() {
             intent.putExtra(UIKitConstants.IntentStrings.URL, link)
             startActivity(intent)
         }
-        addBtn?.setOnClickListener(View.OnClickListener { view: View? ->
+        addBtn?.setOnClickListener({ view: View? ->
             if (guid != null) {
                 if (isAddMember) {
                     if (isAlreadyAdded) kickGroupMember() else addMember()

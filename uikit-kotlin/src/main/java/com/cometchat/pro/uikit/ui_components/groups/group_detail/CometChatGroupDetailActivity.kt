@@ -289,19 +289,19 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
 
     private fun checkDarkMode() {
         if (Utils.isDarkMode(this)) {
-            toolbar!!.setTitleTextColor(resources.getColor(R.color.textColorWhite))
-            tvGroupName!!.setTextColor(resources.getColor(R.color.textColorWhite))
-            dividerAdmin!!.setBackgroundColor(resources.getColor(R.color.grey))
-            dividerModerator!!.setBackgroundColor(resources.getColor(R.color.grey))
-            dividerBan!!.setBackgroundColor(resources.getColor(R.color.grey))
-            divider2!!.setBackgroundColor(resources.getColor(R.color.grey))
+            toolbar!!.setTitleTextColor(resources.getColor(R.color.primaryTextColor))
+            tvGroupName!!.setTextColor(resources.getColor(R.color.primaryTextColor))
+            dividerAdmin!!.setBackgroundColor(resources.getColor(R.color.primaryTextColor))
+            dividerModerator!!.setBackgroundColor(resources.getColor(R.color.primaryTextColor))
+            dividerBan!!.setBackgroundColor(resources.getColor(R.color.primaryTextColor))
+            divider2!!.setBackgroundColor(resources.getColor(R.color.primaryTextColor))
         } else {
             toolbar!!.setTitleTextColor(resources.getColor(R.color.primaryTextColor))
             tvGroupName!!.setTextColor(resources.getColor(R.color.primaryTextColor))
-            dividerAdmin!!.setBackgroundColor(resources.getColor(R.color.light_grey))
-            dividerModerator!!.setBackgroundColor(resources.getColor(R.color.light_grey))
-            dividerBan!!.setBackgroundColor(resources.getColor(R.color.light_grey))
-            divider2!!.setBackgroundColor(resources.getColor(R.color.light_grey))
+            dividerAdmin!!.setBackgroundColor(resources.getColor(R.color.primaryTextColor))
+            dividerModerator!!.setBackgroundColor(resources.getColor(R.color.primaryTextColor))
+            dividerBan!!.setBackgroundColor(resources.getColor(R.color.primaryTextColor))
+            divider2!!.setBackgroundColor(resources.getColor(R.color.primaryTextColor))
         }
     }
 
@@ -352,30 +352,6 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
             banMember()
         }
         return super.onContextItemSelected(item)
-    }
-
-    fun initiateGroupCall(recieverID: String?, receiverType: String?, callType: String?) {
-        val call = Call((recieverID)!!, receiverType, callType)
-        CometChat.initiateCall(call, object : CallbackListener<Call>() {
-            override fun onSuccess(call: Call) {
-                Utils.startGroupCallIntent(
-                    this@CometChatGroupDetailActivity,
-                    (call.callReceiver as Group),
-                    call.type,
-                    true,
-                    call.sessionId
-                )
-            }
-
-            override fun onError(e: CometChatException) {
-                Log.e(TAG, "onError: " + e.message)
-                if (rvMemberList != null) Snackbar.make(
-                    rvMemberList!!,
-                    resources.getString(R.string.call_initiate_error) + ":" + e.message,
-                    Snackbar.LENGTH_LONG
-                ).show()
-            }
-        })
     }
 
     /**
@@ -431,18 +407,18 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
 //        alertDialog.setTitle(R.string.group_alert)
         alertDialog.setMessage(R.string.transfer_ownership_message)
         alertDialog.setPositiveButton(
-            R.string.transfer,
-            DialogInterface.OnClickListener { dialog, which ->
-                val intent = Intent(
-                    this@CometChatGroupDetailActivity,
-                    CometChatGroupMemberListActivity::class.java
-                )
-                intent.putExtra(UIKitConstants.IntentStrings.GUID, guid)
-                intent.putExtra(UIKitConstants.IntentStrings.SHOW_MODERATORLIST, false)
-                intent.putExtra(UIKitConstants.IntentStrings.TRANSFER_OWNERSHIP, true)
-                finish()
-                startActivity(intent)
-            }).setNegativeButton(R.string.cancel, DialogInterface.OnClickListener { dialog, which ->
+            R.string.transfer
+        ) { dialog, which ->
+            val intent = Intent(
+                this@CometChatGroupDetailActivity,
+                CometChatGroupMemberListActivity::class.java
+            )
+            intent.putExtra(UIKitConstants.IntentStrings.GUID, guid)
+            intent.putExtra(UIKitConstants.IntentStrings.SHOW_MODERATORLIST, false)
+            intent.putExtra(UIKitConstants.IntentStrings.TRANSFER_OWNERSHIP, true)
+            finish()
+            startActivity(intent)
+        }.setNegativeButton(R.string.cancel, DialogInterface.OnClickListener { dialog, which ->
             dialog.dismiss()
         })
         alertDialog.create()
@@ -609,7 +585,7 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
      * @see CometChat.banGroupMember
      */
     private fun banMember() {
-        CometChat.banGroupMember(groupMember!!.uid, (guid)!!, object : CallbackListener<String>() {
+        banGroupMember(groupMember!!.uid, (guid)!!, object : CallbackListener<String>() {
             override fun onSuccess(s: String) {
                 Log.e(TAG, "onSuccess: $s")
 //                tvMemberCount!!.text = (groupMemberCount - 1).toString() + " Members"
@@ -628,7 +604,7 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
     }
 
     private val bannedMemberCount: Unit
-        private get() {
+        get() {
             banMemberRequest = BannedGroupMembersRequestBuilder(guid).setLimit(100).build()
             banMemberRequest!!.fetchNext(object : CallbackListener<List<GroupMember?>>() {
                 override fun onSuccess(groupMembers: List<GroupMember?>) {

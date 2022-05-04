@@ -21,6 +21,7 @@ import com.cometchat.pro.uikit.ui_resources.utils.FontUtils
 import com.cometchat.pro.uikit.ui_resources.utils.Utils
 import com.cometchat.pro.uikit.ui_settings.FeatureRestriction
 import com.cometchat.pro.uikit.ui_settings.UIKitSettings
+import java.util.*
 
 /**
  * Purpose - ConversationListAdapter is a subclass of RecyclerView Adapter which is used to display
@@ -156,10 +157,10 @@ class CometChatConversationsAdapter(context: Context?) : RecyclerView.Adapter<Co
         }
         if (Utils.isDarkMode(context!!)) {
             conversationViewHolder.conversationListRowBinding.txtUserName.setTextColor(context!!.resources.getColor(R.color.textColorWhite))
-            conversationViewHolder.conversationListRowBinding.tvSeprator.setBackgroundColor(context!!.resources.getColor(R.color.grey))
+            conversationViewHolder.conversationListRowBinding.tvSeprator.setBackgroundColor(context!!.resources.getColor(R.color.primaryTextColor))
         } else {
             conversationViewHolder.conversationListRowBinding.txtUserName.setTextColor(context!!.resources.getColor(R.color.primaryTextColor))
-            conversationViewHolder.conversationListRowBinding.tvSeprator.setBackgroundColor(context!!.resources.getColor(R.color.light_grey))
+            conversationViewHolder.conversationListRowBinding.tvSeprator.setBackgroundColor(context!!.resources.getColor(R.color.primaryTextColor))
         }
         conversationViewHolder.conversationListRowBinding.root.setTag(R.string.conversation, conversation)
     }
@@ -324,10 +325,12 @@ class CometChatConversationsAdapter(context: Context?) : RecyclerView.Adapter<Co
                     val tempFilter: MutableList<Conversation> = mutableListOf()
                     for (conversation in filterConversationList!!) {
                         if (conversation.conversationType == CometChatConstants.CONVERSATION_TYPE_USER &&
-                                (conversation.conversationWith as User).name.toLowerCase().contains(searchKeyword)) {
+                                (conversation.conversationWith as User).name.lowercase(Locale.getDefault())
+                                    .contains(searchKeyword)) {
                             tempFilter.add(conversation)
                         } else if (conversation.conversationType == CometChatConstants.CONVERSATION_TYPE_GROUP &&
-                                (conversation.conversationWith as Group).name.toLowerCase().contains(searchKeyword)) {
+                                (conversation.conversationWith as Group).name.lowercase(Locale.getDefault())
+                                    .contains(searchKeyword)) {
                             tempFilter.add(conversation)
                         } else if (conversation.lastMessage != null &&
                                 conversation.lastMessage.category == CometChatConstants.CATEGORY_MESSAGE &&

@@ -143,8 +143,8 @@ class CometChatMessageInfoScreenActivity : AppCompatActivity() {
             toolbar!!.setBackgroundColor(resources.getColor(R.color.darkModeBackground))
             messageLayout!!.setBackgroundColor(resources.getColor(R.color.darkModeBackground))
         } else {
-            toolbar!!.setBackgroundColor(resources.getColor(R.color.textColorWhite))
-            messageLayout!!.setBackgroundColor(resources.getColor(R.color.light_grey))
+            toolbar!!.setBackgroundColor(resources.getColor(R.color.primaryTextColor))
+            messageLayout!!.setBackgroundColor(resources.getColor(R.color.primaryTextColor))
         }
     }
 

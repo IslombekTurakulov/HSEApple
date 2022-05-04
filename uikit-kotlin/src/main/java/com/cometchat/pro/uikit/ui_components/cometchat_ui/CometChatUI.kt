@@ -95,7 +95,7 @@ class CometChatUI : AppCompatActivity(), BottomNavigationView.OnNavigationItemSe
     private fun setConversationClickListener() {
         CometChatConversationList.Companion.setItemClickListener(object : OnItemClickListener<Any>() {
             override fun OnItemClick(t: Any, position: Int) {
-                var conversation = t as Conversation;
+                val conversation = t as Conversation;
                 if (conversation.conversationType == CometChatConstants.CONVERSATION_TYPE_GROUP)
                     startGroupIntent(conversation.conversationWith as Group) else startUserIntent(conversation.conversationWith as User)
             }
@@ -103,7 +103,7 @@ class CometChatUI : AppCompatActivity(), BottomNavigationView.OnNavigationItemSe
     }
 
     private fun setGroupClickListener() {
-        CometChatGroupList.Companion.setItemClickListener(object : OnItemClickListener<Any>() {
+        CometChatGroupList.setItemClickListener(object : OnItemClickListener<Any>() {
             override fun OnItemClick(t: Any, position: Int) {
                 group = t as Group
                 if (group!!.isJoined) {

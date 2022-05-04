@@ -102,8 +102,8 @@ class CometChatGroupList : Fragment() {
         ivCreateGroup?.imageTintList = ColorStateList.valueOf(Color.parseColor(UIKitSettings.color))
         if (FeatureRestriction.isGroupCreationEnabled()) ivCreateGroup?.visibility =
             View.VISIBLE else ivCreateGroup?.visibility = View.GONE
-        if (Utils.isDarkMode(context!!)) {
-            tvTitle?.setTextColor(resources.getColor(R.color.textColorWhite))
+        if (Utils.isDarkMode(requireContext())) {
+            tvTitle?.setTextColor(resources.getColor(R.color.primaryTextColor))
         } else {
             tvTitle?.setTextColor(resources.getColor(R.color.primaryTextColor))
         }
