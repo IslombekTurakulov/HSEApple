@@ -20,6 +20,8 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import kotlinx.android.synthetic.main.activity_list_of_assistants.*
 import kotlinx.android.synthetic.main.activity_requests.*
 import kotlinx.android.synthetic.main.activity_requests.recycler_view
+import kotlinx.android.synthetic.main.toolbar_assistants.*
+import kotlinx.android.synthetic.main.toolbar_requests.*
 import okhttp3.*
 import timber.log.Timber
 import java.io.IOException
@@ -31,8 +33,10 @@ class ListOfAssistantsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_of_assistants)
-
-
+        back_arrow_assistants.setOnClickListener {
+            onBackPressed()
+        }
+        assistants_name.text = getString(R.string.assistants)
         recycler_view.layoutManager = LinearLayoutManager(this)
         recycler_view.addItemDecoration(
             DividerItemDecoration(

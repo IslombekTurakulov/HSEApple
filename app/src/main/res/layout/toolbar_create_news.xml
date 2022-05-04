@@ -1,5 +1,4 @@
-<androidx.appcompat.widget.Toolbar
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,15 +18,15 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:src="@drawable/ic_back"
-            app:tint="@color/colorPrimary"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            app:tint="@color/colorPrimary" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/back_arrow_news"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/edit_things_layout"
+            android:layout_toStartOf="@+id/create_event_layout"
             android:layout_toEndOf="@+id/back_arrow_news">
 
             <TextView
@@ -36,6 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:ellipsize="marquee"
+                android:fontFamily="@font/futuramedium"
                 android:maxWidth="150dp"
                 android:singleLine="true"
                 android:textColor="@color/textColorWhite"
