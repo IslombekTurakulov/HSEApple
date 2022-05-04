@@ -390,11 +390,8 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
             )
                 deleteGroup()
         }
-        alertDialog.setNegativeButton(negativeText, object : DialogInterface.OnClickListener {
-            override fun onClick(dialogInterface: DialogInterface, i: Int) {
-                dialogInterface.dismiss()
-            }
-        })
+        alertDialog.setNegativeButton(negativeText
+        ) { dialogInterface, i -> dialogInterface.dismiss() }
         alertDialog.create()
         alertDialog.show()
     }
@@ -408,7 +405,7 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
         alertDialog.setMessage(R.string.transfer_ownership_message)
         alertDialog.setPositiveButton(
             R.string.transfer
-        ) { dialog, which ->
+        ) { _, _ ->
             val intent = Intent(
                 this@CometChatGroupDetailActivity,
                 CometChatGroupMemberListActivity::class.java
@@ -534,7 +531,7 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
      */
     private fun deleteGroup() {
         if (FeatureRestriction.isGroupDeletionEnabled()) {
-            CometChat.deleteGroup((guid)!!, object : CallbackListener<String?>() {
+            deleteGroup((guid)!!, object : CallbackListener<String?>() {
                 override fun onSuccess(s: String?) {
                     launchUnified()
                 }
@@ -712,7 +709,7 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
      *
      * @see CometChat.addGroupListener
      */
-    fun addGroupListener() {
+    private fun addGroupListener() {
         CometChat.addGroupListener(TAG, object : GroupListener() {
             override fun onGroupMemberJoined(action: Action, joinedUser: User, joinedGroup: Group) {
                 Log.e(TAG, "onGroupMemberJoined: " + joinedUser.uid)
@@ -828,10 +825,10 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
                 tvMemberCount!!.text = "$count Members"
                 if (action.newScope != null) {
                     if ((action.newScope == CometChatConstants.SCOPE_ADMIN)) {
-                        adminCount = adminCount - 1
+                        adminCount -= 1
                         tvAdminCount!!.text = adminCount.toString()
                     } else if ((action.newScope == CometChatConstants.SCOPE_MODERATOR)) {
-                        moderatorCount = moderatorCount - 1
+                        moderatorCount -= 1
                         tvModeratorCount!!.text = moderatorCount.toString()
                     }
                 }
@@ -844,7 +841,7 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
                     )!!
                 )
                 if ((action.newScope == CometChatConstants.SCOPE_ADMIN)) {
-                    adminCount = adminCount + 1
+                    adminCount += 1
                     tvAdminCount!!.text = adminCount.toString()
                     if ((user.uid == loggedInUser.uid)) {
                         rlAddMemberView!!.visibility = View.VISIBLE
@@ -852,17 +849,17 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
                         tvDelete!!.visibility = View.VISIBLE
                     }
                 } else if ((action.newScope == CometChatConstants.SCOPE_MODERATOR)) {
-                    moderatorCount = moderatorCount + 1
+                    moderatorCount += 1
                     tvModeratorCount!!.text = moderatorCount.toString()
                     if ((user.uid == loggedInUser.uid)) {
                         rlBanMembers!!.visibility = View.VISIBLE
                         loggedInUserScope = CometChatConstants.SCOPE_MODERATOR
                     }
                 } else if ((action.oldScope == CometChatConstants.SCOPE_ADMIN)) {
-                    adminCount = adminCount - 1
+                    adminCount -= 1
                     tvAdminCount!!.text = adminCount.toString()
                 } else if ((action.oldScope == CometChatConstants.SCOPE_MODERATOR)) {
-                    moderatorCount = moderatorCount - 1
+                    moderatorCount -= 1
                     tvModeratorCount!!.text = moderatorCount.toString()
                 }
             }
@@ -937,48 +934,42 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
         })
         val alertDialog = dialog!!.create()
         alertDialog.setView(view)
-        updateGroupBtn.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View) {
-                val group = Group()
-                if (groupName.text.toString().isEmpty()) {
-                    groupName.error = getString(R.string.fill_this_field)
-                } else if (groupTypeSp.selectedItemPosition == 2) {
-                    if (gPassword != null && groupOldPwd.text.toString().trim { it <= ' ' }
-                            .isEmpty()) {
-                        groupOldPwd.error = resources.getString(R.string.fill_this_field)
-                    } else if (gPassword != null && groupOldPwd.text.toString()
-                            .trim { it <= ' ' } != gPassword!!.trim { it <= ' ' }
-                    ) {
-                        groupOldPwd.error = resources.getString(R.string.password_not_matched)
-                    } else if (groupNewPwd.text.toString().trim { it <= ' ' }.isEmpty()) {
-                        groupNewPwd.error = resources.getString(R.string.fill_this_field)
-                    } else {
-                        group.name = groupName.text.toString()
-                        group.guid = guid
-                        group.groupType = CometChatConstants.GROUP_TYPE_PASSWORD
-                        group.password = groupNewPwd.text.toString()
-                        group.icon = avatar_url.text.toString()
-                        updateGroup(group, alertDialog)
-                    }
-                } else if (groupTypeSp.selectedItemPosition == 1) {
-                    group.name = groupName.text.toString()
-                    group.guid = guid
-                    group.groupType = CometChatConstants.GROUP_TYPE_PRIVATE
-                    group.icon = avatar_url.text.toString()
+        updateGroupBtn.setOnClickListener {
+            val group = Group()
+            if (groupName.text.toString().isEmpty()) {
+                groupName.error = getString(R.string.fill_this_field)
+            } else if (groupTypeSp.selectedItemPosition == 2) {
+                if (gPassword != null && groupOldPwd.text.toString().trim { it <= ' ' }
+                        .isEmpty()) {
+                    groupOldPwd.error = resources.getString(R.string.fill_this_field)
+                } else if (gPassword != null && groupOldPwd.text.toString()
+                        .trim { it <= ' ' } != gPassword!!.trim { it <= ' ' }
+                ) {
+                    groupOldPwd.error = resources.getString(R.string.password_not_matched)
+                } else if (groupNewPwd.text.toString().trim { it <= ' ' }.isEmpty()) {
+                    groupNewPwd.error = resources.getString(R.string.fill_this_field)
                 } else {
                     group.name = groupName.text.toString()
-                    group.groupType = CometChatConstants.GROUP_TYPE_PUBLIC
+                    group.guid = guid
+                    group.groupType = CometChatConstants.GROUP_TYPE_PASSWORD
+                    group.password = groupNewPwd.text.toString()
                     group.icon = avatar_url.text.toString()
+                    updateGroup(group, alertDialog)
                 }
+            } else if (groupTypeSp.selectedItemPosition == 1) {
+                group.name = groupName.text.toString()
                 group.guid = guid
-                updateGroup(group, alertDialog)
+                group.groupType = CometChatConstants.GROUP_TYPE_PRIVATE
+                group.icon = avatar_url.text.toString()
+            } else {
+                group.name = groupName.text.toString()
+                group.groupType = CometChatConstants.GROUP_TYPE_PUBLIC
+                group.icon = avatar_url.text.toString()
             }
-        })
-        cancelBtn.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View) {
-                alertDialog.dismiss()
-            }
-        })
+            group.guid = guid
+            updateGroup(group, alertDialog)
+        }
+        cancelBtn.setOnClickListener { alertDialog.dismiss() }
         alertDialog.show()
     }
 
@@ -1008,7 +999,7 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
     /**
      * This method is used to remove group listener.
      */
-    fun removeGroupListener() {
+    private fun removeGroupListener() {
         CometChat.removeGroupListener(TAG)
     }
 
@@ -1018,7 +1009,7 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
      * @see CometChat.getGroup
      */
     private val group: Unit
-        private get() {
+        get() {
             CometChat.getGroup((guid)!!, object : CallbackListener<Group>() {
                 override fun onSuccess(group: Group) {
                     gName = group.name
@@ -1081,6 +1072,6 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
     }
 
     companion object {
-        private val LIMIT = 30
+        private const val LIMIT = 30
     }
 }

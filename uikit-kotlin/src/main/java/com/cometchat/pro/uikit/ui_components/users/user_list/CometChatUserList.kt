@@ -106,7 +106,7 @@ class CometChatUserList(val role: String) : Fragment() {
 
         })
         if (Utils.isDarkMode(requireContext())) {
-            title!!.setTextColor(resources.getColor(R.color.textColorWhite))
+            title!!.setTextColor(resources.getColor(R.color.primaryTextColor))
         } else {
             title!!.setTextColor(resources.getColor(R.color.primaryTextColor))
         }

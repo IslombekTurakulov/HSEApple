@@ -112,17 +112,17 @@ class CometChatComposeBox : RelativeLayout, View.OnClickListener {
     }
 
     private fun initViewComponent(context: Context, attributeSet: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) {
-        var view = View.inflate(context, R.layout.cometchat_compose_box, null)
+        val view = View.inflate(context, R.layout.cometchat_compose_box, null)
 
-        var a = getContext().theme.obtainStyledAttributes(attributeSet, R.styleable.ComposeBox, 0, 0)
+        val a = getContext().theme.obtainStyledAttributes(attributeSet, R.styleable.ComposeBox, 0, 0)
         color = a.getColor(R.styleable.ComposeBox_color, resources.getColor(R.color.colorPrimary))
         addView(view)
 
         this.c = context
-        var viewGroup = view.parent as ViewGroup
+        val viewGroup = view.parent as ViewGroup
         viewGroup.clipChildren = false
         mediaPlayer = MediaPlayer()
-        var audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
         if (audioManager.isMusicActive) {
             audioManager.requestAudioFocus({ focusChange ->
                 if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
@@ -226,21 +226,15 @@ class CometChatComposeBox : RelativeLayout, View.OnClickListener {
 
         etComposeBox!!.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                if (composeActionListener != null) {
-                    composeActionListener.beforeTextChanged(charSequence, i, i1, i2)
-                }
+                composeActionListener.beforeTextChanged(charSequence, i, i1, i2)
             }
 
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                if (composeActionListener != null) {
-                    composeActionListener.onTextChanged(charSequence, i, i1, i2)
-                }
+                composeActionListener.onTextChanged(charSequence, i, i1, i2)
             }
 
             override fun afterTextChanged(editable: Editable) {
-                if (composeActionListener != null) {
-                    composeActionListener.afterTextChanged(editable)
-                }
+                composeActionListener.afterTextChanged(editable)
             }
         })
 
@@ -522,7 +516,7 @@ class CometChatComposeBox : RelativeLayout, View.OnClickListener {
         }
         return false
     }
-     fun checkSinglePermission(permission: String) : Boolean {
+     private fun checkSinglePermission(permission: String) : Boolean {
         return ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED
     }
 

@@ -134,7 +134,7 @@ class CometChatGroupMemberList : Fragment() {
                         val alertDialog = MaterialAlertDialogBuilder(activity)
                         alertDialog.setTitle(resources.getString(R.string.make_group_admin))
                         alertDialog.setMessage(String.format(resources.getString(R.string.make_admin_question), groupMember.name))
-                        alertDialog.setPositiveButton(resources.getString(R.string.yes)) { dialogInterface: DialogInterface?, i: Int -> updateAsAdminScope(groupMember) }
+                        alertDialog.setPositiveButton(resources.getString(R.string.yes)) { _: DialogInterface?, i: Int -> updateAsAdminScope(groupMember) }
                         alertDialog.setNegativeButton(resources.getString(R.string.cancel)) { dialogInterface: DialogInterface, i: Int -> dialogInterface.dismiss() }
                         alertDialog.create()
                         alertDialog.show()
@@ -268,7 +268,7 @@ class CometChatGroupMemberList : Fragment() {
      */
     private fun setAdapter(groupMembers: List<GroupMember>) {
         if (groupMemberListAdapter == null) {
-            groupMemberListAdapter = GroupMemberAdapter(context!!, groupMembers, null)
+            groupMemberListAdapter = GroupMemberAdapter(requireContext(), groupMembers, null)
             rvUserList?.adapter = groupMemberListAdapter
         } else {
             groupMemberListAdapter?.updateGroupMembers(groupMembers)

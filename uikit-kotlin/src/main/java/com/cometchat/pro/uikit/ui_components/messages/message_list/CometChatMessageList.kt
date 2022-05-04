@@ -1,6 +1,5 @@
 package com.cometchat.pro.uikit.ui_components.messages.message_list
 
-import android.Manifest
 import android.Manifest.permission
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.animation.Animator
@@ -34,6 +33,7 @@ import android.view.*
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -60,8 +60,6 @@ import com.cometchat.pro.uikit.ui_components.groups.group_detail.CometChatGroupD
 import com.cometchat.pro.uikit.ui_components.messages.extensions.ExtensionResponseListener
 import com.cometchat.pro.uikit.ui_components.messages.extensions.Extensions
 import com.cometchat.pro.uikit.ui_components.messages.forward_message.CometChatForwardMessageActivity
-import com.cometchat.pro.uikit.ui_components.messages.live_reaction.LiveReactionListener
-import com.cometchat.pro.uikit.ui_components.messages.live_reaction.ReactionClickListener
 import com.cometchat.pro.uikit.ui_components.messages.message_actions.CometChatMessageActions
 import com.cometchat.pro.uikit.ui_components.messages.message_actions.listener.MessageActionCloseListener
 import com.cometchat.pro.uikit.ui_components.messages.message_actions.listener.OnMessageLongClick
@@ -100,8 +98,6 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
 import java.util.*
-import android.widget.TextView
-
 
 
 /**
@@ -125,20 +121,19 @@ import android.widget.TextView
  *
  * Modified on  - 16th January 2020
  */
-class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClick, MessageActionCloseListener {
+class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClick,
+    MessageActionCloseListener {
     private var isReplyPrivately: Boolean = false
     private var replyMessageJson: JSONObject = JSONObject()
     private var isImageNotSafe: Boolean = false
     private var isDeleteMemberMessageVisible: Boolean = false
     private var isReactionsVisible: Boolean = false
     private var isReplyVisible: Boolean = false
-    private var isThreadVisible : Boolean = false
+    private var isThreadVisible: Boolean = false
     private var intentRequestCode: Int? = null
     private var isOngoingCall: Boolean = false
     private var ivUserInfo: ImageView? = null
     private var isReactionEnded: Boolean = true
-    private var imageToFlySecond: ImageView? = null
-    private var imageToFly: ImageView? = null
     private var liveReactionLayout: FrameLayout? = null
     private var name: String? = ""
     private var status: String? = ""
@@ -173,8 +168,10 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
     private var groupType: String? = null
     private var isBlockedByMe = false
     private var loggedInUserScope: String? = null
+
     //    private var rlMessageAction: RelativeLayout? = null
     private var ivCloseMessageAction: ImageView? = null
+
     //    private var ivCopyMessageAction: ImageView? = null
 //    private var tvEditMessage: TextView? = null
 //    private var tvDeleteMessage: TextView? = null
@@ -197,7 +194,8 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
     private var isNoMoreMessages = false
     private var fontUtils: FontUtils? = null
     private val loggedInUser = getLoggedInUser()
-    var CAMERA_PERMISSION = arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    var CAMERA_PERMISSION =
+        arrayOf(permission.CAMERA, WRITE_EXTERNAL_STORAGE)
     private var isInProgress = false
     private var isSmartReplyClicked = false
     private var onGoingCallView: RelativeLayout? = null
@@ -212,7 +210,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
     private var replyClose: ImageView? = null
     private var isReply = false
 
-    private var cometChatMessageActions : CometChatMessageActions? = null
+    private var cometChatMessageActions: CometChatMessageActions? = null
 
     private var locationManager: LocationManager? = null
     private var locationListener: LocationListener? = null
@@ -252,7 +250,8 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                 isReactionsVisible = p0
             }
         })
-        FeatureRestriction.isDeleteMemberMessageEnabled(object : FeatureRestriction.OnSuccessListener {
+        FeatureRestriction.isDeleteMemberMessageEnabled(object :
+            FeatureRestriction.OnSuccessListener {
             override fun onSuccess(p0: Boolean) {
                 isDeleteMemberMessageVisible = p0
             }
@@ -276,7 +275,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                 replyMessageJson = JSONObject(json!!)
             }
 
-            if (type != null && type == CometChatConstants.RECEIVER_TYPE_GROUP) {
+            if (type == CometChatConstants.RECEIVER_TYPE_GROUP) {
                 Id = arguments?.getString(UIKitConstants.IntentStrings.GUID).toString()
                 memberCount = requireArguments().getInt(UIKitConstants.IntentStrings.MEMBER_COUNT)
                 groupDesc = arguments?.getString(UIKitConstants.IntentStrings.GROUP_DESC)
@@ -286,7 +285,11 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         vw = inflater.inflate(R.layout.fragment_cometchat_messagelist, container, false)
 
@@ -296,10 +299,10 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewComponent(view)
-        if (isReplyPrivately && replyMessageJson != null) {
+        if (isReplyPrivately) {
             if (replyMessageJson.has("category")) {
                 baseMessage = CometChatHelper.processMessage(replyMessageJson)
-                Log.e(TAG, "onCreate: base"+baseMessage )
+                Log.e(TAG, "onCreate: base$baseMessage")
                 replyMessage()
             }
 
@@ -319,14 +322,14 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
 //        if (type == CometChatConstants.RECEIVER_TYPE_USER)
 //            composeBox?.isStartVideoCall = false
         liveReactionLayout = view?.findViewById(R.id.live_reactions_layout)
-       /* composeBox?.btnLiveReaction?.setOnClickListener {
-            if (isReactionEnded)
-                sendLiveReaction()
-        }*/
+        /* composeBox?.btnLiveReaction?.setOnClickListener {
+             if (isReactionEnded)
+                 sendLiveReaction()
+         }*/
         messageShimmer = view?.findViewById(R.id.shimmer_layout)
         setComposeBoxListener()
 
-        FeatureRestriction.isOneOnOneChatEnabled(object : FeatureRestriction.OnSuccessListener{
+        FeatureRestriction.isOneOnOneChatEnabled(object : FeatureRestriction.OnSuccessListener {
             override fun onSuccess(p0: Boolean) {
                 if (type == CometChatConstants.RECEIVER_TYPE_USER) {
                     if (p0)
@@ -336,7 +339,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                 }
             }
         })
-        FeatureRestriction.isGroupChatEnabled(object : FeatureRestriction.OnSuccessListener{
+        FeatureRestriction.isGroupChatEnabled(object : FeatureRestriction.OnSuccessListener {
             override fun onSuccess(p0: Boolean) {
                 if (type == CometChatConstants.RECEIVER_TYPE_GROUP) {
                     if (p0)
@@ -348,7 +351,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
         })
 
         rvSmartReply = view?.findViewById(R.id.rv_smartReply)
-        FeatureRestriction.isSmartRepliesEnabled(object : FeatureRestriction.OnSuccessListener{
+        FeatureRestriction.isSmartRepliesEnabled(object : FeatureRestriction.OnSuccessListener {
             override fun onSuccess(p0: Boolean) {
                 if (!p0)
                     rvSmartReply?.visibility = View.GONE
@@ -375,7 +378,9 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
         stickerLayout = view?.findViewById(R.id.sticker_layout)
         closeStickerView = view?.findViewById(R.id.close_sticker_layout)
 
-        closeStickerView?.setOnClickListener(View.OnClickListener { stickerLayout?.visibility = View.GONE })
+        closeStickerView?.setOnClickListener(View.OnClickListener {
+            stickerLayout?.visibility = View.GONE
+        })
 
         stickersView?.setStickerClickListener(object : StickerClickListener {
             override fun onClickListener(sticker: Sticker?) {
@@ -401,16 +406,19 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
         ivAudioCallBtn = view?.findViewById(R.id.iv_audio_call_btn)
         ivVideoCallBtn = view?.findViewById(R.id.iv_video_call_btn)
 
-        FeatureRestriction.isOneOnOneAudioCallEnabled(object : FeatureRestriction.OnSuccessListener{
+        FeatureRestriction.isOneOnOneAudioCallEnabled(object :
+            FeatureRestriction.OnSuccessListener {
             override fun onSuccess(p0: Boolean) {
                 if (p0 && type == CometChatConstants.RECEIVER_TYPE_USER) {
                     ivAudioCallBtn?.visibility = View.VISIBLE
                 } else ivAudioCallBtn?.visibility = View.GONE
             }
         })
-        FeatureRestriction.isOneOnOneVideoCallEnabled(object : FeatureRestriction.OnSuccessListener{
+        FeatureRestriction.isOneOnOneVideoCallEnabled(object :
+            FeatureRestriction.OnSuccessListener {
             override fun onSuccess(p0: Boolean) {
-                if (p0) ivVideoCallBtn?.visibility = View.VISIBLE else ivVideoCallBtn?.visibility = View.GONE
+                if (p0) ivVideoCallBtn?.visibility = View.VISIBLE else ivVideoCallBtn?.visibility =
+                    View.GONE
             }
         })
 
@@ -422,7 +430,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
         blockUserLayout = view?.findViewById(R.id.blocked_user_layout)
         tvName = view?.findViewById(R.id.tv_name)
         tvStatus = view?.findViewById(R.id.tv_status)
-        FeatureRestriction.isUserPresenceEnabled(object : FeatureRestriction.OnSuccessListener{
+        FeatureRestriction.isUserPresenceEnabled(object : FeatureRestriction.OnSuccessListener {
             override fun onSuccess(p0: Boolean) {
                 if (!p0)
                     if (type == CometChatConstants.RECEIVER_TYPE_USER)
@@ -459,39 +467,43 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
 //            rlMessageAction?.setBackgroundColor(resources.getColor(R.color.darkModeBackground))
             tvName?.setTextColor(resources.getColor(R.color.textColorWhite))
         } else {
-            toolbar?.setBackgroundColor(resources.getColor(R.color.textColorWhite))
+            // Changes the top bar of group conversation
+            toolbar?.setBackgroundColor(resources.getColor(R.color.darkModeBackground))
             editMessageLayout?.background = resources.getDrawable(R.drawable.left_border)
             composeBox?.setBackgroundColor(resources.getColor(R.color.textColorWhite))
             rvChatListView?.setBackgroundColor(resources.getColor(R.color.textColorWhite))
             replyMessageLayout?.background = resources.getDrawable(R.drawable.left_border)
-//            rlMessageAction!!.setBackgroundColor(resources.getColor(R.color.textColorWhite))
-            tvName?.setTextColor(resources.getColor(R.color.primaryTextColor))
+            tvName?.setTextColor(resources.getColor(R.color.textColorWhite))
         }
-        KeyBoardUtils.setKeyboardVisibilityListener(requireActivity(), rvChatListView?.parent as View, object : KeyboardVisibilityListener {
-            override fun onKeyboardVisibilityChanged(keyboardVisible: Boolean) {
-                if (keyboardVisible) {
-                    scrollToBottom()
-                    composeBox?.ivMic?.visibility = View.GONE
-                    // composeBox?.btnLiveReaction?.visibility = View.GONE
-                    composeBox?.ivSend?.visibility = View.VISIBLE
-                } else {
-                    composeBox?.ivSend?.visibility = View.GONE
-                    // composeBox?.btnLiveReaction?.visibility = View.VISIBLE
-                    composeBox?.ivMic?.visibility = View.VISIBLE
-                    FeatureRestriction.isVoiceNotesEnabled(object : FeatureRestriction.OnSuccessListener{
-                        override fun onSuccess(p0: Boolean) {
-                            if (p0) {
-                                composeBox!!.ivMic!!.visibility = View.VISIBLE
-                            } else {
-                                composeBox!!.ivMic!!.visibility = View.GONE
-                                composeBox!!.ivSend!!.visibility = View.VISIBLE
+        KeyBoardUtils.setKeyboardVisibilityListener(
+            requireActivity(),
+            rvChatListView?.parent as View,
+            object : KeyboardVisibilityListener {
+                override fun onKeyboardVisibilityChanged(keyboardVisible: Boolean) {
+                    if (keyboardVisible) {
+                        scrollToBottom()
+                        composeBox?.ivMic?.visibility = View.GONE
+                        // composeBox?.btnLiveReaction?.visibility = View.GONE
+                        composeBox?.ivSend?.visibility = View.VISIBLE
+                    } else {
+                        composeBox?.ivSend?.visibility = View.GONE
+                        // composeBox?.btnLiveReaction?.visibility = View.VISIBLE
+                        composeBox?.ivMic?.visibility = View.VISIBLE
+                        FeatureRestriction.isVoiceNotesEnabled(object :
+                            FeatureRestriction.OnSuccessListener {
+                            override fun onSuccess(p0: Boolean) {
+                                if (p0) {
+                                    composeBox!!.ivMic!!.visibility = View.VISIBLE
+                                } else {
+                                    composeBox!!.ivMic!!.visibility = View.GONE
+                                    composeBox!!.ivSend!!.visibility = View.VISIBLE
+                                }
                             }
-                        }
 
-                    })
+                        })
+                    }
                 }
-            }
-        })
+            })
 
 
         // Uses to fetch next list of messages if rvChatListView (RecyclerView) is scrolled in downward direction.
@@ -504,7 +516,10 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (!isNoMoreMessages && !isInProgress) {
-                    if (linearLayoutManager?.findFirstVisibleItemPosition() == 10 || !rvChatListView!!.canScrollVertically(-1)) {
+                    if (linearLayoutManager?.findFirstVisibleItemPosition() == 10 || !rvChatListView!!.canScrollVertically(
+                            -1
+                        )
+                    ) {
                         isInProgress = true
                         fetchMessage()
                     }
@@ -538,15 +553,24 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
         } else ivAudioCallBtn?.visibility = View.VISIBLE
         ivAudioCallBtn?.setOnClickListener {
             if (type == CometChatConstants.RECEIVER_TYPE_USER) {
-                Utils.initiatecall(requireContext(), Id, CometChatConstants.RECEIVER_TYPE_USER, CometChatConstants.CALL_TYPE_AUDIO)
+                Utils.initiatecall(
+                    requireContext(),
+                    Id,
+                    CometChatConstants.RECEIVER_TYPE_USER,
+                    CometChatConstants.CALL_TYPE_AUDIO
+                )
             }
 //            else Utils.initiatecall(context!!, Id, CometChatConstants.RECEIVER_TYPE_GROUP, CometChatConstants.CALL_TYPE_AUDIO)
         }
         ivVideoCallBtn?.setOnClickListener {
             if (type == CometChatConstants.RECEIVER_TYPE_USER) {
-                Utils.initiatecall(requireContext(), Id, CometChatConstants.RECEIVER_TYPE_USER, CometChatConstants.CALL_TYPE_VIDEO)
-            }
-            else {
+                Utils.initiatecall(
+                    requireContext(),
+                    Id,
+                    CometChatConstants.RECEIVER_TYPE_USER,
+                    CometChatConstants.CALL_TYPE_VIDEO
+                )
+            } else {
                 val body = JSONObject()
                 body.put("sessionID", Id)
                 sendCustomMessage(UIKitConstants.IntentStrings.MEETING, body)
@@ -555,9 +579,9 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
     }
 
     private fun sendLiveReaction() {
-        var metadata : JSONObject = JSONObject()
-        metadata.put("type","live_reaction")
-        metadata.put("reaction","heart")
+        val metadata = JSONObject()
+        metadata.put("type", "live_reaction")
+        metadata.put("reaction", "heart")
         val transientMessage = TransientMessage(Id, type, metadata)
         sendTransientMessage(transientMessage)
         setReaction()
@@ -568,18 +592,18 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
         for (i in 1..5) {
             val imageView = ImageView(context)
 
-            var layoutParam: FrameLayout.LayoutParams  = FrameLayout.LayoutParams(
+            var layoutParam: FrameLayout.LayoutParams = FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
             layoutParam.gravity = Gravity.BOTTOM or Gravity.END
             liveReactionLayout?.alpha = 1.0f
 
-            if (i.rem(2) == 0){
+            if (i.rem(2) == 0) {
                 layoutParam.rightMargin = 16
                 imageView.layoutParams = layoutParam
                 liveReactionLayout?.addView(imageView)
-            } else if (i.rem(3) == 0){
+            } else if (i.rem(3) == 0) {
                 layoutParam.rightMargin = 30
                 imageView.layoutParams = layoutParam
                 liveReactionLayout?.addView(imageView)
@@ -600,7 +624,8 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                 imageView.setImageBitmap(scaledBitmap)
             }
 
-            var transition: ObjectAnimator = ObjectAnimator.ofFloat(imageView, "translationY", -400f)
+            var transition: ObjectAnimator =
+                ObjectAnimator.ofFloat(imageView, "translationY", -400f)
             var fadeOut: ObjectAnimator = ObjectAnimator.ofFloat(imageView, "alpha", 1f, 0f)
             transition.repeatCount = 3
             fadeOut.repeatCount = 3
@@ -617,8 +642,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                 animatorSet.duration = 500L
                 animatorSet.interpolator = AccelerateDecelerateInterpolator()
                 animatorSet.start()
-            }
-            else if (i.rem(3)== 0){
+            } else if (i.rem(3) == 0) {
                 val animatorSet = AnimatorSet()
                 animatorSet.playTogether(transition, fadeOut)
                 animatorSet.duration = 500L
@@ -636,7 +660,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
             }
             Handler().postDelayed({
                 isReactionEnded = true
-            },1500)
+            }, 1500)
         }
     }
 
@@ -668,8 +692,10 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
     private fun setComposeBoxListener() {
         composeBox?.setComposeBoxListener(object : ComposeActionListener() {
             override fun onEditTextMediaSelected(inputContentInfo: InputContentInfoCompat?) {
-                val messageType = inputContentInfo?.linkUri.toString().substring(inputContentInfo?.linkUri.toString().lastIndexOf('.'))
-                val mediaMessage = MediaMessage(Id, null, CometChatConstants.MESSAGE_TYPE_IMAGE, type)
+                val messageType = inputContentInfo?.linkUri.toString()
+                    .substring(inputContentInfo?.linkUri.toString().lastIndexOf('.'))
+                val mediaMessage =
+                    MediaMessage(Id, null, CometChatConstants.MESSAGE_TYPE_IMAGE, type)
                 val attachment = Attachment()
                 attachment.fileUrl = inputContentInfo?.linkUri.toString()
                 attachment.fileMimeType = inputContentInfo?.description?.getMimeType(0)
@@ -714,7 +740,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     audioPermission.launch(permission.WRITE_EXTERNAL_STORAGE)
                 } else {
-                    if (Utils.hasPermissions(context,WRITE_EXTERNAL_STORAGE)) {
+                    if (Utils.hasPermissions(context, WRITE_EXTERNAL_STORAGE)) {
                         (context as Activity).startActivityForResult(
                             MediaUtils.openAudio(activity!!),
                             UIKitConstants.RequestCode.AUDIO
@@ -730,10 +756,13 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
 
             override fun onCameraActionClicked() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
-                    cameraPermission.launch(Manifest.permission.CAMERA)
+                    cameraPermission.launch(permission.CAMERA)
                 else {
                     if (Utils.hasPermissions(context, *CAMERA_PERMISSION)) {
-                        (context as Activity).startActivityForResult(MediaUtils.openCamera(context!!), UIKitConstants.RequestCode.CAMERA)
+                        (context as Activity).startActivityForResult(
+                            MediaUtils.openCamera(context!!),
+                            UIKitConstants.RequestCode.CAMERA
+                        )
                     } else {
                         requestPermissions(CAMERA_PERMISSION, UIKitConstants.RequestCode.CAMERA)
                     }
@@ -743,8 +772,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
             override fun onGalleryActionClicked() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     galleryPermission.launch(WRITE_EXTERNAL_STORAGE)
-                }
-                else {
+                } else {
                     if (Utils.hasPermissions(context, WRITE_EXTERNAL_STORAGE)) {
                         startActivityForResult(
                             MediaUtils.openGallery(activity!!),
@@ -770,7 +798,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                             ), UIKitConstants.RequestCode.FILE
                         )
                     }
-                }else {
+                } else {
                     if (Utils.hasPermissions(context, WRITE_EXTERNAL_STORAGE)) {
                         (context as Activity).startActivityForResult(
                             MediaUtils.getFileIntent(UIKitConstants.IntentStrings.EXTRA_MIME_DOC),
@@ -778,7 +806,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                         )
                     } else {
                         requestPermissions(
-                            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                            arrayOf(WRITE_EXTERNAL_STORAGE),
                             UIKitConstants.RequestCode.FILE
                         )
                     }
@@ -806,18 +834,28 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
             }
 
             override fun onLocationActionClicked() {
-                if (Utils.hasPermissions(context, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)) {
-                        initLocation()
-                        //locationManager = (LocationManager) Objects.requireNonNull(getContext()).getSystemService(Context.LOCATION_SERVICE);
-                        val provider: Boolean =
-                            locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)
-                        if (!provider) {
-                            turnOnLocation()
-                        } else {
-                            getLocation()
-                        }
+                if (Utils.hasPermissions(
+                        context,
+                        permission.ACCESS_FINE_LOCATION,
+                        permission.ACCESS_COARSE_LOCATION
+                    )
+                ) {
+                    initLocation()
+                    //locationManager = (LocationManager) Objects.requireNonNull(getContext()).getSystemService(Context.LOCATION_SERVICE);
+                    val provider: Boolean =
+                        locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                    if (!provider) {
+                        turnOnLocation()
+                    } else {
+                        getLocation()
+                    }
                 } else {
-                    requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), UIKitConstants.RequestCode.LOCATION)
+                    requestPermissions(
+                        arrayOf(
+                            permission.ACCESS_FINE_LOCATION,
+                            permission.ACCESS_COARSE_LOCATION
+                        ), UIKitConstants.RequestCode.LOCATION
+                    )
                 }
             }
 
@@ -829,7 +867,11 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                             Extensions.fetchStickers(object : ExtensionResponseListener<Any>() {
                                 override fun onResponseSuccess(vararg: Any?) {
                                     val stickersJSON = vararg as JSONObject
-                                    stickersView?.setData(Id, type, Extensions.extractStickersFromJSON(stickersJSON))
+                                    stickersView?.setData(
+                                        Id,
+                                        type,
+                                        Extensions.extractStickersFromJSON(stickersJSON)
+                                    )
                                 }
 
                                 override fun onResponseFailed(e: CometChatException?) {
@@ -849,28 +891,36 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
             }
 
             override fun onWhiteBoardClicked() {
-                Extensions.callExtensions("whiteboard", Id, type, object : ExtensionResponseListener<Any>() {
-                    override fun onResponseSuccess(vararg: Any?) {
-                        var jasonObject: JSONObject = vararg as JSONObject
-                    }
+                Extensions.callExtensions(
+                    "whiteboard",
+                    Id,
+                    type,
+                    object : ExtensionResponseListener<Any>() {
+                        override fun onResponseSuccess(vararg: Any?) {
+                            var jasonObject: JSONObject = vararg as JSONObject
+                        }
 
-                    override fun onResponseFailed(e: CometChatException?) {
-                        ErrorMessagesUtils.cometChatErrorMessage(context, e?.code)
-                    }
-                })
+                        override fun onResponseFailed(e: CometChatException?) {
+                            ErrorMessagesUtils.cometChatErrorMessage(context, e?.code)
+                        }
+                    })
 
             }
 
             override fun onWriteBoardClicked() {
-                Extensions.callExtensions("document", Id, type, object : ExtensionResponseListener<Any>() {
-                    override fun onResponseSuccess(vararg: Any?) {
-                        var jasonObject: JSONObject = vararg as JSONObject
-                    }
+                Extensions.callExtensions(
+                    "document",
+                    Id,
+                    type,
+                    object : ExtensionResponseListener<Any>() {
+                        override fun onResponseSuccess(vararg: Any?) {
+                            var jasonObject: JSONObject = vararg as JSONObject
+                        }
 
-                    override fun onResponseFailed(e: CometChatException?) {
-                        ErrorMessagesUtils.cometChatErrorMessage(context, e?.code)
-                    }
-                })
+                        override fun onResponseFailed(e: CometChatException?) {
+                            ErrorMessagesUtils.cometChatErrorMessage(context, e?.code)
+                        }
+                    })
             }
 
 //            override fun onStartCallClicked() {
@@ -902,8 +952,9 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
 //            }
 //    }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     private fun checkPermission(): Boolean {
-       return Environment.isExternalStorageManager()
+        return Environment.isExternalStorageManager()
 
         //  else {
 //            if (Utils.hasPermissions(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
@@ -927,7 +978,11 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
             when {
                 granted -> {
 //                        Toast.makeText(context, "Permission granted!", Toast.LENGTH_SHORT).show()
-                    (context as Activity).startActivityForResult(MediaUtils.openCamera(requireActivity()), UIKitConstants.RequestCode.CAMERA)
+                    (context as Activity).startActivityForResult(
+                        MediaUtils.openCamera(
+                            requireActivity()
+                        ), UIKitConstants.RequestCode.CAMERA
+                    )
                 }
                 else -> {
                     requestCameraPermission()
@@ -940,9 +995,11 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
             when {
                 granted -> {
-                        Toast.makeText(context, "Permission granted!", Toast.LENGTH_SHORT).show()
-                    (context as Activity).startActivityForResult(MediaUtils.openGallery(requireActivity()),
-                        UIKitConstants.RequestCode.GALLERY)
+                    Toast.makeText(context, "Permission granted!", Toast.LENGTH_SHORT).show()
+                    (context as Activity).startActivityForResult(
+                        MediaUtils.openGallery(requireActivity()),
+                        UIKitConstants.RequestCode.GALLERY
+                    )
                 }
                 else -> {
                     Toast.makeText(context, "Permission denied!", Toast.LENGTH_SHORT).show()
@@ -950,14 +1007,17 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                 }
             }
         }
+
     @TargetApi(30)
     private val audioPermission =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
             when {
                 granted -> {
                     Toast.makeText(context, "Permission granted!", Toast.LENGTH_SHORT).show()
-                    (context as Activity).startActivityForResult(MediaUtils.openAudio(requireActivity()),
-                        UIKitConstants.RequestCode.AUDIO)
+                    (context as Activity).startActivityForResult(
+                        MediaUtils.openAudio(requireActivity()),
+                        UIKitConstants.RequestCode.AUDIO
+                    )
                 }
                 else -> {
                     Toast.makeText(context, "Permission denied!", Toast.LENGTH_SHORT).show()
@@ -971,11 +1031,14 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
         when {
             ContextCompat.checkSelfPermission(
                 requireContext(),
-                Manifest.permission.CAMERA
+                permission.CAMERA
             ) == PackageManager.PERMISSION_GRANTED -> {
-                (context as Activity).startActivityForResult(MediaUtils.openCamera(requireActivity()), UIKitConstants.RequestCode.CAMERA)
+                (context as Activity).startActivityForResult(
+                    MediaUtils.openCamera(requireActivity()),
+                    UIKitConstants.RequestCode.CAMERA
+                )
             }
-            shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
+            shouldShowRequestPermissionRationale(permission.CAMERA) -> {
                 context?.let {
                     Utils.showPermissionAlert(
                         it,
@@ -983,12 +1046,13 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                         getString(R.string.camera_permission_denied),
                         getString(R.string.deny),
                         getString(R.string.allow)
-                    ) { cameraPermission.launch(Manifest.permission.CAMERA) }
+                    ) { cameraPermission.launch(permission.CAMERA) }
                 }
             }
             else -> {
                 context?.let {
-                    Utils.showPermissionAlert(it,
+                    Utils.showPermissionAlert(
+                        it,
                         getString(R.string.camera_permission),
                         getString(R.string.camera_permission_denied),
                         getString(R.string.setting),
@@ -1067,7 +1131,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                     UIKitConstants.RequestCode.AUDIO
                 )
             }
-            shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE) -> {
+            shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE) -> {
                 context?.let {
                     Utils.showPermissionAlert(
                         it,
@@ -1075,7 +1139,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                         getString(R.string.grant_permission_to_access_storage),
                         getString(R.string.deny),
                         getString(R.string.allow)
-                    ) { galleryPermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE) }
+                    ) { galleryPermission.launch(WRITE_EXTERNAL_STORAGE) }
                 }
             }
             else -> {
@@ -1149,7 +1213,6 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
     }
 
 
-
     private fun createPollDialog() {
         var dialog = AlertDialog.Builder(requireContext(), R.style.dialogTheme)
         val view: View = LayoutInflater.from(context).inflate(R.layout.create_poll_layout, null)
@@ -1166,7 +1229,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
         val createPoll: MaterialButton = view.findViewById(R.id.btn_create_poll)
         createPoll.setBackgroundColor(Color.parseColor(UIKitSettings.color))
         val cancelPoll = view.findViewById<ImageView>(R.id.cancel_poll)
-        addOption.setOnClickListener(View.OnClickListener {
+        addOption.setOnClickListener {
             val optionView: View = LayoutInflater.from(context).inflate(R.layout.poll_option, null)
             pollOptionsArrayList.add(optionView)
             optionLayout.addView(optionView)
@@ -1174,14 +1237,21 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                 pollOptionsArrayList.remove(optionView)
                 optionLayout.removeView(optionView)
             }
-        })
+        }
         createPoll.isEnabled = true
         createPoll.setOnClickListener(View.OnClickListener {
             etQuestion.requestFocus()
             val option1Text = option1.findViewById<EditText>(R.id.et_option)
             val option2Text = option2.findViewById<EditText>(R.id.et_option)
-            if (etQuestion.text.toString().trim { it <= ' ' }.isEmpty()) etQuestion.error = getString(R.string.fill_this_field) else if (option1Text.text.toString().trim { it <= ' ' }.isEmpty()) option1Text.error = getString(R.string.fill_this_field) else if (option2Text.text.toString().trim { it <= ' ' }.isEmpty()) option2Text.error = getString(R.string.fill_this_field) else {
-                val progressDialog = ProgressDialog.show(context, "", resources.getString(R.string.create_poll))
+            if (etQuestion.text.toString().trim { it <= ' ' }.isEmpty()) etQuestion.error =
+                getString(R.string.fill_this_field) else if (option1Text.text.toString()
+                    .trim { it <= ' ' }.isEmpty()
+            ) option1Text.error =
+                getString(R.string.fill_this_field) else if (option2Text.text.toString()
+                    .trim { it <= ' ' }.isEmpty()
+            ) option2Text.error = getString(R.string.fill_this_field) else {
+                val progressDialog =
+                    ProgressDialog.show(context, "", resources.getString(R.string.create_poll))
                 createPoll.isEnabled = false
                 try {
                     val optionJson = JSONArray()
@@ -1189,7 +1259,8 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                     optionJson.put(option2Text.text.toString())
                     for (views in pollOptionsArrayList) {
                         val optionsText = views.findViewById<EditText>(R.id.et_option)
-                        if (optionsText.text.toString().trim { it <= ' ' }.isNotEmpty()) optionJson.put(optionsText.text.toString())
+                        if (optionsText.text.toString().trim { it <= ' ' }
+                                .isNotEmpty()) optionJson.put(optionsText.text.toString())
                     }
                     val jsonObject = JSONObject()
                     jsonObject.put("question", etQuestion.text.toString())
@@ -1197,19 +1268,19 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                     jsonObject.put("receiver", Id)
                     jsonObject.put("receiverType", type)
                     callExtension("polls", "POST", "/v2/create",
-                            jsonObject, object : CallbackListener<JSONObject?>() {
-                        override fun onSuccess(jsonObject: JSONObject?) {
-                            progressDialog.dismiss()
-                            alertDialog.dismiss()
-                        }
+                        jsonObject, object : CallbackListener<JSONObject?>() {
+                            override fun onSuccess(jsonObject: JSONObject?) {
+                                progressDialog.dismiss()
+                                alertDialog.dismiss()
+                            }
 
-                        override fun onError(e: CometChatException) {
-                            progressDialog.dismiss()
-                            createPoll.isEnabled = true
-                            Log.e(TAG, "onErrorCallExtension: " + e.message)
-                            Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
-                        }
-                    })
+                            override fun onError(e: CometChatException) {
+                                progressDialog.dismiss()
+                                createPoll.isEnabled = true
+                                Log.e(TAG, "onErrorCallExtension: " + e.message)
+                                Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
+                            }
+                        })
                 } catch (e: java.lang.Exception) {
                     createPoll.isEnabled = true
                     Log.e(TAG, "onErrorJSON: " + e.message)
@@ -1235,7 +1306,11 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                 }
                 initAlert(customData)
             } else {
-                Toast.makeText(context, getString(R.string.unable_to_get_location), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    context,
+                    getString(R.string.unable_to_get_location),
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }
@@ -1243,19 +1318,35 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
     private fun initAlert(customData: JSONObject) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle(getString(R.string.share_location_alert))
-        builder.setPositiveButton(getString(R.string.share)) { dialog, which -> sendCustomMessage(UIKitConstants.IntentStrings.LOCATION, customData) }.setNegativeButton(getString(R.string.cancel)) { dialog, which -> dialog.dismiss() }
+        builder.setPositiveButton(getString(R.string.share)) { dialog, which ->
+            sendCustomMessage(
+                UIKitConstants.IntentStrings.LOCATION,
+                customData
+            )
+        }.setNegativeButton(getString(R.string.cancel)) { dialog, which -> dialog.dismiss() }
         builder.create()
         builder.show()
     }
 
     private fun sendCustomMessage(customType: String, customData: JSONObject) {
-        var progressDialog = ProgressDialog.show(context, "", resources.getString(R.string.sending))
-        val customMessage: CustomMessage
-        customMessage = if (type.equals(CometChatConstants.RECEIVER_TYPE_USER, ignoreCase = true)) CustomMessage(Id, CometChatConstants.RECEIVER_TYPE_USER, customType, customData) else CustomMessage(Id, CometChatConstants.RECEIVER_TYPE_GROUP, customType, customData)
+        val progressDialog = ProgressDialog.show(context, "", resources.getString(R.string.sending))
+        val customMessage: CustomMessage = if (type.equals(
+                CometChatConstants.RECEIVER_TYPE_USER,
+                ignoreCase = true
+            )
+        ) CustomMessage(
+            Id,
+            CometChatConstants.RECEIVER_TYPE_USER,
+            customType,
+            customData
+        ) else CustomMessage(Id, CometChatConstants.RECEIVER_TYPE_GROUP, customType, customData)
         val incrementCountObject = JSONObject()
         val pushNotificationObject = JSONObject()
         if (customType == UIKitConstants.IntentStrings.LOCATION) {
-            pushNotificationObject.put("pushNotification", loggedInUser.name+" has shared his location")
+            pushNotificationObject.put(
+                "pushNotification",
+                loggedInUser.name + " has shared his location"
+            )
             customMessage.metadata = pushNotificationObject
         }
         if (customType == UIKitConstants.IntentStrings.STICKERS || customType == UIKitConstants.IntentStrings.LOCATION) {
@@ -1269,7 +1360,10 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                     messageAdapter?.addMessage(customMessage)
                     scrollToBottom()
                     if (customMessage.customData.has("sessionID"))
-                        Utils.startVideoCallIntent(context!!, customMessage.customData.getString("sessionID"))
+                        Utils.startVideoCallIntent(
+                            context!!,
+                            customMessage.customData.getString("sessionID")
+                        )
                 }
             }
 
@@ -1285,13 +1379,19 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
     private fun turnOnLocation() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle(getString(R.string.turn_on_gps))
-        builder.setPositiveButton(getString(R.string.on)) { dialog, which -> startActivityForResult(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), UIKitConstants.RequestCode.LOCATION) }.setNegativeButton(getString(R.string.cancel)) { dialog, which -> dialog.dismiss() }
+        builder.setPositiveButton(getString(R.string.on)) { dialog, which ->
+            startActivityForResult(
+                Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS),
+                UIKitConstants.RequestCode.LOCATION
+            )
+        }.setNegativeButton(getString(R.string.cancel)) { dialog, which -> dialog.dismiss() }
         builder.create()
         builder.show()
     }
 
     private fun initLocation() {
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireActivity())
         locationListener = object : LocationListener {
             override fun onLocationChanged(location: Location) {}
             override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
@@ -1300,47 +1400,82 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
         }
         locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         try {
-            locationListener?.let { locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DIST.toFloat(), it) }
-            locationListener?.let { locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DIST.toFloat(), it) }
+            locationListener?.let {
+                locationManager?.requestLocationUpdates(
+                    LocationManager.NETWORK_PROVIDER,
+                    MIN_TIME,
+                    MIN_DIST.toFloat(),
+                    it
+                )
+            }
+            locationListener?.let {
+                locationManager?.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER,
+                    MIN_TIME,
+                    MIN_DIST.toFloat(),
+                    it
+                )
+            }
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         Log.d(TAG, "onRequestPermissionsResult: ")
         when (requestCode) {
             UIKitConstants.RequestCode.CAMERA ->
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED &&
-                    grantResults[1] == PackageManager.PERMISSION_GRANTED)
-                    startActivityForResult(MediaUtils.openCamera(requireActivity()),
-                            UIKitConstants.RequestCode.CAMERA)
-                else showSnackBar(view?.findViewById(R.id.message_box),
-                    resources.getString(R.string.grant_camera_permission))
+                    grantResults[1] == PackageManager.PERMISSION_GRANTED
+                )
+                    startActivityForResult(
+                        MediaUtils.openCamera(requireActivity()),
+                        UIKitConstants.RequestCode.CAMERA
+                    )
+                else showSnackBar(
+                    view?.findViewById(R.id.message_box),
+                    resources.getString(R.string.grant_camera_permission)
+                )
             UIKitConstants.RequestCode.GALLERY ->
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    startActivityForResult(MediaUtils.openGallery(requireActivity()),
-                        UIKitConstants.RequestCode.GALLERY)
-                else showSnackBar(view?.findViewById(R.id.message_box),
-                    resources.getString(R.string.grant_storage_permission))
+                    startActivityForResult(
+                        MediaUtils.openGallery(requireActivity()),
+                        UIKitConstants.RequestCode.GALLERY
+                    )
+                else showSnackBar(
+                    view?.findViewById(R.id.message_box),
+                    resources.getString(R.string.grant_storage_permission)
+                )
             UIKitConstants.RequestCode.FILE ->
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    startActivityForResult(MediaUtils.getFileIntent(
-                        UIKitConstants.IntentStrings.EXTRA_MIME_DOC), UIKitConstants.RequestCode.FILE)
-                else showSnackBar(view?.findViewById(R.id.message_box),
-                    resources.getString(R.string.grant_storage_permission))
+                    startActivityForResult(
+                        MediaUtils.getFileIntent(
+                            UIKitConstants.IntentStrings.EXTRA_MIME_DOC
+                        ), UIKitConstants.RequestCode.FILE
+                    )
+                else showSnackBar(
+                    view?.findViewById(R.id.message_box),
+                    resources.getString(R.string.grant_storage_permission)
+                )
             UIKitConstants.RequestCode.LOCATION ->
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                initLocation()
-                //locationManager = (LocationManager) Objects.requireNonNull(getContext()).getSystemService(Context.LOCATION_SERVICE);
-                val provider = locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)
-                if (!provider) {
-                    turnOnLocation()
-                } else {
-                    getLocation()
-                }
-            } else
-                showSnackBar(view?.findViewById(R.id.message_box), resources.getString(R.string.grant_location_permission))
+                    initLocation()
+                    //locationManager = (LocationManager) Objects.requireNonNull(getContext()).getSystemService(Context.LOCATION_SERVICE);
+                    val provider = locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                    if (!provider) {
+                        turnOnLocation()
+                    } else {
+                        getLocation()
+                    }
+                } else
+                    showSnackBar(
+                        view?.findViewById(R.id.message_box),
+                        resources.getString(R.string.grant_location_permission)
+                    )
         }
     }
 
@@ -1370,12 +1505,12 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
      * @see GroupMembersRequest
      */
     private val member: Unit
-        private get() {
+        get() {
             val groupMembersRequest = GroupMembersRequestBuilder(Id).setLimit(100).build()
             groupMembersRequest.fetchNext(object : CallbackListener<List<GroupMember>?>() {
                 override fun onSuccess(list: List<GroupMember>?) {
                     var s = arrayOfNulls<String>(0)
-                    if (list != null && list.size != 0) {
+                    if (list != null && list.isNotEmpty()) {
                         s = arrayOfNulls(list.size)
                         for (j in list.indices) {
                             s[j] = list[j].name
@@ -1420,8 +1555,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
      * @param users
      */
     private fun setSubTitle(users: Array<String?>) {
-        if (users != null && users.size != 0) {
-
+        if (users.isNotEmpty()) {
             memberNames = users.joinToString(", ")
             tvStatus?.text = memberNames
         }
@@ -1438,39 +1572,36 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
      */
     private fun fetchMessage() {
         if (messagesRequest == null) {
-            if (type != null) {
-                if (type == CometChatConstants.RECEIVER_TYPE_USER) {
-                    messagesRequest = if (!FeatureRestriction.isHideDeletedMessagesEnabled()) {
-                        MessagesRequestBuilder().setLimit(LIMIT).setUID(Id)
-                                .hideReplies(true)
-                                .setTypes(UIKitConstants.MessageRequest.messageTypesForUser)
-                                .setCategories(UIKitConstants.MessageRequest.messageCategoriesForUser)
-                                .build()
-                    } else {
-                        MessagesRequestBuilder().setLimit(LIMIT).setUID(Id)
-                                .hideReplies(true)
-                                .hideDeletedMessages(true)
-                                .setTypes(UIKitConstants.MessageRequest.messageTypesForUser)
-                                .setCategories(UIKitConstants.MessageRequest.messageCategoriesForUser)
-                                .build()
-                    }
+            if (type == CometChatConstants.RECEIVER_TYPE_USER) {
+                messagesRequest = if (!FeatureRestriction.isHideDeletedMessagesEnabled()) {
+                    MessagesRequestBuilder().setLimit(LIMIT).setUID(Id)
+                        .hideReplies(true)
+                        .setTypes(UIKitConstants.MessageRequest.messageTypesForUser)
+                        .setCategories(UIKitConstants.MessageRequest.messageCategoriesForUser)
+                        .build()
+                } else {
+                    MessagesRequestBuilder().setLimit(LIMIT).setUID(Id)
+                        .hideReplies(true)
+                        .hideDeletedMessages(true)
+                        .setTypes(UIKitConstants.MessageRequest.messageTypesForUser)
+                        .setCategories(UIKitConstants.MessageRequest.messageCategoriesForUser)
+                        .build()
                 }
-                else {
-                    messagesRequest = if (!FeatureRestriction.isHideDeletedMessagesEnabled()) {
-                        MessagesRequestBuilder().setLimit(LIMIT).setGUID(Id)
-                                .hideReplies(true)
-                                .setTypes(UIKitConstants.MessageRequest.messageTypesForGroup)
-                                .setCategories(UIKitConstants.MessageRequest.messageCategoriesForGroup)
-                                .build()
-                    } else {
-                        MessagesRequestBuilder().setLimit(LIMIT).setGUID(Id)
-                                .hideReplies(true)
-                                .hideDeletedMessages(true)
-                                .hideMessagesFromBlockedUsers(true)
-                                .setTypes(UIKitConstants.MessageRequest.messageTypesForGroup)
-                                .setCategories(UIKitConstants.MessageRequest.messageCategoriesForGroup)
-                                .build()
-                    }
+            } else {
+                messagesRequest = if (!FeatureRestriction.isHideDeletedMessagesEnabled()) {
+                    MessagesRequestBuilder().setLimit(LIMIT).setGUID(Id)
+                        .hideReplies(true)
+                        .setTypes(UIKitConstants.MessageRequest.messageTypesForGroup)
+                        .setCategories(UIKitConstants.MessageRequest.messageCategoriesForGroup)
+                        .build()
+                } else {
+                    MessagesRequestBuilder().setLimit(LIMIT).setGUID(Id)
+                        .hideReplies(true)
+                        .hideDeletedMessages(true)
+                        .hideMessagesFromBlockedUsers(true)
+                        .setTypes(UIKitConstants.MessageRequest.messageTypesForGroup)
+                        .setCategories(UIKitConstants.MessageRequest.messageCategoriesForGroup)
+                        .build()
                 }
             }
         }
@@ -1535,7 +1666,13 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
      */
     private fun initMessageAdapter(messageList: List<BaseMessage>) {
         if (messageAdapter == null) {
-            messageAdapter = activity?.let { MessageAdapter(it, messageList, CometChatMessageList::class.java.name) }
+            messageAdapter = activity?.let {
+                MessageAdapter(
+                    it,
+                    messageList,
+                    CometChatMessageList::class.java.name
+                )
+            }
             rvChatListView?.adapter = messageAdapter
             stickyHeaderDecoration = StickyHeaderDecoration(messageAdapter!!)
             rvChatListView?.addItemDecoration(stickyHeaderDecoration!!, 0)
@@ -1601,9 +1738,23 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                 val mimeType = cr?.getType(data.data!!)
                 Log.e(TAG, "onActivityResult:file $file")
                 if (mimeType != null && mimeType.contains("image")) {
-                    if (file.exists()) sendMediaMessage(file, CometChatConstants.MESSAGE_TYPE_IMAGE) else Snackbar.make(rvChatListView!!, R.string.file_not_exist, Snackbar.LENGTH_LONG).show()
+                    if (file.exists()) sendMediaMessage(
+                        file,
+                        CometChatConstants.MESSAGE_TYPE_IMAGE
+                    ) else Snackbar.make(
+                        rvChatListView!!,
+                        R.string.file_not_exist,
+                        Snackbar.LENGTH_LONG
+                    ).show()
                 } else {
-                    if (file.exists()) sendMediaMessage(file, CometChatConstants.MESSAGE_TYPE_VIDEO) else Snackbar.make(rvChatListView!!, R.string.file_not_exist, Snackbar.LENGTH_LONG).show()
+                    if (file.exists()) sendMediaMessage(
+                        file,
+                        CometChatConstants.MESSAGE_TYPE_VIDEO
+                    ) else Snackbar.make(
+                        rvChatListView!!,
+                        R.string.file_not_exist,
+                        Snackbar.LENGTH_LONG
+                    ).show()
                 }
             }
             UIKitConstants.RequestCode.CAMERA -> {
@@ -1614,20 +1765,33 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                 } else {
                     File(MediaUtils.pictureImagePath)
                 }
-                if (file.exists()) sendMediaMessage(file, CometChatConstants.MESSAGE_TYPE_IMAGE) else Snackbar.make(rvChatListView!!, R.string.file_not_exist, Snackbar.LENGTH_LONG).show()
+                if (file.exists()) sendMediaMessage(
+                    file,
+                    CometChatConstants.MESSAGE_TYPE_IMAGE
+                ) else Snackbar.make(
+                    rvChatListView!!,
+                    R.string.file_not_exist,
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
             UIKitConstants.RequestCode.FILE -> {
                 intentRequestCode = UIKitConstants.RequestCode.FILE
-                if (data != null) sendMediaMessage(MediaUtils.getRealPath(activity, data.data), CometChatConstants.MESSAGE_TYPE_FILE)
+                if (data != null) sendMediaMessage(
+                    MediaUtils.getRealPath(activity, data.data),
+                    CometChatConstants.MESSAGE_TYPE_FILE
+                )
             }
             UIKitConstants.RequestCode.BLOCK_USER -> name = data?.getStringExtra("")
             UIKitConstants.RequestCode.LOCATION -> {
-                locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+                locationManager =
+                    context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
                 if (locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                    Toast.makeText(context, getString(R.string.gps_enabled), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.gps_enabled), Toast.LENGTH_SHORT)
+                        .show()
                     getLocation()
                 } else {
-                    Toast.makeText(context, getString(R.string.gps_disabled), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.gps_disabled), Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }
@@ -1645,7 +1809,13 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
 //        val progressDialog: ProgressDialog
 //        progressDialog = ProgressDialog.show(context, "", "Sending Media Message")
         val mediaMessage: MediaMessage
-        mediaMessage = if (type.equals(CometChatConstants.RECEIVER_TYPE_USER, ignoreCase = true)) MediaMessage(Id, file, filetype, CometChatConstants.RECEIVER_TYPE_USER) else MediaMessage(Id, file, filetype, CometChatConstants.RECEIVER_TYPE_GROUP)
+        mediaMessage =
+            if (type.equals(CometChatConstants.RECEIVER_TYPE_USER, ignoreCase = true)) MediaMessage(
+                Id,
+                file,
+                filetype,
+                CometChatConstants.RECEIVER_TYPE_USER
+            ) else MediaMessage(Id, file, filetype, CometChatConstants.RECEIVER_TYPE_GROUP)
         val jsonObject = JSONObject()
         try {
             jsonObject.put("path", file.absolutePath)
@@ -1697,7 +1867,8 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                             isBlockedByMe = false
                             blockUserLayout?.visibility = View.GONE
                             avatarUrl = user.avatar
-                            FeatureRestriction.isUserPresenceEnabled(object : FeatureRestriction.OnSuccessListener {
+                            FeatureRestriction.isUserPresenceEnabled(object :
+                                FeatureRestriction.OnSuccessListener {
                                 override fun onSuccess(p0: Boolean) {
                                     if (p0) {
                                         if (user.status == CometChatConstants.USER_STATUS_ONLINE)
@@ -1764,8 +1935,12 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
      * @see CometChat.sendMessage
      */
     private fun sendMessage(message: String) {
-        val textMessage: TextMessage
-        textMessage = if (type.equals(CometChatConstants.RECEIVER_TYPE_USER, ignoreCase = true)) TextMessage(Id, message, CometChatConstants.RECEIVER_TYPE_USER) else TextMessage(Id, message, CometChatConstants.RECEIVER_TYPE_GROUP)
+        val textMessage: TextMessage =
+            if (type.equals(CometChatConstants.RECEIVER_TYPE_USER, ignoreCase = true)) TextMessage(
+                Id,
+                message,
+                CometChatConstants.RECEIVER_TYPE_USER
+            ) else TextMessage(Id, message, CometChatConstants.RECEIVER_TYPE_GROUP)
         sendTypingIndicator(true)
         textMessage.category = CometChatConstants.CATEGORY_MESSAGE
         textMessage.sender = loggedInUser
@@ -1790,8 +1965,10 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
 //                ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
                 textMessage.sentAt = -1
                 if (e.code.equals("ERROR_INTERNET_UNAVAILABLE", ignoreCase = true)) {
-                    ErrorMessagesUtils.showCometChatErrorDialog(context,
-                            getString(R.string.please_check_your_internet_connection))
+                    ErrorMessagesUtils.showCometChatErrorDialog(
+                        context,
+                        getString(R.string.please_check_your_internet_connection)
+                    )
                 } else if (!e.code.equals("ERR_BLOCKED_BY_EXTENSION", ignoreCase = true)) {
                     if (messageAdapter == null) {
                         Log.e(TAG, "onError: MessageAdapter is null")
@@ -1842,8 +2019,19 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
      */
     private fun editMessage(baseMessage: BaseMessage?, message: String) {
         isEdit = false
-        val textMessage: TextMessage
-        textMessage = if (baseMessage?.receiverType.equals(CometChatConstants.RECEIVER_TYPE_USER, ignoreCase = true)) TextMessage(baseMessage!!.receiverUid, message, CometChatConstants.RECEIVER_TYPE_USER) else TextMessage(baseMessage!!.receiverUid, message, CometChatConstants.RECEIVER_TYPE_GROUP)
+        val textMessage: TextMessage = if (baseMessage?.receiverType.equals(
+                CometChatConstants.RECEIVER_TYPE_USER,
+                ignoreCase = true
+            )
+        ) TextMessage(
+            baseMessage!!.receiverUid,
+            message,
+            CometChatConstants.RECEIVER_TYPE_USER
+        ) else TextMessage(
+            baseMessage!!.receiverUid,
+            message,
+            CometChatConstants.RECEIVER_TYPE_GROUP
+        )
         sendTypingIndicator(true)
         textMessage.id = baseMessage.id
         editMessage(textMessage, object : CallbackListener<BaseMessage>() {
@@ -1868,12 +2056,19 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
     private fun replyMessage(baseMessage: BaseMessage?, message: String) {
         isReply = false
         try {
-            var textMessage: TextMessage
-            textMessage = if (type.equals(CometChatConstants.RECEIVER_TYPE_USER, ignoreCase = true)) TextMessage(Id, message, CometChatConstants.RECEIVER_TYPE_USER) else TextMessage(Id!!, message, CometChatConstants.RECEIVER_TYPE_GROUP)
+            val textMessage: TextMessage = if (type.equals(
+                    CometChatConstants.RECEIVER_TYPE_USER,
+                    ignoreCase = true
+                )
+            ) TextMessage(Id, message, CometChatConstants.RECEIVER_TYPE_USER) else TextMessage(
+                Id,
+                message,
+                CometChatConstants.RECEIVER_TYPE_GROUP
+            )
             textMessage.category = CometChatConstants.CATEGORY_MESSAGE
             textMessage.sender = loggedInUser
             textMessage.muid = System.currentTimeMillis().toString()
-            var jsonObject = JSONObject()
+            val jsonObject = JSONObject()
             var replyObject = JSONObject()
 
             if (isReplyPrivately)
@@ -1884,7 +2079,10 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
             textMessage.metadata = jsonObject
             sendTypingIndicator(true)
             if (messageAdapter != null) {
-                if (UIKitConstants.Sounds.enableMessageSounds) MediaUtils.playSendSound(context, R.raw.outgoing_message)
+                if (UIKitConstants.Sounds.enableMessageSounds) MediaUtils.playSendSound(
+                    context,
+                    R.raw.outgoing_message
+                )
                 messageAdapter?.addMessage(textMessage)
                 scrollToBottom()
             }
@@ -1903,8 +2101,10 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                     Log.e(TAG, "onError: " + e.message)
                     textMessage.sentAt = -1
                     if (e.code.equals("ERROR_INTERNET_UNAVAILABLE", ignoreCase = true)) {
-                        ErrorMessagesUtils.showCometChatErrorDialog(context,
-                                getString(R.string.please_check_your_internet_connection))
+                        ErrorMessagesUtils.showCometChatErrorDialog(
+                            context,
+                            getString(R.string.please_check_your_internet_connection)
+                        )
                     } else if (!e.code.equals("ERR_BLOCKED_BY_EXTENSION", ignoreCase = true)) {
                         if (messageAdapter == null) {
                             Log.e(TAG, "onError: MessageAdapter is null")
@@ -1947,22 +2147,34 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                 super.onGroupMemberLeft(action, leftUser, leftGroup)
                 Log.d(TAG, "onGroupMemberLeft: " + leftUser.name)
                 if (leftGroup.guid == Id) {
-                    if (memberNames != null) tvStatus?.text = memberNames?.replace("," + leftUser.name, "")
+                    if (memberNames != null) tvStatus?.text =
+                        memberNames?.replace("," + leftUser.name, "")
                 }
                 onMessageReceived(action)
             }
 
-            override fun onGroupMemberKicked(action: Action, kickedUser: User, kickedBy: User, kickedFrom: Group) {
+            override fun onGroupMemberKicked(
+                action: Action,
+                kickedUser: User,
+                kickedBy: User,
+                kickedFrom: Group
+            ) {
                 super.onGroupMemberKicked(action, kickedUser, kickedBy, kickedFrom)
                 Log.d(TAG, "onGroupMemberKicked: " + kickedUser.name)
                 if (kickedUser.uid == getLoggedInUser().uid) {
                     if (activity != null) activity?.finish()
                 }
-                if (kickedFrom.guid == Id) tvStatus?.text = memberNames?.replace("," + kickedUser.name, "")
+                if (kickedFrom.guid == Id) tvStatus?.text =
+                    memberNames?.replace("," + kickedUser.name, "")
                 onMessageReceived(action)
             }
 
-            override fun onGroupMemberBanned(action: Action, bannedUser: User, bannedBy: User, bannedFrom: Group) {
+            override fun onGroupMemberBanned(
+                action: Action,
+                bannedUser: User,
+                bannedBy: User,
+                bannedFrom: Group
+            ) {
                 if (bannedUser.uid == getLoggedInUser().uid) {
                     if (activity != null) {
                         activity?.onBackPressed()
@@ -1972,15 +2184,32 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                 onMessageReceived(action)
             }
 
-            override fun onGroupMemberUnbanned(action: Action, unbannedUser: User, unbannedBy: User, unbannedFrom: Group) {
+            override fun onGroupMemberUnbanned(
+                action: Action,
+                unbannedUser: User,
+                unbannedBy: User,
+                unbannedFrom: Group
+            ) {
                 onMessageReceived(action)
             }
 
-            override fun onGroupMemberScopeChanged(action: Action, updatedBy: User, updatedUser: User, scopeChangedTo: String, scopeChangedFrom: String, group: Group) {
+            override fun onGroupMemberScopeChanged(
+                action: Action,
+                updatedBy: User,
+                updatedUser: User,
+                scopeChangedTo: String,
+                scopeChangedFrom: String,
+                group: Group
+            ) {
                 onMessageReceived(action)
             }
 
-            override fun onMemberAddedToGroup(action: Action, addedby: User, userAdded: User, addedTo: Group) {
+            override fun onMemberAddedToGroup(
+                action: Action,
+                addedby: User,
+                userAdded: User,
+                addedTo: Group
+            ) {
                 if (addedTo.guid == Id) tvStatus?.text = memberNames + "," + userAdded.name
                 onMessageReceived(action)
             }
@@ -2006,7 +2235,9 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                 override fun onUserOffline(user: User) {
                     Log.d(TAG, "onUserOffline: $user")
                     if (user.uid == Id) {
-                        if (Utils.isDarkMode(context!!)) tvStatus?.setTextColor(resources.getColor(R.color.textColorWhite)) else tvStatus?.setTextColor(resources.getColor(android.R.color.black))
+                        if (Utils.isDarkMode(context!!)) tvStatus?.setTextColor(resources.getColor(R.color.textColorWhite)) else tvStatus?.setTextColor(
+                            resources.getColor(android.R.color.black)
+                        )
                         tvStatus?.text = user.status
                     }
                 }
@@ -2076,49 +2307,66 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
     }
 
     private fun setTransientMessage(transientMessage: TransientMessage?) {
-        Log.e(TAG, "setTransientMessage: "+transientMessage)
-        Log.e(TAG, "setTransientMessage: "+Id)
+        Log.e(TAG, "setTransientMessage: $transientMessage")
+        Log.e(TAG, "setTransientMessage: $Id")
 
-            if (transientMessage?.data != null) {
-                try {
-                    val reaction = transientMessage.data.getString("reaction")
-                    val type = transientMessage.data.getString("type")
-                    if (reaction.equals("heart") && type.equals("live_reaction")) setReaction()
-                } catch (e: java.lang.Exception) {
-                    e.printStackTrace()
-                }
+        if (transientMessage?.data != null) {
+            try {
+                val reaction = transientMessage.data.getString("reaction")
+                val type = transientMessage.data.getString("type")
+                if (reaction.equals("heart") && type.equals("live_reaction")) setReaction()
+            } catch (e: java.lang.Exception) {
+                e.printStackTrace()
             }
+        }
 
     }
 
     private fun setMessageReciept(messageReceipt: MessageReceipt) {
         if (messageAdapter != null) {
             if (messageReceipt.receivertype == CometChatConstants.RECEIVER_TYPE_USER) {
-                if (Id != null && messageReceipt.sender.uid == Id) {
-                    if (messageReceipt.receiptType == MessageReceipt.RECEIPT_TYPE_DELIVERED) messageAdapter?.setDeliveryReceipts(messageReceipt) else messageAdapter?.setReadReceipts(messageReceipt)
+                if (messageReceipt.sender.uid == Id) {
+                    if (messageReceipt.receiptType == MessageReceipt.RECEIPT_TYPE_DELIVERED) messageAdapter?.setDeliveryReceipts(
+                        messageReceipt
+                    ) else messageAdapter?.setReadReceipts(messageReceipt)
                 }
             }
         }
     }
 
     private fun setTypingIndicator(typingIndicator: TypingIndicator, isShow: Boolean) {
-        if (typingIndicator.receiverType.equals(CometChatConstants.RECEIVER_TYPE_USER, ignoreCase = true)) {
+        if (typingIndicator.receiverType.equals(
+                CometChatConstants.RECEIVER_TYPE_USER,
+                ignoreCase = true
+            )
+        ) {
             Log.e(TAG, "onTypingStarted: $typingIndicator")
-            if (Id != null && Id.equals(typingIndicator.sender.uid, ignoreCase = true)) typingIndicator(typingIndicator, isShow)
+            if (Id != null && Id.equals(
+                    typingIndicator.sender.uid,
+                    ignoreCase = true
+                )
+            ) typingIndicator(typingIndicator, isShow)
         } else {
-            if (Id != null && Id.equals(typingIndicator.receiverId, ignoreCase = true)) typingIndicator(typingIndicator, isShow)
+            if (Id != null && Id.equals(
+                    typingIndicator.receiverId,
+                    ignoreCase = true
+                )
+            ) typingIndicator(typingIndicator, isShow)
         }
     }
 
     private fun onMessageReceived(message: BaseMessage) {
         MediaUtils.playSendSound(context, R.raw.incoming_message)
         if (message.receiverType == CometChatConstants.RECEIVER_TYPE_USER) {
-             if (Id != null && Id.equals(message.sender.uid, ignoreCase = true)) {
+            if (Id != null && Id.equals(message.sender.uid, ignoreCase = true)) {
+                setMessage(message)
+            } else if (Id != null && Id.equals(
+                    message.receiverUid,
+                    ignoreCase = true
+                ) && message.sender.uid.equals(loggedInUser.uid, ignoreCase = true)
+            ) {
                 setMessage(message)
             }
-             else if (Id != null && Id.equals(message.receiverUid, ignoreCase = true) && message.sender.uid.equals(loggedInUser.uid, ignoreCase = true)) {
-                 setMessage(message)
-             }
         } else {
             if (Id != null && Id.equals(message.receiverUid, ignoreCase = true)) {
                 setMessage(message)
@@ -2176,39 +2424,43 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
             if (show) {
                 if (typingIndicator.receiverType == CometChatConstants.RECEIVER_TYPE_USER) {
 //                    if (typingIndicator.metadata == null) {
-                        FeatureRestriction.isTypingIndicatorsEnabled(object : FeatureRestriction.OnSuccessListener{
-                            override fun onSuccess(p0: Boolean) {
-                                if (p0) {
-                                    tvStatus?.visibility = View.VISIBLE
-                                    tvStatus?.text = "is Typing..."
-                                }
+                    FeatureRestriction.isTypingIndicatorsEnabled(object :
+                        FeatureRestriction.OnSuccessListener {
+                        override fun onSuccess(p0: Boolean) {
+                            if (p0) {
+                                tvStatus?.visibility = View.VISIBLE
+                                tvStatus?.text = "is Typing..."
                             }
+                        }
 
-                        })
+                    })
 //                    }
 //                    else
 //                        setLiveReaction()
                 } else {
 //                    if (typingIndicator.metadata == null) {
-                        FeatureRestriction.isTypingIndicatorsEnabled(object : FeatureRestriction.OnSuccessListener{
-                            override fun onSuccess(p0: Boolean) {
-                                if (p0) {
-                                    tvStatus?.visibility = View.VISIBLE
-                                    tvStatus?.text = typingIndicator.sender.name + " is Typing..."
-                                }
+                    FeatureRestriction.isTypingIndicatorsEnabled(object :
+                        FeatureRestriction.OnSuccessListener {
+                        override fun onSuccess(p0: Boolean) {
+                            if (p0) {
+                                tvStatus?.visibility = View.VISIBLE
+                                tvStatus?.text = typingIndicator.sender.name + " is Typing..."
                             }
+                        }
 
-                        })
+                    })
 //                    }
 //                    else
 //                        setLiveReaction()
                 }
             } else {
-                if (typingIndicator.receiverType == CometChatConstants.RECEIVER_TYPE_USER){
+                if (typingIndicator.receiverType == CometChatConstants.RECEIVER_TYPE_USER) {
                     if (typingIndicator.metadata == null) {
-                        FeatureRestriction.isUserPresenceEnabled(object : FeatureRestriction.OnSuccessListener {
+                        FeatureRestriction.isUserPresenceEnabled(object :
+                            FeatureRestriction.OnSuccessListener {
                             override fun onSuccess(p0: Boolean) {
-                                if (p0) tvStatus!!.text = status else tvStatus?.visibility = View.GONE
+                                if (p0) tvStatus!!.text = status else tvStatus?.visibility =
+                                    View.GONE
                             }
                         })
                     }
@@ -2225,8 +2477,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
 //                            }
 //                        })
 //                    }
-                }
-                else{
+                } else {
                     if (typingIndicator.metadata == null)
                         tvStatus?.text = memberNames
 //                    else{
@@ -2284,11 +2535,12 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
 //        onCloseAction()
         super.onResume()
         Log.d(TAG, "onResume: ")
-        Log.e(TAG, "onResume: " + intentRequestCode)
+        Log.e(TAG, "onResume: $intentRequestCode")
         checkOnGoingCall()
         stickyHeaderDecoration?.let { this.rvChatListView?.removeItemDecoration(it) }
         if (!(intentRequestCode == UIKitConstants.RequestCode.AUDIO || intentRequestCode == UIKitConstants.RequestCode.GALLERY ||
-                intentRequestCode == UIKitConstants.RequestCode.FILE || intentRequestCode == UIKitConstants.RequestCode.CAMERA)) {
+                    intentRequestCode == UIKitConstants.RequestCode.FILE || intentRequestCode == UIKitConstants.RequestCode.CAMERA)
+        ) {
             messageAdapter = null
             messagesRequest = null
             fetchMessage()
@@ -2297,23 +2549,22 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
 
         if (cometChatMessageActions != null && cometChatMessageActions?.fragmentManager != null) cometChatMessageActions?.dismiss()
 
-        if (type != null) {
-            if (type == CometChatConstants.RECEIVER_TYPE_USER) {
-                FeatureRestriction.isUserPresenceEnabled(object : FeatureRestriction.OnSuccessListener {
-                    override fun onSuccess(p0: Boolean) {
-                        if (p0) {
-                            addUserListener()
-                            tvStatus?.text = status
-                        }
+        if (type == CometChatConstants.RECEIVER_TYPE_USER) {
+            FeatureRestriction.isUserPresenceEnabled(object :
+                FeatureRestriction.OnSuccessListener {
+                override fun onSuccess(p0: Boolean) {
+                    if (p0) {
+                        addUserListener()
+                        tvStatus?.text = status
                     }
-                })
-                Thread(Runnable { user }).start()
-            } else {
-                if (!FeatureRestriction.isGroupActionMessagesEnabled())
-                    addGroupListener()
-                Thread(Runnable { group }).start()
-                Thread(Runnable { member }).start()
-            }
+                }
+            })
+            Thread(Runnable { user }).start()
+        } else {
+            if (!FeatureRestriction.isGroupActionMessagesEnabled())
+                addGroupListener()
+            Thread(Runnable { group }).start()
+            Thread(Runnable { member }).start()
         }
     }
 
@@ -2324,7 +2575,9 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
         userAvatar?.visibility = View.VISIBLE
         ivCloseMessageAction?.visibility = View.GONE
 //        ivCopyMessageAction?.visibility = View.GONE
-        if (activity != null && (activity as AppCompatActivity?)?.supportActionBar != null) (activity as AppCompatActivity?)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        if (activity != null && (activity as AppCompatActivity?)?.supportActionBar != null) (activity as AppCompatActivity?)?.supportActionBar?.setDisplayHomeAsUpEnabled(
+            true
+        )
     }
 
     override fun onAttach(context: Context) {
@@ -2415,8 +2668,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
             isReply = false
             baseMessage = null
             replyMessageLayout?.visibility = View.GONE
-        }
-        else if (id == R.id.btn_unblock_user) {
+        } else if (id == R.id.btn_unblock_user) {
             unblockUser()
         } else if (id == R.id.iv_user_info) {
             if (type == CometChatConstants.RECEIVER_TYPE_USER) {
@@ -2515,7 +2767,8 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                     } else {
                         editVisible = false
 //                        forwardVisible = true
-                        deleteVisible = if (loggedInUserScope != null && (loggedInUserScope == CometChatConstants.SCOPE_ADMIN || loggedInUserScope == CometChatConstants.SCOPE_MODERATOR)) (FeatureRestriction.isDeleteMessageEnabled() || isDeleteMemberMessageVisible) else false
+                        deleteVisible =
+                            if (loggedInUserScope != null && (loggedInUserScope == CometChatConstants.SCOPE_ADMIN || loggedInUserScope == CometChatConstants.SCOPE_MODERATOR)) (FeatureRestriction.isDeleteMessageEnabled() || isDeleteMemberMessageVisible) else false
                     }
                 }
             }
@@ -2537,7 +2790,8 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                         editVisible = false
 //                        forwardVisible = true
                     } else {
-                        deleteVisible = if (loggedInUserScope != null && (loggedInUserScope == CometChatConstants.SCOPE_ADMIN || loggedInUserScope == CometChatConstants.SCOPE_MODERATOR)) (FeatureRestriction.isDeleteMessageEnabled() || isDeleteMemberMessageVisible) else false
+                        deleteVisible =
+                            if (loggedInUserScope != null && (loggedInUserScope == CometChatConstants.SCOPE_ADMIN || loggedInUserScope == CometChatConstants.SCOPE_MODERATOR)) (FeatureRestriction.isDeleteMessageEnabled() || isDeleteMemberMessageVisible) else false
 //                        forwardVisible = true
                         editVisible = false
                     }
@@ -2562,32 +2816,34 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                         deleteVisible = FeatureRestriction.isDeleteMessageEnabled()
                         editVisible = false
                     } else {
-                        deleteVisible = if (loggedInUserScope != null && (loggedInUserScope == CometChatConstants.SCOPE_ADMIN || loggedInUserScope == CometChatConstants.SCOPE_MODERATOR)) (FeatureRestriction.isDeleteMessageEnabled() || isDeleteMemberMessageVisible) else false
+                        deleteVisible =
+                            if (loggedInUserScope != null && (loggedInUserScope == CometChatConstants.SCOPE_ADMIN || loggedInUserScope == CometChatConstants.SCOPE_MODERATOR)) (FeatureRestriction.isDeleteMessageEnabled() || isDeleteMemberMessageVisible) else false
                         editVisible = false
                     }
                 }
             }
         }
-        if (stickerMessageList.size == 1){
+        if (stickerMessageList.size == 1) {
             shareVisible = false
             forwardVisible = false
             editVisible = false
             copyVisible = false
             replyVisible
             val basemessage = stickerMessageList[0]
-            if (basemessage != null && basemessage.sender != null){
-                if (basemessage !is Action && basemessage.deletedAt == 0L){
+            if (basemessage != null && basemessage.sender != null) {
+                if (basemessage !is Action && basemessage.deletedAt == 0L) {
                     baseMessage = basemessage
                     if (basemessage.replyCount > 0)
                         threadVisible = false
                     else {
                         threadVisible
                     }
-                    if (basemessage.sender.uid == loggedInUser.uid){
+                    if (basemessage.sender.uid == loggedInUser.uid) {
                         deleteVisible = FeatureRestriction.isDeleteMessageEnabled()
 
-                    } else{
-                        deleteVisible = if (loggedInUserScope != null && (loggedInUserScope == CometChatConstants.SCOPE_ADMIN || loggedInUserScope == CometChatConstants.SCOPE_MODERATOR)) (FeatureRestriction.isDeleteMessageEnabled() || isDeleteMemberMessageVisible) else false
+                    } else {
+                        deleteVisible =
+                            if (loggedInUserScope != null && (loggedInUserScope == CometChatConstants.SCOPE_ADMIN || loggedInUserScope == CometChatConstants.SCOPE_MODERATOR)) (FeatureRestriction.isDeleteMessageEnabled() || isDeleteMemberMessageVisible) else false
 
                     }
 
@@ -2613,8 +2869,9 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                     if (basemessage.sender.uid == getLoggedInUser().uid)
                         deleteVisible = FeatureRestriction.isDeleteMessageEnabled()
                     else {
-                        if (loggedInUserScope != null && (loggedInUserScope == CometChatConstants.SCOPE_ADMIN|| loggedInUserScope == CometChatConstants.SCOPE_MODERATOR)) {
-                            deleteVisible = (FeatureRestriction.isDeleteMessageEnabled() || isDeleteMemberMessageVisible)
+                        if (loggedInUserScope != null && (loggedInUserScope == CometChatConstants.SCOPE_ADMIN || loggedInUserScope == CometChatConstants.SCOPE_MODERATOR)) {
+                            deleteVisible =
+                                (FeatureRestriction.isDeleteMessageEnabled() || isDeleteMemberMessageVisible)
                         } else {
                             deleteVisible = false
                         }
@@ -2641,7 +2898,8 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                         deleteVisible = FeatureRestriction.isDeleteMessageEnabled()
                     else {
                         if (loggedInUserScope != null && (loggedInUserScope == CometChatConstants.SCOPE_ADMIN || loggedInUserScope == CometChatConstants.SCOPE_MODERATOR)) {
-                            deleteVisible = (FeatureRestriction.isDeleteMessageEnabled() || isDeleteMemberMessageVisible)
+                            deleteVisible =
+                                (FeatureRestriction.isDeleteMessageEnabled() || isDeleteMemberMessageVisible)
                         } else {
                             deleteVisible = false
                         }
@@ -2666,7 +2924,8 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                         deleteVisible = FeatureRestriction.isDeleteMessageEnabled()
                     else {
                         if (loggedInUserScope != null && (loggedInUserScope == CometChatConstants.SCOPE_ADMIN || loggedInUserScope == CometChatConstants.SCOPE_MODERATOR)) {
-                            deleteVisible = (FeatureRestriction.isDeleteMessageEnabled() || isDeleteMemberMessageVisible)
+                            deleteVisible =
+                                (FeatureRestriction.isDeleteMessageEnabled() || isDeleteMemberMessageVisible)
                         } else {
                             deleteVisible = false
                         }
@@ -2690,13 +2949,14 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                         threadVisible
                     }
 //                    threadVisible = if (basemessage.replyCount > 0) false else FeatureRestriction.isThreadedMessagesEnabled()
-                    deleteVisible = if (basemessage.sender.uid == getLoggedInUser().uid) FeatureRestriction.isDeleteMessageEnabled() else {
-                        if (loggedInUserScope != null && (loggedInUserScope == CometChatConstants.SCOPE_ADMIN || loggedInUserScope == CometChatConstants.SCOPE_MODERATOR)) {
-                            (FeatureRestriction.isDeleteMessageEnabled() || isDeleteMemberMessageVisible)
-                        } else {
-                            false
+                    deleteVisible =
+                        if (basemessage.sender.uid == getLoggedInUser().uid) FeatureRestriction.isDeleteMessageEnabled() else {
+                            if (loggedInUserScope != null && (loggedInUserScope == CometChatConstants.SCOPE_ADMIN || loggedInUserScope == CometChatConstants.SCOPE_MODERATOR)) {
+                                (FeatureRestriction.isDeleteMessageEnabled() || isDeleteMemberMessageVisible)
+                            } else {
+                                false
+                            }
                         }
-                    }
                 }
             }
         }
@@ -2747,9 +3007,11 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
 
         cometChatMessageActions?.arguments = bundle
         if (editVisible || copyVisible || threadVisible || shareVisible || deleteVisible
-                || replyVisible || forwardVisible || reactionVisible || messageInfoVisible || sendMessagePrivatelyVisible || replyPrivatelyVisible)
+            || replyVisible || forwardVisible || reactionVisible || messageInfoVisible || sendMessagePrivatelyVisible || replyPrivatelyVisible
+        )
             cometChatMessageActions?.show(requireFragmentManager(), cometChatMessageActions?.tag)
-        cometChatMessageActions?.setMessageActionListener(object : CometChatMessageActions.MessageActionListener {
+        cometChatMessageActions?.setMessageActionListener(object :
+            CometChatMessageActions.MessageActionListener {
 
             override fun onEditMessageClick() {
                 if (baseMessage != null && baseMessage?.type == CometChatConstants.MESSAGE_TYPE_TEXT) {
@@ -2792,14 +3054,20 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                 var message = ""
                 for (bMessage in baseMessages!!) {
                     if (bMessage.deletedAt == 0L && bMessage is TextMessage) {
-                        message = message + "[" + Utils.getLastMessageDate(bMessage.getSentAt()) + "] " + bMessage.getSender().name + ": " + bMessage.text
+                        message =
+                            message + "[" + Utils.getLastMessageDate(bMessage.getSentAt()) + "] " + bMessage.getSender().name + ": " + bMessage.text
                     }
                 }
                 Log.e(TAG, "onCopy: $message")
-                val clipboardManager = context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clipboardManager =
+                    context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clipData = ClipData.newPlainText("MessageAdapter", message)
                 clipboardManager.setPrimaryClip(clipData)
-                Toast.makeText(context, resources.getString(R.string.text_copied), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    context,
+                    resources.getString(R.string.text_copied),
+                    Toast.LENGTH_LONG
+                ).show()
                 if (messageAdapter != null) {
                     messageAdapter?.clearLongClickSelectedItem()
                     messageAdapter?.notifyDataSetChanged()
@@ -2816,45 +3084,78 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                 intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE, baseMessage?.type)
                 intent.putExtra(UIKitConstants.IntentStrings.SENTAT, baseMessage?.sentAt)
                 if (baseMessage?.type == CometChatConstants.MESSAGE_TYPE_TEXT) {
-                    intent.putExtra(UIKitConstants.IntentStrings.TEXTMESSAGE, Extensions.getProfanityFilter(baseMessage!!))
+                    intent.putExtra(
+                        UIKitConstants.IntentStrings.TEXTMESSAGE,
+                        Extensions.getProfanityFilter(baseMessage!!)
+                    )
                 } else if (baseMessage?.category == CometChatConstants.CATEGORY_CUSTOM) {
                     if ((baseMessage as CustomMessage).customData != null)
-                        intent.putExtra(UIKitConstants.IntentStrings.CUSTOM_MESSAGE,
-                                (baseMessage as CustomMessage).customData.toString())
+                        intent.putExtra(
+                            UIKitConstants.IntentStrings.CUSTOM_MESSAGE,
+                            (baseMessage as CustomMessage).customData.toString()
+                        )
                     if (baseMessage?.type == UIKitConstants.IntentStrings.LOCATION) {
-                        intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE,
-                                UIKitConstants.IntentStrings.LOCATION)
+                        intent.putExtra(
+                            UIKitConstants.IntentStrings.MESSAGE_TYPE,
+                            UIKitConstants.IntentStrings.LOCATION
+                        )
                     } else if (baseMessage?.type == UIKitConstants.IntentStrings.STICKERS) {
-                        intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE, UIKitConstants.IntentStrings.STICKERS)
+                        intent.putExtra(
+                            UIKitConstants.IntentStrings.MESSAGE_TYPE,
+                            UIKitConstants.IntentStrings.STICKERS
+                        )
                     } else if (baseMessage?.type == UIKitConstants.IntentStrings.WHITEBOARD) {
-                        intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE,
-                                UIKitConstants.IntentStrings.WHITEBOARD)
-                        intent.putExtra(UIKitConstants.IntentStrings.TEXTMESSAGE, Extensions.getWhiteBoardUrl(baseMessage!!))
+                        intent.putExtra(
+                            UIKitConstants.IntentStrings.MESSAGE_TYPE,
+                            UIKitConstants.IntentStrings.WHITEBOARD
+                        )
+                        intent.putExtra(
+                            UIKitConstants.IntentStrings.TEXTMESSAGE,
+                            Extensions.getWhiteBoardUrl(baseMessage!!)
+                        )
                     } else if (baseMessage?.type == UIKitConstants.IntentStrings.WRITEBOARD) {
-                        intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE,
-                                UIKitConstants.IntentStrings.WRITEBOARD)
-                        intent.putExtra(UIKitConstants.IntentStrings.TEXTMESSAGE, Extensions.getWriteBoardUrl(baseMessage!!))
+                        intent.putExtra(
+                            UIKitConstants.IntentStrings.MESSAGE_TYPE,
+                            UIKitConstants.IntentStrings.WRITEBOARD
+                        )
+                        intent.putExtra(
+                            UIKitConstants.IntentStrings.TEXTMESSAGE,
+                            Extensions.getWriteBoardUrl(baseMessage!!)
+                        )
                     } else if (baseMessage?.type == UIKitConstants.IntentStrings.MEETING) {
-                        intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE,
-                                UIKitConstants.IntentStrings.MEETING)
+                        intent.putExtra(
+                            UIKitConstants.IntentStrings.MESSAGE_TYPE,
+                            UIKitConstants.IntentStrings.MEETING
+                        )
                     } else {
-                        intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE,
-                                UIKitConstants.IntentStrings.POLLS)
+                        intent.putExtra(
+                            UIKitConstants.IntentStrings.MESSAGE_TYPE,
+                            UIKitConstants.IntentStrings.POLLS
+                        )
                     }
                 } else {
-                    FeatureRestriction.isImageModerationEnabled(object : FeatureRestriction.OnSuccessListener{
+                    FeatureRestriction.isImageModerationEnabled(object :
+                        FeatureRestriction.OnSuccessListener {
                         override fun onSuccess(p0: Boolean) {
                             isImageNotSafe = Extensions.getImageModeration(context, baseMessage)
                         }
                     })
-                    intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_URL,
-                            (baseMessage as MediaMessage).attachment.fileUrl)
-                    intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME,
-                            (baseMessage as MediaMessage).attachment.fileName)
-                    intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_SIZE,
-                            (baseMessage as MediaMessage).attachment.fileSize)
-                    intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_EXTENSION,
-                            (baseMessage as MediaMessage).attachment.fileExtension)
+                    intent.putExtra(
+                        UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_URL,
+                        (baseMessage as MediaMessage).attachment.fileUrl
+                    )
+                    intent.putExtra(
+                        UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME,
+                        (baseMessage as MediaMessage).attachment.fileName
+                    )
+                    intent.putExtra(
+                        UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_SIZE,
+                        (baseMessage as MediaMessage).attachment.fileSize
+                    )
+                    intent.putExtra(
+                        UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_EXTENSION,
+                        (baseMessage as MediaMessage).attachment.fileExtension
+                    )
                     intent.putExtra(UIKitConstants.IntentStrings.SENTAT, baseMessage?.sentAt)
                     intent.putExtra(UIKitConstants.IntentStrings.IMAGE_MODERATION, isImageNotSafe)
                 }
@@ -2882,7 +3183,10 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                 intent.putExtra(UIKitConstants.IntentStrings.AVATAR, baseMessage?.sender?.avatar)
                 intent.putExtra(UIKitConstants.IntentStrings.STATUS, baseMessage?.sender?.status)
                 intent.putExtra(UIKitConstants.IntentStrings.NAME, baseMessage?.sender?.name)
-                intent.putExtra(UIKitConstants.IntentStrings.TYPE, CometChatConstants.RECEIVER_TYPE_USER)
+                intent.putExtra(
+                    UIKitConstants.IntentStrings.TYPE,
+                    CometChatConstants.RECEIVER_TYPE_USER
+                )
                 startActivity(intent)
                 activity?.finish()
             }
@@ -2891,18 +3195,19 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                 val intent = Intent(context, CometChatMessageListActivity::class.java)
                 intent.putExtra(UIKitConstants.IntentStrings.UID, baseMessage?.sender?.uid)
                 intent.putExtra(UIKitConstants.IntentStrings.AVATAR, baseMessage?.sender?.avatar)
-                intent.putExtra(UIKitConstants.IntentStrings.STATUS,  baseMessage?.sender?.status)
+                intent.putExtra(UIKitConstants.IntentStrings.STATUS, baseMessage?.sender?.status)
                 intent.putExtra(UIKitConstants.IntentStrings.NAME, baseMessage?.sender?.name)
                 intent.putExtra("isReply", true)
                 intent.putExtra("baseMessageMetadata", baseMessage?.rawMessage.toString())
 
-                intent.putExtra(UIKitConstants.IntentStrings.TYPE, CometChatConstants.RECEIVER_TYPE_USER)
+                intent.putExtra(
+                    UIKitConstants.IntentStrings.TYPE,
+                    CometChatConstants.RECEIVER_TYPE_USER
+                )
                 startActivity(intent)
                 activity?.finish()
             }
         })
-
-
 
 
 //        val textMessageList: MutableList<BaseMessage> = ArrayList()
@@ -2988,17 +3293,17 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
         }
 
         callExtension("reactions", "POST", "/v1/react", body,
-                object : CallbackListener<JSONObject>() {
-                    override fun onSuccess(responseObject: JSONObject) {
-                        Log.e(TAG, "onSuccess: $responseObject")
-                        // ReactionModel added successfully.
-                    }
+            object : CallbackListener<JSONObject>() {
+                override fun onSuccess(responseObject: JSONObject) {
+                    Log.e(TAG, "onSuccess: $responseObject")
+                    // ReactionModel added successfully.
+                }
 
-                    override fun onError(e: CometChatException) {
-                        Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
-                        Log.e(TAG, "onError: " + e.code + e.message + e.details)
-                    }
-                })
+                override fun onError(e: CometChatException) {
+                    Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
+                    Log.e(TAG, "onError: " + e.code + e.message + e.details)
+                }
+            })
 //        var body = JSONObject()
 //        try {
 //            body.put("msgId", baseMessage!!.id)
@@ -3029,41 +3334,102 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
         intent.putExtra(UIKitConstants.IntentStrings.PARENT_ID, baseMessage?.id)
         intent.putExtra(UIKitConstants.IntentStrings.REPLY_COUNT, baseMessage?.replyCount)
         intent.putExtra(UIKitConstants.IntentStrings.SENTAT, baseMessage?.sentAt)
-        intent.putExtra(UIKitConstants.IntentStrings.REACTION_INFO, Extensions.getReactionsOnMessage(baseMessage!!))
+        intent.putExtra(
+            UIKitConstants.IntentStrings.REACTION_INFO,
+            Extensions.getReactionsOnMessage(baseMessage!!)
+        )
         if (baseMessage?.category.equals(CometChatConstants.CATEGORY_MESSAGE, ignoreCase = true)) {
             intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE, baseMessage?.type)
-            if (baseMessage?.type == CometChatConstants.MESSAGE_TYPE_TEXT) intent.putExtra(UIKitConstants.IntentStrings.TEXTMESSAGE, Extensions.getProfanityFilter(baseMessage!!)) else {
-                intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME, (baseMessage as MediaMessage).attachment.fileName)
-                intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_EXTENSION, (baseMessage as MediaMessage).attachment.fileExtension)
-                intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_URL, (baseMessage as MediaMessage).attachment.fileUrl)
-                intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_SIZE, (baseMessage as MediaMessage).attachment.fileSize)
-                intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_MIME_TYPE, (baseMessage as MediaMessage).attachment.fileMimeType)
+            if (baseMessage?.type == CometChatConstants.MESSAGE_TYPE_TEXT) intent.putExtra(
+                UIKitConstants.IntentStrings.TEXTMESSAGE,
+                Extensions.getProfanityFilter(baseMessage!!)
+            ) else {
+                intent.putExtra(
+                    UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME,
+                    (baseMessage as MediaMessage).attachment.fileName
+                )
+                intent.putExtra(
+                    UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_EXTENSION,
+                    (baseMessage as MediaMessage).attachment.fileExtension
+                )
+                intent.putExtra(
+                    UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_URL,
+                    (baseMessage as MediaMessage).attachment.fileUrl
+                )
+                intent.putExtra(
+                    UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_SIZE,
+                    (baseMessage as MediaMessage).attachment.fileSize
+                )
+                intent.putExtra(
+                    UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_MIME_TYPE,
+                    (baseMessage as MediaMessage).attachment.fileMimeType
+                )
             }
         } else {
             try {
                 if (baseMessage?.type == UIKitConstants.IntentStrings.LOCATION) {
-                    intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE, UIKitConstants.IntentStrings.LOCATION)
-                    intent.putExtra(UIKitConstants.IntentStrings.LOCATION_LATITUDE,
-                            (baseMessage as CustomMessage).customData.getDouble("latitude"))
-                    intent.putExtra(UIKitConstants.IntentStrings.LOCATION_LONGITUDE,
-                            (baseMessage as CustomMessage).customData.getDouble("longitude"))
+                    intent.putExtra(
+                        UIKitConstants.IntentStrings.MESSAGE_TYPE,
+                        UIKitConstants.IntentStrings.LOCATION
+                    )
+                    intent.putExtra(
+                        UIKitConstants.IntentStrings.LOCATION_LATITUDE,
+                        (baseMessage as CustomMessage).customData.getDouble("latitude")
+                    )
+                    intent.putExtra(
+                        UIKitConstants.IntentStrings.LOCATION_LONGITUDE,
+                        (baseMessage as CustomMessage).customData.getDouble("longitude")
+                    )
                 } else if (baseMessage?.type == UIKitConstants.IntentStrings.STICKERS) {
-                    intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME, (baseMessage as CustomMessage).customData.getString("name"))
-                    intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_URL, (baseMessage as CustomMessage).customData.getString("url"))
-                    intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE, UIKitConstants.IntentStrings.STICKERS)
+                    intent.putExtra(
+                        UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME,
+                        (baseMessage as CustomMessage).customData.getString("name")
+                    )
+                    intent.putExtra(
+                        UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_URL,
+                        (baseMessage as CustomMessage).customData.getString("url")
+                    )
+                    intent.putExtra(
+                        UIKitConstants.IntentStrings.MESSAGE_TYPE,
+                        UIKitConstants.IntentStrings.STICKERS
+                    )
                 } else if (baseMessage?.type == UIKitConstants.IntentStrings.WHITEBOARD) {
-                    intent.putExtra(UIKitConstants.IntentStrings.TEXTMESSAGE, Extensions.getWhiteBoardUrl(baseMessage!!))
-                    intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE, UIKitConstants.IntentStrings.WHITEBOARD)
+                    intent.putExtra(
+                        UIKitConstants.IntentStrings.TEXTMESSAGE,
+                        Extensions.getWhiteBoardUrl(baseMessage!!)
+                    )
+                    intent.putExtra(
+                        UIKitConstants.IntentStrings.MESSAGE_TYPE,
+                        UIKitConstants.IntentStrings.WHITEBOARD
+                    )
                 } else if (baseMessage?.type == UIKitConstants.IntentStrings.WRITEBOARD) {
-                    intent.putExtra(UIKitConstants.IntentStrings.TEXTMESSAGE, Extensions.getWriteBoardUrl(baseMessage!!))
-                    intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE, UIKitConstants.IntentStrings.WRITEBOARD)
+                    intent.putExtra(
+                        UIKitConstants.IntentStrings.TEXTMESSAGE,
+                        Extensions.getWriteBoardUrl(baseMessage!!)
+                    )
+                    intent.putExtra(
+                        UIKitConstants.IntentStrings.MESSAGE_TYPE,
+                        UIKitConstants.IntentStrings.WRITEBOARD
+                    )
                 } else if (baseMessage?.type == UIKitConstants.IntentStrings.POLLS) {
                     val options = (baseMessage as CustomMessage).customData.getJSONObject("options")
-                    intent.putExtra(UIKitConstants.IntentStrings.POLL_QUESTION, (baseMessage as CustomMessage).customData.getString("question"))
+                    intent.putExtra(
+                        UIKitConstants.IntentStrings.POLL_QUESTION,
+                        (baseMessage as CustomMessage).customData.getString("question")
+                    )
                     intent.putExtra(UIKitConstants.IntentStrings.POLL_OPTION, options.toString())
-                    intent.putExtra(UIKitConstants.IntentStrings.POLL_VOTE_COUNT, Extensions.getVoteCount(baseMessage!!))
-                    intent.putExtra(UIKitConstants.IntentStrings.POLL_RESULT, Extensions.getVoterInfo(baseMessage!!, options.length()))
-                    intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE, UIKitConstants.IntentStrings.POLLS)
+                    intent.putExtra(
+                        UIKitConstants.IntentStrings.POLL_VOTE_COUNT,
+                        Extensions.getVoteCount(baseMessage!!)
+                    )
+                    intent.putExtra(
+                        UIKitConstants.IntentStrings.POLL_RESULT,
+                        Extensions.getVoterInfo(baseMessage!!, options.length())
+                    )
+                    intent.putExtra(
+                        UIKitConstants.IntentStrings.MESSAGE_TYPE,
+                        UIKitConstants.IntentStrings.POLLS
+                    )
                 }
             } catch (e: java.lang.Exception) {
                 Log.e(TAG, "startThreadActivityError: " + e.message)
@@ -3082,29 +3448,64 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
     private fun startForwardMessageActivity() {
         val intent = Intent(context, CometChatForwardMessageActivity::class.java)
         if (baseMessage?.category == CometChatConstants.CATEGORY_MESSAGE) {
-            intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_CATEGORY, CometChatConstants.CATEGORY_MESSAGE)
+            intent.putExtra(
+                UIKitConstants.IntentStrings.MESSAGE_CATEGORY,
+                CometChatConstants.CATEGORY_MESSAGE
+            )
             if (baseMessage?.type == CometChatConstants.MESSAGE_TYPE_TEXT) {
-                intent.putExtra(CometChatConstants.MESSAGE_TYPE_TEXT, (baseMessage as TextMessage).text)
-                intent.putExtra(UIKitConstants.IntentStrings.TYPE, CometChatConstants.MESSAGE_TYPE_TEXT)
+                intent.putExtra(
+                    CometChatConstants.MESSAGE_TYPE_TEXT,
+                    (baseMessage as TextMessage).text
+                )
+                intent.putExtra(
+                    UIKitConstants.IntentStrings.TYPE,
+                    CometChatConstants.MESSAGE_TYPE_TEXT
+                )
             } else if (baseMessage?.type == CometChatConstants.MESSAGE_TYPE_IMAGE ||
-                    baseMessage?.type == CometChatConstants.MESSAGE_TYPE_AUDIO ||
-                    baseMessage?.type == CometChatConstants.MESSAGE_TYPE_VIDEO ||
-                    baseMessage?.type == CometChatConstants.MESSAGE_TYPE_FILE) {
-                intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME, (baseMessage as MediaMessage).attachment.fileName)
-                intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_URL, (baseMessage as MediaMessage).attachment.fileUrl)
-                intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_MIME_TYPE, (baseMessage as MediaMessage).attachment.fileMimeType)
-                intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_EXTENSION, (baseMessage as MediaMessage).attachment.fileExtension)
-                intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_SIZE, (baseMessage as MediaMessage).attachment.fileSize)
+                baseMessage?.type == CometChatConstants.MESSAGE_TYPE_AUDIO ||
+                baseMessage?.type == CometChatConstants.MESSAGE_TYPE_VIDEO ||
+                baseMessage?.type == CometChatConstants.MESSAGE_TYPE_FILE
+            ) {
+                intent.putExtra(
+                    UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME,
+                    (baseMessage as MediaMessage).attachment.fileName
+                )
+                intent.putExtra(
+                    UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_URL,
+                    (baseMessage as MediaMessage).attachment.fileUrl
+                )
+                intent.putExtra(
+                    UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_MIME_TYPE,
+                    (baseMessage as MediaMessage).attachment.fileMimeType
+                )
+                intent.putExtra(
+                    UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_EXTENSION,
+                    (baseMessage as MediaMessage).attachment.fileExtension
+                )
+                intent.putExtra(
+                    UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_SIZE,
+                    (baseMessage as MediaMessage).attachment.fileSize
+                )
                 intent.putExtra(UIKitConstants.IntentStrings.TYPE, baseMessage?.type)
             }
         } else if (baseMessage?.category == CometChatConstants.CATEGORY_CUSTOM) {
-            intent.putExtra(UIKitConstants.IntentStrings.MESSAGE_CATEGORY, CometChatConstants.CATEGORY_CUSTOM)
-            intent.putExtra(UIKitConstants.IntentStrings.TYPE, UIKitConstants.IntentStrings.LOCATION)
+            intent.putExtra(
+                UIKitConstants.IntentStrings.MESSAGE_CATEGORY,
+                CometChatConstants.CATEGORY_CUSTOM
+            )
+            intent.putExtra(
+                UIKitConstants.IntentStrings.TYPE,
+                UIKitConstants.IntentStrings.LOCATION
+            )
             try {
-                intent.putExtra(UIKitConstants.IntentStrings.LOCATION_LATITUDE,
-                        (baseMessage as CustomMessage).customData.getDouble("latitude"))
-                intent.putExtra(UIKitConstants.IntentStrings.LOCATION_LONGITUDE,
-                        (baseMessage as CustomMessage).customData.getDouble("longitude"))
+                intent.putExtra(
+                    UIKitConstants.IntentStrings.LOCATION_LATITUDE,
+                    (baseMessage as CustomMessage).customData.getDouble("latitude")
+                )
+                intent.putExtra(
+                    UIKitConstants.IntentStrings.LOCATION_LONGITUDE,
+                    (baseMessage as CustomMessage).customData.getDouble("longitude")
+                )
             } catch (e: java.lang.Exception) {
                 Log.e(TAG, "startForwardMessageActivityError: " + e.message)
             }
@@ -3125,21 +3526,35 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
             shareIntent.putExtra(Intent.EXTRA_TITLE, resources.getString(R.string.app_name))
             shareIntent.putExtra(Intent.EXTRA_TEXT, (baseMessage as TextMessage).text)
             shareIntent.type = "text/plain"
-            val intent = Intent.createChooser(shareIntent, resources.getString(R.string.share_message))
+            val intent =
+                Intent.createChooser(shareIntent, resources.getString(R.string.share_message))
             startActivity(intent)
         } else if (baseMessage != null && baseMessage?.type == CometChatConstants.MESSAGE_TYPE_IMAGE) {
             val mediaName = (baseMessage as MediaMessage).attachment.fileName
-            Glide.with(requireContext()).asBitmap().load((baseMessage as MediaMessage).attachment.fileUrl).into(object : SimpleTarget<Bitmap?>() {
-                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap?>?) {
-                    val path = MediaStore.Images.Media.insertImage(context?.contentResolver, resource, mediaName, null)
-                    val shareIntent = Intent()
-                    shareIntent.action = Intent.ACTION_SEND
-                    shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(path))
-                    shareIntent.type = (baseMessage as MediaMessage).attachment.fileMimeType
-                    val intent = Intent.createChooser(shareIntent, resources.getString(R.string.share_message))
-                    startActivity(intent)
-                }
-            })
+            Glide.with(requireContext()).asBitmap()
+                .load((baseMessage as MediaMessage).attachment.fileUrl)
+                .into(object : SimpleTarget<Bitmap?>() {
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        transition: Transition<in Bitmap?>?
+                    ) {
+                        val path = MediaStore.Images.Media.insertImage(
+                            context?.contentResolver,
+                            resource,
+                            mediaName,
+                            null
+                        )
+                        val shareIntent = Intent()
+                        shareIntent.action = Intent.ACTION_SEND
+                        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(path))
+                        shareIntent.type = (baseMessage as MediaMessage).attachment.fileMimeType
+                        val intent = Intent.createChooser(
+                            shareIntent,
+                            resources.getString(R.string.share_message)
+                        )
+                        startActivity(intent)
+                    }
+                })
         }
     }
 
@@ -3154,29 +3569,48 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                 replyMessage?.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
             } else if (baseMessage?.type == CometChatConstants.MESSAGE_TYPE_IMAGE) {
                 replyMessage?.text = resources.getString(R.string.shared_a_image)
-                Glide.with(requireContext()).load((baseMessage as MediaMessage).attachment.fileUrl).into(replyMedia!!)
+                Glide.with(requireContext()).load((baseMessage as MediaMessage).attachment.fileUrl)
+                    .into(replyMedia!!)
                 replyMessage?.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
             } else if (baseMessage?.type == CometChatConstants.MESSAGE_TYPE_AUDIO) {
-                val messageStr = String.format(resources.getString(R.string.shared_a_audio),
-                        Utils.getFileSize((baseMessage as MediaMessage).attachment.fileSize))
+                val messageStr = String.format(
+                    resources.getString(R.string.shared_a_audio),
+                    Utils.getFileSize((baseMessage as MediaMessage).attachment.fileSize)
+                )
                 replyMessage?.text = messageStr
-                replyMessage?.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_library_music_24dp, 0, 0, 0)
+                replyMessage?.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.ic_library_music_24dp,
+                    0,
+                    0,
+                    0
+                )
                 replyMedia?.visibility = View.GONE
             } else if (baseMessage?.type == CometChatConstants.MESSAGE_TYPE_VIDEO) {
                 replyMessage?.text = resources.getString(R.string.shared_a_video)
-                Glide.with(requireContext()).load((baseMessage as MediaMessage).attachment.fileUrl).into(replyMedia!!)
+                Glide.with(requireContext()).load((baseMessage as MediaMessage).attachment.fileUrl)
+                    .into(replyMedia!!)
             } else if (baseMessage?.type == CometChatConstants.MESSAGE_TYPE_FILE) {
-                val messageStr = String.format(resources.getString(R.string.shared_a_file),
-                        Utils.getFileSize((baseMessage as MediaMessage).attachment.fileSize))
+                val messageStr = String.format(
+                    resources.getString(R.string.shared_a_file),
+                    Utils.getFileSize((baseMessage as MediaMessage).attachment.fileSize)
+                )
                 replyMessage?.text = messageStr
-                replyMessage?.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_insert_drive_file_black_24dp, 0, 0, 0)
-            }
-            else if (baseMessage?.type == UIKitConstants.IntentStrings.LOCATION) {
+                replyMessage?.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.ic_insert_drive_file_black_24dp,
+                    0,
+                    0,
+                    0
+                )
+            } else if (baseMessage?.type == UIKitConstants.IntentStrings.LOCATION) {
                 try {
                     val jsonObject = (baseMessage as CustomMessage).customData
-                    val messageStr = java.lang.String.format(getString(R.string.shared_location),
-                            Utils.getAddress(context, jsonObject.getDouble("latitude"),
-                                    jsonObject.getDouble("longitude")))
+                    val messageStr = java.lang.String.format(
+                        getString(R.string.shared_location),
+                        Utils.getAddress(
+                            context, jsonObject.getDouble("latitude"),
+                            jsonObject.getDouble("longitude")
+                        )
+                    )
                     replyMessage?.text = messageStr
                     replyMedia?.visibility = View.GONE
                     replyMessage?.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
@@ -3186,25 +3620,39 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
             } else if (baseMessage?.type == UIKitConstants.IntentStrings.POLLS) {
                 try {
                     val jsonObject = (baseMessage as CustomMessage).customData
-                    val messageStr = String.format(getString(R.string.shared_a_polls), jsonObject.getString("question"))
+                    val messageStr = String.format(
+                        getString(R.string.shared_a_polls),
+                        jsonObject.getString("question")
+                    )
                     replyMessage?.text = messageStr
                 } catch (e: Exception) {
                     Log.e(TAG, "replyMessageError: " + e.message)
                 }
-            }
-            else if (baseMessage?.type == UIKitConstants.IntentStrings.STICKERS) {
+            } else if (baseMessage?.type == UIKitConstants.IntentStrings.STICKERS) {
                 replyMessage?.text = resources.getString(R.string.shared_a_sticker)
                 try {
-                    Glide.with(requireContext()).load((baseMessage as CustomMessage).customData.getString("url")).into(replyMedia!!)
+                    Glide.with(requireContext())
+                        .load((baseMessage as CustomMessage).customData.getString("url"))
+                        .into(replyMedia!!)
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             } else if (baseMessage?.type == UIKitConstants.IntentStrings.WHITEBOARD) {
                 replyMessage?.text = getString(R.string.shared_a_whiteboard)
-                replyMessage?.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_whiteboard_24dp, 0, 0, 0)
+                replyMessage?.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.ic_whiteboard_24dp,
+                    0,
+                    0,
+                    0
+                )
             } else if (baseMessage?.type == UIKitConstants.IntentStrings.WRITEBOARD) {
                 replyMessage?.text = getString(R.string.shared_a_writeboard)
-                replyMessage?.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_writeboard_24dp, 0, 0, 0)
+                replyMessage?.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.ic_writeboard_24dp,
+                    0,
+                    0,
+                    0
+                )
             }
             composeBox?.ivMic?.visibility = View.GONE
             composeBox?.ivSend?.visibility = View.VISIBLE

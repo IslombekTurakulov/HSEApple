@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.iuturakulov.hseapple.R
-import com.iuturakulov.hseapple.model.api.TaskEntity
+import com.iuturakulov.hseapple.model.TaskEntity
 import com.iuturakulov.hseapple.utils.allTests
 import com.iuturakulov.hseapple.utils.taskInfo
 import com.iuturakulov.hseapple.view.activities.TaskInfoActivity

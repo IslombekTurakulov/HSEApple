@@ -63,23 +63,18 @@ class CometChatCallList constructor() : Fragment() {
         viewPager = v.findViewById(R.id.viewPager)
         tabLayout = v.findViewById(R.id.tabLayout)
         if (activity != null) {
-            tabAdapter = TabAdapter(activity!!.supportFragmentManager)
-            tabAdapter!!.addFragment(AllCall(), context!!.resources.getString(R.string.all))
-            tabAdapter!!.addFragment(MissedCall(), context!!.resources.getString(R.string.missed))
+            tabAdapter = TabAdapter(requireActivity().supportFragmentManager)
+            tabAdapter!!.addFragment(AllCall(), requireContext().resources.getString(R.string.all))
+            tabAdapter!!.addFragment(MissedCall(), requireContext().resources.getString(R.string.missed))
             viewPager!!.adapter = tabAdapter
         }
         tabLayout!!.setupWithViewPager(viewPager)
 
-        if (UIKitSettings.color != null) {
-            phoneAddIv?.imageTintList = ColorStateList.valueOf(Color.parseColor(UIKitSettings.color))
-            val wrappedDrawable = DrawableCompat.wrap(resources.getDrawable(R.drawable.tab_layout_background_active))
-            DrawableCompat.setTint(wrappedDrawable, Color.parseColor(UIKitSettings.color))
-            tabLayout?.getTabAt(tabLayout!!.selectedTabPosition)!!.view.background = wrappedDrawable
-            tabLayout?.setSelectedTabIndicatorColor(Color.parseColor(UIKitSettings.color))
-        } else {
-            tabLayout?.getTabAt(tabLayout!!.selectedTabPosition)!!.view.setBackgroundColor(resources.getColor(R.color.colorPrimary))
-            tabLayout?.setSelectedTabIndicatorColor(resources.getColor(R.color.colorPrimary))
-        }
+        phoneAddIv?.imageTintList = ColorStateList.valueOf(Color.parseColor(UIKitSettings.color))
+        val wrappedDrawable = DrawableCompat.wrap(resources.getDrawable(R.drawable.tab_layout_background_active))
+        DrawableCompat.setTint(wrappedDrawable, Color.parseColor(UIKitSettings.color))
+        tabLayout?.getTabAt(tabLayout!!.selectedTabPosition)!!.view.background = wrappedDrawable
+        tabLayout?.setSelectedTabIndicatorColor(Color.parseColor(UIKitSettings.color))
 
         tabLayout?.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -104,14 +99,14 @@ class CometChatCallList constructor() : Fragment() {
     }
 
     private fun checkDarkMode() {
-        if (Utils.isDarkMode(context!!)) {
+        if (Utils.isDarkMode(requireContext())) {
             tvTitle!!.setTextColor(resources.getColor(R.color.textColorWhite))
             tabLayout!!.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.grey))
             tabLayout!!.setTabTextColors(resources.getColor(R.color.textColorWhite), resources.getColor(R.color.light_grey))
         } else {
             tvTitle!!.setTextColor(resources.getColor(R.color.primaryTextColor))
-            tabLayout!!.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.textColorWhite))
-            tabLayout!!.setTabTextColors(resources.getColor(R.color.primaryTextColor), resources.getColor(R.color.textColorWhite))
+            tabLayout!!.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.primaryTextColor))
+            tabLayout!!.setTabTextColors(resources.getColor(R.color.primaryTextColor), resources.getColor(R.color.primaryTextColor))
         }
     }
 

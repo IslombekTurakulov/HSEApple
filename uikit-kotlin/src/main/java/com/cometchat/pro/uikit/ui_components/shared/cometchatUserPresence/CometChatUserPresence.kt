@@ -22,7 +22,7 @@ import com.cometchat.pro.uikit.R
  *
  */
 @BindingMethods(value = [BindingMethod(type = CometChatUserPresence::class, attribute = "app:user_status", method = "setUserStatus")])
-class CometChatUserPresence : View {
+open class CometChatUserPresence : View {
     private var paint: Paint? = null
     var rectF: RectF? = null
     var status = 0

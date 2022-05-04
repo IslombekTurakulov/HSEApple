@@ -148,7 +148,7 @@ class CometChatUI : AppCompatActivity(), BottomNavigationView.OnNavigationItemSe
 //        badgeDrawable = activityCometChatUnifiedBinding!!.bottomNavigation.getOrCreateBadge(R.id.menu_conversation)
         activityCometChatUnifiedBinding!!.bottomNavigation.setOnNavigationItemSelectedListener(this)
 
-        if (UIKitSettings.color != null && UIKitSettings.color.isNotEmpty()) {
+        if (UIKitSettings.color.isNotEmpty()) {
             window.statusBarColor = Color.parseColor(UIKitSettings.color)
             val widgetColor = Color.parseColor(UIKitSettings.color)
             val colorStateList = ColorStateList(arrayOf(intArrayOf(-android.R.attr.state_selected), intArrayOf()), intArrayOf(Color.GRAY, widgetColor))

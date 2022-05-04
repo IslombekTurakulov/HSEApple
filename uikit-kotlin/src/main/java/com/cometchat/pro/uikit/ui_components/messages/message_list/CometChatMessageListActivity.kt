@@ -37,48 +37,93 @@ import com.cometchat.pro.uikit.ui_settings.UIKitSettings
 class CometChatMessageListActivity : AppCompatActivity(), MessageAdapter.OnMessageLongClick {
     private val messageLongClick: OnMessageLongClick? = null
     var fragment: Fragment? = CometChatMessageList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cometchat_message_list)
-
-        if (UIKitSettings.color != null)
-            window.statusBarColor = Color.parseColor(UIKitSettings.color)
-
+        window.statusBarColor = Color.parseColor(UIKitSettings.color)
 
         val config: EmojiCompat.Config = BundledEmojiCompatConfig(this)
         EmojiCompat.init(config)
 
         if (intent != null) {
             val bundle = Bundle()
-            bundle.putString(UIKitConstants.IntentStrings.AVATAR, intent.getStringExtra(UIKitConstants.IntentStrings.AVATAR))
-            bundle.putString(UIKitConstants.IntentStrings.NAME, intent.getStringExtra(UIKitConstants.IntentStrings.NAME))
-            bundle.putString(UIKitConstants.IntentStrings.TYPE, intent.getStringExtra(UIKitConstants.IntentStrings.TYPE))
-            if (intent.hasExtra(UIKitConstants.IntentStrings.TYPE) && intent.getStringExtra(UIKitConstants.IntentStrings.TYPE) == CometChatConstants.RECEIVER_TYPE_USER) {
-                bundle.putString(UIKitConstants.IntentStrings.UID, intent.getStringExtra(UIKitConstants.IntentStrings.UID))
-                bundle.putString(UIKitConstants.IntentStrings.STATUS, intent.getStringExtra(UIKitConstants.IntentStrings.STATUS))
-                bundle.putString(UIKitConstants.IntentStrings.LINK, intent.getStringExtra(UIKitConstants.IntentStrings.LINK))
+            bundle.putString(
+                UIKitConstants.IntentStrings.AVATAR,
+                intent.getStringExtra(UIKitConstants.IntentStrings.AVATAR)
+            )
+            bundle.putString(
+                UIKitConstants.IntentStrings.NAME,
+                intent.getStringExtra(UIKitConstants.IntentStrings.NAME)
+            )
+            bundle.putString(
+                UIKitConstants.IntentStrings.TYPE,
+                intent.getStringExtra(UIKitConstants.IntentStrings.TYPE)
+            )
+            if (intent.hasExtra(UIKitConstants.IntentStrings.TYPE) && intent.getStringExtra(
+                    UIKitConstants.IntentStrings.TYPE
+                ) == CometChatConstants.RECEIVER_TYPE_USER
+            ) {
+                bundle.putString(
+                    UIKitConstants.IntentStrings.UID,
+                    intent.getStringExtra(UIKitConstants.IntentStrings.UID)
+                )
+                bundle.putString(
+                    UIKitConstants.IntentStrings.STATUS,
+                    intent.getStringExtra(UIKitConstants.IntentStrings.STATUS)
+                )
+                bundle.putString(
+                    UIKitConstants.IntentStrings.LINK,
+                    intent.getStringExtra(UIKitConstants.IntentStrings.LINK)
+                )
                 bundle.putBoolean("isReply", intent.getBooleanExtra("isReply", false))
-                bundle.putString("baseMessageMetadata", intent.getStringExtra("baseMessageMetadata"))
+                bundle.putString(
+                    "baseMessageMetadata",
+                    intent.getStringExtra("baseMessageMetadata")
+                )
             } else {
-                bundle.putString(UIKitConstants.IntentStrings.GUID, intent.getStringExtra(UIKitConstants.IntentStrings.GUID))
-                bundle.putString(UIKitConstants.IntentStrings.GROUP_OWNER, intent.getStringExtra(UIKitConstants.IntentStrings.GROUP_OWNER))
-                bundle.putInt(UIKitConstants.IntentStrings.MEMBER_COUNT, intent.getIntExtra(UIKitConstants.IntentStrings.MEMBER_COUNT, 0))
-                bundle.putString(UIKitConstants.IntentStrings.GROUP_TYPE, intent.getStringExtra(UIKitConstants.IntentStrings.GROUP_TYPE))
-                bundle.putString(UIKitConstants.IntentStrings.GROUP_DESC, intent.getStringExtra(UIKitConstants.IntentStrings.GROUP_DESC))
-                bundle.putString(UIKitConstants.IntentStrings.GROUP_PASSWORD, intent.getStringExtra(UIKitConstants.IntentStrings.GROUP_PASSWORD))
+                bundle.putString(
+                    UIKitConstants.IntentStrings.GUID,
+                    intent.getStringExtra(UIKitConstants.IntentStrings.GUID)
+                )
+                bundle.putString(
+                    UIKitConstants.IntentStrings.GROUP_OWNER,
+                    intent.getStringExtra(UIKitConstants.IntentStrings.GROUP_OWNER)
+                )
+                bundle.putInt(
+                    UIKitConstants.IntentStrings.MEMBER_COUNT,
+                    intent.getIntExtra(UIKitConstants.IntentStrings.MEMBER_COUNT, 0)
+                )
+                bundle.putString(
+                    UIKitConstants.IntentStrings.GROUP_TYPE,
+                    intent.getStringExtra(UIKitConstants.IntentStrings.GROUP_TYPE)
+                )
+                bundle.putString(
+                    UIKitConstants.IntentStrings.GROUP_DESC,
+                    intent.getStringExtra(UIKitConstants.IntentStrings.GROUP_DESC)
+                )
+                bundle.putString(
+                    UIKitConstants.IntentStrings.GROUP_PASSWORD,
+                    intent.getStringExtra(UIKitConstants.IntentStrings.GROUP_PASSWORD)
+                )
             }
             fragment!!.arguments = bundle
-            supportFragmentManager.beginTransaction().replace(R.id.ChatFragment, fragment!!).commit()
+            supportFragmentManager.beginTransaction().replace(R.id.ChatFragment, fragment!!)
+                .commit()
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         val fragment = supportFragmentManager.findFragmentById(R.id.ChatFragment)
-        fragment?.onActivityResult(requestCode,resultCode,data)
+        fragment?.onActivityResult(requestCode, resultCode, data)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         Log.d(TAG, "onRequestPermissionsResult: ")
     }
@@ -89,7 +134,6 @@ class CometChatMessageListActivity : AppCompatActivity(), MessageAdapter.OnMessa
 
     override fun onBackPressed() {
         super.onBackPressed()
-//        startActivity(Intent(this, CometChatUI::class.java))
         finish()
     }
 

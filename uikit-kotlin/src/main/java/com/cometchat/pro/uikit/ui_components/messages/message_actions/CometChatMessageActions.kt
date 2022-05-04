@@ -58,34 +58,34 @@ class CometChatMessageActions : BottomSheetDialogFragment() {
 
     private fun fetchArguments() {
         if (arguments != null) {
-            isCopyVisible = arguments!!.getBoolean("copyVisible")
-            isThreadVisible = arguments!!.getBoolean("threadVisible")
-            isEditVisible = arguments!!.getBoolean("editVisible")
-            isDeleteVisible = arguments!!.getBoolean("deleteVisible")
-            isReplyVisible = arguments!!.getBoolean("replyVisible")
-            isForwardVisible = arguments!!.getBoolean("forwardVisible")
-            isShareVisible = arguments!!.getBoolean("shareVisible")
-            isMessageInfoVisible = arguments!!.getBoolean("messageInfoVisible")
-            isReactionVisible = arguments!!.getBoolean("reactionVisible")
-            isSendMessagePrivatelyVisible = arguments!!.getBoolean("sendMessagePrivately")
-            isReplyPrivatelyVisible = arguments!!.getBoolean("replyPrivately")
-            var string = arguments!!.getString("metadata")
+            isCopyVisible = requireArguments().getBoolean("copyVisible")
+            isThreadVisible = requireArguments().getBoolean("threadVisible")
+            isEditVisible = requireArguments().getBoolean("editVisible")
+            isDeleteVisible = requireArguments().getBoolean("deleteVisible")
+            isReplyVisible = requireArguments().getBoolean("replyVisible")
+            isForwardVisible = requireArguments().getBoolean("forwardVisible")
+            isShareVisible = requireArguments().getBoolean("shareVisible")
+            isMessageInfoVisible = requireArguments().getBoolean("messageInfoVisible")
+            isReactionVisible = requireArguments().getBoolean("reactionVisible")
+            isSendMessagePrivatelyVisible = requireArguments().getBoolean("sendMessagePrivately")
+            isReplyPrivatelyVisible = requireArguments().getBoolean("replyPrivately")
+            val string = requireArguments().getString("metadata")
             if (string != null)
                 metadata = JSONObject(string)
 
-            type = arguments!!.getString("type")
+            type = requireArguments().getString("type")
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         // Inflate the layout for this fragment
-        var views : View? = inflater.inflate(R.layout.fragment_cometchat_message_actions, container, false)
+        val views : View? = inflater.inflate(R.layout.fragment_cometchat_message_actions, container, false)
         views!!.viewTreeObserver.addOnGlobalLayoutListener {
-            var dialog = dialog as BottomSheetDialog?
+            val dialog = dialog as BottomSheetDialog?
             // androidx should use: com.google.android.material.R.id.design_bottom_sheet
-            var bottomSheet = dialog!!.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout?
-            var behavior: BottomSheetBehavior<*> = BottomSheetBehavior.from<FrameLayout?>(bottomSheet!!)
+            val bottomSheet = dialog!!.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout?
+            val behavior: BottomSheetBehavior<*> = BottomSheetBehavior.from<FrameLayout?>(bottomSheet!!)
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
             behavior.peekHeight = 0
         }
@@ -132,7 +132,7 @@ class CometChatMessageActions : BottomSheetDialogFragment() {
         }
 
         val imageView = ImageView(context)
-        imageView.setImageDrawable(ContextCompat.getDrawable(context!!,R.drawable.ic_reactions))
+        imageView.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.ic_reactions))
 //        imageView.setColorFilter(R.color.primaryTextColor)
         val layoutParam: LinearLayout.LayoutParams = LinearLayout.LayoutParams(Utils.dpToPx(context!!,32f).toInt(), Utils.dpToPx(context!!,32f).toInt())
         layoutParam.topMargin = 8
@@ -207,7 +207,7 @@ class CometChatMessageActions : BottomSheetDialogFragment() {
     }
 
     override fun onDismiss(dialog: DialogInterface) {
-        var activity: Activity? = activity
+        val activity: Activity? = activity
         if (activity != null)
             if (type != null && type == CometChatMessageListActivity::class.java.name)
                 (activity as CometChatMessageListActivity).handleDialogClose(dialog)
@@ -216,7 +216,7 @@ class CometChatMessageActions : BottomSheetDialogFragment() {
     }
 
     override fun onCancel(dialog: DialogInterface) {
-        var activity: Activity? = activity
+        val activity: Activity? = activity
         if (activity != null)
             if (type != null && type == CometChatMessageListActivity::class.java.name)
                 (activity as CometChatMessageListActivity).handleDialogClose(dialog)
