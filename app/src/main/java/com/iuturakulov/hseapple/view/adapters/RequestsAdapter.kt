@@ -7,10 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.cometchat.pro.models.User
 import com.google.gson.Gson
 import com.iuturakulov.hseapple.R
-import com.iuturakulov.hseapple.model.api.RequestEntity
+import com.iuturakulov.hseapple.model.RequestEntity
 import com.iuturakulov.hseapple.utils.CourseSelection
 import com.iuturakulov.hseapple.utils.SELECTION
 import com.iuturakulov.hseapple.utils.TEMP_TOKEN

@@ -1,4 +1,4 @@
-package com.iuturakulov.hseapple.model.models
+package com.iuturakulov.hseapple.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

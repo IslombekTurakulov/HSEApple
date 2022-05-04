@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.iuturakulov.hseapple.R
-import com.iuturakulov.hseapple.model.api.RequestEntity
-import com.iuturakulov.hseapple.model.models.Courses
+import com.iuturakulov.hseapple.model.RequestEntity
+import com.iuturakulov.hseapple.model.Courses
 import com.iuturakulov.hseapple.utils.CourseSelection
 import com.iuturakulov.hseapple.utils.SELECTION
 import com.iuturakulov.hseapple.utils.arrayOfRequestCourses

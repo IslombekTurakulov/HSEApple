@@ -2,7 +2,7 @@ package com.iuturakulov.hseapple.utils
 
 import android.view.View
 
-internal object Debouncer {
+internal object Debounce {
     @Volatile private var enabled: Boolean = true
     private val enableAgain = Runnable { enabled = true }
 
@@ -18,7 +18,7 @@ internal object Debouncer {
 
 internal fun <T : View> T.onClickDebounced(click: (view: T) -> Unit) {
     setOnClickListener {
-        if (Debouncer.canPerform(it)) {
+        if (Debounce.canPerform(it)) {
             @Suppress("UNCHECKED_CAST")
             click(it as T)
         }

@@ -1,4 +1,4 @@
-package com.iuturakulov.hseapple.model.api
+package com.iuturakulov.hseapple.model
 
 import com.google.gson.annotations.SerializedName
 import java.sql.Timestamp

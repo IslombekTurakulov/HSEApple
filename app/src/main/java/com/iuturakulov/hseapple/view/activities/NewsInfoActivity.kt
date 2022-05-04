@@ -8,9 +8,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.iuturakulov.hseapple.R
-import com.iuturakulov.hseapple.model.api.PostEntity
+import com.iuturakulov.hseapple.model.PostEntity
 import com.iuturakulov.hseapple.utils.*
-import kotlinx.android.synthetic.main.activity_create_news.*
 import kotlinx.android.synthetic.main.activity_news_info.*
 import kotlinx.android.synthetic.main.toolbar_news_info.*
 import okhttp3.*

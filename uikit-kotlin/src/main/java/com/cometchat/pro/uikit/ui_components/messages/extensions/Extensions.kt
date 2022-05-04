@@ -498,7 +498,7 @@ public class Extensions {
         fun checkExtensionEnabled(extensionId: String) :Boolean {
             isExtensionEnabled(extensionId, object : CallbackListener<Boolean>() {
                 override fun onSuccess(p0: Boolean) {
-                    Log.e(TAG, "onSuccess: " + extensionId + " - " + p0)
+                    Log.e(TAG, "onSuccess: $extensionId - $p0")
                     isEnabled = p0
                 }
                 override fun onError(p0: CometChatException?) {

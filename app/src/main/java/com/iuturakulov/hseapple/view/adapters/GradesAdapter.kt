@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.iuturakulov.hseapple.R
-import com.iuturakulov.hseapple.model.models.Grade
+import com.iuturakulov.hseapple.model.Grade
 import kotlinx.android.synthetic.main.component_grade.view.*
 import java.text.SimpleDateFormat
 

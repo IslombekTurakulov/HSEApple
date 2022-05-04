@@ -1,4 +1,4 @@
-package com.iuturakulov.hseapple.model.api
+package com.iuturakulov.hseapple.model
 
 
 data class CourseEntity(

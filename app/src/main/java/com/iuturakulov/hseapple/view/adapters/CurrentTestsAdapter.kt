@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.iuturakulov.hseapple.R
-import com.iuturakulov.hseapple.model.api.TaskEntity
+import com.iuturakulov.hseapple.model.TaskEntity
 import com.iuturakulov.hseapple.utils.*
 import com.iuturakulov.hseapple.view.activities.TaskInfoActivity
 import kotlinx.android.synthetic.main.component_event.view.*

@@ -13,7 +13,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.iuturakulov.hseapple.R
-import com.iuturakulov.hseapple.model.api.PostEntity
+import com.iuturakulov.hseapple.model.PostEntity
 import com.iuturakulov.hseapple.utils.CourseSelection
 import com.iuturakulov.hseapple.utils.SELECTION
 import com.iuturakulov.hseapple.utils.TEMP_TOKEN

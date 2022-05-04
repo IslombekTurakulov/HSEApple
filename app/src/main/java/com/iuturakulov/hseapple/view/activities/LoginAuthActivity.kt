@@ -10,7 +10,7 @@ import com.hse.auth.utils.AuthConstants
 import com.hse.core.BaseApplication
 import com.hse.core.ui.BaseActivity
 import com.iuturakulov.hseapple.R
-import com.iuturakulov.hseapple.model.api.UserEntity
+import com.iuturakulov.hseapple.model.UserEntity
 import com.iuturakulov.hseapple.utils.*
 import kotlinx.android.synthetic.main.activity_login.*
 import timber.log.Timber

@@ -120,7 +120,7 @@ public class Utils {
             }
         }
 
-        fun getAudioManager(context: Context): AudioManager? {
+        fun getAudioManager(context: Context): AudioManager {
             return context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
         }
 
@@ -258,7 +258,7 @@ public class Utils {
             } else return context.getString(R.string.this_message_deleted)
         }
 
-        fun isLoggedInUser(user: User): Boolean {
+        private fun isLoggedInUser(user: User): Boolean {
             return user.uid == CometChat.getLoggedInUser().uid
         }
 
@@ -275,8 +275,7 @@ public class Utils {
          * @see GroupMember
          */
         fun UserToGroupMember(user: User, isScopeUpdate: Boolean, newScope: String?): GroupMember? {
-            val groupMember: GroupMember
-            groupMember = if (isScopeUpdate) GroupMember(user.uid, newScope) else GroupMember(user.uid, CometChatConstants.SCOPE_PARTICIPANT)
+            val groupMember: GroupMember = if (isScopeUpdate) GroupMember(user.uid, newScope) else GroupMember(user.uid, CometChatConstants.SCOPE_PARTICIPANT)
             groupMember.avatar = user.avatar
             groupMember.name = user.name
             groupMember.status = user.status
@@ -334,14 +333,19 @@ public class Utils {
             val currentTimeStamp = System.currentTimeMillis()
             val diffTimeStamp = currentTimeStamp - timestamp * 1000
             Log.e(TAG, "getLastMessageDate: " + 24 * 60 * 60 * 1000)
-            return if (diffTimeStamp < 24 * 60 * 60 * 1000) {
-                lastMessageTime
-            } else if (diffTimeStamp < 48 * 60 * 60 * 1000) {
-                "Yesterday"
-            } else if (diffTimeStamp < 7 * 24 * 60 * 60 * 1000) {
-                lastMessageWeek
-            } else {
-                lastMessageDate
+            return when {
+                diffTimeStamp < 24 * 60 * 60 * 1000 -> {
+                    lastMessageTime
+                }
+                diffTimeStamp < 48 * 60 * 60 * 1000 -> {
+                    "Yesterday"
+                }
+                diffTimeStamp < 7 * 24 * 60 * 60 * 1000 -> {
+                    lastMessageWeek
+                }
+                else -> {
+                    lastMessageDate
+                }
             }
         }
 
@@ -395,8 +399,8 @@ public class Utils {
             return "com.android.providers.media.documents" == uri.authority
         }
 
-        fun getDataColumn(context: Context, uri: Uri?, selection: String?,
-                          selectionArgs: Array<String?>?): String? {
+        private fun getDataColumn(context: Context, uri: Uri?, selection: String?,
+                                  selectionArgs: Array<String?>?): String? {
             var cursor: Cursor? = null
             val column = MediaStore.Files.FileColumns.DATA
             val projection = arrayOf(
@@ -417,7 +421,7 @@ public class Utils {
             return null
         }
 
-        fun getImagePathFromUri(context: Context?, aUri: Uri?): String? {
+        private fun getImagePathFromUri(context: Context?, aUri: Uri?): String? {
             var imagePath: String? = null
             if (aUri == null) {
                 return imagePath
@@ -449,10 +453,8 @@ public class Utils {
                     val cacheDir: File = getDocumentCacheDir(context!!)!!
                     val file: File = generateFileName(fileName, cacheDir)!!
                     var destinationPath: String? = null
-                    if (file != null) {
-                        destinationPath = file.absolutePath
-                        saveFileFromUri(context, aUri, destinationPath)
-                    }
+                    destinationPath = file.absolutePath
+                    saveFileFromUri(context, aUri, destinationPath)
                     imagePath = destinationPath
                 } else if ("com.android.providers.downloads.documents" == aUri.authority) {
                     val contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"),
@@ -532,12 +534,12 @@ public class Utils {
                     context.resources.getString(R.string.app_name) + "/" + folder + "/"
         }
 
-        fun getPath(context: Context?, uri: Uri): String? {
+        private fun getPath(context: Context?, uri: Uri): String? {
             val absolutePath = getImagePathFromUri(context, uri)
             return absolutePath ?: uri.toString()
         }
 
-        fun getName(filename: String?): String? {
+        private fun getName(filename: String?): String? {
             if (filename == null) {
                 return null
             }
@@ -604,7 +606,7 @@ public class Utils {
             }
         }
 
-        fun createDirectory(var0: String?) {
+        private fun createDirectory(var0: String?) {
             if (!File(var0).exists()) {
                 File(var0).mkdirs()
             }
@@ -703,7 +705,7 @@ public class Utils {
             return valueInDp * (metrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
         }
 
-        fun getBitmapFromURL(strURL: String?): Bitmap? {
+        private fun getBitmapFromURL(strURL: String?): Bitmap? {
             return try {
                 val url = URL(strURL)
                 val connection = url.openConnection() as HttpURLConnection
@@ -724,7 +726,6 @@ public class Utils {
                     val m = Date().time.toInt()
                     val GROUP_ID = "group_id"
                     var receiverName: String? = ""
-                    val callType: String
                     var receiverAvatar: String? = ""
                     var receiverUid: String? = ""
                     if (call.receiverType == CometChatConstants.RECEIVER_TYPE_USER && call.sender.uid == CometChat.getLoggedInUser().uid) {
@@ -740,13 +741,12 @@ public class Utils {
                         receiverName = (call.receiver as Group).name
                         receiverAvatar = (call.receiver as Group).icon
                     }
-                    callType = if (call.type == CometChatConstants.CALL_TYPE_AUDIO) {
+                    val callType: String = if (call.type == CometChatConstants.CALL_TYPE_AUDIO) {
                         context.resources.getString(R.string.incoming_audio_call)
                     } else {
                         context.resources.getString(R.string.incoming_video_call)
                     }
-                    val callIntent: Intent
-                    callIntent = Intent(context, CometChatCallActivity::class.java)
+                    val callIntent: Intent = Intent(context, CometChatCallActivity::class.java)
                     callIntent.putExtra(UIKitConstants.IntentStrings.NAME, receiverName)
                     callIntent.putExtra(UIKitConstants.IntentStrings.UID, receiverUid)
                     callIntent.putExtra(UIKitConstants.IntentStrings.SESSION_ID, call.sessionId)
@@ -759,7 +759,7 @@ public class Utils {
                             .setContentText(callType)
                             .setPriority(Notification.PRIORITY_HIGH)
                             .setChannelId("2")
-                            .setColor(context.resources.getColor(R.color.colorPrimary))
+                            .setColor(context.resources.getColor(R.color.orange_200))
                             .setLargeIcon(getBitmapFromURL(receiverAvatar))
                             .setGroup(GROUP_ID)
                             .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
@@ -884,12 +884,12 @@ public class Utils {
 
             val bitmap = Bitmap.createBitmap(
                 drawable!!.intrinsicWidth,
-                drawable!!.intrinsicHeight,
+                drawable.intrinsicHeight,
                 Bitmap.Config.ARGB_8888
             )
             val canvas = Canvas(bitmap)
-            drawable!!.setBounds(0, 0, canvas.width, canvas.height)
-            drawable!!.draw(canvas)
+            drawable.setBounds(0, 0, canvas.width, canvas.height)
+            drawable.draw(canvas)
 
             return bitmap
         }

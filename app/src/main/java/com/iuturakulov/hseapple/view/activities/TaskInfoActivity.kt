@@ -10,7 +10,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.dateTimePicker
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.iuturakulov.hseapple.R
-import com.iuturakulov.hseapple.model.api.TaskEntity
+import com.iuturakulov.hseapple.model.TaskEntity
 import com.iuturakulov.hseapple.utils.*
 import com.iuturakulov.hseapple.utils.onClickDebounced
 import kotlinx.android.synthetic.main.activity_create_tests.*

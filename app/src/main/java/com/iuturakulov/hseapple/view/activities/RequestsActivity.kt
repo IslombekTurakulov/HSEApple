@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.iuturakulov.hseapple.R
-import com.iuturakulov.hseapple.model.api.RequestEntity
+import com.iuturakulov.hseapple.model.RequestEntity
 import com.iuturakulov.hseapple.utils.TEMP_TOKEN
 import com.iuturakulov.hseapple.view.adapters.RequestsAdapter
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator

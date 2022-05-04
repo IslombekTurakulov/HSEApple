@@ -13,7 +13,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.iuturakulov.hseapple.R
-import com.iuturakulov.hseapple.utils.AUTH
 import com.iuturakulov.hseapple.utils.validateDescription
 import com.iuturakulov.hseapple.utils.validateTitle
 import kotlinx.android.synthetic.main.activity_create_group_chat.*

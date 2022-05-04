@@ -65,9 +65,9 @@ public class AnimUtil {
 
         fun animateMic(recordMic: ImageView) {
             alphaAnimation = AlphaAnimation(0.0f, 1.0f)
-            alphaAnimation!!.setDuration(500)
-            alphaAnimation!!.setRepeatMode(Animation.REVERSE)
-            alphaAnimation!!.setRepeatCount(Animation.INFINITE)
+            alphaAnimation!!.duration = 500
+            alphaAnimation!!.repeatMode = Animation.REVERSE
+            alphaAnimation!!.repeatCount = Animation.INFINITE
             recordMic.startAnimation(alphaAnimation)
         }
 
