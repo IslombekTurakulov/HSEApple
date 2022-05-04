@@ -16,19 +16,13 @@ import com.cometchat.pro.uikit.ui_settings.enum.ConversationMode
 import com.cometchat.pro.uikit.ui_settings.enum.GroupMode
 import com.cometchat.pro.uikit.ui_settings.enum.UserMode
 
-class UIKitSettings(context: Context) {
-
-    public var context: Context
-
-    init {
-        this.context = context
-    }
+class UIKitSettings(public var context: Context) {
 
     companion object {
 
 
         //style
-        var color = "#03A9F4"
+        var color = "#013e59"
 
         //BottomBarcalls
         var showUsersBB = true
@@ -439,7 +433,7 @@ class UIKitSettings(context: Context) {
             }
 
             override fun onDisconnected() {
-                Toast.makeText(context, "OnDisConnected", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "OnDisсonnected", Toast.LENGTH_LONG).show()
             }
 
             override fun onFeatureThrottled() {
