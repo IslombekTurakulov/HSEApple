@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,6 +17,7 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.utils.*
 import kotlinx.android.synthetic.main.activity_create_news.*
+import kotlinx.android.synthetic.main.toolbar_news_info.*
 import okhttp3.*
 import java.io.ByteArrayOutputStream
 import java.io.IOException
@@ -36,6 +38,11 @@ class CreateNewsActivity : AppCompatActivity(R.layout.activity_create_news) {
     }
 
     private fun setListeners() {
+        edit_things_layout.visibility = View.GONE
+        news_info.text = getString(R.string.news_menu_text)
+        back_arrow_news.setOnClickListener {
+            onBackPressed()
+        }
         create_event_button.setOnClickListener {
             if (validateInputFields()) {
                 createEvent()

@@ -37,6 +37,7 @@ class RequestsActivity : AppCompatActivity() {
         back_arrow_requests.setOnClickListener {
             onBackPressed()
         }
+        requests_name.text = getString(R.string.requests)
         requestsAdapter = RequestsAdapter(this)
         recycler_view.adapter = requestsAdapter
         val callback: ItemTouchHelper.SimpleCallback = initializeCallBacks()

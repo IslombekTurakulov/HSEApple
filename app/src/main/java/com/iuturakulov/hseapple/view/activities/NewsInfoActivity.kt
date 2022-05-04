@@ -10,10 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.model.api.PostEntity
 import com.iuturakulov.hseapple.utils.*
-import kotlinx.android.synthetic.main.fragment_news_info.*
+import kotlinx.android.synthetic.main.activity_create_news.*
+import kotlinx.android.synthetic.main.activity_news_info.*
 import kotlinx.android.synthetic.main.toolbar_news_info.*
-import okhttp3.OkHttpClient
-import okhttp3.Request
+import okhttp3.*
+import java.io.IOException
 import java.util.*
 
 
@@ -27,25 +28,9 @@ class NewsInfoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_news_info)
+        setContentView(R.layout.activity_news_info)
         initializeTopAppBar()
         initializeFields()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        val client = OkHttpClient().newBuilder()
-            .build()
-        val request = Request.Builder()
-            .url("http://80.66.64.53:8080/course/2/post?start=1&limit=10")
-            .method("GET", null)
-            .addHeader(
-                "Authorization",
-                TEMP_TOKEN
-            )
-            .addHeader("Content-Type", "application/json")
-            .addHeader("Cookie", "JSESSIONID=53530B6092B00A54239E5E86BAEE3EE6")
-            .build()
     }
 
     private fun initializeTopAppBar() {
@@ -96,12 +81,50 @@ class NewsInfoActivity : AppCompatActivity() {
         }
         confirmButtonEdit.setOnClickListener {
             if (validateInputFields()) {
+                editDataNews()
                 Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
                 fieldOptionsInitializer(false)
             }
         }
         "${getString(R.string.created_time)} ${if (news.updatedAt == null) news.createdAt.toString() else news.updatedAt.toString()}".also {
             dateTimeNewsItem.text = it
+        }
+    }
+
+    private fun editDataNews() {
+        val client = OkHttpClient().newBuilder().build()
+        val mediaType = MediaType.parse("application/json")
+        val body = RequestBody.create(
+            mediaType,
+            """{
+          "courseID": ${news.courseid},
+          "title": "${news.title}",
+          "content": "${news.content}",
+          "mediaLink": "${news.mediaLink}"
+        }"""
+        )
+        val requestPost = Request.Builder()
+            .url(
+                "http://80.66.64.53:8080/course/post"
+            )
+            .method("PUT", body)
+            .addHeader(
+                "Authorization",
+                TEMP_TOKEN
+            )
+            .addHeader("Content-Type", "application/json")
+            .addHeader("Cookie", "JSESSIONID=53530B6092B00A54239E5E86BAEE3EE6")
+            .build()
+        var responseGet: Response? = null
+        try {
+            responseGet = client.newCall(requestPost).execute()
+        } catch (e: IOException) {
+            e.printStackTrace();
+        }
+        if (responseGet != null) {
+            Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Failure", Toast.LENGTH_SHORT).show()
         }
     }
 
