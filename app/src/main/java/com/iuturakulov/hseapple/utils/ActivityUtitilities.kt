@@ -1,5 +1,6 @@
 package com.iuturakulov.hseapple.utils
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -18,7 +19,18 @@ import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
+
+
 lateinit var APP_ACTIVITY: MainActivity
+
+private var toast: Toast? = null
+
+internal fun Activity.toast(message: CharSequence) {
+    toast?.cancel()
+    toast = Toast.makeText(this, message, Toast.LENGTH_SHORT)
+        .apply { show() }
+}
+
 
 fun showToast(message: String) {
     Toast.makeText(APP_ACTIVITY, message, Toast.LENGTH_SHORT).show()
@@ -64,17 +76,6 @@ fun replaceFragment(fragment: Fragment, id: Int, addStack: Boolean = true) {
     }
 }
 
-fun hideKeyboard() {
-    val imm: InputMethodManager = APP_ACTIVITY.getSystemService(Context.INPUT_METHOD_SERVICE)
-            as InputMethodManager
-    imm.hideSoftInputFromWindow(APP_ACTIVITY.window.decorView.windowToken, 0)
-}
-
-fun String.asDate(): String {
-    val timeFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-    return timeFormat.format(Date(this.toLong()))
-}
-
 fun String.asDateTime(): String {
     val timeFormat = SimpleDateFormat("d MMMM HH:mm", Locale.getDefault())
     return timeFormat.format(Date(this.toLong()))
@@ -104,14 +105,8 @@ fun TextInputEditText.validateNews(): Boolean {
     return false
 }
 
-fun decodeString(imageString: String): Bitmap {
-    val imageBytes = Base64.getDecoder().decode(imageString)
-    return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-}
-
-fun String.asTime(): String {
-    val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-    return timeFormat.format(Date(this.toLong()))
+internal fun Calendar.formatDateTime(): String {
+    return SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(this.time)
 }
 
 fun ImageView.setImage(url: String, default: Int) {

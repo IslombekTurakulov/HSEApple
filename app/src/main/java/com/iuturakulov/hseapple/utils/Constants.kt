@@ -5,6 +5,7 @@ import com.cometchat.pro.models.User
 import com.hse.auth.AuthHelper
 import com.iuturakulov.hseapple.model.api.PostEntity
 import com.iuturakulov.hseapple.model.api.RequestEntity
+import com.iuturakulov.hseapple.model.api.TaskEntity
 import com.iuturakulov.hseapple.model.api.UserEntity
 
 lateinit var AUTH: AuthHelper
@@ -30,6 +31,8 @@ enum class CourseSelection {
 var SELECTION: CourseSelection = CourseSelection.CHOSEN_SECOND
 
 lateinit var postInfo: PostEntity
+lateinit var taskInfo: TaskEntity
+var allTests: java.util.ArrayList<TaskEntity> = arrayListOf()
 
 const val REQUEST_LOGIN = 1
 
