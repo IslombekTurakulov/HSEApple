@@ -55,6 +55,10 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
     implementation "androidx.cardview:cardview:1.0.0"
+    // Datetime picker
+    implementation 'com.afollestad.material-dialogs:datetime:3.3.0'
+    // Lifecycle for picker
+    implementation 'com.afollestad.material-dialogs:lifecycle:3.3.0'
     // PreferenceManager
     implementation 'androidx.preference:preference-ktx:1.2.0'
     // Swipe refresh
