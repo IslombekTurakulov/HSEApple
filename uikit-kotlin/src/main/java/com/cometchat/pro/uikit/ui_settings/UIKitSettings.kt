@@ -16,11 +16,9 @@ import com.cometchat.pro.uikit.ui_settings.enum.ConversationMode
 import com.cometchat.pro.uikit.ui_settings.enum.GroupMode
 import com.cometchat.pro.uikit.ui_settings.enum.UserMode
 
-class UIKitSettings(public var context: Context) {
+class UIKitSettings(var context: Context) {
 
     companion object {
-
-
         //style
         var color = "#013e59"
 

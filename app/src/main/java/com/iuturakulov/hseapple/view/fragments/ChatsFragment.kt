@@ -136,9 +136,9 @@ class ChatsFragment : Fragment(), OnAlertDialogButtonClickListener {
 
     override fun onButtonClick(alertDialog: AlertDialog?, v: View?, which: Int, popupId: Int) {
         val groupPasswordInput = v!!.findViewById<View>(R.id.edittextDialogueInput) as EditText
-        if (which == DialogInterface.BUTTON_NEGATIVE) { // Cancel
+        if (which == DialogInterface.BUTTON_NEGATIVE) {
             alertDialog!!.dismiss()
-        } else if (which == DialogInterface.BUTTON_POSITIVE) { // Join
+        } else if (which == DialogInterface.BUTTON_POSITIVE) {
             try {
                 progressDialog = ProgressDialog.show(requireContext(), "", "Joining")
                 progressDialog!!.setCancelable(false)

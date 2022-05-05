@@ -34,13 +34,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         }
         val newsAdapter = NewsAdapter(APP_ACTIVITY.applicationContext)
         newsRecyclerView.adapter = newsAdapter
-        if (newsAdapter.getAllItems().isNotEmpty()) {
-            isEventsEmptyImage.visibility = View.GONE
-            isEventsEmptyText.visibility = View.GONE
-        } else {
-            isEventsEmptyImage.visibility = View.VISIBLE
-            isEventsEmptyText.visibility = View.VISIBLE
-        }
+        initializeAdapter(newsAdapter)
         create_event_tool.setOnClickListener {
             showToast("Create event")
             val startupIntent =
@@ -52,13 +46,17 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
             )
             val coursesAdapter = NewsAdapter(requireContext())
             newsRecyclerView.adapter = coursesAdapter
-            if (coursesAdapter.getAllItems().isNotEmpty()) {
-                isEventsEmptyImage.visibility = View.GONE
-                isEventsEmptyText.visibility = View.GONE
-            } else {
-                isEventsEmptyImage.visibility = View.VISIBLE
-                isEventsEmptyText.visibility = View.VISIBLE
-            }
+            initializeAdapter(coursesAdapter)
+        }
+    }
+
+    private fun initializeAdapter(coursesAdapter: NewsAdapter) {
+        if (coursesAdapter.getAllItems().isNotEmpty()) {
+            isEventsEmptyImage.visibility = View.GONE
+            isEventsEmptyText.visibility = View.GONE
+        } else {
+            isEventsEmptyImage.visibility = View.VISIBLE
+            isEventsEmptyText.visibility = View.VISIBLE
         }
     }
 }
