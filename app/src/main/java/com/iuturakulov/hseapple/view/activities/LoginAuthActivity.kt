@@ -31,7 +31,13 @@ class LoginAuthActivity : BaseActivity() {
         setContentView(R.layout.activity_login_auth)
         authLogButton.setOnClickListener {
             authLogButton!!.isClickable = false
-            AuthHelper.login(this, 1)
+            UserEntity(
+                id = 1,
+                fullName = "Сосновский Григорий Михайлович",
+                email = "gsosnovskij@hse.ru"
+            ).also { USER = it }
+            createUser()
+            // AuthHelper.login(this, 1)
         }
     }
 
@@ -72,27 +78,16 @@ class LoginAuthActivity : BaseActivity() {
                 val response = client.newCall(request).execute()
                 Timber.d("Login Auth: ${response.isSuccessful}")
                 if (response.isSuccessful) {
-                    Timber.i(response.body().toString())
-                    println(response.body().toString())
                     USER = Gson().fromJson(response.body()?.string() ?: "", UserEntity::class.java)
-                    initializeChatAndLogin()
+                    Timber.w(USER.toString())
                 } else {
                     toast("Oops... Auth failure")
                 }
             } catch (exception: IOException) {
                 exception.printStackTrace()
             }
+            createUser()
         }
-    }
-
-    private fun initializeChatAndLogin() {
-        createUser()
-        val startupIntent = Intent(this, AvailableCoursesActivity::class.java)
-        startupIntent.flags =
-            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-        startActivity(startupIntent)
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-        finish()
     }
 
     private fun createUser() {
@@ -122,7 +117,10 @@ class LoginAuthActivity : BaseActivity() {
     private fun login(user: User) {
         CometChat.login(user.uid, AUTH_KEY, object : CometChat.CallbackListener<User?>() {
             override fun onSuccess(user: User?) {
-                USER_CHAT = user!!
+                USER_CHAT = CometChat.getLoggedInUser()
+                startActivity(Intent(this@LoginAuthActivity, AvailableCoursesActivity::class.java))
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                finish()
             }
 
             override fun onError(e: CometChatException) {

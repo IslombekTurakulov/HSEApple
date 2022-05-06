@@ -77,7 +77,7 @@ import com.cometchat.pro.uikit.ui_components.shared.cometchatStickers.listener.S
 import com.cometchat.pro.uikit.ui_components.shared.cometchatStickers.model.Sticker
 import com.cometchat.pro.uikit.ui_components.users.user_details.CometChatUserDetailScreenActivity
 import com.cometchat.pro.uikit.ui_resources.constants.UIKitConstants
-import com.cometchat.pro.uikit.ui_resources.utils.ErrorMessagesUtils
+import com.cometchat.pro.uikit.ui_resources.utils.ErrorMsgUtils
 import com.cometchat.pro.uikit.ui_resources.utils.FontUtils
 import com.cometchat.pro.uikit.ui_resources.utils.MediaUtils
 import com.cometchat.pro.uikit.ui_resources.utils.Utils
@@ -713,7 +713,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
 
                     override fun onError(e: CometChatException) {
                         if (activity != null) {
-                            ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                            ErrorMsgUtils.showChatErrorMessage(context, e.code)
                         }
                     }
                 })
@@ -875,7 +875,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                                 }
 
                                 override fun onResponseFailed(e: CometChatException?) {
-                                    ErrorMessagesUtils.cometChatErrorMessage(context, e?.code)
+                                    ErrorMsgUtils.showChatErrorMessage(context, e?.code)
                                 }
 
                             })
@@ -883,7 +883,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                     }
 
                     override fun onError(p0: CometChatException?) {
-                        ErrorMessagesUtils.cometChatErrorMessage(context, p0?.code)
+                        ErrorMsgUtils.showChatErrorMessage(context, p0?.code)
                     }
 
                 })
@@ -901,7 +901,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                         }
 
                         override fun onResponseFailed(e: CometChatException?) {
-                            ErrorMessagesUtils.cometChatErrorMessage(context, e?.code)
+                            ErrorMsgUtils.showChatErrorMessage(context, e?.code)
                         }
                     })
 
@@ -918,7 +918,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                         }
 
                         override fun onResponseFailed(e: CometChatException?) {
-                            ErrorMessagesUtils.cometChatErrorMessage(context, e?.code)
+                            ErrorMsgUtils.showChatErrorMessage(context, e?.code)
                         }
                     })
             }
@@ -1370,7 +1370,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
             override fun onError(e: CometChatException) {
                 if (activity != null) {
                     progressDialog.dismiss()
-                    ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                    ErrorMsgUtils.showChatErrorMessage(context, e.code)
                 }
             }
         })
@@ -1480,7 +1480,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
     }
 
     private fun showSnackBar(view: View?, message: String) {
-        ErrorMessagesUtils.showCometChatErrorDialog(context, message)
+        ErrorMsgUtils.showCometChatErrorDialog(context, message)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -1544,7 +1544,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
             }
 
             override fun onError(e: CometChatException) {
-                ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                ErrorMsgUtils.showChatErrorMessage(context, e.code)
             }
         })
     }
@@ -1841,7 +1841,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
 //                progressDialog.dismiss()
                 if (activity != null) {
 //                    Toast.makeText(activity, e.message, Toast.LENGTH_SHORT).show()
-                    ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                    ErrorMsgUtils.showChatErrorMessage(context, e.code)
                 }
             }
         })
@@ -1890,7 +1890,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
 
                 override fun onError(e: CometChatException) {
 //                    Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
-                    ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                    ErrorMsgUtils.showChatErrorMessage(context, e.code)
                 }
             })
         }
@@ -1921,7 +1921,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                 }
 
                 override fun onError(e: CometChatException) {
-                    ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                    ErrorMsgUtils.showChatErrorMessage(context, e.code)
                 }
             })
         }
@@ -1965,7 +1965,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
 //                ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
                 textMessage.sentAt = -1
                 if (e.code.equals("ERROR_INTERNET_UNAVAILABLE", ignoreCase = true)) {
-                    ErrorMessagesUtils.showCometChatErrorDialog(
+                    ErrorMsgUtils.showCometChatErrorDialog(
                         context,
                         getString(R.string.please_check_your_internet_connection)
                     )
@@ -2000,7 +2000,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
 
             override fun onError(e: CometChatException) {
                 Log.d(TAG, "onError: " + e.message)
-                ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                ErrorMsgUtils.showChatErrorMessage(context, e.code)
             }
         })
     }
@@ -2101,7 +2101,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
                     Log.e(TAG, "onError: " + e.message)
                     textMessage.sentAt = -1
                     if (e.code.equals("ERROR_INTERNET_UNAVAILABLE", ignoreCase = true)) {
-                        ErrorMessagesUtils.showCometChatErrorDialog(
+                        ErrorMsgUtils.showCometChatErrorDialog(
                             context,
                             getString(R.string.please_check_your_internet_connection)
                         )

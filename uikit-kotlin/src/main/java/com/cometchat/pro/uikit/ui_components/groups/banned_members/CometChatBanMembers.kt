@@ -16,10 +16,8 @@ import com.cometchat.pro.core.CometChat.CallbackListener
 import com.cometchat.pro.exceptions.CometChatException
 import com.cometchat.pro.models.GroupMember
 import com.cometchat.pro.uikit.R
-import com.google.android.material.snackbar.Snackbar
 import com.cometchat.pro.uikit.ui_resources.constants.UIKitConstants
-import com.cometchat.pro.uikit.ui_resources.utils.ErrorMessagesUtils
-import com.cometchat.pro.uikit.ui_resources.utils.Utils
+import com.cometchat.pro.uikit.ui_resources.utils.ErrorMsgUtils
 import com.cometchat.pro.uikit.ui_resources.utils.recycler_touch.ClickListener
 import com.cometchat.pro.uikit.ui_resources.utils.recycler_touch.RecyclerTouchListener
 
@@ -76,7 +74,7 @@ class CometChatBanMembers : Fragment() {
 
                 override fun onError(e: CometChatException) {
                     if (bannedMemberRv != null)
-                        ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                        ErrorMsgUtils.showChatErrorMessage(context, e.code)
                 }
             })
         }
@@ -118,7 +116,7 @@ class CometChatBanMembers : Fragment() {
 
             override fun onError(e: CometChatException) {
                 if (bannedMemberRv != null)
-                    ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                    ErrorMsgUtils.showChatErrorMessage(context, e.code)
             }
         })
     }

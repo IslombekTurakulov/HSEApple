@@ -20,32 +20,8 @@ internal fun Activity.toast(message: CharSequence) {
         .apply { show() }
 }
 
-
 fun showToast(message: String) {
     Toast.makeText(APP_ACTIVITY, message, Toast.LENGTH_SHORT).show()
-}
-
-fun restartActivity() {
-    val intent = Intent(APP_ACTIVITY, MainActivity::class.java)
-    APP_ACTIVITY.startActivity(intent)
-    APP_ACTIVITY.finish()
-}
-
-fun replaceFragment(fragment: Fragment, addStack: Boolean = true) {
-    if (addStack) {
-        APP_ACTIVITY.supportFragmentManager.beginTransaction()
-            .addToBackStack(null)
-            .replace(
-                R.id.main_container,
-                fragment
-            ).commitAllowingStateLoss()
-    } else {
-        APP_ACTIVITY.supportFragmentManager.beginTransaction()
-            .replace(
-                R.id.main_container,
-                fragment
-            ).commitAllowingStateLoss()
-    }
 }
 
 fun String.asDateTime(): String {

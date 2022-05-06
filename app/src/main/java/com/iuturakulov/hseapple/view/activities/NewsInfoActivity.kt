@@ -23,6 +23,7 @@ class NewsInfoActivity : AppCompatActivity() {
 
     private var editMode: Boolean = false
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news_info)
@@ -34,7 +35,7 @@ class NewsInfoActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
         news_info.text = postInfo.title
         if (USER_CHAT.role != "teacher") {
-            edit_things_layout.visibility = View.GONE
+            edit_things_layout.visibility = View.INVISIBLE
         } else {
             edit_things_layout.visibility = View.VISIBLE
         }

@@ -1,8 +1,8 @@
 package com.iuturakulov.hseapple.model
 
-import java.sql.Timestamp
+import java.time.LocalDateTime
 
-class UserTaskEntity (
+class UserTaskEntity(
     val id: Long? = null,
     val answer: String? = null,
     val score: Int? = null,
@@ -10,6 +10,6 @@ class UserTaskEntity (
     val taskID: Long? = null,
     val createdBy: Long? = null,
     val updatedBy: Long? = null,
-    val createdAt: Timestamp? = null,
-    val updatedAt: Timestamp? = null
+    val createdAt: LocalDateTime? = null,
+    val updatedAt: LocalDateTime? = null
 )

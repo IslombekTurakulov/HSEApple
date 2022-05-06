@@ -24,12 +24,11 @@ import com.cometchat.pro.models.Group
 import com.cometchat.pro.models.User
 import com.cometchat.pro.uikit.ui_components.shared.cometchatCalls.CometChatCalls
 import com.cometchat.pro.uikit.R
-import com.google.android.material.snackbar.Snackbar
 import com.cometchat.pro.uikit.ui_resources.constants.UIKitConstants
 import com.cometchat.pro.uikit.ui_resources.utils.item_clickListener.OnItemClickListener
 import com.cometchat.pro.uikit.ui_components.groups.group_detail.CometChatGroupDetailActivity
 import com.cometchat.pro.uikit.ui_components.users.user_details.CometChatUserDetailScreenActivity
-import com.cometchat.pro.uikit.ui_resources.utils.ErrorMessagesUtils
+import com.cometchat.pro.uikit.ui_resources.utils.ErrorMsgUtils
 import com.cometchat.pro.uikit.ui_resources.utils.FontUtils
 import com.cometchat.pro.uikit.ui_resources.utils.Utils
 import com.facebook.shimmer.ShimmerFrameLayout
@@ -137,7 +136,7 @@ class MissedCall : Fragment() {
             }
 
             override fun onError(e: CometChatException) {
-                if (rvCallList != null) ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                if (rvCallList != null) ErrorMsgUtils.showChatErrorMessage(context, e.code)
             }
         })
     }
@@ -160,7 +159,7 @@ class MissedCall : Fragment() {
                 override fun onError(e: CometChatException) {
                     stopHideShimmer()
                     if (rvCallList != null)
-                        ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                        ErrorMsgUtils.showChatErrorMessage(context, e.code)
                 }
             })
         }

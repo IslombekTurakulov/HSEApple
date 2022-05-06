@@ -23,7 +23,7 @@ import com.cometchat.pro.models.Group
 import com.cometchat.pro.uikit.R
 import com.cometchat.pro.uikit.ui_components.messages.message_list.CometChatMessageListActivity
 import com.cometchat.pro.uikit.ui_resources.constants.UIKitConstants
-import com.cometchat.pro.uikit.ui_resources.utils.ErrorMessagesUtils
+import com.cometchat.pro.uikit.ui_resources.utils.ErrorMsgUtils
 import com.cometchat.pro.uikit.ui_resources.utils.Utils
 import com.cometchat.pro.uikit.ui_settings.FeatureRestriction
 import com.google.android.material.button.MaterialButton
@@ -68,7 +68,7 @@ class CometChatCreateGroup : Fragment() {
                 if (etGroupPassword?.text.toString().isNotEmpty() && s.toString() == etGroupPassword?.text.toString()) {
                     groupCnfPasswordLayout?.endIconDrawable = resources.getDrawable(R.drawable.ic_check_black_24dp)
                     groupCnfPasswordLayout?.setEndIconTintList(ColorStateList.valueOf(resources.getColor(R.color.green_600)))
-                } else ErrorMessagesUtils.showCometChatErrorDialog(context, resources.getString(R.string.enter_the_correct_password))
+                } else ErrorMsgUtils.showCometChatErrorDialog(context, resources.getString(R.string.enter_the_correct_password))
             }
 
             override fun afterTextChanged(s: Editable) {}
@@ -191,7 +191,7 @@ class CometChatCreateGroup : Fragment() {
                 if (etGroupPassword?.text.toString().isEmpty()) etGroupPassword?.error = resources.getString(R.string.fill_this_field) else if (etGroupCnfPassword?.text.toString().isEmpty()) etGroupCnfPassword?.error = resources.getString(R.string.fill_this_field) else if (etGroupPassword?.text.toString() == etGroupCnfPassword?.text.toString()) {
                     val group = Group("group" + generateRandomString(95), etGroupName?.text.toString(), groupType, etGroupPassword?.text.toString())
                     createGroup(group)
-                } else if (etGroupPassword != null) ErrorMessagesUtils.showCometChatErrorDialog(context, resources.getString(R.string.password_not_matched))
+                } else if (etGroupPassword != null) ErrorMsgUtils.showCometChatErrorDialog(context, resources.getString(R.string.password_not_matched))
             }
         } else {
             etGroupName?.error = resources.getString(R.string.fill_this_field)
@@ -216,7 +216,7 @@ class CometChatCreateGroup : Fragment() {
             }
 
             override fun onError(e: CometChatException) {
-                ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                ErrorMsgUtils.showChatErrorMessage(context, e.code)
                 Log.e(TAG, "onError: " + e.message)
             }
         })

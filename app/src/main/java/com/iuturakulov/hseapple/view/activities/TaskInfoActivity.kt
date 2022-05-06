@@ -144,31 +144,6 @@ class TaskInfoActivity : AppCompatActivity() {
         createTextLayoutDescTaskInfo.isCounterEnabled = flag
     }
 
-    private fun sendUrlInfo() {
-        val client = OkHttpClient().newBuilder()
-            .build()
-        val mediaType = MediaType.parse("application/json")
-        val body = RequestBody.create(
-            mediaType,
-            """{
-                  "userID": 0,
-                  "answer": "Ответ на лаб.работу 1",
-                  "status": true,
-                  "score": null
-                }"""
-        )
-        val request = Request.Builder()
-            .url("${IP_ADDRESS}/task/${taskInfo.id}/answer")
-            .method("POST", body)
-            .addHeader(
-                "Authorization",
-                TEMP_TOKEN
-            )
-            .addHeader("Content-Type", "application/json")
-            .addHeader("Cookie", "JSESSIONID=53530B6092B00A54239E5E86BAEE3EE6")
-            .build()
-    }
-
     private fun createTest() {
         val client = OkHttpClient().newBuilder()
             .build()

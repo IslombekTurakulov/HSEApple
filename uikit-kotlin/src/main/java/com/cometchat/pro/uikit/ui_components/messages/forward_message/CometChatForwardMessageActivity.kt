@@ -36,11 +36,10 @@ import com.cometchat.pro.core.ConversationsRequest.ConversationsRequestBuilder
 import com.cometchat.pro.exceptions.CometChatException
 import com.cometchat.pro.models.*
 import com.cometchat.pro.uikit.R
-import com.cometchat.pro.uikit.ui_components.cometchat_ui.CometChatUI
 import com.cometchat.pro.uikit.ui_components.shared.cometchatConversations.CometChatConversation
 import com.cometchat.pro.uikit.ui_components.shared.cometchatConversations.CometChatConversationsAdapter
 import com.cometchat.pro.uikit.ui_resources.constants.UIKitConstants
-import com.cometchat.pro.uikit.ui_resources.utils.ErrorMessagesUtils
+import com.cometchat.pro.uikit.ui_resources.utils.ErrorMsgUtils
 import com.cometchat.pro.uikit.ui_resources.utils.FontUtils
 import com.cometchat.pro.uikit.ui_resources.utils.MediaUtils
 import com.cometchat.pro.uikit.ui_resources.utils.Utils
@@ -305,7 +304,7 @@ class CometChatForwardMessageActivity : AppCompatActivity() {
                     }
                     checkUserList()
                 } else {
-                    ErrorMessagesUtils.showCometChatErrorDialog(this@CometChatForwardMessageActivity, resources.getString(R.string.something_went_wrong_please_try_again))
+                    ErrorMsgUtils.showCometChatErrorDialog(this@CometChatForwardMessageActivity, resources.getString(R.string.something_went_wrong_please_try_again))
                 }
             }
         })
@@ -552,7 +551,7 @@ class CometChatForwardMessageActivity : AppCompatActivity() {
             }
 
             override fun onError(e: CometChatException) {
-                ErrorMessagesUtils.cometChatErrorMessage(baseContext, e.code)
+                ErrorMsgUtils.showChatErrorMessage(baseContext, e.code)
             }
         })
     }

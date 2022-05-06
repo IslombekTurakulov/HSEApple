@@ -30,7 +30,7 @@ import com.cometchat.pro.uikit.ui_resources.utils.recycler_touch.ClickListener
 import com.cometchat.pro.uikit.ui_resources.utils.recycler_touch.RecyclerTouchListener
 import com.cometchat.pro.uikit.ui_resources.utils.sticker_header.StickyHeaderDecoration
 import com.cometchat.pro.uikit.ui_components.users.user_details.CometChatUserDetailScreenActivity
-import com.cometchat.pro.uikit.ui_resources.utils.ErrorMessagesUtils
+import com.cometchat.pro.uikit.ui_resources.utils.ErrorMsgUtils
 import com.cometchat.pro.uikit.ui_resources.utils.FontUtils
 import com.cometchat.pro.uikit.ui_resources.utils.Utils
 import java.util.*
@@ -175,7 +175,7 @@ class CometChatAddMembers : Fragment() {
             }
 
             override fun onError(e: CometChatException) {
-                ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                ErrorMsgUtils.showChatErrorMessage(context, e.code)
                 Log.d(TAG, "onError: " + e.message)
             }
         })
@@ -196,7 +196,7 @@ class CometChatAddMembers : Fragment() {
             }
 
             override fun onError(e: CometChatException) {
-                ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                ErrorMsgUtils.showChatErrorMessage(context, e.code)
                 Log.e(TAG, "onError: " + e.message)
             }
         })

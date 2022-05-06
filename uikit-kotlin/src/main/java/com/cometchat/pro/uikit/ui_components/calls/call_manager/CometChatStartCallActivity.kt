@@ -18,8 +18,7 @@ import com.cometchat.pro.models.AudioMode
 import com.cometchat.pro.models.User
 import com.cometchat.pro.uikit.R
 import com.cometchat.pro.uikit.ui_resources.constants.UIKitConstants
-import com.cometchat.pro.uikit.ui_resources.utils.ErrorMessagesUtils
-import com.cometchat.pro.uikit.ui_resources.utils.Utils
+import com.cometchat.pro.uikit.ui_resources.utils.ErrorMsgUtils
 
 class CometChatStartCallActivity : AppCompatActivity() {
 
@@ -58,7 +57,7 @@ class CometChatStartCallActivity : AppCompatActivity() {
 
             override fun onError(p0: CometChatException) {
                 p0.message?.let { Log.e("onstartcallError: ", it) }
-                ErrorMessagesUtils.cometChatErrorMessage(this@CometChatStartCallActivity, p0.code)
+                ErrorMsgUtils.showChatErrorMessage(this@CometChatStartCallActivity, p0.code)
             }
 
             override fun onCallEnded(p0: Call?) {

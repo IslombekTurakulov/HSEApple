@@ -13,9 +13,9 @@ import com.cometchat.pro.constants.CometChatConstants.Errors.*
 import com.cometchat.pro.uikit.R
 import com.cometchat.pro.uikit.ui_resources.constants.UIKitConstants
 
-class ErrorMessagesUtils {
+class ErrorMsgUtils {
     companion object {
-        fun cometChatErrorMessage(context: Context?, e : String?) {
+        fun showChatErrorMessage(context: Context?, e : String?) {
             when (e) {
                 ERROR_INTERNET_UNAVAILABLE -> {
                     showCometChatErrorDialog(context, context?.resources?.getString(R.string.please_check_your_internet_connection))

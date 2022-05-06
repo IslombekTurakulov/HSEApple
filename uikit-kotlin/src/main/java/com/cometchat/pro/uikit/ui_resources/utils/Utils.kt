@@ -31,14 +31,12 @@ import android.text.format.DateFormat
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -793,7 +791,7 @@ public class Utils {
 
                 override fun onError(e: CometChatException) {
                     e.message?.let { Log.e("onError: ", it) }
-                    ErrorMessagesUtils.cometChatErrorMessage(activity, e.code)
+                    ErrorMsgUtils.showChatErrorMessage(activity, e.code)
                 }
 
                 override fun onCallEnded(call: Call) {

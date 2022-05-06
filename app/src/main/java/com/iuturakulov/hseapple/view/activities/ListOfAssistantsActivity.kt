@@ -55,6 +55,7 @@ class ListOfAssistantsActivity : AppCompatActivity() {
         val itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(recycler_view)
     }
+
     private fun initializeCallBacks(): ItemTouchHelper.SimpleCallback {
         val callback: ItemTouchHelper.SimpleCallback = object :
             ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
@@ -163,13 +164,5 @@ class ListOfAssistantsActivity : AppCompatActivity() {
                 Timber.w(if (response.isSuccessful) "${item.name} deleted" else "${item.name} with failure")
             }
         }
-    }
-
-    private fun loadFragment(fragment: Fragment?): Boolean {
-        if (fragment != null) {
-            supportFragmentManager.beginTransaction().replace(R.id.frameOfUsers, fragment).commit()
-            return true
-        }
-        return false
     }
 }

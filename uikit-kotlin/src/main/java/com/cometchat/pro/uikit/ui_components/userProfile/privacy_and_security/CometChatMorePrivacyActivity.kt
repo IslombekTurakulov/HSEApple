@@ -14,11 +14,9 @@ import com.cometchat.pro.exceptions.CometChatException
 import com.cometchat.pro.models.User
 import com.cometchat.pro.uikit.R
 import com.cometchat.pro.uikit.ui_components.users.blocked_users.CometChatBlockUserListActivity
-import com.cometchat.pro.uikit.ui_resources.constants.UIKitConstants
-import com.cometchat.pro.uikit.ui_resources.utils.ErrorMessagesUtils
+import com.cometchat.pro.uikit.ui_resources.utils.ErrorMsgUtils
 import com.cometchat.pro.uikit.ui_resources.utils.FontUtils
 import com.cometchat.pro.uikit.ui_resources.utils.Utils
-import com.cometchat.pro.uikit.ui_settings.FeatureRestriction
 import com.cometchat.pro.uikit.ui_settings.UIKitSettings
 import com.google.android.material.appbar.MaterialToolbar
 
@@ -69,7 +67,7 @@ class CometChatMorePrivacyActivity constructor() : AppCompatActivity() {
                 }
 
                 public override fun onError(e: CometChatException) {
-                    ErrorMessagesUtils.cometChatErrorMessage(this@CometChatMorePrivacyActivity, e.code)
+                    ErrorMsgUtils.showChatErrorMessage(this@CometChatMorePrivacyActivity, e.code)
                 }
             })
         }

@@ -18,7 +18,6 @@ import com.bumptech.glide.Glide
 import com.cometchat.pro.constants.CometChatConstants
 import com.cometchat.pro.core.BannedGroupMembersRequest
 import com.cometchat.pro.core.BannedGroupMembersRequest.BannedGroupMembersRequestBuilder
-import com.cometchat.pro.core.Call
 import com.cometchat.pro.core.CometChat
 import com.cometchat.pro.core.CometChat.*
 import com.cometchat.pro.core.GroupMembersRequest
@@ -38,7 +37,7 @@ import com.cometchat.pro.uikit.ui_components.groups.group_members.GroupMemberAda
 import com.cometchat.pro.uikit.ui_components.shared.cometchatAvatar.CometChatAvatar
 import com.cometchat.pro.uikit.ui_components.shared.cometchatSharedMedia.CometChatSharedMedia
 import com.cometchat.pro.uikit.ui_resources.constants.UIKitConstants
-import com.cometchat.pro.uikit.ui_resources.utils.ErrorMessagesUtils
+import com.cometchat.pro.uikit.ui_resources.utils.ErrorMsgUtils
 import com.cometchat.pro.uikit.ui_resources.utils.FontUtils
 import com.cometchat.pro.uikit.ui_resources.utils.Utils
 import com.cometchat.pro.uikit.ui_resources.utils.recycler_touch.ClickListener
@@ -47,7 +46,6 @@ import com.cometchat.pro.uikit.ui_settings.FeatureRestriction
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import java.util.*
@@ -537,7 +535,7 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
                 }
 
                 override fun onError(e: CometChatException) {
-                    ErrorMessagesUtils.cometChatErrorMessage(
+                    ErrorMsgUtils.showChatErrorMessage(
                         this@CometChatGroupDetailActivity,
                         e.code
                     )
@@ -570,7 +568,7 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
             }
 
             override fun onError(e: CometChatException) {
-                ErrorMessagesUtils.cometChatErrorMessage(this@CometChatGroupDetailActivity, e.code)
+                ErrorMsgUtils.showChatErrorMessage(this@CometChatGroupDetailActivity, e.code)
                 Log.e(TAG, "onError: " + e.code + ": " + e.message)
             }
         })
@@ -594,7 +592,7 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
             }
 
             override fun onError(e: CometChatException) {
-                ErrorMessagesUtils.cometChatErrorMessage(this@CometChatGroupDetailActivity, e.code)
+                ErrorMsgUtils.showChatErrorMessage(this@CometChatGroupDetailActivity, e.code)
                 Log.e(TAG, "onError: " + e.message)
             }
         })
@@ -670,7 +668,7 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
                 }
 
                 override fun onError(e: CometChatException) {
-                    ErrorMessagesUtils.cometChatErrorMessage(
+                    ErrorMsgUtils.showChatErrorMessage(
                         this@CometChatGroupDetailActivity,
                         e.code
                     )
@@ -694,7 +692,7 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
                 }
 
                 override fun onError(e: CometChatException) {
-                    ErrorMessagesUtils.cometChatErrorMessage(
+                    ErrorMsgUtils.showChatErrorMessage(
                         this@CometChatGroupDetailActivity,
                         e.code
                     )
@@ -986,7 +984,7 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
 
             override fun onError(e: CometChatException) {
                 if (rvMemberList != null) {
-                    ErrorMessagesUtils.cometChatErrorMessage(
+                    ErrorMsgUtils.showChatErrorMessage(
                         this@CometChatGroupDetailActivity,
                         e.code
                     )
@@ -1024,7 +1022,7 @@ class CometChatGroupDetailActivity() : AppCompatActivity() {
 
                 override fun onError(e: CometChatException) {
 //                    Toast.makeText(this@CometChatGroupDetailActivity, "Error:" + e.message, Toast.LENGTH_LONG).show()
-                    ErrorMessagesUtils.cometChatErrorMessage(
+                    ErrorMsgUtils.showChatErrorMessage(
                         this@CometChatGroupDetailActivity,
                         e.code
                     )

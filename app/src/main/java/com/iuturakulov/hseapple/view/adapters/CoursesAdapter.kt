@@ -40,9 +40,9 @@ class CoursesAdapter(
         }
     }
 
-    fun updateData(users: ArrayList<Courses>?) {
-        if (!users.isNullOrEmpty()) {
-            courses = users
+    fun updateData(courses: ArrayList<Courses>?) {
+        if (!courses.isNullOrEmpty()) {
+            this.courses = courses
             notifyDataSetChanged()
         }
     }

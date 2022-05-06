@@ -29,12 +29,10 @@ import com.cometchat.pro.exceptions.CometChatException
 import com.cometchat.pro.models.User
 import com.cometchat.pro.uikit.R
 import com.cometchat.pro.uikit.ui_components.shared.cometchatUsers.CometChatUsers
-import com.cometchat.pro.uikit.ui_resources.constants.UIKitConstants
-import com.cometchat.pro.uikit.ui_resources.utils.ErrorMessagesUtils
+import com.cometchat.pro.uikit.ui_resources.utils.ErrorMsgUtils
 import com.cometchat.pro.uikit.ui_resources.utils.FontUtils
 import com.cometchat.pro.uikit.ui_resources.utils.Utils
 import com.cometchat.pro.uikit.ui_resources.utils.item_clickListener.OnItemClickListener
-import com.cometchat.pro.uikit.ui_settings.FeatureRestriction
 import com.cometchat.pro.uikit.ui_settings.UIKitSettings
 import com.facebook.shimmer.ShimmerFrameLayout
 
@@ -195,7 +193,7 @@ class CometChatNewCallList constructor() : AppCompatActivity() {
             public override fun onError(e: CometChatException) {
                 Log.e(TAG, "onError: " + e.message)
                 stopHideShimmer()
-                ErrorMessagesUtils.cometChatErrorMessage(this@CometChatNewCallList, e.code)
+                ErrorMsgUtils.showChatErrorMessage(this@CometChatNewCallList, e.code)
             }
         })
     }
@@ -216,7 +214,7 @@ class CometChatNewCallList constructor() : AppCompatActivity() {
 
             public override fun onError(e: CometChatException) {
                 if (rvUserList != null)
-                    ErrorMessagesUtils.cometChatErrorMessage(this@CometChatNewCallList, e.code)
+                    ErrorMsgUtils.showChatErrorMessage(this@CometChatNewCallList, e.code)
             }
         })
     }
@@ -231,7 +229,7 @@ class CometChatNewCallList constructor() : AppCompatActivity() {
             public override fun onError(e: CometChatException) {
                 Log.e(TAG, "onError: " + e.message)
                 if (rvUserList != null)
-                    ErrorMessagesUtils.cometChatErrorMessage(this@CometChatNewCallList, e.code)
+                    ErrorMsgUtils.showChatErrorMessage(this@CometChatNewCallList, e.code)
             }
         })
     }

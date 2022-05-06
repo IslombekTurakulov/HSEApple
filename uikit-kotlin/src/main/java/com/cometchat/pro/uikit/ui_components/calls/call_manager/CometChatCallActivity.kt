@@ -24,7 +24,7 @@ import com.google.android.material.card.MaterialCardView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.cometchat.pro.uikit.ui_resources.constants.UIKitConstants
 import com.cometchat.pro.uikit.ui_resources.utils.AnimUtil
-import com.cometchat.pro.uikit.ui_resources.utils.ErrorMessagesUtils
+import com.cometchat.pro.uikit.ui_resources.utils.ErrorMsgUtils
 import com.cometchat.pro.uikit.ui_resources.utils.Utils
 import com.cometchat.pro.uikit.ui_settings.FeatureRestriction
 
@@ -232,7 +232,7 @@ class CometChatCallActivity : AppCompatActivity(), View.OnClickListener {
             override fun onError(e: CometChatException) {
                 finish()
                 Log.e(TAG, "onErrorReject: " + e.message + " " + e.code)
-                ErrorMessagesUtils.cometChatErrorMessage(this@CometChatCallActivity, e.code)
+                ErrorMsgUtils.showChatErrorMessage(this@CometChatCallActivity, e.code)
             }
         })
     }
@@ -255,7 +255,7 @@ class CometChatCallActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             override fun onError(e: CometChatException) {
-                ErrorMessagesUtils.cometChatErrorMessage(this@CometChatCallActivity, e.code)
+                ErrorMsgUtils.showChatErrorMessage(this@CometChatCallActivity, e.code)
                 finish()
                 Log.e(TAG, "onErrorAccept: " + e.message + " " + e.code)
 

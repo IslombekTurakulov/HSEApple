@@ -26,7 +26,7 @@ import com.cometchat.pro.uikit.ui_components.shared.cometchatAvatar.CometChatAva
 import com.cometchat.pro.uikit.ui_components.shared.cometchatSharedMedia.CometChatSharedMedia
 import com.cometchat.pro.uikit.ui_components.users.user_details.callHistory.CallHistoryAdapter
 import com.cometchat.pro.uikit.ui_resources.constants.UIKitConstants
-import com.cometchat.pro.uikit.ui_resources.utils.ErrorMessagesUtils
+import com.cometchat.pro.uikit.ui_resources.utils.ErrorMsgUtils
 import com.cometchat.pro.uikit.ui_resources.utils.FontUtils
 import com.cometchat.pro.uikit.ui_resources.utils.Utils
 import com.cometchat.pro.uikit.ui_settings.FeatureRestriction
@@ -363,7 +363,7 @@ class CometChatUserDetailScreenActivity constructor() : AppCompatActivity() {
                 }
 
                 override fun onError(e: CometChatException) {
-                    ErrorMessagesUtils.cometChatErrorMessage(
+                    ErrorMsgUtils.showChatErrorMessage(
                         this@CometChatUserDetailScreenActivity,
                         e.code
                     )
@@ -384,7 +384,7 @@ class CometChatUserDetailScreenActivity constructor() : AppCompatActivity() {
 
             override fun onError(e: CometChatException) {
                 if (tvBlockUser != null)
-                    ErrorMessagesUtils.cometChatErrorMessage(
+                    ErrorMsgUtils.showChatErrorMessage(
                         this@CometChatUserDetailScreenActivity,
                         e.code
                     )
@@ -405,7 +405,7 @@ class CometChatUserDetailScreenActivity constructor() : AppCompatActivity() {
 
             override fun onError(e: CometChatException) {
                 Log.d(TAG, "onError: " + e.message)
-                if (tvBlockUser != null) ErrorMessagesUtils.cometChatErrorMessage(
+                if (tvBlockUser != null) ErrorMsgUtils.showChatErrorMessage(
                     this@CometChatUserDetailScreenActivity,
                     e.code
                 )
@@ -426,7 +426,7 @@ class CometChatUserDetailScreenActivity constructor() : AppCompatActivity() {
 
             override fun onError(e: CometChatException) {
                 if (tvBlockUser != null)
-                    ErrorMessagesUtils.cometChatErrorMessage(
+                    ErrorMsgUtils.showChatErrorMessage(
                         this@CometChatUserDetailScreenActivity,
                         e.code
                     )

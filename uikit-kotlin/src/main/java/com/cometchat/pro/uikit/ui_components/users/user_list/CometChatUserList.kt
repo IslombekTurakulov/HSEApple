@@ -22,7 +22,7 @@ import com.cometchat.pro.exceptions.CometChatException
 import com.cometchat.pro.models.User
 import com.cometchat.pro.uikit.R
 import com.cometchat.pro.uikit.ui_components.shared.cometchatUsers.CometChatUsers
-import com.cometchat.pro.uikit.ui_resources.utils.ErrorMessagesUtils
+import com.cometchat.pro.uikit.ui_resources.utils.ErrorMsgUtils
 import com.cometchat.pro.uikit.ui_resources.utils.FontUtils
 import com.cometchat.pro.uikit.ui_resources.utils.Utils
 import com.cometchat.pro.uikit.ui_resources.utils.item_clickListener.OnItemClickListener
@@ -64,7 +64,7 @@ class CometChatUserList(val role: String) : Fragment() {
     private var c: Context? = null
     private var usersRequest // Use to fetch users
             : UsersRequest? = null
-    private var rvUserList // Use to display list of users
+    private var recyclerViewUserList // Use to display list of users
             : CometChatUsers? = null
     private var etSearch // Use to perform search operation on list of users.
             : EditText? = null
@@ -84,7 +84,7 @@ class CometChatUserList(val role: String) : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_cometchat_userlist, container, false)
         title = view.findViewById(R.id.tv_title)
         title?.typeface = FontUtils.getInstance(activity).getTypeFace(FontUtils.robotoMedium)
-        rvUserList = view.findViewById(R.id.rv_user_list)
+        recyclerViewUserList = view.findViewById(R.id.rv_user_list)
         noUserLayout = view.findViewById(R.id.no_user_layout)
         etSearch = view.findViewById(R.id.search_bar)
         clearSearch = view.findViewById(R.id.clear_search)
@@ -131,7 +131,7 @@ class CometChatUserList(val role: String) : Fragment() {
                 if (editable.isEmpty()) {
                     // if etSearch is empty then fetch all users.
                     usersRequest = null
-                    rvUserList!!.clear()
+                    recyclerViewUserList!!.clear()
                     fetchUsers()
                 } else {
                     // Search users based on text in etSearch field.
@@ -165,7 +165,7 @@ class CometChatUserList(val role: String) : Fragment() {
 
 
         // Uses to fetch next list of user if rvUserList (RecyclerView) is scrolled in upward direction.
-        rvUserList!!.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        recyclerViewUserList!!.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if (!recyclerView.canScrollVertically(1)) {
                     fetchUsers()
@@ -174,7 +174,7 @@ class CometChatUserList(val role: String) : Fragment() {
         })
 
         // Used to trigger event on click of user item in rvUserList (RecyclerView)
-        rvUserList!!.setItemClickListener(object : OnItemClickListener<User?>() {
+        recyclerViewUserList!!.setItemClickListener(object : OnItemClickListener<User?>() {
             override fun OnItemClick(t: Any, position: Int) {
                 if (events != null) events!!.OnItemClick(t as User, position)
             }
@@ -215,12 +215,12 @@ class CometChatUserList(val role: String) : Fragment() {
                 Log.e(TAG, "onfetchSuccess: " + users.size)
                 userList.addAll(users)
                 stopHideShimmer()
-                rvUserList!!.setUserList(users) // set the users to rvUserList i.e CometChatUserList Component.
+                recyclerViewUserList!!.setUserList(users) // set the users to rvUserList i.e CometChatUserList Component.
                 if (userList.size == 0) {
                     noUserLayout!!.visibility = View.VISIBLE
-                    rvUserList!!.visibility = View.GONE
+                    recyclerViewUserList!!.visibility = View.GONE
                 } else {
-                    rvUserList!!.visibility = View.VISIBLE
+                    recyclerViewUserList!!.visibility = View.VISIBLE
                     noUserLayout!!.visibility = View.GONE
                 }
             }
@@ -228,7 +228,7 @@ class CometChatUserList(val role: String) : Fragment() {
             override fun onError(e: CometChatException) {
                 Log.e(TAG, "onError: " + e.message)
                 stopHideShimmer()
-                if (activity != null) ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                if (activity != null) ErrorMsgUtils.showChatErrorMessage(context, e.code)
             }
         })
     }
@@ -241,20 +241,18 @@ class CometChatUserList(val role: String) : Fragment() {
      * @see UsersRequest
      */
     private fun searchUser(s: String) {
-        val usersRequest: UsersRequest =
+        val request =
             UsersRequestBuilder().setSearchKeyword(s).setLimit(100).build()
-        usersRequest.fetchNext(object : CallbackListener<List<User?>?>() {
-            override fun onSuccess(users: List<User?>?) {
-                if (role.isNotEmpty()) {
-                    val filteredItems = users?.filter { it?.role != role }
-                    rvUserList!!.searchUserList(filteredItems)
-                } else {
-                    rvUserList!!.searchUserList(users)
-                }
+        request.fetchNext(object : CallbackListener<List<User?>?>() {
+            override fun onSuccess(users: List<User?>?) = if (role.isNotEmpty()) {
+                val filteredItems = users?.filter { it?.role != role }
+                recyclerViewUserList!!.searchUserList(filteredItems)
+            } else {
+                recyclerViewUserList!!.searchUserList(users)
             }
 
             override fun onError(e: CometChatException) {
-                ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                ErrorMsgUtils.showChatErrorMessage(context, e.code)
             }
         })
     }
@@ -269,7 +267,7 @@ class CometChatUserList(val role: String) : Fragment() {
     }
 
     companion object {
-        private val TAG: String = "CometChatUserListScreen"
+        private const val TAG: String = "CometChatUserListScreen"
         private var events: OnItemClickListener<Any>? = null
 
         /**

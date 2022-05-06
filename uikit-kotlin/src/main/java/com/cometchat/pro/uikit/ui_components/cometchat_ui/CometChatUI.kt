@@ -34,7 +34,7 @@ import com.cometchat.pro.uikit.ui_components.messages.message_list.CometChatMess
 import com.cometchat.pro.uikit.ui_components.userProfile.CometChatUserProfile
 import com.cometchat.pro.uikit.ui_components.users.user_list.CometChatUserList
 import com.cometchat.pro.uikit.ui_resources.constants.UIKitConstants
-import com.cometchat.pro.uikit.ui_resources.utils.ErrorMessagesUtils
+import com.cometchat.pro.uikit.ui_resources.utils.ErrorMsgUtils
 import com.cometchat.pro.uikit.ui_resources.utils.Utils
 import com.cometchat.pro.uikit.ui_resources.utils.custom_alertDialog.CustomAlertDialogHelper
 import com.cometchat.pro.uikit.ui_resources.utils.custom_alertDialog.OnAlertDialogButtonClickListener
@@ -43,7 +43,6 @@ import com.cometchat.pro.uikit.ui_settings.FeatureRestriction
 import com.cometchat.pro.uikit.ui_settings.UIKitSettings
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.coroutines.launch
 import java.util.*
 
 /**
@@ -223,7 +222,7 @@ class CometChatUI : AppCompatActivity(), BottomNavigationView.OnNavigationItemSe
                 override fun onError(e: CometChatException) {
                     if (progressDialog != null) progressDialog!!.dismiss()
 //                    ErrorMessagesUtils.cometChatErrorMessage(this@CometChatUI, e.code)
-                    ErrorMessagesUtils.showCometChatErrorDialog(this@CometChatUI, resources.getString(R.string.enter_the_correct_password))
+                    ErrorMsgUtils.showCometChatErrorDialog(this@CometChatUI, resources.getString(R.string.enter_the_correct_password))
 //                Snackbar.make(activityCometChatUnifiedBinding!!.bottomNavigation, resources.getString(R.string.unable_to_join_message) + e.message,
 //                        Snackbar.LENGTH_SHORT).show()
                 }

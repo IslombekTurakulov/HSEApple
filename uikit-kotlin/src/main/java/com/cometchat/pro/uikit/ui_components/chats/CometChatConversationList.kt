@@ -27,7 +27,7 @@ import com.cometchat.pro.helpers.CometChatHelper
 import com.cometchat.pro.models.*
 import com.cometchat.pro.uikit.R
 import com.cometchat.pro.uikit.ui_components.shared.cometchatConversations.CometChatConversation
-import com.cometchat.pro.uikit.ui_resources.utils.ErrorMessagesUtils
+import com.cometchat.pro.uikit.ui_resources.utils.ErrorMsgUtils
 import com.cometchat.pro.uikit.ui_resources.utils.FontUtils
 import com.cometchat.pro.uikit.ui_resources.utils.Utils
 import com.cometchat.pro.uikit.ui_resources.utils.item_clickListener.OnItemClickListener
@@ -192,7 +192,7 @@ class CometChatConversationList : Fragment(), TextWatcher {
                     }
 
                     override fun onError(p0: CometChatException?) {
-                        ErrorMessagesUtils.cometChatErrorMessage(context, p0?.code)
+                        ErrorMsgUtils.showChatErrorMessage(context, p0?.code)
                     }
 
                 })
@@ -208,7 +208,7 @@ class CometChatConversationList : Fragment(), TextWatcher {
                     }
 
                     override fun onError(p0: CometChatException?) {
-                        ErrorMessagesUtils.cometChatErrorMessage(context, p0?.code)
+                        ErrorMsgUtils.showChatErrorMessage(context, p0?.code)
                     }
 
                 })
@@ -251,7 +251,7 @@ class CometChatConversationList : Fragment(), TextWatcher {
             override fun onError(e: CometChatException) {
                 stopHideShimmer()
                 if (activity != null)
-                    ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                    ErrorMsgUtils.showChatErrorMessage(context, e.code)
                 Log.d(TAG, "onError: " + e.message)
             }
         })

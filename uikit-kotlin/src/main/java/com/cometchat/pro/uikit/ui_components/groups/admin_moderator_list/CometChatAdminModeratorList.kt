@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -29,14 +28,12 @@ import com.cometchat.pro.uikit.R
 import com.cometchat.pro.uikit.ui_components.groups.group_members.CometChatGroupMemberListActivity
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import com.cometchat.pro.uikit.ui_resources.constants.UIKitConstants
-import com.cometchat.pro.uikit.ui_resources.utils.ErrorMessagesUtils
+import com.cometchat.pro.uikit.ui_resources.utils.ErrorMsgUtils
 import com.cometchat.pro.uikit.ui_resources.utils.recycler_touch.ClickListener
 import com.cometchat.pro.uikit.ui_resources.utils.recycler_touch.RecyclerTouchListener
 import com.cometchat.pro.uikit.ui_resources.utils.FontUtils
 import com.cometchat.pro.uikit.ui_resources.utils.Utils
-import okhttp3.internal.Util
 import java.util.*
 
 /**
@@ -131,7 +128,7 @@ class CometChatAdminModeratorList : Fragment() {
                         val message: String
                         message = if (groupMember.uid == loggedInUser.uid) resources.getString(R.string.you_cannot_perform_action) else resources.getString(R.string.only_admin_removes_moderator)
                         Log.e(TAG, "onClick:admin "+message )
-                        ErrorMessagesUtils.showCometChatErrorDialog(context, resources.getString(R.string.something_went_wrong_please_try_again))
+                        ErrorMsgUtils.showCometChatErrorDialog(context, resources.getString(R.string.something_went_wrong_please_try_again))
                     }
                 } else {
                     if (ownerId != null && loggedInUser.uid == ownerId && loggedInUserScope == CometChatConstants.SCOPE_ADMIN && groupMember.uid != loggedInUser.uid) {
@@ -148,7 +145,7 @@ class CometChatAdminModeratorList : Fragment() {
                         val message: String
                         message = if (groupMember.uid == loggedInUser.uid) resources.getString(R.string.you_cannot_perform_action) else resources.getString(R.string.only_group_owner_removes_admin)
                         Log.e(TAG, "onClick:admin "+message )
-                        ErrorMessagesUtils.showCometChatErrorDialog(context, resources.getString(R.string.something_went_wrong_please_try_again))
+                        ErrorMsgUtils.showCometChatErrorDialog(context, resources.getString(R.string.something_went_wrong_please_try_again))
                     }
                 }
             }
@@ -187,7 +184,7 @@ class CometChatAdminModeratorList : Fragment() {
 
                     override fun onError(e: CometChatException) {
                         if (activity != null) {
-                            ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                            ErrorMsgUtils.showChatErrorMessage(context, e.code)
                             Log.e(TAG, "onError: " + e.message)
                         }
                     }
@@ -210,7 +207,7 @@ class CometChatAdminModeratorList : Fragment() {
             }
 
             override fun onError(e: CometChatException) {
-                ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                ErrorMsgUtils.showChatErrorMessage(context, e.code)
                 Log.e(TAG, "onError: " + e.message)
             }
         })
@@ -232,7 +229,7 @@ class CometChatAdminModeratorList : Fragment() {
             }
 
             override fun onError(e: CometChatException) {
-                ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                ErrorMsgUtils.showChatErrorMessage(context, e.code)
                 Log.e(TAG, "onError: " + e.message)
             }
         })

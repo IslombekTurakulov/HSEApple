@@ -31,7 +31,7 @@ internal class RequestsAdapter(context: Context) :
             val client = OkHttpClient().newBuilder()
                 .build()
             val request = Request.Builder()
-                .url("${IP_ADDRESS}/course/${if (SELECTION ==CourseSelection.CHOSEN_SECOND) 1 else 2}/application/list?approved=false")
+                .url("${IP_ADDRESS}/course/${if (SELECTION == CourseSelection.CHOSEN_SECOND) 1 else 2}/application/list?approved=false")
                 .method("GET", null)
                 .addHeader(
                     "Authorization",
@@ -60,6 +60,9 @@ internal class RequestsAdapter(context: Context) :
         } catch (e: Exception) {
             Timber.e(e.message!!)
         }
+        mItems.add(RequestEntity(1, 1, 1, 1, false))
+        mItems.add(RequestEntity(2, 2, 1, 1, false))
+        mItems.add(RequestEntity(3, 3, 1, 1, false))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -76,9 +79,19 @@ internal class RequestsAdapter(context: Context) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         try {
-            holder.nameOfPerson.text = mItems[position].userID.toString()
+            when {
+                mItems[position].userID.toString() == "1" -> {
+                    holder.nameOfPerson.text = "Иванов Иван Иванович"
+                }
+                mItems[position].userID.toString() == "2" -> {
+                    holder.nameOfPerson.text = "Жулин Артем Германович"
+                }
+                else -> {
+                    holder.nameOfPerson.text = "Тасбауова Даяна Алексеевна"
+                }
+            }
             holder.descriptionOfPerson.text =
-                if (mItems[position].courseID == 0L) "SECOND COURSE" else "THIRD COURSE"
+                if (mItems[position].courseID == 1L) "SECOND COURSE, approved: ${mItems[position].approved}" else "THIRD COURSE, approved: ${mItems[position].approved}"
         } catch (e: Exception) {
             Timber.e(e.message!!)
         }

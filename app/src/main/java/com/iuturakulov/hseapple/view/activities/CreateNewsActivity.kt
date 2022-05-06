@@ -5,11 +5,13 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -98,6 +100,7 @@ class CreateNewsActivity : AppCompatActivity(R.layout.activity_create_news) {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun encodeUri(imageUri: Uri): String {
         val input = contentResolver.openInputStream(imageUri)
         val baos = ByteArrayOutputStream()

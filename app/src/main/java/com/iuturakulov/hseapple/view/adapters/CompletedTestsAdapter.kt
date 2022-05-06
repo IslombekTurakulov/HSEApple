@@ -16,17 +16,17 @@ import kotlinx.android.synthetic.main.component_test.view.*
 class CompletedTestsAdapter(
 ) : RecyclerView.Adapter<CompletedTestsAdapter.DataViewHolder>() {
 
-    private var news: ArrayList<TaskEntity> = arrayListOf()
+    private var completedTestsList: ArrayList<TaskEntity> = arrayListOf()
 
     private fun reloadItems() {
-        news.addAll(allTests)
-        news.removeAll {
+        completedTestsList.addAll(allTests)
+        completedTestsList.removeAll {
             !it.status
         }
     }
 
     fun getAllItems(): ArrayList<TaskEntity> {
-        return news
+        return completedTestsList
     }
 
     init {
@@ -60,10 +60,10 @@ class CompletedTestsAdapter(
             )
         )
 
-    override fun getItemCount(): Int = news.size
+    override fun getItemCount(): Int = completedTestsList.size
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
-        holder.bind(news[position])
+        holder.bind(completedTestsList[position])
     }
 
 }

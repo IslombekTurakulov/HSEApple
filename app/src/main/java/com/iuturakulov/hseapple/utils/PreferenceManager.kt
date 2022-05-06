@@ -6,7 +6,7 @@ import android.content.SharedPreferences
 class PreferenceManager(context: Context) {
 
     private val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences(KEY_PREFERENCE_NAME, Context.MODE_PRIVATE)
+        context.getSharedPreferences("", Context.MODE_PRIVATE)
 
     fun putBoolean(key: String, value: Boolean) {
         val editor: SharedPreferences.Editor = sharedPreferences.edit()

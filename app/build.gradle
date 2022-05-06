@@ -13,15 +13,20 @@ android {
 
     defaultConfig {
         applicationId "com.iuturakulov.hseapple"
-        minSdk 26
+        minSdk 24
         targetSdk 32
         versionCode 1
+        renderscriptSupportModeEnabled true
+        multiDexEnabled true
         versionName "1.0"
         manifestPlaceholders = [file_provider: "com.iuturakulov.hseapple"]
         ndk {
             abiFilters "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
         }
         signingConfig signingConfigs.debug
+    }
+    dataBinding {
+        enabled = true
     }
     buildTypes {
         release {

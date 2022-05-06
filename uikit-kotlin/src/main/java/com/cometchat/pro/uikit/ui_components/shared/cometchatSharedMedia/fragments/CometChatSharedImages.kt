@@ -17,9 +17,7 @@ import com.cometchat.pro.exceptions.CometChatException
 import com.cometchat.pro.models.BaseMessage
 import com.cometchat.pro.uikit.R
 import com.cometchat.pro.uikit.ui_components.shared.cometchatSharedMedia.adapter.CometChatSharedMediaAdapter
-import com.cometchat.pro.uikit.ui_resources.utils.ErrorMessagesUtils
-import com.cometchat.pro.uikit.ui_resources.utils.Utils
-import com.google.android.material.snackbar.Snackbar
+import com.cometchat.pro.uikit.ui_resources.utils.ErrorMsgUtils
 import java.util.*
 
 /**
@@ -73,7 +71,7 @@ class CometChatSharedImages : Fragment() {
 
             override fun onError(e: CometChatException) {
                 e.message?.let { Log.e("onError: ", it) }
-                if (rvFiles != null) ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                if (rvFiles != null) ErrorMsgUtils.showChatErrorMessage(context, e.code)
             }
         })
     }

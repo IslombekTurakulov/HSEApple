@@ -32,7 +32,7 @@ import com.cometchat.pro.uikit.R
 import com.cometchat.pro.uikit.ui_components.groups.create_group.CometChatCreateGroupActivity
 import com.cometchat.pro.uikit.ui_components.shared.cometchatGroups.CometChatGroups
 import com.cometchat.pro.uikit.ui_components.shared.cometchatGroups.CometChatGroupsAdapter
-import com.cometchat.pro.uikit.ui_resources.utils.ErrorMessagesUtils
+import com.cometchat.pro.uikit.ui_resources.utils.ErrorMsgUtils
 import com.cometchat.pro.uikit.ui_resources.utils.FontUtils
 import com.cometchat.pro.uikit.ui_resources.utils.Utils
 import com.cometchat.pro.uikit.ui_resources.utils.item_clickListener.OnItemClickListener
@@ -242,7 +242,7 @@ class CometChatGroupList : Fragment() {
             public override fun onError(e: CometChatException) {
                 stopHideShimmer()
                 if (rvGroups != null)
-                    ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                    ErrorMsgUtils.showChatErrorMessage(context, e.code)
             }
         })
     }

@@ -49,7 +49,6 @@
         <activity
             android:name=".view.activities.LoginAuthActivity"
             android:exported="true"
-            android:launchMode="singleTask"
             android:theme="@style/Theme.HSEApple"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>

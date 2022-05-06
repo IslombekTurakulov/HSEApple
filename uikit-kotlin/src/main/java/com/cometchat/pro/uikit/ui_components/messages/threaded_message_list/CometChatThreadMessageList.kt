@@ -29,7 +29,6 @@ import android.view.*
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
@@ -40,7 +39,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.cometchat.pro.constants.CometChatConstants
-import com.cometchat.pro.core.CometChat
 import com.cometchat.pro.core.CometChat.*
 import com.cometchat.pro.core.MessagesRequest
 import com.cometchat.pro.exceptions.CometChatException
@@ -49,14 +47,11 @@ import com.cometchat.pro.uikit.R
 import com.cometchat.pro.uikit.ui_components.messages.extensions.Extensions
 import com.cometchat.pro.uikit.ui_components.messages.extensions.collaborative.CometChatCollaborativeActivity
 import com.cometchat.pro.uikit.ui_components.messages.forward_message.CometChatForwardMessageActivity
-import com.cometchat.pro.uikit.ui_components.messages.live_reaction.LiveReactionListener
-import com.cometchat.pro.uikit.ui_components.messages.live_reaction.ReactionClickListener
 import com.cometchat.pro.uikit.ui_components.messages.message_actions.CometChatMessageActions
 import com.cometchat.pro.uikit.ui_components.messages.message_actions.CometChatMessageActions.MessageActionListener
 import com.cometchat.pro.uikit.ui_components.messages.message_actions.listener.MessageActionCloseListener
 import com.cometchat.pro.uikit.ui_components.messages.message_actions.listener.OnMessageLongClick
 import com.cometchat.pro.uikit.ui_components.messages.message_information.CometChatMessageInfoScreenActivity
-import com.cometchat.pro.uikit.ui_components.messages.message_list.CometChatMessageList
 import com.cometchat.pro.uikit.ui_components.messages.message_list.CometChatMessageListActivity
 import com.cometchat.pro.uikit.ui_components.shared.cometchatAvatar.CometChatAvatar
 import com.cometchat.pro.uikit.ui_components.shared.cometchatComposeBox.CometChatComposeBox
@@ -66,7 +61,7 @@ import com.cometchat.pro.uikit.ui_components.shared.cometchatReaction.listener.O
 import com.cometchat.pro.uikit.ui_components.shared.cometchatReaction.model.Reaction
 import com.cometchat.pro.uikit.ui_components.shared.cometchatSmartReplies.CometChatSmartReply
 import com.cometchat.pro.uikit.ui_resources.constants.UIKitConstants
-import com.cometchat.pro.uikit.ui_resources.utils.ErrorMessagesUtils
+import com.cometchat.pro.uikit.ui_resources.utils.ErrorMsgUtils
 import com.cometchat.pro.uikit.ui_resources.utils.FontUtils
 import com.cometchat.pro.uikit.ui_resources.utils.MediaUtils
 import com.cometchat.pro.uikit.ui_resources.utils.Utils
@@ -427,7 +422,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
 
                                 override fun onError(e: CometChatException) {
                                     // Some error occured
-                                    ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                                    ErrorMsgUtils.showChatErrorMessage(context, e.code)
                                     Log.e(CometChatThreadMessageList.TAG, "onErrorExtension: ${e.message}${e.code}".trimIndent())
                                 }
                             })
@@ -490,7 +485,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
                                 }
 
                                 override fun onError(e: CometChatException) {
-                                    ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                                    ErrorMsgUtils.showChatErrorMessage(context, e.code)
                                     // Some error occured.
                                 }
                             })
@@ -897,7 +892,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
 
             override fun onError(e: CometChatException) {
                 if (activity != null) {
-                    ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                    ErrorMsgUtils.showChatErrorMessage(context, e.code)
                 }
             }
         })
@@ -939,7 +934,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
             }
 
             override fun onError(e: CometChatException) {
-                ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                ErrorMsgUtils.showChatErrorMessage(context, e.code)
                 Log.d(Companion.TAG, "onError: " + e.message)
             }
         })
@@ -957,7 +952,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
     }
 
     private fun showSnackBar(view: View, message: String) {
-        ErrorMessagesUtils.showCometChatErrorDialog(context, message)
+        ErrorMsgUtils.showCometChatErrorDialog(context, message)
     }
 
     private fun unblockUser() {
@@ -972,7 +967,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
             }
 
             override fun onError(e: CometChatException) {
-                ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                ErrorMsgUtils.showChatErrorMessage(context, e.code)
             }
         })
     }
@@ -1000,7 +995,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
             }
 
             override fun onError(e: CometChatException) {
-                ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                ErrorMsgUtils.showChatErrorMessage(context, e.code)
                 Log.d(Companion.TAG, "onError: " + e.message)
             }
         })
@@ -1164,7 +1159,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
             override fun onError(e: CometChatException) {
                 progressDialog.dismiss()
                 if (activity != null) {
-                    ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                    ErrorMsgUtils.showChatErrorMessage(context, e.code)
                 }
             }
         })
@@ -1231,7 +1226,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
             }
 
             override fun onError(e: CometChatException) {
-                ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                ErrorMsgUtils.showChatErrorMessage(context, e.code)
                 Log.d(Companion.TAG, "onError: " + e.message)
             }
         })
@@ -1244,7 +1239,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
             }
 
             override fun onError(e: CometChatException) {
-                ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                ErrorMsgUtils.showChatErrorMessage(context, e.code)
                 Log.d(Companion.TAG, "onError: " + e.message)
             }
         })
@@ -1266,7 +1261,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
             }
 
             override fun onError(e: CometChatException) {
-                ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                ErrorMsgUtils.showChatErrorMessage(context, e.code)
                 Log.d(Companion.TAG, "onError: " + e.message)
             }
         })
@@ -1311,7 +1306,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
                 }
 
                 override fun onError(e: CometChatException) {
-                    ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                    ErrorMsgUtils.showChatErrorMessage(context, e.code)
                     Log.e(Companion.TAG, "onError: " + e.message)
                 }
             })
@@ -1905,7 +1900,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
                     }
 
                     override fun onError(e: CometChatException) {
-                        ErrorMessagesUtils.cometChatErrorMessage(context, e.code)
+                        ErrorMsgUtils.showChatErrorMessage(context, e.code)
                         Log.e(Companion.TAG, "onError: " + e.code + e.message + e.details)
                     }
                 })
