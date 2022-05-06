@@ -2,9 +2,11 @@ package com.iuturakulov.hseapple.view.activities
 
 import android.content.DialogInterface
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.iuturakulov.hseapple.R
@@ -19,10 +21,6 @@ import java.util.*
 
 class NewsInfoActivity : AppCompatActivity() {
 
-    companion object {
-        lateinit var news: PostEntity
-    }
-
     private var editMode: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,8 +32,7 @@ class NewsInfoActivity : AppCompatActivity() {
 
     private fun initializeTopAppBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
-        news = postInfo
-        news_info.text = news.title
+        news_info.text = postInfo.title
         if (USER_CHAT.role != "teacher") {
             edit_things_layout.visibility = View.GONE
         } else {
@@ -67,14 +64,15 @@ class NewsInfoActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initializeFields() {
-        newsTitleItem.setText(news.title)
-        newsDescriptionItem.setText(news.content)
+        newsTitleItem.setText(postInfo.title)
+        newsDescriptionItem.setText(postInfo.content)
         fieldOptionsInitializer(false)
-        if (news.mediaLink.isNullOrEmpty()) {
+        if (postInfo.mediaLink.isNullOrEmpty()) {
             imageNewsItem.setImageDrawable(getDrawable(R.drawable.good_night_img))
         } else {
-            val bytes: ByteArray = Base64.getDecoder().decode(news.mediaLink)
+            val bytes: ByteArray = Base64.getDecoder().decode(postInfo.mediaLink)
             val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
             imageNewsItem.setImageBitmap(bitmap)
         }
@@ -85,7 +83,7 @@ class NewsInfoActivity : AppCompatActivity() {
                 fieldOptionsInitializer(false)
             }
         }
-        "${getString(R.string.created_time)} ${if (news.updatedAt == null) news.createdAt.toString() else news.updatedAt.toString()}".also {
+        "${getString(R.string.created_time)} ${if (postInfo.updatedAt == null) postInfo.createdAt.toString() else postInfo.updatedAt.toString()}".also {
             dateTimeNewsItem.text = it
         }
     }
@@ -96,15 +94,15 @@ class NewsInfoActivity : AppCompatActivity() {
         val body = RequestBody.create(
             mediaType,
             """{
-          "courseID": ${news.courseid},
-          "title": "${news.title}",
-          "content": "${news.content}",
-          "mediaLink": "${news.mediaLink}"
+          "courseID": ${postInfo.courseid},
+          "title": "${postInfo.title}",
+          "content": "${postInfo.content}",
+          "mediaLink": "${postInfo.mediaLink}"
         }"""
         )
         val requestPost = Request.Builder()
             .url(
-                "http://80.66.64.53:8080/course/post"
+                "${IP_ADDRESS}/course/post"
             )
             .method("PUT", body)
             .addHeader(

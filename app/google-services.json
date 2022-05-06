@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "735289844916",
+    "project_id": "hseapple-b5f5f",
+    "storage_bucket": "hseapple-b5f5f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:735289844916:android:267f5abb0b4480b5e623e1",
+        "android_client_info": {
+          "package_name": "com.iuturakulov.hseapple"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "735289844916-ksicvmq96kog3s4nd11o5cqrv3s8p8qg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iuturakulov.hseapple",
+            "certificate_hash": "73b6ffa7269fd1ad922f423235d7a0334e91d485"
+          }
+        },
+        {
+          "client_id": "735289844916-bjc5rj4lmi2prlljp62safq0333de2f4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQ67f4WgP_e2KnuC_8cb6J92V8gt9XRo8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "735289844916-bjc5rj4lmi2prlljp62safq0333de2f4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

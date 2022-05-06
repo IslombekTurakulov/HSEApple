@@ -21,7 +21,7 @@ class CompletedTestsAdapter(
     private fun reloadItems() {
         news.addAll(allTests)
         news.removeAll {
-            !it.isStatus
+            !it.status
         }
     }
 

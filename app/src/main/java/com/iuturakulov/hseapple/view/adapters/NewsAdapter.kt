@@ -14,10 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.model.PostEntity
-import com.iuturakulov.hseapple.utils.CourseSelection
-import com.iuturakulov.hseapple.utils.SELECTION
-import com.iuturakulov.hseapple.utils.TEMP_TOKEN
-import com.iuturakulov.hseapple.utils.postInfo
+import com.iuturakulov.hseapple.utils.*
 import com.iuturakulov.hseapple.view.activities.NewsInfoActivity
 import kotlinx.android.synthetic.main.component_event.view.*
 import okhttp3.OkHttpClient
@@ -37,7 +34,7 @@ class NewsAdapter(
         val client = OkHttpClient().newBuilder()
             .build()
         val request = Request.Builder()
-            .url("http://80.66.64.53:8080/course/${if (SELECTION == CourseSelection.CHOSEN_SECOND) 1 else 2}/post?start=1")
+            .url("${IP_ADDRESS}/course/${if (SELECTION == CourseSelection.CHOSEN_SECOND) 1 else 2}/post?start=1")
             .method("GET", null)
             .addHeader(
                 "Authorization",

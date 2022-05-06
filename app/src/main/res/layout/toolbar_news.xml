@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/transparent"
+    android:background="@color/buttonTransparent"
     android:stateListAnimator="@animator/toolbar_elevation">
 
     <RelativeLayout
@@ -17,8 +17,8 @@
             android:layout_centerVertical="true"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:visibility="invisible"
             android:src="@drawable/ic_back"
+            android:visibility="invisible"
             app:tint="@color/colorPrimary" />
 
         <RelativeLayout
@@ -34,10 +34,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:ellipsize="marquee"
+                android:fontFamily="@font/futuramedium"
                 android:maxWidth="150dp"
                 android:singleLine="true"
                 android:textColor="@color/textColorWhite"
-                android:fontFamily="@font/futuramedium"
                 android:textSize="@dimen/big_text"
                 tools:text="@string/tests_menu_text" />
         </RelativeLayout>

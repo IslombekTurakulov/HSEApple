@@ -7,12 +7,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.datetime.dateTimePicker
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.model.TaskEntity
 import com.iuturakulov.hseapple.utils.*
-import com.iuturakulov.hseapple.utils.onClickDebounced
 import kotlinx.android.synthetic.main.activity_create_tests.*
 import kotlinx.android.synthetic.main.activity_create_tests.changeDateTimeDeadline
 import kotlinx.android.synthetic.main.activity_create_tests.create_task_button
@@ -33,14 +31,14 @@ class TaskInfoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_info)
+        fieldOptionsInitializer(false)
         setListeners()
         initializeTopAppBar()
-        urlTextInput
     }
 
     private fun setListeners() {
         edit_things_layout.visibility = View.INVISIBLE
-        changeDateTimeDeadline.onClickDebounced {
+       /* changeDateTimeDeadline.onClickDebounced {
             MaterialDialog(this).show {
                 title(text = "Select Date and Time")
                 dateTimePicker(requireFutureDateTime = true) { _, dateTime ->
@@ -49,7 +47,7 @@ class TaskInfoActivity : AppCompatActivity() {
                 }
                 lifecycleOwner(this@TaskInfoActivity)
             }
-        }
+        }*/
         create_task_button.setOnClickListener {
             if (validateInputFields()) {
                 if (!dateTimeOfDeadline.text.isNullOrEmpty()) {
@@ -62,7 +60,7 @@ class TaskInfoActivity : AppCompatActivity() {
         }
         load_task_button.setOnClickListener {
             if (!urlTextInput.text.isNullOrEmpty()) {
-                createTest()
+                // createTest()
             } else {
                 urlTextInput.error = "Please type your url here..."
             }
@@ -85,6 +83,9 @@ class TaskInfoActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
         taskEntity = taskInfo
         tests_info.text = taskEntity.title
+        createTextTitleTaskInfo.setText(taskEntity.title)
+        createTextDescTaskInfo.setText(taskEntity.description)
+        deadlineTextInfo.text = taskEntity.deadline
         if (USER_CHAT.role != "teacher") {
             edit_things_layout.visibility = View.GONE
         } else {
@@ -143,6 +144,31 @@ class TaskInfoActivity : AppCompatActivity() {
         createTextLayoutDescTaskInfo.isCounterEnabled = flag
     }
 
+    private fun sendUrlInfo() {
+        val client = OkHttpClient().newBuilder()
+            .build()
+        val mediaType = MediaType.parse("application/json")
+        val body = RequestBody.create(
+            mediaType,
+            """{
+                  "userID": 0,
+                  "answer": "Ответ на лаб.работу 1",
+                  "status": true,
+                  "score": null
+                }"""
+        )
+        val request = Request.Builder()
+            .url("${IP_ADDRESS}/task/${taskInfo.id}/answer")
+            .method("POST", body)
+            .addHeader(
+                "Authorization",
+                TEMP_TOKEN
+            )
+            .addHeader("Content-Type", "application/json")
+            .addHeader("Cookie", "JSESSIONID=53530B6092B00A54239E5E86BAEE3EE6")
+            .build()
+    }
+
     private fun createTest() {
         val client = OkHttpClient().newBuilder()
             .build()
@@ -159,7 +185,7 @@ class TaskInfoActivity : AppCompatActivity() {
                 }"""
         )
         val request = Request.Builder()
-            .url("http://80.66.64.53:8080/course/${if (SELECTION == CourseSelection.CHOSEN_SECOND) 1 else 2}/task")
+            .url("${IP_ADDRESS}/course/${if (SELECTION == CourseSelection.CHOSEN_SECOND) 1 else 2}/task")
             .method("POST", body)
             .addHeader(
                 "Authorization",

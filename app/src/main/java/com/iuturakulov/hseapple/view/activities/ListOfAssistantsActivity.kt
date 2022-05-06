@@ -15,6 +15,7 @@ import com.cometchat.pro.models.User
 import com.cometchat.pro.uikit.ui_components.users.user_list.CometChatUserList
 import com.google.android.material.snackbar.Snackbar
 import com.iuturakulov.hseapple.R
+import com.iuturakulov.hseapple.utils.APP_ID
 import com.iuturakulov.hseapple.view.adapters.AssistantsAdapter
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import kotlinx.android.synthetic.main.activity_list_of_assistants.*
@@ -147,7 +148,7 @@ class ListOfAssistantsActivity : AppCompatActivity() {
                 "{\"name\":\"${item.name}\",\"avatar\":\"${item.avatar}\",\"link\":\"${item.link}\",\"role\":\"default\",\"metadata\":${item.metadata},\"tags\":${item.tags},\"unset\":${item.tags}}"
             )
             val request = Request.Builder()
-                .url("https://2080788f45f25844.api-eu.cometchat.io/v3/users/iturakulov")
+                .url("https://$APP_ID.api-eu.cometchat.io/v3/users/iturakulov")
                 .put(body)
                 .addHeader("Accept", "application/json")
                 .addHeader("Content-Type", "application/json")

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.model.RequestEntity
+import com.iuturakulov.hseapple.utils.IP_ADDRESS
 import com.iuturakulov.hseapple.utils.TEMP_TOKEN
 import com.iuturakulov.hseapple.view.adapters.RequestsAdapter
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
@@ -139,7 +140,7 @@ class RequestsActivity : AppCompatActivity() {
         val body = RequestBody.create(mediaType, "{\n  \"approved\": true\n}")
         for (item in items) {
             val request = Request.Builder()
-                .url("80.66.64.53:8080/request/${item.courseID}/${item.userID}")
+                .url("${IP_ADDRESS}/request/${item.courseID}/${item.userID}")
                 .method("PUT", body)
                 .addHeader(
                     "Authorization",

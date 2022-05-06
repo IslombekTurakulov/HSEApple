@@ -28,7 +28,7 @@ class CurrentTestsAdapter(
         val client = OkHttpClient().newBuilder()
             .build()
         val request = Request.Builder()
-            .url("http://80.66.64.53:8080/course/${if (SELECTION == CourseSelection.CHOSEN_SECOND) 1 else 2}/task?start=1")
+            .url("${IP_ADDRESS}/course/${if (SELECTION == CourseSelection.CHOSEN_SECOND) 1 else 2}/task?start=1")
             .method("GET", null)
             .addHeader(
                 "Authorization",
@@ -49,7 +49,7 @@ class CurrentTestsAdapter(
                     allTests.addAll(tempArr)
                     news.addAll(tempArr)
                     news.removeAll {
-                        it.isStatus
+                        it.status
                     }
                 }
             }

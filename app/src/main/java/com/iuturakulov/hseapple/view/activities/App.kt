@@ -24,24 +24,6 @@ class App : BaseApplication(), AuthComponentProvider {
 
     override fun onCreate() {
         super.onCreate()
-        val appSettings = AppSettings.AppSettingsBuilder().subscribePresenceForAllUsers().setRegion(
-            API_COUNTRY).build()
-        CometChat.init(this, APP_ID, appSettings, object : CometChat.CallbackListener<String>() {
-            override fun onSuccess(s: String) {
-                UIKitSettings.setAppID(APP_ID)
-                UIKitSettings.setAuthKey(AUTH_KEY)
-                CometChat.setSource("ui-kit", "android", "kotlin")
-                Log.d(TAG, "onSuccess: $s")
-            }
-
-            override fun onError(e: CometChatException) {
-            }
-        })
-        val uiKitSettings = UIKitSettings(this)
-        uiKitSettings.addConnectionListener(TAG)
-        CometChatCallListener.addCallListener(TAG, this)
-        createNotificationChannel()
-
         appComponent = DaggerAppComponent.builder()
             .application(this)
             .build()
@@ -56,25 +38,6 @@ class App : BaseApplication(), AuthComponentProvider {
         return (appComponent as AppComponent).loginComponent().create()
     }
 
-    private fun createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        val name: CharSequence = getString(R.string.app_name)
-        val description = "Description"
-        val importance = NotificationManager.IMPORTANCE_HIGH
-        val channel = NotificationChannel("2", name, importance)
-        channel.description = description
-        // Register the channel with the system; you can't change the importance
-        // or other notification behaviors after this
-        val notificationManager = getSystemService(NotificationManager::class.java)
-        notificationManager.createNotificationChannel(channel)
-    }
-
-    override fun onTerminate() {
-        super.onTerminate()
-        CometChatCallListener.removeCallListener(TAG)
-        CometChat.removeConnectionListener(TAG)
-    }
     companion object {
         private const val TAG = "App"
     }

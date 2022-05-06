@@ -11,6 +11,7 @@ import com.cometchat.pro.models.User
 import com.google.gson.Gson
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.utils.API_KEY
+import com.iuturakulov.hseapple.utils.APP_ID
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
@@ -29,7 +30,7 @@ class AssistantsAdapter(context: Context) :
             val client = OkHttpClient().newBuilder()
                 .build()
             val request = Request.Builder()
-                .url("https://2080788f45f25844.api-eu.cometchat.io/v3/users?searchIn=&count=false&perPage=100&page=1&withTags=false&roles=assistant")
+                .url("https://${APP_ID}.api-eu.cometchat.io/v3/users?searchIn=&count=false&perPage=100&page=1&withTags=false&roles=assistant")
                 .get()
                 .addHeader("Accept", "application/json")
                 .addHeader("apiKey", API_KEY)

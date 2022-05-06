@@ -7,6 +7,7 @@ lateinit var preferences: SharedPreferences
 lateinit var ACCESS_TOKEN: String
 lateinit var REFRESH_TOKEN: String
 lateinit var USER_CHAT: User
+const val IP_ADDRESS = "http://80.66.64.53:8080"
 const val REQUEST_LOGIN = 1
 const val KEY_PREFERENCE_NAME = "chatAppPreference"
 const val TEMP_TOKEN: String =

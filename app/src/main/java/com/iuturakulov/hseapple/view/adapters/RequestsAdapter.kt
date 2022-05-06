@@ -11,6 +11,7 @@ import com.google.gson.Gson
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.model.RequestEntity
 import com.iuturakulov.hseapple.utils.CourseSelection
+import com.iuturakulov.hseapple.utils.IP_ADDRESS
 import com.iuturakulov.hseapple.utils.SELECTION
 import com.iuturakulov.hseapple.utils.TEMP_TOKEN
 import okhttp3.OkHttpClient
@@ -30,7 +31,7 @@ internal class RequestsAdapter(context: Context) :
             val client = OkHttpClient().newBuilder()
                 .build()
             val request = Request.Builder()
-                .url("http://80.66.64.53:8080/course/${if (SELECTION ==CourseSelection.CHOSEN_SECOND) 1 else 2}/application/list?approved=false")
+                .url("${IP_ADDRESS}/course/${if (SELECTION ==CourseSelection.CHOSEN_SECOND) 1 else 2}/application/list?approved=false")
                 .method("GET", null)
                 .addHeader(
                     "Authorization",

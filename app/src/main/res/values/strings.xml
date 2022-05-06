@@ -14,7 +14,7 @@
     <string name="current_tests" translatable="false">Current tests</string>
     <string name="completed_tests" translatable="false">Completed tests</string>
     <string name="requests" translatable="false">Requests</string>
-    <string name="users">Users</string>
+    <string name="users" translatable="false">Users</string>
     <string name="assistants" translatable="false">Assistants</string>
     <string name="help" translatable="false">Help</string>
     <string name="about_the_app" translatable="false">About the app</string>
@@ -46,8 +46,10 @@
     <string name="title_activity_list_of_users" translatable="false">ListOfUsersActivity</string>
     <string name="no_assistants" translatable="false">No assistants</string>
     <string name="no_events" translatable="false">No events</string>
-    <string name="deadline">Deadline:</string>
-    <string name="change_deadline">Change deadline</string>
-    <string name="your_repository_link">Your repository link:</string>
-    <string name="create_test_info">Create test</string>
+    <string name="deadline" translatable="false">Deadline:</string>
+    <string name="change_deadline" translatable="false">Change deadline</string>
+    <string name="your_repository_link" translatable="false">Your repository link:</string>
+    <string name="create_test_info" translatable="false">Create test</string>
+    <string name="no_current_tests" translatable="false">No current tests</string>
+    <string name="no_completed_tests" translatable="false">No completed tests</string>
 </resources>

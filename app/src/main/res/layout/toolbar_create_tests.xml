@@ -34,12 +34,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:ellipsize="marquee"
+                android:fontFamily="@font/futuramedium"
                 android:maxWidth="150dp"
                 android:singleLine="true"
                 android:textColor="@color/textColorWhite"
-                android:fontFamily="@font/futuramedium"
                 android:textSize="@dimen/big_text"
-                tools:text="@tools:sample/full_names" />
+                tools:text="Title of test" />
         </RelativeLayout>
 
         <LinearLayout

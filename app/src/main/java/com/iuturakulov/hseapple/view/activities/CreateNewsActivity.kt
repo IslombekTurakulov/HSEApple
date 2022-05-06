@@ -75,7 +75,7 @@ class CreateNewsActivity : AppCompatActivity(R.layout.activity_create_news) {
         )
         val requestPost = Request.Builder()
             .url(
-                "http://80.66.64.53:8080/course/post"
+                "${IP_ADDRESS}/course/post"
             )
             .method("POST", body)
             .addHeader(

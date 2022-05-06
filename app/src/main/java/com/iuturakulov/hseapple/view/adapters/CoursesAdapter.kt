@@ -12,6 +12,7 @@ import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.model.RequestEntity
 import com.iuturakulov.hseapple.model.Courses
 import com.iuturakulov.hseapple.utils.CourseSelection
+import com.iuturakulov.hseapple.utils.IP_ADDRESS
 import com.iuturakulov.hseapple.utils.SELECTION
 import com.iuturakulov.hseapple.utils.arrayOfRequestCourses
 import com.iuturakulov.hseapple.view.activities.MainActivity
@@ -102,14 +103,14 @@ class CoursesAdapter(
     ) {
         if (position.nameOfCourse == holder.resources.getString(R.string.second_course)) {
             val secondCourse = initializeButtons(1)
-            if (secondCourse != null && secondCourse.approved) {
+            if (secondCourse != null && secondCourse.approved == true) {
                 holder.courseButton.text =
                     holder.resources.getString(R.string.get_a_request_course)
             }
             arrayOfRequestCourses.add(secondCourse!!)
         } else {
             val thirdCourse = initializeButtons(2)
-            if (thirdCourse != null && thirdCourse.approved) {
+            if (thirdCourse != null && thirdCourse.approved == true) {
                 holder.courseButton.text =
                     holder.resources.getString(R.string.get_a_request_course)
             }
@@ -120,7 +121,7 @@ class CoursesAdapter(
     private fun initializeButtons(courseId: Int): RequestEntity? {
         val client = OkHttpClient()
         val request = Request.Builder()
-            .url("http:80.66.64.53:8080/user/request/${courseId}/1")
+            .url("${IP_ADDRESS}/user/request/${courseId}/1")
             .get()
             .addHeader("Content-Type", "application/json")
             .addHeader("token", "123")

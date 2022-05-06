@@ -2,17 +2,17 @@ package com.iuturakulov.hseapple.model
 
 import java.time.LocalDateTime
 
-class TaskEntity (
+class TaskEntity(
     var id: Long? = null,
+    var courseID: Long? = null,
     var form: String? = null,
     var title: String? = null,
     var description: String? = null,
-    var courseID: Long? = null,
+    var task_content: String? = null,
+    var deadline: String? = null,
+    var status: Boolean = false,
     var createdBy: Long? = null,
     var updatedBy: Long? = null,
-    var task_content: String? = null,
-    var deadline: LocalDateTime? = null,
-    var isStatus: Boolean = false,
-    var createdAt: LocalDateTime? = null,
-    var updatedAt: LocalDateTime? = null
+    var createdAt: String? = null,
+    var updatedAt: String? = null
 )

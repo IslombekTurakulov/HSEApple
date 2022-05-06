@@ -11,11 +11,15 @@ import com.iuturakulov.hseapple.utils.APP_ACTIVITY
 import com.iuturakulov.hseapple.utils.USER_CHAT
 import com.iuturakulov.hseapple.utils.showToast
 import com.iuturakulov.hseapple.view.activities.CreateNewsActivity
+import com.iuturakulov.hseapple.view.adapters.CompletedTestsAdapter
 import com.iuturakulov.hseapple.view.adapters.NewsAdapter
 import kotlinx.android.synthetic.main.fragment_news.*
 import kotlinx.android.synthetic.main.toolbar_create_news.*
 
 class NewsFragment : Fragment(R.layout.fragment_news) {
+
+    lateinit var newsAdapter: NewsAdapter
+    lateinit var completedTestsAdapter: CompletedTestsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,9 +36,12 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         } else {
             create_event_layout.visibility = View.VISIBLE
         }
-        val newsAdapter = NewsAdapter(APP_ACTIVITY.applicationContext)
+        newsAdapter = NewsAdapter(APP_ACTIVITY.applicationContext)
+        completedTestsAdapter = CompletedTestsAdapter()
         newsRecyclerView.adapter = newsAdapter
-        initializeAdapter(newsAdapter)
+        gradesRecyclerView.adapter = completedTestsAdapter
+        initializeNewsAdapter()
+        initializeGradesAdapter()
         create_event_tool.setOnClickListener {
             showToast("Create event")
             val startupIntent =
@@ -44,19 +51,29 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
                 android.R.anim.fade_in,
                 android.R.anim.fade_out
             )
-            val coursesAdapter = NewsAdapter(requireContext())
-            newsRecyclerView.adapter = coursesAdapter
-            initializeAdapter(coursesAdapter)
+            newsAdapter = NewsAdapter(requireContext())
+            newsRecyclerView.adapter = newsAdapter
+            initializeNewsAdapter()
         }
     }
 
-    private fun initializeAdapter(coursesAdapter: NewsAdapter) {
-        if (coursesAdapter.getAllItems().isNotEmpty()) {
+    private fun initializeNewsAdapter() {
+        if (newsAdapter.getAllItems().isNotEmpty()) {
             isEventsEmptyImage.visibility = View.GONE
             isEventsEmptyText.visibility = View.GONE
         } else {
             isEventsEmptyImage.visibility = View.VISIBLE
             isEventsEmptyText.visibility = View.VISIBLE
+        }
+    }
+
+    private fun initializeGradesAdapter() {
+        if (completedTestsAdapter.getAllItems().isNotEmpty()) {
+            isGradesEmptyImage.visibility = View.GONE
+            isGradesEmptyText.visibility = View.GONE
+        } else {
+            isGradesEmptyImage.visibility = View.VISIBLE
+            isGradesEmptyText.visibility = View.VISIBLE
         }
     }
 }

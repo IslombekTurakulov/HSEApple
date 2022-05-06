@@ -103,15 +103,15 @@ class CometChatAvatar : AppCompatImageView {
     private var borderWidth = 0f
 
     private val borderRadius = 0f
-    constructor(context: Context?) : super(context){
+    constructor(context: Context?) : super(context!!){
         this.c = context
     }
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs){
+    constructor(context: Context?, attrs: AttributeSet?) : super(context!!, attrs){
         this.c = context
         getAttributes(attrs!!)
         init()
     }
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr){
+    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context!!, attrs, defStyleAttr){
         this.c = context
         getAttributes(attrs!!)
         init()

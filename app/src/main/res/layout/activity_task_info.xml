@@ -172,7 +172,7 @@
                 android:backgroundTint="@color/almostDark"
                 android:contentDescription="create_test_desc"
                 android:src="@drawable/ic_add_24"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:tint="@color/white" />
@@ -183,6 +183,7 @@
                 android:layout_height="@dimen/_50sdp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="28dp"
+                android:visibility="invisible"
                 android:background="@drawable/layout_bg_outlined"
                 android:backgroundTint="@color/blueInactive"
                 android:contentDescription="create_test_desc"

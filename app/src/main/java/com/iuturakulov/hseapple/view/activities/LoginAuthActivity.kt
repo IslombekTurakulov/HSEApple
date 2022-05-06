@@ -1,44 +1,40 @@
 package com.iuturakulov.hseapple.view.activities
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.os.StrictMode
 import android.widget.Toast
 import com.cometchat.pro.core.CometChat
 import com.cometchat.pro.exceptions.CometChatException
 import com.cometchat.pro.models.User
+import com.google.gson.Gson
+import com.hse.auth.AuthHelper
 import com.hse.auth.utils.AuthConstants
 import com.hse.core.BaseApplication
 import com.hse.core.ui.BaseActivity
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.model.UserEntity
 import com.iuturakulov.hseapple.utils.*
-import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_login_auth.*
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import timber.log.Timber
+import java.io.IOException
+
 
 class LoginAuthActivity : BaseActivity() {
-
-    private lateinit var preferenceManager: PreferenceManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         BaseApplication.appComponent.inject(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-        preferenceManager = PreferenceManager(this)
+        setContentView(R.layout.activity_login_auth)
         authLogButton.setOnClickListener {
             authLogButton!!.isClickable = false
-            UserEntity(
-                id = 1,
-                firstname =
-                "Туракулов",
-                lastname = "Исломбек",
-                fullName = "Туракулов Исломбек Улугбекович",
-                email = "gsosnovskij@edu.hse.ru",
-                createdAt = null
-            ).also { USER = it }
-            initializeChatAndLogin()
-            // AuthHelper.login(this, 1)
+            AuthHelper.login(this, 1)
         }
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -46,10 +42,46 @@ class LoginAuthActivity : BaseActivity() {
             if (resultCode != RESULT_OK || data == null) {
                 return
             }
-            ACCESS_TOKEN = data.getStringExtra(AuthConstants.KEY_ACCESS_TOKEN)!!
-            REFRESH_TOKEN = data.getStringExtra(AuthConstants.KEY_REFRESH_TOKEN)!!
+            ACCESS_TOKEN = data.getStringExtra(AuthConstants.KEY_ACCESS_TOKEN).toString()
+            REFRESH_TOKEN = data.getStringExtra(AuthConstants.KEY_REFRESH_TOKEN).toString()
             Timber.d("Token got, success")
             Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
+            authLoginCredentials()
+        }
+        authLogButton!!.isClickable = true
+    }
+
+    private fun authLoginCredentials() {
+        val sdkInt = Build.VERSION.SDK_INT;
+        if (sdkInt > 8) {
+            val policy: StrictMode.ThreadPolicy = StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            val client = OkHttpClient().newBuilder()
+                .build()
+            val request = Request.Builder()
+                .url("${IP_ADDRESS}/auth")
+                .method("GET", null)
+                .addHeader(
+                    "Authorization",
+                    ACCESS_TOKEN
+                )
+                .addHeader("Content-Type", "application/json")
+                .build()
+            try {
+                val response = client.newCall(request).execute()
+                Timber.d("Login Auth: ${response.isSuccessful}")
+                if (response.isSuccessful) {
+                    Timber.i(response.body().toString())
+                    println(response.body().toString())
+                    USER = Gson().fromJson(response.body()?.string() ?: "", UserEntity::class.java)
+                    initializeChatAndLogin()
+                } else {
+                    toast("Oops... Auth failure")
+                }
+            } catch (exception: IOException) {
+                exception.printStackTrace()
+            }
         }
     }
 

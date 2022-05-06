@@ -54,7 +54,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_15sdp"
+                android:layout_margin="@dimen/_10sdp"
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -69,7 +69,7 @@
 
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_150sdp"
+                    android:layout_height="@dimen/_200sdp"
                     android:background="@color/grey"
                     android:clipToPadding="true"
                     android:fillViewport="true">
@@ -85,6 +85,7 @@
                             android:layout_height="@dimen/_100sdp"
                             android:layout_gravity="center"
                             android:layout_marginBottom="12dp"
+                            android:visibility="visible"
                             android:contentDescription="Empty events"
                             android:padding="@dimen/_10sdp"
                             android:src="@drawable/app_logo" />
@@ -95,7 +96,8 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/futuramedium"
                             android:gravity="center"
-                            android:text="@string/no_events"
+                            android:visibility="visible"
+                            android:text="@string/no_current_tests"
                             android:textColor="@color/almostDark"
                             android:textSize="@dimen/big_text" />
 
@@ -107,6 +109,7 @@
                             android:layout_marginEnd="@dimen/_7sdp"
                             android:clipToPadding="false"
                             android:orientation="vertical"
+                            android:visibility="gone"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:shimmer_demo_angle="20"
                             app:shimmer_demo_child_count="10"
@@ -122,7 +125,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_15sdp"
+                android:layout_margin="@dimen/_10sdp"
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -137,7 +140,7 @@
 
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_150sdp"
+                    android:layout_height="@dimen/_200sdp"
                     android:background="@color/grey"
                     android:fillViewport="true">
 
@@ -151,8 +154,9 @@
                             android:layout_width="@dimen/_100sdp"
                             android:layout_height="@dimen/_100sdp"
                             android:layout_gravity="center"
+                            android:visibility="visible"
                             android:layout_marginBottom="12dp"
-                            android:contentDescription="Empty events"
+                            android:contentDescription="Empty completed tests"
                             android:padding="@dimen/_10sdp"
                             android:src="@drawable/app_logo" />
 
@@ -162,7 +166,8 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/futuramedium"
                             android:gravity="center"
-                            android:text="@string/no_events"
+                            android:visibility="visible"
+                            android:text="@string/no_completed_tests"
                             android:textColor="@color/almostDark"
                             android:textSize="@dimen/big_text" />
 
@@ -176,6 +181,7 @@
                             android:orientation="vertical"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:shimmer_demo_angle="20"
+                            android:visibility="gone"
                             app:shimmer_demo_child_count="10"
                             app:shimmer_demo_layout="@layout/layout_test"
                             app:shimmer_demo_layout_manager_type="linear_vertical"

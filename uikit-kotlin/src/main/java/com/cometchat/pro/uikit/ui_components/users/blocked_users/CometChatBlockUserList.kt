@@ -72,7 +72,7 @@ class CometChatBlockUserList : Fragment() {
             override fun onClick(var1: View, var2: Int) {
                 val user = var1.getTag(R.string.user) as User
                 if (activity != null) {
-                    val alert = MaterialAlertDialogBuilder(activity)
+                    val alert = MaterialAlertDialogBuilder(activity!!)
                     alert.setTitle(resources.getString(R.string.unblock))
                     alert.setMessage(String.format(resources.getString(R.string.unblock_user_question), user.name))
                     alert.setPositiveButton(resources.getString(R.string.yes)) { dialogInterface, i -> unBlockUser(user, var1) }
@@ -151,7 +151,7 @@ class CometChatBlockUserList : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            if (activity != null) activity!!.onBackPressed()
+            if (activity != null) requireActivity().onBackPressed()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -163,7 +163,7 @@ class CometChatBlockUserList : Fragment() {
      */
     private fun setAdapter(users: List<User>) {
         if (blockedUserAdapter == null) {
-            blockedUserAdapter = BlockedListAdapter(context!!, users)
+            blockedUserAdapter = BlockedListAdapter(requireContext(), users)
             rvUserList!!.adapter = blockedUserAdapter
         } else {
             blockedUserAdapter!!.updateList(Utils.userSort(users))
