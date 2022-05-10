@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.cometchat.pro.core.CometChat
+import com.cometchat.pro.exceptions.CometChatException
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.utils.APP_ACTIVITY
 import com.iuturakulov.hseapple.utils.CourseSelection
@@ -16,6 +17,7 @@ import com.iuturakulov.hseapple.utils.SELECTION
 import com.iuturakulov.hseapple.utils.USER_CHAT
 import com.iuturakulov.hseapple.view.activities.*
 import kotlinx.android.synthetic.main.fragment_profile.*
+import timber.log.Timber
 
 
 class ProfileFragment : Fragment() {
@@ -78,15 +80,25 @@ class ProfileFragment : Fragment() {
             )
         }
         profileLogOutBtn.setOnClickListener {
-            val startupIntent = Intent(requireContext(), LoginAuthActivity::class.java)
-            startupIntent.flags =
-                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(startupIntent)
-            requireActivity().overridePendingTransition(
-                android.R.anim.fade_in,
-                android.R.anim.fade_out
-            )
-            APP_ACTIVITY.finish()
+            CometChat.logout(object : CometChat.CallbackListener<String>() {
+                override fun onSuccess(p0: String?) {
+                    val startupIntent = Intent(APP_ACTIVITY.applicationContext, LoginAuthActivity::class.java)
+                    startupIntent.flags =
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(startupIntent)
+                    requireActivity().overridePendingTransition(
+                        android.R.anim.fade_in,
+                        android.R.anim.fade_out
+                    )
+                    APP_ACTIVITY.finish()
+                    Timber.d("Logout completed successfully")
+                }
+
+                override fun onError(p0: CometChatException?) {
+                    Timber.d("Logout failed with exception: %s", p0?.message)
+                }
+
+            })
         }
     }
 

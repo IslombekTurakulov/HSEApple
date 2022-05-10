@@ -8,6 +8,6 @@
 
     <!-- TabLayout background color -->
     <solid
-        android:color="@color/orange_200"/>
+        android:color="@color/file_icon"/>
 
 </shape>

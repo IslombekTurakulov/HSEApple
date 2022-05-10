@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:navigationIcon="@drawable/ic_back"
+        app:navigationIconTint="@color/textColorWhite"
         android:backgroundTintMode="src_atop"
         app:titleTextColor="@color/textColorWhite"/>
 
@@ -20,7 +21,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/start_chat_toolbar"
-        android:layout_margin="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        app:tabIconTint="@color/textColorWhite"
         android:background="@drawable/compose_box"
         app:tabBackground="@drawable/tab_background_state"
         app:tabGravity="fill"
