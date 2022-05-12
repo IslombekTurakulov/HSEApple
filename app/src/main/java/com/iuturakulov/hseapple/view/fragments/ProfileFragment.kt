@@ -80,25 +80,26 @@ class ProfileFragment : Fragment() {
             )
         }
         profileLogOutBtn.setOnClickListener {
-            CometChat.logout(object : CometChat.CallbackListener<String>() {
+            CometChat.removeLoginListener(USER_CHAT.uid)
+            val startupIntent = Intent(APP_ACTIVITY.applicationContext, LoginAuthActivity::class.java)
+            startupIntent.flags =
+                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(startupIntent)
+            requireActivity().overridePendingTransition(
+                android.R.anim.fade_in,
+                android.R.anim.fade_out
+            )
+            APP_ACTIVITY.finish()
+            Timber.d("Logout completed successfully")
+            /*CometChat.logout(object : CometChat.CallbackListener<String>() {
                 override fun onSuccess(p0: String?) {
-                    val startupIntent = Intent(APP_ACTIVITY.applicationContext, LoginAuthActivity::class.java)
-                    startupIntent.flags =
-                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    startActivity(startupIntent)
-                    requireActivity().overridePendingTransition(
-                        android.R.anim.fade_in,
-                        android.R.anim.fade_out
-                    )
-                    APP_ACTIVITY.finish()
-                    Timber.d("Logout completed successfully")
-                }
+                    }
 
                 override fun onError(p0: CometChatException?) {
                     Timber.d("Logout failed with exception: %s", p0?.message)
                 }
 
-            })
+            })*/
         }
     }
 

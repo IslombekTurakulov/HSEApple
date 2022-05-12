@@ -31,13 +31,13 @@ class LoginAuthActivity : BaseActivity() {
         setContentView(R.layout.activity_login_auth)
         authLogButton.setOnClickListener {
             authLogButton!!.isClickable = false
-            UserEntity(
-                id = 1,
-                fullName = "Сосновский Григорий Михайлович",
-                email = "gsosnovskij@hse.ru"
-            ).also { USER = it }
-            createUser()
-            // AuthHelper.login(this, 1)
+            /* UserEntity(
+                 id = 1,
+                 fullName = "Туракулов Исломбек Улугбекович",
+                 email = "iuturakulov@edu.hse.ru"
+             ).also { USER = it }
+             createUser()*/
+            AuthHelper.login(this, 1)
         }
     }
 
@@ -61,8 +61,8 @@ class LoginAuthActivity : BaseActivity() {
         val sdkInt = Build.VERSION.SDK_INT;
         if (sdkInt > 8) {
             val policy: StrictMode.ThreadPolicy = StrictMode.ThreadPolicy.Builder()
-                .permitAll().build();
-            StrictMode.setThreadPolicy(policy);
+                .permitAll().build()
+            StrictMode.setThreadPolicy(policy)
             val client = OkHttpClient().newBuilder()
                 .build()
             val request = Request.Builder()
@@ -92,18 +92,35 @@ class LoginAuthActivity : BaseActivity() {
 
     private fun createUser() {
         val email = USER.email!!.split("@")[0]
-        CometChat.getUser(email, object : CometChat.CallbackListener<User>() {
-            override fun onSuccess(user: User) {
-                login(user)
+        CometChat.login(email, AUTH_KEY, object : CometChat.CallbackListener<User>() {
+            override fun onSuccess(p0: User?) {
+                USER_CHAT = CometChat.getLoggedInUser()
+                Timber.d("Success: ${USER_CHAT.role} ${USER_CHAT.name}")
             }
 
-            override fun onError(e: CometChatException) {
+            override fun onError(p0: CometChatException?) {
+                Timber.d("Registering user")
+                val user = User()
+                user.uid = email
+                user.name = USER.fullName
                 CometChat.createUser(
-                    User(email, USER.fullName),
+                    user,
                     AUTH_KEY,
                     object : CometChat.CallbackListener<User>() {
                         override fun onSuccess(user: User) {
-                            login(user)
+                            CometChat.login(
+                                user.uid,
+                                AUTH_KEY,
+                                object : CometChat.CallbackListener<User>() {
+                                    override fun onSuccess(p0: User?) {
+                                        USER_CHAT = CometChat.getLoggedInUser()
+                                        Timber.d("Success: ${USER_CHAT.role} ${USER_CHAT.name}")
+                                    }
+
+                                    override fun onError(p0: CometChatException?) {
+                                        Timber.d("Error in login")
+                                    }
+                                })
                         }
 
                         override fun onError(e: CometChatException) {
@@ -112,21 +129,26 @@ class LoginAuthActivity : BaseActivity() {
                     })
             }
         })
-    }
+        CometChat.updateUser(
+            CometChat.getLoggedInUser(),
+            API_KEY,
+            object : CometChat.CallbackListener<User>() {
+                override fun onSuccess(user: User) {
+                    Timber.d("updateUser: $user")
+                }
 
-    private fun login(user: User) {
-        CometChat.login(user.uid, AUTH_KEY, object : CometChat.CallbackListener<User?>() {
-            override fun onSuccess(user: User?) {
-                USER_CHAT = CometChat.getLoggedInUser()
-                startActivity(Intent(this@LoginAuthActivity, AvailableCoursesActivity::class.java))
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-                finish()
-            }
-
-            override fun onError(e: CometChatException) {
-                Toast.makeText(applicationContext, e.details.toString(), Toast.LENGTH_SHORT)
-                    .show()
-            }
-        })
+                override fun onError(e: CometChatException) {
+                    Timber.e("updateUser: ${e.message}")
+                }
+            })
+        USER_CHAT = CometChat.getLoggedInUser()
+        USER_CHAT.role = "teacher"
+        toast("Success: ${USER_CHAT.role} ${USER_CHAT.name}")
+        val intent = Intent(this, AvailableCoursesActivity::class.java);
+        intent.flags =
+            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        finish()
     }
 }

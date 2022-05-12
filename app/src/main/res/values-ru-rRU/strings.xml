@@ -16,7 +16,7 @@
     <string name="log_out">Выйти</string>
     <string name="auth_info_login">Авторизация через ЕЛК</string>
     <string name="navigation_menu_text">Навигация</string>
-    <string name="news_menu_text">Материалы</string>
+    <string name="news_menu_text">Новости</string>
     <string name="profile_menu_text">Профиль</string>
     <string name="tests_menu_text">Задания</string>
     <string name="status_student_second">Студент, 2 курс</string>

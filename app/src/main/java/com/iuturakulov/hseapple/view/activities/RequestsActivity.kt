@@ -3,6 +3,7 @@ package com.iuturakulov.hseapple.view.activities
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -41,6 +42,13 @@ class RequestsActivity : AppCompatActivity() {
         requests_name.text = getString(R.string.requests)
         requestsAdapter = RequestsAdapter(this)
         recycler_view.adapter = requestsAdapter
+        if (requestsAdapter!!.getAllItems().isNotEmpty()) {
+            isRequestsEmptyImage.visibility = View.INVISIBLE;
+            isRequestsEmptyText.visibility = View.INVISIBLE;
+        } else {
+            isRequestsEmptyImage.visibility = View.VISIBLE;
+            isRequestsEmptyText.visibility = View.VISIBLE;
+        }
         val callback: ItemTouchHelper.SimpleCallback = initializeCallBacks()
         val itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(recycler_view)
@@ -61,6 +69,13 @@ class RequestsActivity : AppCompatActivity() {
                 try {
                     val position = viewHolder.adapterPosition
                     val item: RequestEntity? = requestsAdapter!!.removeItem(position)
+                    if (requestsAdapter!!.getAllItems().isNotEmpty()) {
+                        isRequestsEmptyImage.visibility = View.INVISIBLE;
+                        isRequestsEmptyText.visibility = View.INVISIBLE;
+                    } else {
+                        isRequestsEmptyImage.visibility = View.VISIBLE;
+                        isRequestsEmptyText.visibility = View.VISIBLE;
+                    }
                     val snack = Snackbar.make(
                         viewHolder.itemView,
                         "Item " + (if (direction == ItemTouchHelper.RIGHT) "denied" else "accepted") + ".",
@@ -69,6 +84,13 @@ class RequestsActivity : AppCompatActivity() {
                     snack.setAction(android.R.string.cancel) {
                         try {
                             requestsAdapter!!.addItem(item!!, position)
+                            if (requestsAdapter!!.getAllItems().isNotEmpty()) {
+                                isRequestsEmptyImage.visibility = View.INVISIBLE;
+                                isRequestsEmptyText.visibility = View.INVISIBLE;
+                            } else {
+                                isRequestsEmptyImage.visibility = View.VISIBLE;
+                                isRequestsEmptyText.visibility = View.VISIBLE;
+                            }
                         } catch (e: Exception) {
                             Timber.e(e.message!!)
                         }

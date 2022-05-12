@@ -30,7 +30,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        news_info.text = "Новости"
+        news_info.text = requireActivity().getString(R.string.news_menu_text)
         if (USER_CHAT.role != "teacher") {
             create_event_layout.visibility = View.GONE
         } else {
