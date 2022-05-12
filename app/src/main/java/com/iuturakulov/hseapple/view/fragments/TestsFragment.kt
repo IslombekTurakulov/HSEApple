@@ -41,6 +41,7 @@ class TestsFragment : Fragment(R.layout.fragment_tests) {
         } else {
             create_lab_task.visibility = View.VISIBLE
         }
+        news_text_info.text = requireActivity().getString(R.string.tests_menu_text)
         currentTestsAdapter = CurrentTestsAdapter()
         completedTestsAdapter = CompletedTestsAdapter()
         currentTestsRecyclerView.adapter = currentTestsAdapter

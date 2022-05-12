@@ -30,6 +30,7 @@
             android:layout_toEndOf="@+id/back_arrow_news">
 
             <TextView
+                android:id="@+id/news_text_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
