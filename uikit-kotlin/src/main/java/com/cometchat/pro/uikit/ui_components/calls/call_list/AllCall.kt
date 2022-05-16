@@ -61,10 +61,9 @@ class AllCall : Fragment() {
         noCallView = view.findViewById(R.id.no_call_vw)
         rvCallList!!.setItemClickListener(object : OnItemClickListener<Call?>() {
             override fun OnItemClick(t: Any, position: Int) {
-                var call = t as Call;
+                val call = t as Call
                 if (call.receiverType == CometChatConstants.RECEIVER_TYPE_USER) {
-                    val user: User
-                    user = if ((call.callInitiator as User).uid == CometChat.getLoggedInUser().uid) {
+                    val user: User = if ((call.callInitiator as User).uid == CometChat.getLoggedInUser().uid) {
                         call.callReceiver as User
                     } else {
                         call.callInitiator as User
@@ -78,8 +77,7 @@ class AllCall : Fragment() {
                     intent.putExtra(UIKitConstants.IntentStrings.FROM_CALL_LIST, true)
                     startActivity(intent)
                 } else {
-                    val group: Group
-                    group = call.callReceiver as Group
+                    val group: Group = call.callReceiver as Group
                     val intent = Intent(context, CometChatGroupDetailActivity::class.java)
                     intent.putExtra(UIKitConstants.IntentStrings.GUID, group.guid)
                     intent.putExtra(UIKitConstants.IntentStrings.NAME, group.name)
@@ -116,9 +114,9 @@ class AllCall : Fragment() {
     private fun checkOnGoingCall(`var`: Call) {
         if (CometChat.getActiveCall() != null && CometChat.getActiveCall().callStatus == CometChatConstants.CALL_STATUS_ONGOING && CometChat.getActiveCall().sessionId != null) {
             val alert = AlertDialog.Builder(context)
-            alert.setTitle(context!!.resources.getString(R.string.ongoing_call))
-                    .setMessage(context!!.resources.getString(R.string.ongoing_call_message))
-                    .setPositiveButton(context!!.resources.getString(R.string.join)) { dialog, which -> Utils.joinOnGoingCall(context!!) }.setNegativeButton(context!!.resources.getString(R.string.cancel)) { dialog, which -> dialog.dismiss() }.create().show()
+            alert.setTitle(requireContext().resources.getString(R.string.ongoing_call))
+                    .setMessage(requireContext().resources.getString(R.string.ongoing_call_message))
+                    .setPositiveButton(requireContext().resources.getString(R.string.join)) { _, _ -> Utils.joinOnGoingCall(requireContext()) }.setNegativeButton(requireContext().resources.getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }.create().show()
         } else {
             initiateCall(`var`)
         }
@@ -129,8 +127,7 @@ class AllCall : Fragment() {
             override fun onSuccess(call: Call) {
                 Log.e("onSuccess: ", call.toString())
                 if (call.receiverType == CometChatConstants.RECEIVER_TYPE_USER) {
-                    val user: User
-                    user = if ((call.callInitiator as User).uid == CometChat.getLoggedInUser().uid) {
+                    val user: User = if ((call.callInitiator as User).uid == CometChat.getLoggedInUser().uid) {
                         call.callReceiver as User
                     } else {
                         call.callInitiator as User
@@ -150,9 +147,9 @@ class AllCall : Fragment() {
      * This method is used to get the fetch the call List.
      */
     private val callList: Unit
-        private get() {
+        get() {
             if (messagesRequest == null) {
-                messagesRequest = MessagesRequestBuilder().setCategories(Arrays.asList(CometChatConstants.CATEGORY_CALL)).setLimit(30).build()
+                messagesRequest = MessagesRequestBuilder().setCategories(listOf(CometChatConstants.CATEGORY_CALL)).setLimit(30).build()
             }
             messagesRequest!!.fetchPrevious(object : CallbackListener<List<BaseMessage?>?>() {
                 override fun onSuccess(baseMessages: List<BaseMessage?>?) {
@@ -186,7 +183,4 @@ class AllCall : Fragment() {
         tvTitle?.visibility = View.VISIBLE
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
 }

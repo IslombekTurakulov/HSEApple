@@ -52,4 +52,8 @@
     <string name="create_test_info" translatable="false">Create test</string>
     <string name="no_current_tests" translatable="false">No current tests</string>
     <string name="no_completed_tests" translatable="false">No completed tests</string>
+    <string name="no_requests" translatable="false">No requests</string>
+    <string name="welcome_login_first" translatable="false">Welcome </string>
+    <string name="welcome_login_second" translatable="false">to HSE</string>
+    <string name="welcome_login_third" translatable="false">Apple</string>
 </resources>

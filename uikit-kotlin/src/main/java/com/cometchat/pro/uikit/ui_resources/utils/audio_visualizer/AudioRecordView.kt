@@ -100,17 +100,17 @@ class AudioRecordView : View {
     }
 
     private fun init(attrs: AttributeSet) {
-        val a: TypedArray = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.AudioRecordView, 0, 0)
+        val a: TypedArray = getContext().getTheme().obtainStyledAttributes(attrs, com.cometchat.pro.uikit.R.styleable.AudioRecordView, 0, 0)
         try {
-            chunkSpace = a.getDimension(R.styleable.AudioRecordView_chunkSpace, chunkSpace)
-            chunkMaxHeight = a.getDimension(R.styleable.AudioRecordView_chunkMaxHeight, chunkMaxHeight)
-            chunkMinHeight = a.getDimension(R.styleable.AudioRecordView_chunkMinHeight, chunkMinHeight)
-            setChunkRoundedCorners(a.getBoolean(R.styleable.AudioRecordView_chunkRoundedCorners, chunkRoundedCorners))
-            setChunkWidth(a.getDimension(R.styleable.AudioRecordView_chunkWidth, chunkWidth))
-            setChunkColor(a.getColor(R.styleable.AudioRecordView_chunkColor, chunkColor))
-            val var5 = a.getInt(R.styleable.AudioRecordView_chunkAlignTo, chunkAlignTo.ordinal)
+            chunkSpace = a.getDimension(com.cometchat.pro.uikit.R.styleable.AudioRecordView_chunkSpace, chunkSpace)
+            chunkMaxHeight = a.getDimension(com.cometchat.pro.uikit.R.styleable.AudioRecordView_chunkMaxHeight, chunkMaxHeight)
+            chunkMinHeight = a.getDimension(com.cometchat.pro.uikit.R.styleable.AudioRecordView_chunkMinHeight, chunkMinHeight)
+            setChunkRoundedCorners(a.getBoolean(com.cometchat.pro.uikit.R.styleable.AudioRecordView_chunkRoundedCorners, chunkRoundedCorners))
+            setChunkWidth(a.getDimension(com.cometchat.pro.uikit.R.styleable.AudioRecordView_chunkWidth, chunkWidth))
+            setChunkColor(a.getColor(com.cometchat.pro.uikit.R.styleable.AudioRecordView_chunkColor, chunkColor))
+            val var5 = a.getInt(com.cometchat.pro.uikit.R.styleable.AudioRecordView_chunkAlignTo, chunkAlignTo.ordinal)
             chunkAlignTo = AlignTo.BOTTOM
-            chunkSoftTransition = a.getBoolean(R.styleable.AudioRecordView_chunkSoftTransition, chunkSoftTransition)
+            chunkSoftTransition = a.getBoolean(com.cometchat.pro.uikit.R.styleable.AudioRecordView_chunkSoftTransition, chunkSoftTransition)
             setWillNotDraw(false)
             chunkPaint.isAntiAlias = true
         } finally {

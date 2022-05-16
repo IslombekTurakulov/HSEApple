@@ -91,15 +91,6 @@ class ProfileFragment : Fragment() {
             )
             APP_ACTIVITY.finish()
             Timber.d("Logout completed successfully")
-            /*CometChat.logout(object : CometChat.CallbackListener<String>() {
-                override fun onSuccess(p0: String?) {
-                    }
-
-                override fun onError(p0: CometChatException?) {
-                    Timber.d("Logout failed with exception: %s", p0?.message)
-                }
-
-            })*/
         }
     }
 

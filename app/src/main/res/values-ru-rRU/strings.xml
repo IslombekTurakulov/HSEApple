@@ -44,4 +44,8 @@
     <string name="create_test_info">Создать задание</string>
     <string name="no_current_tests">Нет текущих тестов</string>
     <string name="no_completed_tests">Нет завершённых тестов</string>
+    <string name="no_requests">Нет заявок</string>
+    <string name="welcome_login_first">Добро пожаловать</string>
+    <string name="welcome_login_second">в HSE</string>
+    <string name="welcome_login_third">Apple</string>
 </resources>

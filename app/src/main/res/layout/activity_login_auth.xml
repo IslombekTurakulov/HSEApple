@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/futuramedium"
-                android:text="Добро пожаловать "
+                android:text="@string/welcome_login_first"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_42sdp" />
 
@@ -41,7 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/futuramedium"
-                    android:text="в HSE "
+                    android:text="@string/welcome_login_second"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_42sdp" />
 
@@ -56,7 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/futuramedium"
-                    android:text="Apple"
+                    android:text="@string/welcome_login_third"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_42sdp" />
 

@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/futuramedium"
         android:gravity="center"
-        android:text="@string/no_assistants"
+        android:text="@string/no_requests"
         android:textSize="@dimen/big_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"

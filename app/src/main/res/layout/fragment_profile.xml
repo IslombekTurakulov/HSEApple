@@ -26,6 +26,7 @@
             android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_20sdp"
+            android:src="@drawable/logomin"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
