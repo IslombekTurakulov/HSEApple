@@ -50,7 +50,6 @@ class LoginAuthActivity : BaseActivity() {
             ACCESS_TOKEN = data.getStringExtra(AuthConstants.KEY_ACCESS_TOKEN).toString()
             REFRESH_TOKEN = data.getStringExtra(AuthConstants.KEY_REFRESH_TOKEN).toString()
             Timber.d("Token got, success")
-            Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
             authLoginCredentials()
         }
         authLogButton!!.isClickable = true
@@ -80,8 +79,8 @@ class LoginAuthActivity : BaseActivity() {
     }
 
     private fun createUser() {
-        val email = USER.email!!.split("@")[0]
         try {
+            val email = USER.email!!.split("@")[0]
             loginToChat(email)
             // updateLoginUser()
         } catch (exception: NullPointerException) {

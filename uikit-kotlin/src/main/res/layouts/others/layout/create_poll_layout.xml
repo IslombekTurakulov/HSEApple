@@ -16,7 +16,6 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/heading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -49,7 +48,6 @@
                 android:background="@color/grey" />
 
             <GridLayout
-                android:id="@+id/poll_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:columnCount="2">

@@ -34,14 +34,14 @@ class ProfileFragment : Fragment() {
         fullNameOfProfile.text = USER_CHAT!!.name
         "${
             when (USER_CHAT!!.role) {
-                "default" -> "Student"
-                "teacher" -> "Teacher"
-                else -> "Assistant"
+                "default" -> requireActivity().getString(R.string.status_student)
+                "teacher" -> requireActivity().getString(R.string.status_teacher)
+                else -> requireActivity().getString(R.string.status_assistant)
             }
         }, ${
             when (SELECTION) {
-                CourseSelection.CHOSEN_SECOND -> "2 course"
-                else -> "3 course"
+                CourseSelection.CHOSEN_SECOND -> requireActivity().getString(R.string.status_second_course)
+                else -> requireActivity().getString(R.string.status_third_course)
             }
         }".also { courseInfo.text = it }
         when (USER_CHAT!!.role) {

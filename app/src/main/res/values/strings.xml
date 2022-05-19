@@ -1,13 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">HSEApple</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <!-- Preference Titles -->
-    <string name="messages_header" translatable="false">Messages</string>
-    <string name="sync_header" translatable="false">Sync</string>
-
-    <string name="pref_title_ringtone" translatable="false">Ringtone</string>
-    <string name="pref_ringtone_silent" translatable="false">Silent</string>
 
     <string name="lorem_ipsum_example" translatable="false">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer</string>
     <string name="app_name_logo" translatable="false">HSE Apple</string>
@@ -27,23 +21,16 @@
     <string name="news_menu_text" translatable="false">News</string>
     <string name="profile_menu_text" translatable="false">Profile</string>
     <string name="status_student_second" translatable="false">Student, 2 course</string>
-    <string name="status_student_third" translatable="false">Student, 3 course</string>
     <string name="status_teacher" translatable="false">Teacher</string>
-    <string name="create_lab_task" translatable="false">Create Lab task</string>
-    <string name="create_test" translatable="false">Create test</string>
     <string name="second_course" translatable="false">SRC for iOS development 2nd course</string>
     <string name="third_course" translatable="false">SRC for iOS development 3nd course</string>
-    <string name="course_navigate" translatable="false">Enter</string>
     <string name="create_event" translatable="false">Create Event</string>
-    <string name="delete_content" translatable="false">Delete content</string>
-    <string name="edit_content" translatable="false">Edit content</string>
     <string name="created_time" translatable="false">Created</string>
     <string name="arsure_dialog" translatable="false">Are you sure?</string>
     <string name="yes_status" translatable="false">Yes</string>
     <string name="no_status" translatable="false">No</string>
     <string name="make_a_request_course" translatable="false">Request</string>
     <string name="get_a_request_course" translatable="false">Enter</string>
-    <string name="title_activity_list_of_users" translatable="false">ListOfUsersActivity</string>
     <string name="no_assistants" translatable="false">No assistants</string>
     <string name="no_events" translatable="false">No events</string>
     <string name="deadline" translatable="false">Deadline:</string>
@@ -56,8 +43,11 @@
     <string name="welcome_login_first" translatable="false">Welcome</string>
     <string name="welcome_login_second" translatable="false">to HSE</string>
     <string name="welcome_login_third" translatable="false">Apple</string>
-    <string name="selected_language" translatable="false">Selected language is English</string>
     <string name="available_courses" translatable="false">Available courses</string>
     <string name="no_grades" translatable="false">No grades</string>
     <string name="task_info_begin" translatable="false">Begin</string>
+    <string name="status_student" translatable="false">Student</string>
+    <string name="status_assistant" translatable="false">Assistant</string>
+    <string name="status_second_course" translatable="false">2 SRC course</string>
+    <string name="status_third_course" translatable="false">3 SRC course</string>
 </resources>

@@ -7,14 +7,12 @@
     tools:context=".ui_components.messages.message_information.CometChatMessageInfoScreenActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/darkModeBackground"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
@@ -73,7 +71,6 @@
                     tools:visibility="visible" />
 
                 <include
-                    android:id="@+id/vwVideoMessage"
                     layout="@layout/message_right_list_video_item"
                     android:layout_width="match_parent"
                     android:layout_height="220dp"

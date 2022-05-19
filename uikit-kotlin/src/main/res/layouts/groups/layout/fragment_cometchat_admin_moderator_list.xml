@@ -7,7 +7,6 @@
     tools:context=".ui_components.groups.admin_moderator_list.CometChatAdminModeratorList">
 
     <ProgressBar
-        android:id="@+id/progress_bar_indicator"
         style="@android:style/Widget.Holo.Light.ProgressBar.Large.Inverse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

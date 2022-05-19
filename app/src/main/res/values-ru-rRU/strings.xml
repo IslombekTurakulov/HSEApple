@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">HSEApple</string>
-    <string name="messages_header">Сообщения</string>
-    <string name="sync_header">Синхронизация</string>
     <string name="app_name_logo">HSE Apple</string>
     <string name="current_tests">Текущие задания</string>
     <string name="completed_tests">Завершённые задания</string>
@@ -20,16 +18,10 @@
     <string name="profile_menu_text">Профиль</string>
     <string name="tests_menu_text">Задания</string>
     <string name="status_student_second">Студент, 2 курс</string>
-    <string name="status_student_third">Студент, 3 курс</string>
     <string name="status_teacher">Преподаватель</string>
-    <string name="create_lab_task">Создать лаб работу</string>
-    <string name="create_test">Создать тест</string>
     <string name="second_course">НИС по iOS разработке 2 курс</string>
     <string name="third_course">НИС по iOS разработке 3 курс</string>
-    <string name="course_navigate">Перейти</string>
     <string name="create_event">Создать событие</string>
-    <string name="delete_content">Удалить данные</string>
-    <string name="edit_content">Изменить данные</string>
     <string name="created_time">Создано</string>
     <string name="arsure_dialog">Вы уверены?</string>
     <string name="yes_status">Да</string>
@@ -48,8 +40,11 @@
     <string name="welcome_login_first">Добро пожаловать</string>
     <string name="welcome_login_second">в HSE</string>
     <string name="welcome_login_third">Apple</string>
-    <string name="selected_language">Выбран язык Русский</string>
     <string name="available_courses">Доступные курсы</string>
     <string name="no_grades">Нет оценок</string>
     <string name="task_info_begin">Начать</string>
+    <string name="status_student" >Студент</string>
+    <string name="status_assistant" >Ассистент</string>
+    <string name="status_second_course">2 курс НИСа</string>
+    <string name="status_third_course">3 курс НИСа</string>
 </resources>

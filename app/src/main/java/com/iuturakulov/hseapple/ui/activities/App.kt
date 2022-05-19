@@ -45,7 +45,7 @@ class App : BaseApplication(), AuthComponentProvider {
     private fun cometUiInitialization() {
         val appSettings = AppSettings.AppSettingsBuilder().subscribePresenceForAllUsers().setRegion(
             API_COUNTRY
-        ).build()
+        ).enableAutoJoinForGroups(true).build()
         CometChat.init(this, APP_ID, appSettings, object : CometChat.CallbackListener<String>() {
             override fun onSuccess(s: String) {
                 UIKitSettings.setAppID(APP_ID)

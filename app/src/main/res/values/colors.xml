@@ -1,35 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="hse_dark_blue">#244A9A</color>
     <color name="hse_color_blue">#0C2D69</color>
-    <color name="hse_gray">#2D2B2B</color>
     <color name="hse_green">#30E421</color>
-    <color name="hse_aqua">#89E4DF</color>
-    <color name="hse_red">#FF0000</color>
     <color name="hse_background">#C4C4C4</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="colorEditField">#232323</color>
-    <color name="colorMainText">#E7E3E6</color>
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#FFFFFF</color>
-    <color name="colorInboundMessage">#444747</color>
-    <color name="colorOutboundMessage">#2C2D2E</color>
     <color name="colorEnterMessage">#2C2D2E</color>
 
-    <color name="colorAccent">#FFFFFF</color>
     <color name="almostDark">#2D2B2B</color>
-    <color name="colorSecondText">#636163</color>
     <color name="textInputLayout">#96ffffff</color>
     <color name="green">#4CAF50</color>
     <color name="greenDark">#28852C</color>
-    <color name="fullGreen">#30E421</color>
 
     <color name="recycler_view_item_swipe_right_background">#FF0000</color>
     <color name="recycler_view_item_swipe_left_background">#00BB00</color>
