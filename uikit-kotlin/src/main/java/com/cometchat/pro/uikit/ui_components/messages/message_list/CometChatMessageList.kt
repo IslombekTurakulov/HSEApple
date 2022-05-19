@@ -1075,48 +1075,48 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
     }
 
     private fun requestFilePermission() {
-        when {
+        when (PackageManager.PERMISSION_GRANTED) {
             ContextCompat.checkSelfPermission(
                 requireContext(),
                 WRITE_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED -> {
+            ) -> {
                 (context as Activity).startActivityForResult(
                     MediaUtils.getFileIntent(UIKitConstants.IntentStrings.EXTRA_MIME_DOC),
                     UIKitConstants.RequestCode.FILE
                 )
             }
-//            shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE) -> {
-//                context?.let {
-//                    Utils.showPermissionAlert(
-//                        it,
-//                        getString(R.string.grant_storage_permission),
-//                        getString(R.string.grant_permission_to_access_storage),
-//                        getString(R.string.deny),
-//                        getString(R.string.allow)
-//                    ) { galleryPermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE) }
-//                }
-//            }
-//            else -> {
-//                context?.let {
-//                    Utils.showPermissionAlert(
-//                        it,
-//                        getString(R.string.grant_storage_permission),
-//                        getString(R.string.grant_permission_to_access_storage),
-//                        getString(R.string.setting),
-//                        getString(R.string.cancel)
-//                    ) {
-//                        val intent = Intent()
-//                        intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-//                        val uri = Uri.fromParts(
-//                            "package",
-//                            context?.packageName, null
-//                        )
-//                        intent.data = uri
-//                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-//                        startActivity(intent)
-//                    }
-//                }
-//            }
+            //            shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE) -> {
+            //                context?.let {
+            //                    Utils.showPermissionAlert(
+            //                        it,
+            //                        getString(R.string.grant_storage_permission),
+            //                        getString(R.string.grant_permission_to_access_storage),
+            //                        getString(R.string.deny),
+            //                        getString(R.string.allow)
+            //                    ) { galleryPermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE) }
+            //                }
+            //            }
+            //            else -> {
+            //                context?.let {
+            //                    Utils.showPermissionAlert(
+            //                        it,
+            //                        getString(R.string.grant_storage_permission),
+            //                        getString(R.string.grant_permission_to_access_storage),
+            //                        getString(R.string.setting),
+            //                        getString(R.string.cancel)
+            //                    ) {
+            //                        val intent = Intent()
+            //                        intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+            //                        val uri = Uri.fromParts(
+            //                            "package",
+            //                            context?.packageName, null
+            //                        )
+            //                        intent.data = uri
+            //                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            //                        startActivity(intent)
+            //                    }
+            //                }
+            //            }
         }
     }
 
@@ -1229,6 +1229,7 @@ class CometChatMessageList : Fragment(), View.OnClickListener, OnMessageLongClic
         val createPoll: MaterialButton = view.findViewById(R.id.btn_create_poll)
         createPoll.setBackgroundColor(Color.parseColor(UIKitSettings.color))
         val cancelPoll = view.findViewById<ImageView>(R.id.cancel_poll)
+        addOption.setBackgroundColor(Color.parseColor("#202124"));
         addOption.setOnClickListener {
             val optionView: View = LayoutInflater.from(context).inflate(R.layout.poll_option, null)
             pollOptionsArrayList.add(optionView)

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/almostDark"
-    tools:context=".view.activities.CreateNewsActivity">
+    tools:context=".ui.activities.CreateNewsActivity">
 
     <include
         android:id="@+id/toolbar_create_news"

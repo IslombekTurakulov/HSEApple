@@ -109,7 +109,7 @@ class CometChatForwardMessageActivity : AppCompatActivity() {
         }
     }
 
-    fun handleSendText(intent: Intent) {
+    private fun handleSendText(intent: Intent) {
         val sharedText = intent.getStringExtra(Intent.EXTRA_TEXT)
         if (sharedText != null) {
             messageType = CometChatConstants.MESSAGE_TYPE_TEXT
@@ -117,28 +117,24 @@ class CometChatForwardMessageActivity : AppCompatActivity() {
         }
     }
 
-    fun handleSendImage(intent: Intent) {
+    private fun handleSendImage(intent: Intent) {
         val imageUri = intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as Uri
-        if (imageUri != null) {
-            sendIntent = UIKitConstants.IntentStrings.INTENT_MEDIA_MESSAGE // can be boolean
-            sendIntentType = MediaUtils.getExtensionType(intent.type!!)
-            messageType = CometChatConstants.MESSAGE_TYPE_IMAGE
-            uri = imageUri
-            Log.e(TAG, "handleSendImage: $uri")
-        }
+        sendIntent = UIKitConstants.IntentStrings.INTENT_MEDIA_MESSAGE // can be boolean
+        sendIntentType = MediaUtils.getExtensionType(intent.type!!)
+        messageType = CometChatConstants.MESSAGE_TYPE_IMAGE
+        uri = imageUri
+        Log.e(TAG, "handleSendImage: $uri")
     }
-    fun handleSendVideo(intent: Intent) {
+    private fun handleSendVideo(intent: Intent) {
         val imageUri = intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as Uri
-        if (imageUri != null) {
-            sendIntent = UIKitConstants.IntentStrings.INTENT_MEDIA_MESSAGE
-            sendIntentType = MediaUtils.getExtensionType(intent.type!!)
-            messageType = CometChatConstants.MESSAGE_TYPE_VIDEO
-            uri = imageUri
-            Log.e(TAG, "handleSendVideo: $mediaMessageUrl")
-        }
+        sendIntent = UIKitConstants.IntentStrings.INTENT_MEDIA_MESSAGE
+        sendIntentType = MediaUtils.getExtensionType(intent.type!!)
+        messageType = CometChatConstants.MESSAGE_TYPE_VIDEO
+        uri = imageUri
+        Log.e(TAG, "handleSendVideo: $mediaMessageUrl")
     }
 
-    fun handleSendAudio(intent: Intent) {
+    private fun handleSendAudio(intent: Intent) {
         val imageUri = intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as Uri
         if (imageUri != null) {
             sendIntent = UIKitConstants.IntentStrings.INTENT_MEDIA_MESSAGE

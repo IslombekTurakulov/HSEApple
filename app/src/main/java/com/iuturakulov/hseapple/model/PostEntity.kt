@@ -1,7 +1,5 @@
 package com.iuturakulov.hseapple.model
 
-import java.sql.Timestamp
-
 data class PostEntity(
     var id: Long? = null,
     var courseid: Long? = null,

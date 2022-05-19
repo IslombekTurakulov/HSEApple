@@ -1,7 +1,5 @@
 package com.iuturakulov.hseapple.model
 
-import java.time.LocalDateTime
-
 class TaskEntity(
     var id: Long? = null,
     var courseID: Long? = null,

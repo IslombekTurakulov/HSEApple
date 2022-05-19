@@ -1,9 +1,8 @@
 package com.iuturakulov.hseapple.model
 
-import java.sql.Timestamp
 import java.time.LocalDateTime
 
-data class ChatEntity (
+data class ChatEntity(
     val id: Long? = null,
     var title: String? = null,
     var description: String? = null,

@@ -7,7 +7,7 @@
     android:background="@drawable/gradient_splash_screen"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".view.activities.SplashActivity">
+    tools:context=".ui.activities.SplashActivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="@dimen/_130sdp"

@@ -121,8 +121,8 @@ class UIKitConstants {
                 //Custom Messages
                 IntentStrings.LOCATION,
                 IntentStrings.STICKERS,
-                IntentStrings.WHITEBOARD,
-                IntentStrings.WRITEBOARD,
+/*                IntentStrings.WHITEBOARD,
+                IntentStrings.WRITEBOARD,*/
                 IntentStrings.POLLS
         ))
         var messageTypesForGroup: MutableList<String> = ArrayList(listOf(
@@ -137,8 +137,8 @@ class UIKitConstants {
                 //Custom Messages
                 IntentStrings.LOCATION,
                 IntentStrings.STICKERS,
-                IntentStrings.WHITEBOARD,
-                IntentStrings.WRITEBOARD,
+/*                IntentStrings.WHITEBOARD,
+                IntentStrings.WRITEBOARD,*/
                 IntentStrings.MEETING,
                 IntentStrings.POLLS
         ))

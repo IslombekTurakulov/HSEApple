@@ -4,29 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activities.AvailableCoursesActivity">
+    tools:context=".ui.activities.AvailableCoursesActivity">
 
-    <com.google.android.material.appbar.MaterialToolbar
+    <include
         android:id="@+id/newTopBar"
+        layout="@layout/toolbar_available_courses"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/almostDark"
-        android:elevation="@dimen/_1sdp"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_collapseMode="pin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/menu_available_courses"
-        app:title="Navigation"
-        app:titleTextColor="@color/white" />
-
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="?actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newTopBar">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -46,4 +44,9 @@
                 tools:listitem="@layout/component_list_course" />
         </androidx.core.widget.NestedScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

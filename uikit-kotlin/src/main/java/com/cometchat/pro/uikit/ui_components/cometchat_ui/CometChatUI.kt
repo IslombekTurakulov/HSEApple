@@ -138,11 +138,9 @@ class CometChatUI : AppCompatActivity(), BottomNavigationView.OnNavigationItemSe
     private fun initViewComponent() {
         if (!Utils.hasPermissions(this, Manifest.permission.RECORD_AUDIO,
                         Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO,
-                        Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                        UIKitConstants.RequestCode.RECORD)
-            }
+            requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO,
+                    Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    UIKitConstants.RequestCode.RECORD)
         }
 //        badgeDrawable = activityCometChatUnifiedBinding!!.bottomNavigation.getOrCreateBadge(R.id.menu_conversation)
         activityCometChatUnifiedBinding!!.bottomNavigation.setOnNavigationItemSelectedListener(this)
@@ -248,7 +246,7 @@ class CometChatUI : AppCompatActivity(), BottomNavigationView.OnNavigationItemSe
      * Get Unread Count of conversation using `CometChat.getUnreadMessageCount()`.
      * @see CometChat.getUnreadMessageCount
      */
-    val unreadConversationCount: Unit
+    private val unreadConversationCount: Unit
         get() {
             CometChat.getUnreadMessageCount(object : CallbackListener<HashMap<String?, HashMap<String, Int?>>>() {
                 override fun onSuccess(stringHashMapHashMap: HashMap<String?, HashMap<String, Int?>>) {

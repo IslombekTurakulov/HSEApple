@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/navigation_chat"
-        android:name="com.iuturakulov.hseapple.view.fragments.ChatsFragment"
+        android:name="com.iuturakulov.hseapple.ui.fragments.ChatsFragment"
         android:label="Chats"
         tools:layout="@layout/activity_load_fragment">
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/tests_chat"
-        android:name="com.iuturakulov.hseapple.view.fragments.TestsFragment"
+        android:name="com.iuturakulov.hseapple.ui.fragments.TestsFragment"
         android:label="Tests"
         tools:layout="@layout/fragment_tests">
         <action
@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/news_chat"
-        android:name="com.iuturakulov.hseapple.view.fragments.NewsFragment"
+        android:name="com.iuturakulov.hseapple.ui.fragments.NewsFragment"
         android:label="Navigation"
         tools:layout="@layout/fragment_news">
         <action
@@ -37,7 +37,7 @@
 
     <fragment
         android:id="@+id/profile_person"
-        android:name="com.iuturakulov.hseapple.view.fragments.ProfileFragment"
+        android:name="com.iuturakulov.hseapple.ui.fragments.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
 

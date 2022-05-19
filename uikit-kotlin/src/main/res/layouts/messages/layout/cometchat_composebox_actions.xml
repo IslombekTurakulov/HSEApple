@@ -103,6 +103,7 @@
         android:foreground="?attr/selectableItemBackground"
         android:drawablePadding="16dp"
         android:gravity="center_vertical"
+        android:visibility="gone"
         android:drawableStart="@drawable/ic_stickers"
         android:drawableTint="@color/optionsColor"
         android:textStyle="bold"
@@ -130,6 +131,7 @@
     <TextView
         android:id="@+id/whiteboard_message"
         android:clickable="true"
+        android:visibility="gone"
         android:foreground="?attr/selectableItemBackground"
         android:drawablePadding="16dp"
         android:gravity="center_vertical"

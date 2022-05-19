@@ -123,14 +123,15 @@
                     android:gravity="center"
                     android:visibility="gone" />
             </RelativeLayout>
+
             <TextView
                 android:id="@+id/tv_seperator_admin"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_below="@id/rlAdminView"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="4dp"
-                android:background="@color/light_grey"
-                android:layout_below="@id/rlAdminView" />
+                android:background="@color/light_grey" />
             <RelativeLayout
                 android:id="@+id/rlModeratorView"
                 android:clickable="true"
@@ -241,7 +242,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="16dp"
                     android:src="@drawable/ic_add"
-                    android:tint="@color/colorPrimary"/>
+                    app:tint="@color/colorPrimary" />
 
                 <TextView
                     android:id="@+id/tv_add_member"

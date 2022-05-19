@@ -28,7 +28,7 @@
     <string name="profile_menu_text" translatable="false">Profile</string>
     <string name="status_student_second" translatable="false">Student, 2 course</string>
     <string name="status_student_third" translatable="false">Student, 3 course</string>
-    <string name="status_teacher" translatable="false">Преподаватель</string>
+    <string name="status_teacher" translatable="false">Teacher</string>
     <string name="create_lab_task" translatable="false">Create Lab task</string>
     <string name="create_test" translatable="false">Create test</string>
     <string name="second_course" translatable="false">SRC for iOS development 2nd course</string>
@@ -53,7 +53,11 @@
     <string name="no_current_tests" translatable="false">No current tests</string>
     <string name="no_completed_tests" translatable="false">No completed tests</string>
     <string name="no_requests" translatable="false">No requests</string>
-    <string name="welcome_login_first" translatable="false">Welcome </string>
+    <string name="welcome_login_first" translatable="false">Welcome</string>
     <string name="welcome_login_second" translatable="false">to HSE</string>
     <string name="welcome_login_third" translatable="false">Apple</string>
+    <string name="selected_language" translatable="false">Selected language is English</string>
+    <string name="available_courses" translatable="false">Available courses</string>
+    <string name="no_grades" translatable="false">No grades</string>
+    <string name="task_info_begin" translatable="false">Begin</string>
 </resources>

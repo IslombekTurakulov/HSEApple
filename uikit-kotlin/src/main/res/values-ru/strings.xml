@@ -12,13 +12,13 @@
     <string name="message_video">📹 Видео</string>
     <string name="message_audio">🎵 Аудио</string>
     <string name="message_file">📁 Файл</string>
-    <string name="custom_message">У вас есть сообщение</string>
-    <string name="missed_voice_call"> Пропущенный голосовой вызов»</string>
+    <string name="custom_message">У вас сообщение</string>
+    <string name="missed_voice_call"> Пропущенный голосовой вызов</string>
     <string name="missed_video_call"> Пропущенный видеозвонок</string>
     <string name="custom_message_location">📍 Расположение</string>
     <string name="custom_message_poll">📊 Опрос</string>
-    <string name="custom_message_sticker">💟 наклейка</string>
-    <string name="custom_message_whiteboard">📝 Белая доска</string>
+    <string name="custom_message_sticker">💟 Стикер</string>
+    <string name="custom_message_whiteboard">📝 Доска</string>
     <string name="custom_message_document">📃 Документ</string>
     <string name="online">Онлайн</string>
     <string name="offline">Оффлайн</string>
@@ -28,7 +28,7 @@
     <string name="participant">Участник</string>
     <array name="groupType">
         <item>Публичный</item>
-        <item>Частные</item>
+        <item>Частный</item>
         <item>Защищен паролем</item>
     </array>
     <string name="privacy_and_security">Конфиденциальность и безопасность</string>
@@ -37,7 +37,7 @@
     <string name="everybody">Всем</string>
     <string name="preferences">Предпочтения</string>
     <string name="you_ve_blocked">Вы заблокировали</string>
-    <string name="members">Члены</string>
+    <string name="members">Участники</string>
     <string name="back"> Назад</string>
     <string name="cancel">Отменить</string>
     <string name="text_copied">Текст скопирован в буфер обмена</string>
@@ -47,7 +47,7 @@
     <string name="is_typing">набирает...</string>
     <string name="close">Закрыть</string>
     <string name="enter_group_name">Пожалуйста, введите название группы</string>
-    <string name="refreshing">Освежающий...</string>
+    <string name="refreshing">Обновление...</string>
     <string name="unblock">Разблокировать</string>
     <string name="unblocked_successfully">успешно разблокирован</string>
     <string name="make_group_admin">Сделать администратором группы</string>
@@ -91,12 +91,12 @@
     <string name="deleted_successfully">успешно удалено</string>
     <string name="you_left_from">Вы ушли от</string>
     <string name="remove_member">Удалить участника</string>
-    <string name="ban_member">Запретить член</string>
-    <string name="unban_member">Unban Член</string>
+    <string name="ban_member">Запретить участник</string>
+    <string name="unban_member">Unban участник</string>
     <string name="create_group">Создать группу</string>
     <string name="you_joined">Вы присоединились</string>
     <string name="forward">Вперед</string>
-    <string name="shared_media">Общий носитель</string>
+    <string name="shared_media">Мультимедия</string>
     <string name="unable_to_forward">Не удается переслать сообщение на</string>
     <string name="forward_to_5_at_a_time">Вы можете пересылать сообщение только 5 участникам одновременно</string>
     <string name="no_photos">Нет фотографий</string>
@@ -143,7 +143,7 @@
     <string name="call_rejected">Вызов отклонен</string>
     <string name="rejected_call">отклоненный вызов</string>
     <string name="call_accepted">Звонок принят</string>
-    <string name="joined">совместный</string>
+    <string name="joined">добавлен(-а)</string>
     <string name="left_the_call">оставил вызов</string>
     <string name="unanswered_audio_call">Звуковой звонок без ответа</string>
     <string name="unanswered_video_call">Видеозвонок без ответа</string>
@@ -170,7 +170,7 @@
     <string name="other">Прочее</string>
     <string name="help">Помощь</string>
     <string name="report_problem">Сообщить о проблеме</string>
-    <string name="group_members">Члены группы</string>
+    <string name="group_members">участникы группы</string>
     <string name="ban">Запрет</string>
     <string name="kick">Удар</string>
     <string name="pick_your_emoji">Выберите свой эмодзи</string>
@@ -215,7 +215,7 @@
     <string name="cannot_remove_member">Не удается удалить %1$s</string>
     <string name="leave_group_error">Не удается покинуть группу</string>
     <string name="load_more">Загрузить больше</string>
-    <string name="load_more_members">Загрузить больше %1$s членов</string>
+    <string name="load_more_members">Загрузить больше %1$s участников</string>
     <string name="group_list_error">Не удается получить список групп</string>
     <string name="password">Пароль</string>
     <string name="joining">Присоединение</string>
@@ -242,7 +242,7 @@
     <string name="make_owner">Сделать владельца</string>
     <string name="make_owner_question">Вы хотите сделать %1$s в качестве владельца</string>
     <string name="user_is_owner">%1$s теперь является владельцем</string>
-    <string name="not_a_member">Вы не являетесь членом этой группы (%1$s)</string>
+    <string name="not_a_member">Вы не являетесь участником этой группы (%1$s)</string>
     <string name="owner_alert">Оповещение владельца</string>
     <string name="owner_alert_message">Пожалуйста, передайте право собственности на группу другому участнику перед выходом из группы</string>
     <string name="public_group">Публичная группа</string>
@@ -251,7 +251,7 @@
     <string name="you_cannot_perform_action">Вы не можете выполнять действие над собой</string>
     <string name="only_group_owner_removes_admin">Только владелец группы может удалить администратора.</string>
     <string name="removed_from_admin">%1$s удален из прав администратора</string>
-    <string name="update_group_member_error">Не удается обновить члена группы</string>
+    <string name="update_group_member_error">Не удается обновить участника группы</string>
     <string name="admin_list_retrieve_error">>Не удалось получить список администраторов</string>
     <string name="create_group_error">Не удается создать группу</string>
     <string name="update_scope_error">Не удалось выполнить операцию на %1$s</string>
@@ -262,7 +262,7 @@
     <string name="file_not_exist">Файл не существует</string>
     <string name="call_list_error">Не удается получить список вызовов</string>
     <string name="no_call_message">Вы не совершали никаких звонков</string>
-    <string name="left">леф</string>
+    <string name="left">влево</string>
     <string name="extension_not_enabled">расширение не включено</string>
 
     <string name="call_initiate_error">Не удается инициировать вызов</string>
@@ -276,14 +276,14 @@
     <string name="ongoing_call">Звонок продолжается</string>
     <string name="ongoing_call_message">Там уже есть вызов продолжается. Хотите присоединиться?</string>
     <string name="tap_to_join_call">Нажмите, чтобы присоединиться к текущему звонку</string>
-    <string name="no_media">Нет доступных носителей</string>
-    <string name="images">Изображения</string>
+    <string name="no_media">Нет доступных медиа</string>
+    <string name="images">Фото</string>
     <string name="videos">Видео</string>
     <string name="files">Файлы</string>
-    <string name="no_conversations">У тебя нет разговоров.</string>
+    <string name="no_conversations">Отсутствуют чаты</string>
     <string name="no_user_available">Нет доступных пользователей</string>
     <string name="no_group_available">Нет доступных групп</string>
-    <string name="no_block_users">Нет блокирующих пользователей</string>
+    <string name="no_block_users">Нет заблокированных пользователей</string>
     <string name="no_missedcall_message">У вас нет пропущенных звонков</string>
     <string name="yes">Да</string>
     <string name="fill_this_field">Заполните это поле</string>
@@ -344,8 +344,8 @@
     <string name="group_member_kicked_successfully">Участник группы успешно стартовал</string>
     <string name="add_member_to_group_failed">Не удалось добавить участника в группу</string>
     <string name="initiated">инициированный</string>
-    <string name="kicked_by">пнул</string>
-    <string name="made">сделанный</string>
+    <string name="kicked_by">удалён</string>
+    <string name="made">созданный</string>
     <string name="translate_message">Перевести сообщение</string>
     <string name="no_translation_available">Перевод недоступен</string>
     <string name="has_shared_group_call">поделился групповым вызовом.</string>
@@ -358,7 +358,7 @@
     <string name="updating">обновление</string>
 
     <string name="something_went_wrong_please_try_again">Что-то пошло не так, пожалуйста, попробуйте еще раз</string>
-    <string name="please_check_your_internet_connection">Пожалуйста, проверьте свой интернет connectio</string>
+    <string name="please_check_your_internet_connection">Пожалуйста, проверьте своё интернет подключение</string>
 
     <string name="enter_the_correct_password">Введите правильный пароль и повторите попытку</string>
     <string name="enter_a_valid_name_for_the_user">Введите допустимое имя пользователя и повторите попытку</string>
@@ -375,7 +375,7 @@
     <string name="view_profile">Просмотреть профиль</string>
 
 
-    <string name="transfer">трансфер»</string>
-    <string name="leave_group_message">Вы уверены, что хотите покинуть эту группу?»</string>
-    <string name="transfer_ownership_message">Вы являетесь владельцем группы. Прежде чем покинуть группу, передайте право собственности члену.</string>
+    <string name="transfer">перейти</string>
+    <string name="leave_group_message">Вы уверены, что хотите покинуть эту группу?</string>
+    <string name="transfer_ownership_message">Вы являетесь владельцем группы. Прежде чем покинуть группу, передайте право собственности участнику.</string>
 </resources>

@@ -369,7 +369,7 @@
     <string name="select_group">Select Group</string>
     <string name="background_location_permission_title">Allow Background Location Permission</string>
     <string name="deny">deny</string>
-    <string name="camera_permission">"Allow CometChat to access the camera? "</string>
+    <string name="camera_permission">"Allow to access the camera"</string>
     <string name="camera_permission_denied">Please allow access to camera to use camera feature</string>
     <string name="allow">Allow</string>
     <string name="setting">Setting</string>

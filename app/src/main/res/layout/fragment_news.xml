@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#ECEDEE"
     android:orientation="vertical"
-    tools:context=".view.fragments.NewsFragment">
+    tools:context=".ui.fragments.NewsFragment">
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -181,7 +181,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/futuramedium"
                             android:gravity="center"
-                            android:text="@string/no_events"
+                            android:text="@string/no_grades"
                             android:textSize="@dimen/big_text"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintTop_toTopOf="parent"

@@ -232,41 +232,41 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
 
     private fun handleArguments() {
         if (arguments != null) {
-            parentId = arguments!!.getInt(UIKitConstants.IntentStrings.PARENT_ID, 0)
-            replyCount = arguments!!.getInt(UIKitConstants.IntentStrings.REPLY_COUNT, 0)
-            type = arguments!!.getString(UIKitConstants.IntentStrings.TYPE)
-            Id = arguments!!.getString(UIKitConstants.IntentStrings.ID)
-            avatarUrl = arguments!!.getString(UIKitConstants.IntentStrings.AVATAR)
-            name = arguments!!.getString(UIKitConstants.IntentStrings.NAME)
-            conversationName = arguments!!.getString(UIKitConstants.IntentStrings.CONVERSATION_NAME)
-            messageType = arguments!!.getString(UIKitConstants.IntentStrings.MESSAGE_TYPE)
-            messageSentAt = arguments!!.getLong(UIKitConstants.IntentStrings.SENTAT)
-            parentMessageCategory = arguments!!.getString(UIKitConstants.IntentStrings.MESSAGE_CATEGORY)
+            parentId = requireArguments().getInt(UIKitConstants.IntentStrings.PARENT_ID, 0)
+            replyCount = requireArguments().getInt(UIKitConstants.IntentStrings.REPLY_COUNT, 0)
+            type = requireArguments().getString(UIKitConstants.IntentStrings.TYPE)
+            Id = requireArguments().getString(UIKitConstants.IntentStrings.ID)
+            avatarUrl = requireArguments().getString(UIKitConstants.IntentStrings.AVATAR)
+            name = requireArguments().getString(UIKitConstants.IntentStrings.NAME)
+            conversationName = requireArguments().getString(UIKitConstants.IntentStrings.CONVERSATION_NAME)
+            messageType = requireArguments().getString(UIKitConstants.IntentStrings.MESSAGE_TYPE)
+            messageSentAt = requireArguments().getLong(UIKitConstants.IntentStrings.SENTAT)
+            parentMessageCategory = requireArguments().getString(UIKitConstants.IntentStrings.MESSAGE_CATEGORY)
             if (messageType == CometChatConstants.MESSAGE_TYPE_TEXT) {
-                message = arguments!!.getString(UIKitConstants.IntentStrings.TEXTMESSAGE)
+                message = requireArguments().getString(UIKitConstants.IntentStrings.TEXTMESSAGE)
             } else if (messageType == UIKitConstants.IntentStrings.LOCATION) {
-                parentMessageLatitude = arguments!!.getDouble(UIKitConstants.IntentStrings.LOCATION_LATITUDE)
-                parentMessageLongitude = arguments!!.getDouble(UIKitConstants.IntentStrings.LOCATION_LONGITUDE)
+                parentMessageLatitude = requireArguments().getDouble(UIKitConstants.IntentStrings.LOCATION_LATITUDE)
+                parentMessageLongitude = requireArguments().getDouble(UIKitConstants.IntentStrings.LOCATION_LONGITUDE)
             } else if (messageType == UIKitConstants.IntentStrings.STICKERS) {
-                message = arguments!!.getString(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_URL)
-                messageFileName = arguments!!.getString(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME)
+                message = requireArguments().getString(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_URL)
+                messageFileName = requireArguments().getString(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME)
             }
             else if (messageType == UIKitConstants.IntentStrings.WHITEBOARD || messageType == UIKitConstants.IntentStrings.WRITEBOARD) {
-                message = arguments!!.getString(UIKitConstants.IntentStrings.TEXTMESSAGE)
+                message = requireArguments().getString(UIKitConstants.IntentStrings.TEXTMESSAGE)
             } else if (messageType == UIKitConstants.IntentStrings.POLLS) {
-                pollQuestion = arguments!!.getString(UIKitConstants.IntentStrings.POLL_QUESTION)
-                pollOptions = arguments!!.getString(UIKitConstants.IntentStrings.POLL_OPTION)
-                pollResult = arguments!!.getStringArrayList(UIKitConstants.IntentStrings.POLL_RESULT)
-                voteCount = arguments!!.getInt(UIKitConstants.IntentStrings.POLL_VOTE_COUNT)
+                pollQuestion = requireArguments().getString(UIKitConstants.IntentStrings.POLL_QUESTION)
+                pollOptions = requireArguments().getString(UIKitConstants.IntentStrings.POLL_OPTION)
+                pollResult = requireArguments().getStringArrayList(UIKitConstants.IntentStrings.POLL_RESULT)
+                voteCount = requireArguments().getInt(UIKitConstants.IntentStrings.POLL_VOTE_COUNT)
             }
             else {
-                message = arguments!!.getString(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_URL)
-                messageFileName = arguments!!.getString(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME)
-                messageExtension = arguments!!.getString(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_EXTENSION)
-                messageSize = arguments!!.getInt(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_SIZE, 0)
-                messageMimeType = arguments!!.getString(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_MIME_TYPE)
+                message = requireArguments().getString(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_URL)
+                messageFileName = requireArguments().getString(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME)
+                messageExtension = requireArguments().getString(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_EXTENSION)
+                messageSize = requireArguments().getInt(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_SIZE, 0)
+                messageMimeType = requireArguments().getString(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_MIME_TYPE)
             }
-                reactionInfo = (arguments!!.getSerializable(UIKitConstants.IntentStrings.REACTION_INFO)) as HashMap<String, String>
+                reactionInfo = (requireArguments().getSerializable(UIKitConstants.IntentStrings.REACTION_INFO)) as HashMap<String, String>
 
         }
     }
@@ -319,7 +319,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
         }
         if (messageType == CometChatConstants.MESSAGE_TYPE_IMAGE) {
             imageMessage!!.visibility = View.VISIBLE
-            Glide.with(context!!).load(message).into(imageMessage!!)
+            Glide.with(requireContext()).load(message).into(imageMessage!!)
         } else if (messageType == CometChatConstants.MESSAGE_TYPE_VIDEO) {
             videoMessage!!.visibility = View.VISIBLE
             val mediacontroller = MediaController(context)
@@ -337,7 +337,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
         } else if (messageType == UIKitConstants.IntentStrings.STICKERS) {
             ivForwardMessage!!.visibility = View.GONE
             stickerMessage?.visibility = View.VISIBLE
-            Glide.with(context!!).load(message).into(stickerMessage!!)
+            Glide.with(requireContext()).load(message).into(stickerMessage!!)
         } else if (messageType == UIKitConstants.IntentStrings.WHITEBOARD) {
             ivForwardMessage?.visibility = View.GONE
             whiteboardMessage?.visibility = View.VISIBLE
@@ -364,7 +364,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
             locationMessage!!.visibility = View.VISIBLE
             addressView!!.text = Utils.getAddress(context, parentMessageLatitude, parentMessageLongitude)
             val mapUrl = UIKitConstants.MapUrl.MAPS_URL + parentMessageLatitude + "," + parentMessageLongitude + "&key=" + UIKitConstants.MapUrl.MAP_ACCESS_KEY
-            Glide.with(context!!)
+            Glide.with(requireContext())
                     .load(mapUrl)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(mapView!!)
@@ -381,11 +381,11 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
                     val layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.WRAP_CONTENT)
                     linearLayout.setPadding(8, 8, 8, 8)
-                    linearLayout.background = context!!.resources
+                    linearLayout.background = requireContext().resources
                             .getDrawable(R.drawable.cc_message_bubble_right)
-                    linearLayout.backgroundTintList = ColorStateList.valueOf(context!!.resources
+                    linearLayout.backgroundTintList = ColorStateList.valueOf(requireContext().resources
                             .getColor(R.color.textColorWhite))
-                    layoutParams.bottomMargin = Utils.dpToPx(context!!, 8F).toInt()
+                    layoutParams.bottomMargin = Utils.dpToPx(requireContext(), 8F).toInt()
                     linearLayout.layoutParams = layoutParams
                     val textViewPercentage = TextView(context)
                     val textViewOption = TextView(context)
@@ -393,8 +393,8 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
                     textViewOption.setPadding(16, 4, 0, 4)
                     textViewOption.setTextAppearance(context, com.cometchat.pro.R.style.TextAppearance_AppCompat)
                     textViewPercentage.setTextAppearance(context, com.cometchat.pro.R.style.TextAppearance_AppCompat)
-                    textViewPercentage.setTextColor(context!!.resources.getColor(R.color.primaryTextColor))
-                    textViewOption.setTextColor(context!!.resources.getColor(R.color.primaryTextColor))
+                    textViewPercentage.setTextColor(requireContext().resources.getColor(R.color.primaryTextColor))
+                    textViewOption.setTextColor(requireContext().resources.getColor(R.color.primaryTextColor))
                     val optionStr = options.getString((k + 1).toString())
                     if (voteCount > 0) {
                         val percentage = (voterInfo[k].toInt() * 100 /
@@ -550,7 +550,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
 //        (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
 //        (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        if (Utils.isDarkMode(context!!)) {
+        if (Utils.isDarkMode(requireContext())) {
             ivMoreOption!!.imageTintList = ColorStateList.valueOf(resources.getColor(R.color.textColorWhite))
             ivForwardMessage!!.imageTintList = ColorStateList.valueOf(resources.getColor(R.color.textColorWhite))
             bottomLayout!!.setBackgroundColor(resources.getColor(R.color.darkModeBackground))
@@ -613,9 +613,9 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
         for ((k, v) in reactionInfo) {
             val chip = Chip(context)
             chip.chipStrokeWidth = 2f
-            chip.chipBackgroundColor = ColorStateList.valueOf(context!!.resources.getColor(android.R.color.transparent))
+            chip.chipBackgroundColor = ColorStateList.valueOf(requireContext().resources.getColor(android.R.color.transparent))
             chip.chipStrokeColor = ColorStateList.valueOf(Color.parseColor(UIKitSettings.color))
-//            chip.chipStrokeColor = ColorStateList.valueOf(context!!.resources.getColor(R.color.colorPrimaryDark))
+//            chip.chipStrokeColor = ColorStateList.valueOf(requireContext().resources.getColor(R.color.colorPrimaryDark))
             chip.text = k + " " + reactionInfo[k]
             reactionLayout.addView(chip)
             chip.setOnClickListener {
@@ -733,7 +733,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
             if (onGoingCallTxt != null) {
                 onGoingCallTxt!!.setOnClickListener(View.OnClickListener {
                     onGoingCallView!!.visibility = View.GONE
-                    Utils.joinOnGoingCall(context!!)
+                    Utils.joinOnGoingCall(requireContext())
                 })
             }
             if (onGoingCallClose != null) {
@@ -778,7 +778,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
 
             override fun onCameraActionClicked() {
                 if (Utils.hasPermissions(context, *CAMERA_PERMISSION)) {
-                    startActivityForResult(MediaUtils.openCamera(context!!), UIKitConstants.RequestCode.CAMERA)
+                    startActivityForResult(MediaUtils.openCamera(requireContext()), UIKitConstants.RequestCode.CAMERA)
                 } else {
                     requestPermissions(CAMERA_PERMISSION, UIKitConstants.RequestCode.CAMERA)
                 }
@@ -853,7 +853,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
     }
 
     private fun initAlert(customData: JSONObject) {
-        val builder = AlertDialog.Builder(context!!)
+        val builder = AlertDialog.Builder(requireContext())
         val view = LayoutInflater.from(context).inflate(R.layout.map_share_layout, null)
         builder.setView(view)
         try {
@@ -899,7 +899,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
     }
 
     private fun turnOnLocation() {
-        val builder = AlertDialog.Builder(context!!)
+        val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Turn on GPS")
         builder.setPositiveButton("ON") { dialog, which -> startActivityForResult(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), UIKitConstants.RequestCode.LOCATION) }.setNegativeButton("Close") { dialog, which -> dialog.dismiss() }
         builder.create()
@@ -908,7 +908,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
 
     private fun initLocation() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(Objects.requireNonNull(activity!!))
-        locationManager = Objects.requireNonNull(context!!).getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        locationManager = Objects.requireNonNull(requireContext()).getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (Utils.hasPermissions(context, *arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))) {
             try {
                 locationListener.let { locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DIST.toFloat(), it) }
@@ -1120,7 +1120,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
             UIKitConstants.RequestCode.FILE -> if (data != null) sendMediaMessage(MediaUtils.getRealPath(activity, data.data), CometChatConstants.MESSAGE_TYPE_FILE)
             UIKitConstants.RequestCode.BLOCK_USER -> name = data!!.getStringExtra("")
             UIKitConstants.RequestCode.LOCATION -> {
-                locationManager = context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+                locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
                 if (locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     Toast.makeText(context, "Gps enabled", Toast.LENGTH_SHORT).show()
                     getLocation()
@@ -1791,7 +1791,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
                     }
                 }
                 Log.e(Companion.TAG, "onCopy: $message")
-                val clipboardManager = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clipboardManager = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clipData = ClipData.newPlainText("ThreadMessageAdapter", copyMessage)
                 clipboardManager.setPrimaryClip(clipData)
                 Toast.makeText(context, resources.getString(R.string.text_copied), Toast.LENGTH_LONG).show()
@@ -1838,7 +1838,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
                         intent.putExtra(UIKitConstants.IntentStrings.IMAGE_MODERATION, isImageNotSafe)
                     }
                 }
-                context!!.startActivity(intent)
+                requireContext().startActivity(intent)
             }
 
             override fun onReactionClick(reaction: Reaction) {
@@ -1857,18 +1857,18 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
             }
 
             override fun onSendMessagePrivatelyClick() {
-                val intent = Intent(context, CometChatMessageListActivity::class.java)
+               /* val intent = Intent(context, CometChatMessageListActivity::class.java)
                 intent.putExtra(UIKitConstants.IntentStrings.UID, baseMessage?.sender?.uid)
                 intent.putExtra(UIKitConstants.IntentStrings.AVATAR, baseMessage?.sender?.avatar)
                 intent.putExtra(UIKitConstants.IntentStrings.STATUS, baseMessage?.sender?.status)
                 intent.putExtra(UIKitConstants.IntentStrings.NAME, baseMessage?.sender?.name)
                 intent.putExtra(UIKitConstants.IntentStrings.TYPE, CometChatConstants.RECEIVER_TYPE_USER)
-                startActivity(intent)
-                activity?.finish()
+                startActivity(intent)*/
+                // activity?.finish()
             }
 
             override fun onReplyPrivatelyClick() {
-                val intent = Intent(context, CometChatMessageListActivity::class.java)
+               /* val intent = Intent(context, CometChatMessageListActivity::class.java)
                 intent.putExtra(UIKitConstants.IntentStrings.UID, baseMessage?.sender?.uid)
                 intent.putExtra(UIKitConstants.IntentStrings.AVATAR, baseMessage?.sender?.avatar)
                 intent.putExtra(UIKitConstants.IntentStrings.STATUS,  baseMessage?.sender?.status)
@@ -1878,7 +1878,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
 
                 intent.putExtra(UIKitConstants.IntentStrings.TYPE, CometChatConstants.RECEIVER_TYPE_USER)
                 startActivity(intent)
-                activity?.finish()
+                activity?.finish()*/
             }
         })
     }
@@ -1929,9 +1929,9 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
             startActivity(intent)
         } else if (baseMessage != null && baseMessage!!.type == CometChatConstants.MESSAGE_TYPE_IMAGE) {
             val mediaName = (baseMessage as MediaMessage).attachment.fileName
-            Glide.with(context!!).asBitmap().load((baseMessage as MediaMessage).attachment.fileUrl).into(object : SimpleTarget<Bitmap?>() {
+            Glide.with(requireContext()).asBitmap().load((baseMessage as MediaMessage).attachment.fileUrl).into(object : SimpleTarget<Bitmap?>() {
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap?>?) {
-                    val path = MediaStore.Images.Media.insertImage(context!!.contentResolver, resource, mediaName, null)
+                    val path = MediaStore.Images.Media.insertImage(requireContext().contentResolver, resource, mediaName, null)
                     val shareIntent = Intent()
                     shareIntent.action = Intent.ACTION_SEND
                     shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(path))
@@ -1953,7 +1953,7 @@ class CometChatThreadMessageList : Fragment(), View.OnClickListener, OnMessageLo
             editMessageLayout!!.visibility = View.VISIBLE
             composeBox!!.etComposeBox!!.setText((baseMessage as TextMessage).text)
             if (messageAdapter != null) {
-                messageAdapter!!.setSelectedMessage(baseMessage!!.getId())
+                messageAdapter!!.setSelectedMessage(baseMessage!!.id)
                 messageAdapter!!.notifyDataSetChanged()
             }
         }

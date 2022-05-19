@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorEnterMessage"
     android:orientation="vertical"
-    tools:context=".view.fragments.ProfileFragment">
+    tools:context=".ui.fragments.ProfileFragment">
 
     <LinearLayout
         android:id="@+id/profileLayoutInformation"

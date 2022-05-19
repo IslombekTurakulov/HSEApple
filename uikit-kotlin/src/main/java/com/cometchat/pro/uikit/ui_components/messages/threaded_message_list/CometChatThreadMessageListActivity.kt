@@ -121,39 +121,44 @@ class CometChatThreadMessageListActivity : AppCompatActivity(), ThreadAdapter.On
                     intent.getSerializableExtra(UIKitConstants.IntentStrings.REACTION_INFO) as HashMap<String, String>
                 bundle.putSerializable(UIKitConstants.IntentStrings.REACTION_INFO, reactionInfo)
             }
-            if (messageType == CometChatConstants.MESSAGE_TYPE_TEXT)
-                bundle.putString(UIKitConstants.IntentStrings.TEXTMESSAGE, message)
-            else if (messageType == UIKitConstants.IntentStrings.LOCATION) {
-                bundle.putDouble(UIKitConstants.IntentStrings.LOCATION_LATITUDE, latitude)
-                bundle.putDouble(UIKitConstants.IntentStrings.LOCATION_LONGITUDE, longitude)
-            } else if (messageType == UIKitConstants.IntentStrings.STICKERS) {
-                bundle.putString(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_URL, mediaUrl)
-                bundle.putString(
-                    UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME,
-                    messagefileName
-                )
-            } else if (messageType == UIKitConstants.IntentStrings.WHITEBOARD || messageType == UIKitConstants.IntentStrings.WRITEBOARD) {
-                bundle.putString(UIKitConstants.IntentStrings.TEXTMESSAGE, message)
-            } else if (messageType == UIKitConstants.IntentStrings.POLLS) {
-                bundle.putStringArrayList(UIKitConstants.IntentStrings.POLL_RESULT, pollResult)
-                bundle.putString(UIKitConstants.IntentStrings.POLL_QUESTION, pollQuestion)
-                bundle.putString(UIKitConstants.IntentStrings.POLL_OPTION, pollOptions)
-                bundle.putInt(UIKitConstants.IntentStrings.POLL_VOTE_COUNT, voteCount)
-            } else {
-                bundle.putString(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_URL, mediaUrl)
-                bundle.putString(
-                    UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME,
-                    messagefileName
-                )
-                bundle.putString(
-                    UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_EXTENSION,
-                    mediaExtension
-                )
-                bundle.putInt(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_SIZE, mediaSize)
-                bundle.putString(
-                    UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_MIME_TYPE,
-                    mediaMime
-                )
+            when (messageType) {
+                CometChatConstants.MESSAGE_TYPE_TEXT -> bundle.putString(UIKitConstants.IntentStrings.TEXTMESSAGE, message)
+                UIKitConstants.IntentStrings.LOCATION -> {
+                    bundle.putDouble(UIKitConstants.IntentStrings.LOCATION_LATITUDE, latitude)
+                    bundle.putDouble(UIKitConstants.IntentStrings.LOCATION_LONGITUDE, longitude)
+                }
+                UIKitConstants.IntentStrings.STICKERS -> {
+                    bundle.putString(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_URL, mediaUrl)
+                    bundle.putString(
+                        UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME,
+                        messagefileName
+                    )
+                }
+                UIKitConstants.IntentStrings.WHITEBOARD, UIKitConstants.IntentStrings.WRITEBOARD -> {
+                    bundle.putString(UIKitConstants.IntentStrings.TEXTMESSAGE, message)
+                }
+                UIKitConstants.IntentStrings.POLLS -> {
+                    bundle.putStringArrayList(UIKitConstants.IntentStrings.POLL_RESULT, pollResult)
+                    bundle.putString(UIKitConstants.IntentStrings.POLL_QUESTION, pollQuestion)
+                    bundle.putString(UIKitConstants.IntentStrings.POLL_OPTION, pollOptions)
+                    bundle.putInt(UIKitConstants.IntentStrings.POLL_VOTE_COUNT, voteCount)
+                }
+                else -> {
+                    bundle.putString(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_URL, mediaUrl)
+                    bundle.putString(
+                        UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_NAME,
+                        messagefileName
+                    )
+                    bundle.putString(
+                        UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_EXTENSION,
+                        mediaExtension
+                    )
+                    bundle.putInt(UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_SIZE, mediaSize)
+                    bundle.putString(
+                        UIKitConstants.IntentStrings.MESSAGE_TYPE_IMAGE_MIME_TYPE,
+                        mediaMime
+                    )
+                }
             }
             fragment.arguments = bundle
             supportFragmentManager.beginTransaction().replace(R.id.ChatFragment, fragment).commit()
@@ -185,7 +190,7 @@ class CometChatThreadMessageListActivity : AppCompatActivity(), ThreadAdapter.On
 
     override fun onBackPressed() {
         super.onBackPressed()
-        startActivity(Intent(this, CometChatUI::class.java))
+        // startActivity(Intent(this, CometChatUI::class.java))
         finish()
     }
 

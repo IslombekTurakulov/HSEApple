@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/almostDark"
     android:padding="@dimen/_20sdp"
-    tools:context=".view.activities.CreateGroupChatActivity">
+    tools:context=".ui.activities.CreateGroupChatActivity">
 
 
     <de.hdodenhof.circleimageview.CircleImageView

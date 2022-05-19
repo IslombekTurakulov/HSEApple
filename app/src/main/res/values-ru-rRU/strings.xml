@@ -48,4 +48,8 @@
     <string name="welcome_login_first">Добро пожаловать</string>
     <string name="welcome_login_second">в HSE</string>
     <string name="welcome_login_third">Apple</string>
+    <string name="selected_language">Выбран язык Русский</string>
+    <string name="available_courses">Доступные курсы</string>
+    <string name="no_grades">Нет оценок</string>
+    <string name="task_info_begin">Начать</string>
 </resources>

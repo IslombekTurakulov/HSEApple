@@ -37,7 +37,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="16dp"
                     android:src="@drawable/ic_close_24dp"
-                    android:tint="@color/textColorWhite" />
+                    app:tint="@color/textColorWhite" />
             </RelativeLayout>
 
             <View
@@ -131,7 +131,7 @@
                         android:layout_height="24dp"
                         android:layout_alignParentEnd="true"
                         android:src="@drawable/ic_add_circle_filled"
-                        android:tint="@color/textColorWhite"/>
+                        app:tint="@color/textColorWhite" />
                 </RelativeLayout>
 
             </com.google.android.material.card.MaterialCardView>

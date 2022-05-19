@@ -17,7 +17,7 @@ class AudioBarConstant {
 
     object AudioBarConstants {
         const val DEFAULT_DENSITY = 0.25f
-        const val DEFAULT_COLOR = Color.BLACK
+        const val DEFAULT_COLOR = Color.WHITE
         const val DEFAULT_STROKE_WIDTH = 6.0f
         const val MAX_ANIM_BATCH_COUNT = 4
     }

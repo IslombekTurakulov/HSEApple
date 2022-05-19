@@ -46,7 +46,7 @@ class UIKitSettings(var context: Context) {
         var sendTypingIndicator: Boolean = true
         var showReadDeliveryReceipts = true
         var replyingToMessage: Boolean = true
-        var threadedChats: Boolean  = true
+        var threadedChats: Boolean = true
         var sendPhotoVideos: Boolean = true
         var sendFiles = true
         var sendVoiceNotes = true
@@ -55,6 +55,7 @@ class UIKitSettings(var context: Context) {
         var searchUsers: Boolean = true
         var searchGroups: Boolean = true
         var searchMessages: Boolean = true
+
         // Voice & Video Calling/Conferencing
         var userAudioCall: Boolean = true
         var userVideoCall: Boolean = true
@@ -67,7 +68,7 @@ class UIKitSettings(var context: Context) {
         //User Experience
         var thumbnailGeneration: Boolean = true
         var linkPreview: Boolean = true
-        var saveMessages: Boolean  = true
+        var saveMessages: Boolean = true
         var pinMessages: Boolean = true
         var richMediaPreview: Boolean = true
         var voiceTranscription: Boolean = true
@@ -79,8 +80,8 @@ class UIKitSettings(var context: Context) {
         var sendLiveReaction: Boolean = true
         var messageTranslation: Boolean = true
         var smartReplies: Boolean = true
-        var polls: Boolean  = true
-        var collaborativeWhiteboard: Boolean = true
+        var polls: Boolean = true
+        var collaborativeWhiteboard: Boolean = false
         var collaborativeDocument: Boolean = true
         var blockUser = true
         var allowModeratorToDeleteMemberMessages: Boolean = true
@@ -94,7 +95,7 @@ class UIKitSettings(var context: Context) {
         var malwareScanner: Boolean = true
         var sentimentAnalysis: Boolean = true
         var inflightMessageModeration: Boolean = true
-        var messageInPrivate: Boolean = true
+        var messageInPrivate: Boolean = false
         var viewProfile: Boolean = true
         var searchChats: Boolean = true
 
@@ -138,16 +139,17 @@ class UIKitSettings(var context: Context) {
         fun setAppID(appID: String) {
             UIKitConstants.AppInfo.APP_ID = appID
         }
+
         fun setAuthKey(authKey: String) {
             UIKitConstants.AppInfo.AUTH_KEY = authKey
         }
 
-        fun sendMessageInOneOnOne(sendMessageInOneOnOne : Boolean) {
+        fun sendMessageInOneOnOne(sendMessageInOneOnOne: Boolean) {
             this.sendMessageInOneOnOne = sendMessageInOneOnOne
         }
 
-        fun sendMessageInGroup(sendMessageInGroup : Boolean) {
-            this.sendMessageInGroup  = sendMessageInGroup
+        fun sendMessageInGroup(sendMessageInGroup: Boolean) {
+            this.sendMessageInGroup = sendMessageInGroup
         }
 
 //        fun setColor(color: String) {
@@ -165,6 +167,7 @@ class UIKitSettings(var context: Context) {
         fun setCallSoundEnable(isEnable: Boolean) {
             this.enableSoundForCalls = isEnable
         }
+
         fun enableLiveReaction(isEnable: Boolean) {
             this.sendLiveReaction = isEnable
         }
@@ -189,19 +192,21 @@ class UIKitSettings(var context: Context) {
         fun showCallNotification(isVisible: Boolean) {
             if (!isVisible) {
                 UIKitConstants.MessageRequest.messageCategoriesForGroup
-                        .remove(CometChatConstants.CATEGORY_CALL)
+                    .remove(CometChatConstants.CATEGORY_CALL)
                 UIKitConstants.MessageRequest.messageTypesForUser
-                        .remove(CometChatConstants.CATEGORY_CALL)
+                    .remove(CometChatConstants.CATEGORY_CALL)
             } else {
                 if (!UIKitConstants.MessageRequest.messageCategoriesForGroup
-                                .contains(CometChatConstants.CATEGORY_CALL)) {
+                        .contains(CometChatConstants.CATEGORY_CALL)
+                ) {
                     UIKitConstants.MessageRequest.messageCategoriesForGroup
-                            .add(CometChatConstants.CATEGORY_CALL)
+                        .add(CometChatConstants.CATEGORY_CALL)
                 }
                 if (!UIKitConstants.MessageRequest.messageCategoriesForUser
-                                .contains(CometChatConstants.CATEGORY_CALL)) {
+                        .contains(CometChatConstants.CATEGORY_CALL)
+                ) {
                     UIKitConstants.MessageRequest.messageCategoriesForUser
-                            .add(CometChatConstants.CATEGORY_CALL)
+                        .add(CometChatConstants.CATEGORY_CALL)
                 }
             }
         }
@@ -210,19 +215,21 @@ class UIKitSettings(var context: Context) {
             this.callNotifications = isHidden
             if (isHidden) {
                 UIKitConstants.MessageRequest.messageCategoriesForGroup
-                        .remove(CometChatConstants.CATEGORY_CALL)
+                    .remove(CometChatConstants.CATEGORY_CALL)
                 UIKitConstants.MessageRequest.messageTypesForUser
-                        .remove(CometChatConstants.CATEGORY_CALL)
+                    .remove(CometChatConstants.CATEGORY_CALL)
             } else {
                 if (!UIKitConstants.MessageRequest.messageCategoriesForGroup
-                                .contains(CometChatConstants.CATEGORY_CALL)) {
+                        .contains(CometChatConstants.CATEGORY_CALL)
+                ) {
                     UIKitConstants.MessageRequest.messageCategoriesForGroup
-                            .add(CometChatConstants.CATEGORY_CALL)
+                        .add(CometChatConstants.CATEGORY_CALL)
                 }
                 if (!UIKitConstants.MessageRequest.messageCategoriesForUser
-                                .contains(CometChatConstants.CATEGORY_CALL)) {
+                        .contains(CometChatConstants.CATEGORY_CALL)
+                ) {
                     UIKitConstants.MessageRequest.messageCategoriesForUser
-                            .add(CometChatConstants.CATEGORY_CALL)
+                        .add(CometChatConstants.CATEGORY_CALL)
                 }
             }
         }
@@ -231,12 +238,13 @@ class UIKitSettings(var context: Context) {
         fun showGroupNotification(isVisible: Boolean) {
             if (!isVisible) {
                 UIKitConstants.MessageRequest.messageTypesForGroup
-                        .remove(CometChatConstants.ActionKeys.ACTION_TYPE_GROUP_MEMBER)
+                    .remove(CometChatConstants.ActionKeys.ACTION_TYPE_GROUP_MEMBER)
             } else {
                 if (!UIKitConstants.MessageRequest.messageTypesForGroup
-                                .contains(CometChatConstants.ActionKeys.ACTION_TYPE_GROUP_MEMBER)) {
+                        .contains(CometChatConstants.ActionKeys.ACTION_TYPE_GROUP_MEMBER)
+                ) {
                     UIKitConstants.MessageRequest.messageTypesForGroup
-                            .add(CometChatConstants.ActionKeys.ACTION_TYPE_GROUP_MEMBER)
+                        .add(CometChatConstants.ActionKeys.ACTION_TYPE_GROUP_MEMBER)
                 }
             }
         }
@@ -245,12 +253,13 @@ class UIKitSettings(var context: Context) {
             this.joinLeaveNotifications = isHidden
             if (isHidden) {
                 UIKitConstants.MessageRequest.messageTypesForGroup
-                        .remove(CometChatConstants.ActionKeys.ACTION_TYPE_GROUP_MEMBER)
+                    .remove(CometChatConstants.ActionKeys.ACTION_TYPE_GROUP_MEMBER)
             } else {
                 if (!UIKitConstants.MessageRequest.messageTypesForGroup
-                                .contains(CometChatConstants.ActionKeys.ACTION_TYPE_GROUP_MEMBER)) {
+                        .contains(CometChatConstants.ActionKeys.ACTION_TYPE_GROUP_MEMBER)
+                ) {
                     UIKitConstants.MessageRequest.messageTypesForGroup
-                            .add(CometChatConstants.ActionKeys.ACTION_TYPE_GROUP_MEMBER)
+                        .add(CometChatConstants.ActionKeys.ACTION_TYPE_GROUP_MEMBER)
                 }
             }
         }
@@ -361,7 +370,7 @@ class UIKitSettings(var context: Context) {
             this.banMember = allowBanKickMembers
         }
 
-        fun allowKickMembers(kickMember : Boolean) {
+        fun allowKickMembers(kickMember: Boolean) {
             this.kickMember = kickMember
         }
 
@@ -394,7 +403,7 @@ class UIKitSettings(var context: Context) {
             this.groupVideoCall = groupVideoCall
         }
 
-        fun enableUserVideoCall(enableUserVideoCall : Boolean) {
+        fun enableUserVideoCall(enableUserVideoCall: Boolean) {
             this.userVideoCall = enableUserVideoCall
         }
 
@@ -420,6 +429,7 @@ class UIKitSettings(var context: Context) {
 
 
     }
+
     fun addConnectionListener(tag: String) {
         CometChat.addConnectionListener(tag, object : CometChat.ConnectionListener {
             override fun onConnected() {
@@ -449,7 +459,10 @@ class UIKitSettings(var context: Context) {
                 intent.putExtra(UIKitConstants.IntentStrings.AVATAR, user.avatar)
                 intent.putExtra(UIKitConstants.IntentStrings.STATUS, user.status)
                 intent.putExtra(UIKitConstants.IntentStrings.NAME, user.name)
-                intent.putExtra(UIKitConstants.IntentStrings.TYPE, CometChatConstants.RECEIVER_TYPE_USER)
+                intent.putExtra(
+                    UIKitConstants.IntentStrings.TYPE,
+                    CometChatConstants.RECEIVER_TYPE_USER
+                )
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 context.startActivity(intent)
             }
@@ -470,13 +483,21 @@ class UIKitSettings(var context: Context) {
                     intent.putExtra(UIKitConstants.IntentStrings.GROUP_OWNER, group.owner)
                     intent.putExtra(UIKitConstants.IntentStrings.NAME, group.name)
                     intent.putExtra(UIKitConstants.IntentStrings.GROUP_TYPE, group.groupType)
-                    intent.putExtra(UIKitConstants.IntentStrings.TYPE, CometChatConstants.RECEIVER_TYPE_GROUP)
+                    intent.putExtra(
+                        UIKitConstants.IntentStrings.TYPE,
+                        CometChatConstants.RECEIVER_TYPE_GROUP
+                    )
                     intent.putExtra(UIKitConstants.IntentStrings.MEMBER_COUNT, group.membersCount)
                     intent.putExtra(UIKitConstants.IntentStrings.GROUP_DESC, group.description)
                     intent.putExtra(UIKitConstants.IntentStrings.GROUP_PASSWORD, group.password)
                     context.startActivity(intent)
                 } else {
-                    callbackListener.onError(CometChatException("ERR_NOT_A_MEMBER", String.format(context.getString(R.string.not_a_member), group.name)))
+                    callbackListener.onError(
+                        CometChatException(
+                            "ERR_NOT_A_MEMBER",
+                            String.format(context.getString(R.string.not_a_member), group.name)
+                        )
+                    )
                 }
             }
 

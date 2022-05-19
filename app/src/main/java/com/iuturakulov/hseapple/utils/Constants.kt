@@ -6,8 +6,9 @@ import com.cometchat.pro.models.User
 lateinit var preferences: SharedPreferences
 lateinit var ACCESS_TOKEN: String
 lateinit var REFRESH_TOKEN: String
-lateinit var USER_CHAT: User
-const val IP_ADDRESS = "http://80.66.64.53:8080"
+var USER_CHAT: User? = null
+var LANGUAGE: String = "en"
+const val IP_ADDRESS = "http://80.66.64.53:8080/"
 const val REQUEST_LOGIN = 1
 const val TEMP_TOKEN: String =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJtaWNyb3NvZnQ6aWRlbnRpdHlzZXJ2ZXI6MGQ0NmFlMDUtM2JiYy00MzQ2LWEzYTMtMWQ3MzJiNDllYTUzIiwiaXNzIjoiaHR0cDovL2F1dGguaHNlLnJ1L2FkZnMvc2VydmljZXMvdHJ1c3QiLCJpYXQiOjE2NTExMzgyNzIsIm5iZiI6MTY1MTEzODI3MiwiZXhwIjoxNjUxMTQxODcyLCJnaXZlbl9uYW1lIjoi0JPRgNC40LPQvtGA0LjQuSIsImNvbW1vbm5hbWUiOiLQodC-0YHQvdC-0LLRgdC60LjQuSDQk9GA0LjQs9C-0YDQuNC5INCc0LjRhdCw0LnQu9C-0LLQuNGHIiwiZmFtaWx5X25hbWUiOiLQodC-0YHQvdC-0LLRgdC60LjQuSIsImVtYWlsIjoiZ21zb3Nub3Zza2l5QGVkdS5oc2UucnUiLCJhcHB0eXBlIjoiUHVibGljIiwiYXBwaWQiOiIwZDQ2YWUwNS0zYmJjLTQzNDYtYTNhMy0xZDczMmI0OWVhNTMiLCJhdXRobWV0aG9kIjoidXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6Mi4wOmFjOmNsYXNzZXM6UGFzc3dvcmRQcm90ZWN0ZWRUcmFuc3BvcnQiLCJhdXRoX3RpbWUiOiIyMDIyLTA0LTI3VDE1OjU3OjI2LjU5M1oiLCJ2ZXIiOiIxLjAifQ.mG2KAlMopVguX952qDxahpNsJvCylxCCEldK-_filqo"
