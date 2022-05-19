@@ -61,8 +61,14 @@ class CreateTestsActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         create_task_button.setOnClickListener {
             if (validateInputFields()) {
                 if (!dateTimeOfDeadline.text.isNullOrEmpty()) {
-                    createTest()
-                    finish()
+                    try {
+                        createTest()
+                        finish()
+                    } catch (exception: UninitializedPropertyAccessException) {
+                        exception.printStackTrace()
+                    } catch (exception: NullPointerException) {
+                        exception.printStackTrace()
+                    }
                 } else {
                     toast("Please select correct datetime!")
                 }

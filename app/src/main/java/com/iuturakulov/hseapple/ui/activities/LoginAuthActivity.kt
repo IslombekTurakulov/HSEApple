@@ -28,15 +28,15 @@ class LoginAuthActivity : BaseActivity() {
         BaseApplication.appComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_auth)
-      /*  USER = UserEntity(
+        USER = UserEntity(
             id = 1,
             fullName = "Туракулов Исломбек Улугбекович",
             email = "iuturakulov@edu.hse.ru"
-        )*/
+        )
         authLogButton.setOnClickListener {
             authLogButton!!.isClickable = false
-            // createUser()
-            AuthHelper.login(this, 1)
+            createUser()
+            // AuthHelper.login(this, 1)
         }
     }
 

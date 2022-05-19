@@ -52,8 +52,14 @@ class CreateNewsActivity : AppCompatActivity(R.layout.activity_create_news) {
         }
         create_event_button.setOnClickListener {
             if (validateInputFields()) {
-                createEvent()
-                finish()
+                try {
+                    createEvent()
+                    finish()
+                } catch (exception: UninitializedPropertyAccessException) {
+                    exception.printStackTrace()
+                } catch (exception: NullPointerException) {
+                    exception.printStackTrace()
+                }
             }
         }
         newsImageCreate.setOnClickListener {

@@ -10,6 +10,7 @@ import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.ui.activities.CreateNewsActivity
 import com.iuturakulov.hseapple.ui.adapters.CompletedTestsAdapter
 import com.iuturakulov.hseapple.ui.adapters.NewsAdapter
+import com.iuturakulov.hseapple.utils.ACCESS_TOKEN
 import com.iuturakulov.hseapple.utils.APP_ACTIVITY
 import com.iuturakulov.hseapple.utils.USER_CHAT
 import com.iuturakulov.hseapple.utils.showToast
@@ -36,12 +37,20 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         } else {
             create_event_layout.visibility = View.VISIBLE
         }
-        newsAdapter = NewsAdapter(APP_ACTIVITY.applicationContext)
-        completedTestsAdapter = CompletedTestsAdapter()
-        newsRecyclerView.adapter = newsAdapter
-        gradesRecyclerView.adapter = completedTestsAdapter
-        initializeNewsAdapter()
-        initializeGradesAdapter()
+        if (ACCESS_TOKEN.isNotBlank() && USER_CHAT != null) {
+            try {
+                newsAdapter = NewsAdapter(APP_ACTIVITY.applicationContext)
+                completedTestsAdapter = CompletedTestsAdapter()
+                newsRecyclerView.adapter = newsAdapter
+                gradesRecyclerView.adapter = completedTestsAdapter
+                initializeNewsAdapter()
+                initializeGradesAdapter()
+            } catch (exception: UninitializedPropertyAccessException) {
+                exception.printStackTrace()
+            } catch (exception: NullPointerException) {
+                exception.printStackTrace()
+            }
+        }
         create_event_tool.setOnClickListener {
             showToast("Create event")
             val startupIntent =

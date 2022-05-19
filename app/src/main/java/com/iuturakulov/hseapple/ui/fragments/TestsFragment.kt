@@ -11,6 +11,7 @@ import com.iuturakulov.hseapple.ui.activities.CreateTestsActivity
 import com.iuturakulov.hseapple.ui.adapters.AllTestsAdapter
 import com.iuturakulov.hseapple.ui.adapters.CompletedTestsAdapter
 import com.iuturakulov.hseapple.ui.adapters.CurrentTestsAdapter
+import com.iuturakulov.hseapple.utils.ACCESS_TOKEN
 import com.iuturakulov.hseapple.utils.APP_ACTIVITY
 import com.iuturakulov.hseapple.utils.USER_CHAT
 import com.iuturakulov.hseapple.utils.showToast
@@ -39,9 +40,17 @@ class TestsFragment : Fragment(R.layout.fragment_tests) {
             create_lab_task.visibility = View.VISIBLE
         }
         news_text_info.text = requireActivity().getString(R.string.tests_menu_text)
-        initializeRecyclerViews()
-        initializeCurrentTests()
-        initializeCompletedTests()
+        if (ACCESS_TOKEN.isNotBlank() && USER_CHAT != null) {
+            try {
+                initializeRecyclerViews()
+                initializeCurrentTests()
+                initializeCompletedTests()
+            } catch (exception: UninitializedPropertyAccessException) {
+                exception.printStackTrace()
+            } catch (exception: NullPointerException) {
+                exception.printStackTrace()
+            }
+        }
         create_lab_task.setOnClickListener {
             showToast("Lab task selected")
             val startupIntent =
@@ -51,9 +60,15 @@ class TestsFragment : Fragment(R.layout.fragment_tests) {
                 android.R.anim.fade_in,
                 android.R.anim.fade_out
             )
-            initializeRecyclerViews()
-            initializeCurrentTests()
-            initializeCompletedTests()
+            try {
+                initializeRecyclerViews()
+                initializeCurrentTests()
+                initializeCompletedTests()
+            } catch (exception: UninitializedPropertyAccessException) {
+                exception.printStackTrace()
+            } catch (exception: NullPointerException) {
+                exception.printStackTrace()
+            }
         }
     }
 

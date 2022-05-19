@@ -73,15 +73,15 @@ class ChatsFragment : Fragment(), OnAlertDialogButtonClickListener {
             }
         })
         CometChatGroupList.setItemClickListener(object : OnItemClickListener<Any>() {
-            override fun OnItemClick(t: Any, position: Int) {
-                group = t as Group
+            override fun OnItemClick(item: Any, position: Int) {
+                group = item as Group
                 if (group!!.isJoined) {
                     startGroupIntent(group)
                 } else {
                     if (group!!.groupType == CometChatConstants.GROUP_TYPE_PASSWORD) {
                         val dialogue = layoutInflater.inflate(R.layout.cc_dialog, null)
-                        val tvTitle = dialogue.findViewById<TextView>(R.id.textViewDialogueTitle)
-                        tvTitle.text = ""
+                        val title = dialogue.findViewById<TextView>(R.id.textViewDialogueTitle)
+                        title.text = ""
                         CustomAlertDialogHelper(
                             requireContext(), "Password", dialogue, "Join",
                             "", "Cancel", this@ChatsFragment, 1, false

@@ -41,9 +41,9 @@
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
 
-<!--    <fragment
+    <fragment
         android:id="@+id/create_event"
         android:name="com.iuturakulov.hseapple.view.activities.CreateNewsActivity"
         android:label="Create event"
-        tools:layout="@layout/activity_create_news" />-->
+        tools:layout="@layout/activity_create_news" />
 </navigation>
