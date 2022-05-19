@@ -10,10 +10,6 @@ import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.api.OkHttpInstance
 import com.iuturakulov.hseapple.model.TaskEntity
 import com.iuturakulov.hseapple.utils.*
-import kotlinx.android.synthetic.main.activity_create_tests.*
-import kotlinx.android.synthetic.main.activity_create_tests.changeDateTimeDeadline
-import kotlinx.android.synthetic.main.activity_create_tests.create_task_button
-import kotlinx.android.synthetic.main.activity_create_tests.dateTimeOfDeadline
 import kotlinx.android.synthetic.main.activity_task_info.*
 import kotlinx.android.synthetic.main.toolbar_create_tests.*
 import okhttp3.MediaType
@@ -32,27 +28,15 @@ class TaskInfoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_info)
-        fieldOptionsInitializer(false)
+        fieldOptionsInitializer(true)
         setListeners()
         initializeTopAppBar()
     }
 
     private fun setListeners() {
-        edit_things_layout.visibility = View.INVISIBLE
-        /* changeDateTimeDeadline.onClickDebounced {
-             MaterialDialog(this).show {
-                 title(text = "Select Date and Time")
-                 dateTimePicker(requireFutureDateTime = true) { _, dateTime ->
-                     toast("Selected date/time: ${dateTime.formatDateTime()}")
-                     dateTimeOfDeadline.text = dateTime.formatDateTime()
-                 }
-                 lifecycleOwner(this@TaskInfoActivity)
-             }
-         }*/
         create_task_button.setOnClickListener {
             if (validateInputFields()) {
                 if (!dateTimeOfDeadline.text.isNullOrEmpty()) {
-                    createTest()
                     fieldOptionsInitializer(false)
                 } else {
                     toast("Please select correct datetime!")
@@ -61,7 +45,7 @@ class TaskInfoActivity : AppCompatActivity() {
         }
         load_task_button.setOnClickListener {
             if (!urlTextInput.text.isNullOrEmpty()) {
-                // createTest()
+                createTest()
             } else {
                 urlTextInput.error = "Please type your url here..."
             }
@@ -69,12 +53,12 @@ class TaskInfoActivity : AppCompatActivity() {
     }
 
     private fun validateInputFields(): Boolean {
-        if (!createTextTitleTask.validateTitle()) {
-            createTextTitleTask.error = "Incorrect title field"
+        if (!createTextTitleTaskInfo.validateTitle()) {
+            createTextTitleTaskInfo.error = "Incorrect title field"
             return false
         }
-        if (!createTextDescTask.validateNews()) {
-            createTextDescTask.error = "Incorrect description field"
+        if (!createTextDescTaskInfo.validateNews()) {
+            createTextDescTaskInfo.error = "Incorrect description field"
             return false
         }
         return true
@@ -86,7 +70,7 @@ class TaskInfoActivity : AppCompatActivity() {
         tests_info.text = taskEntity.title
         createTextTitleTaskInfo.setText(taskEntity.title)
         createTextDescTaskInfo.setText(taskEntity.description)
-        deadlineTextInfo.text = taskEntity.deadline
+        dateTimeOfDeadline.text = taskEntity.deadline
         if (USER_CHAT!!.role != "teacher") {
             edit_things_layout.visibility = View.GONE
         } else {
@@ -96,7 +80,7 @@ class TaskInfoActivity : AppCompatActivity() {
             onBackPressed()
         }
         edit_test.setOnClickListener {
-            fieldOptionsInitializer(true)
+            fieldOptionsInitializer(false)
         }
         delete_test.setOnClickListener {
             val dialogClickListener: DialogInterface.OnClickListener =
@@ -151,19 +135,19 @@ class TaskInfoActivity : AppCompatActivity() {
             mediaType,
             """{
                   "form": "lab",
-                  "title": "${createTextTitleTask.text}",
-                  "description": "${createTextDescTask.text}",
+                  "title": "${createTextTitleTaskInfo.text}",
+                  "description": "${createTextDescTaskInfo.text}",
                   "task_content": "Задание",
                   "deadline": "${dateTimeOfDeadline.text}",
-                  "status": false
+                  "status": true
                 }"""
         )
         var responseGet: Response? = null
         try {
             responseGet = OkHttpInstance.getInstance().newCall(
                 OkHttpInstance.postRequest(
-                    "course/${if (SELECTION == CourseSelection.CHOSEN_SECOND) 1 else 2}/task",
-                    body, TEMP_TOKEN
+                    "task/${if (SELECTION == CourseSelection.CHOSEN_SECOND) 1 else 2}/answer",
+                    body, ACCESS_TOKEN
                 )
             ).execute()
         } catch (e: IOException) {
@@ -172,6 +156,7 @@ class TaskInfoActivity : AppCompatActivity() {
         when {
             responseGet != null -> {
                 Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                finish()
             }
             else -> {
                 Toast.makeText(this, "Failure", Toast.LENGTH_SHORT).show()

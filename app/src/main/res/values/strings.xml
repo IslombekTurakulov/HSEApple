@@ -23,7 +23,7 @@
     <string name="language" translatable="false">Language</string>
     <string name="auth_info_login" translatable="false">Sign in with SmartPoint</string>
     <string name="navigation_menu_text" translatable="false">Navigation</string>
-    <string name="tests_menu_text" translatable="false">Tests</string>
+    <string name="tests_menu_text" translatable="false">Tasks</string>
     <string name="news_menu_text" translatable="false">News</string>
     <string name="profile_menu_text" translatable="false">Profile</string>
     <string name="status_student_second" translatable="false">Student, 2 course</string>

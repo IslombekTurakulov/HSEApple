@@ -194,6 +194,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_7sdp"
                             android:layout_marginEnd="@dimen/_7sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
                             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

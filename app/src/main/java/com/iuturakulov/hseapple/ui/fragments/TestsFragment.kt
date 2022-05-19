@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.ui.activities.CreateTestsActivity
+import com.iuturakulov.hseapple.ui.adapters.AllTestsAdapter
 import com.iuturakulov.hseapple.ui.adapters.CompletedTestsAdapter
 import com.iuturakulov.hseapple.ui.adapters.CurrentTestsAdapter
 import com.iuturakulov.hseapple.utils.APP_ACTIVITY
@@ -38,10 +39,7 @@ class TestsFragment : Fragment(R.layout.fragment_tests) {
             create_lab_task.visibility = View.VISIBLE
         }
         news_text_info.text = requireActivity().getString(R.string.tests_menu_text)
-        currentTestsAdapter = CurrentTestsAdapter()
-        completedTestsAdapter = CompletedTestsAdapter()
-        currentTestsRecyclerView.adapter = currentTestsAdapter
-        completedTestsRecyclerView.adapter = completedTestsAdapter
+        initializeRecyclerViews()
         initializeCurrentTests()
         initializeCompletedTests()
         create_lab_task.setOnClickListener {
@@ -53,13 +51,22 @@ class TestsFragment : Fragment(R.layout.fragment_tests) {
                 android.R.anim.fade_in,
                 android.R.anim.fade_out
             )
-            currentTestsAdapter = CurrentTestsAdapter()
-            completedTestsAdapter = CompletedTestsAdapter()
-            currentTestsRecyclerView.adapter = currentTestsAdapter
-            completedTestsRecyclerView.adapter = completedTestsAdapter
+            initializeRecyclerViews()
             initializeCurrentTests()
             initializeCompletedTests()
         }
+    }
+
+    private fun initializeRecyclerViews() {
+        currentTestsAdapter = CurrentTestsAdapter()
+        if (USER_CHAT?.role == "teacher" || USER_CHAT?.role == "assistant") {
+            completedTestsRecyclerView.adapter = AllTestsAdapter()
+        } else {
+            completedTestsAdapter = CompletedTestsAdapter()
+            currentTestsAdapter.setAllItems(completedTestsAdapter.getAllItems())
+            completedTestsRecyclerView.adapter = completedTestsAdapter
+        }
+        currentTestsRecyclerView.adapter = currentTestsAdapter
     }
 
     private fun initializeCompletedTests() {

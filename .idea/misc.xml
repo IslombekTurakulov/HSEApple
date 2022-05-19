@@ -13,6 +13,7 @@
         <entry key="..\:/Course/HSEApple/app/src/main/res/drawable/baseline_info_outline_24.xml" value="0.124" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/drawable/baseline_language_24.xml" value="0.1345" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/drawable/baseline_question_mark_24.xml" value="0.2295" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/drawable/baseline_receipt_long_24.xml" value="0.1875" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/drawable/empty_tail_size.xml" value="0.175" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/drawable/gradient_splash_screen.xml" value="0.1655" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/drawable/ic_info.xml" value="0.1655" />
@@ -29,7 +30,7 @@
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_create_news.xml" value="0.2" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_create_tests.xml" value="0.264" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_list_of_assistants.xml" value="0.152" />
-        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_list_of_tasks.xml" value="0.11302083333333333" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_list_of_tasks.xml" value="0.264" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_list_of_users.xml" value="0.23854166666666668" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_load_fragment.xml" value="0.176" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/activity_login.xml" value="0.136" />
@@ -46,12 +47,13 @@
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/component_list_course.xml" value="0.152" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/component_row_conversation.xml" value="0.11302083333333333" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/component_test.xml" value="0.4" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/component_user_task.xml" value="0.536" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_available_courses.xml" value="0.264" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_chat.xml" value="0.25416666666666665" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_chats.xml" value="0.4" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_create_news.xml" value="0.176" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_first.xml" value="0.10885416666666667" />
-        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_news.xml" value="0.12" />
+        <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_news.xml" value="0.2" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_news_info.xml" value="0.264" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_profile.xml" value="0.176" />
         <entry key="..\:/Course/HSEApple/app/src/main/res/layout/fragment_requests.xml" value="0.25416666666666665" />

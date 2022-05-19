@@ -9,6 +9,7 @@ import com.cometchat.pro.core.CometChat
 import com.cometchat.pro.exceptions.CometChatException
 import com.cometchat.pro.models.User
 import com.google.gson.Gson
+import com.hse.auth.AuthHelper
 import com.hse.auth.utils.AuthConstants
 import com.hse.core.BaseApplication
 import com.hse.core.ui.BaseActivity
@@ -27,15 +28,15 @@ class LoginAuthActivity : BaseActivity() {
         BaseApplication.appComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_auth)
-        USER = UserEntity(
+      /*  USER = UserEntity(
             id = 1,
             fullName = "Туракулов Исломбек Улугбекович",
             email = "iuturakulov@edu.hse.ru"
-        )
+        )*/
         authLogButton.setOnClickListener {
             authLogButton!!.isClickable = false
-            createUser()
-            // AuthHelper.login(this, 1)
+            // createUser()
+            AuthHelper.login(this, 1)
         }
     }
 
@@ -82,11 +83,11 @@ class LoginAuthActivity : BaseActivity() {
         val email = USER.email!!.split("@")[0]
         try {
             loginToChat(email)
-            updateLoginUser()
+            // updateLoginUser()
         } catch (exception: NullPointerException) {
             exception.printStackTrace()
         }
-        // toast("Success: ${USER_CHAT?.role} ${USER_CHAT?.name}")
+        toast("Success: ${USER_CHAT?.role} ${USER_CHAT?.name}")
         val intent = Intent(this, AvailableCoursesActivity::class.java)
         intent.flags =
             Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP

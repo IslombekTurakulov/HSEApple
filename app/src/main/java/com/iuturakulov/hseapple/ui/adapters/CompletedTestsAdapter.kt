@@ -1,30 +1,54 @@
 package com.iuturakulov.hseapple.ui.adapters
 
-import android.content.Intent
 import android.os.StrictMode
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.utils.MDUtil.ifNotZero
+import com.google.gson.Gson
 import com.iuturakulov.hseapple.R
-import com.iuturakulov.hseapple.model.TaskEntity
-import com.iuturakulov.hseapple.ui.activities.TaskInfoActivity
-import com.iuturakulov.hseapple.utils.allTests
-import com.iuturakulov.hseapple.utils.taskInfo
+import com.iuturakulov.hseapple.api.OkHttpInstance
+import com.iuturakulov.hseapple.model.UserTaskEntity
+import com.iuturakulov.hseapple.utils.*
 import kotlinx.android.synthetic.main.component_test.view.*
+import timber.log.Timber
+import java.io.IOException
 
 class CompletedTestsAdapter : RecyclerView.Adapter<CompletedTestsAdapter.DataViewHolder>() {
 
-    private var completedTestsList: ArrayList<TaskEntity> = arrayListOf()
+    private var completedTestsList: ArrayList<UserTaskEntity> = arrayListOf()
 
     private fun reloadItems() {
-        completedTestsList.addAll(allTests)
-        completedTestsList.removeAll {
-            !it.status
+        try {
+            val requestHttp =
+                "course/task/${if (SELECTION == CourseSelection.CHOSEN_SECOND) 1 else 2}?status=true&form=lab"
+            val response = OkHttpInstance.getInstance().newCall(
+                OkHttpInstance.getRequest(
+                    requestHttp, TEMP_TOKEN
+                )
+            ).execute()
+            Timber.d("Tests: ${response.isSuccessful}")
+            if (response.isSuccessful) {
+                val tempArr =
+                    Gson().fromJson(
+                        response.body()?.string() ?: "",
+                        Array<UserTaskEntity>::class.java
+                    )
+                if (!tempArr.isNullOrEmpty()) {
+                    completedTestsList.clear()
+                    completedTestsList.addAll(tempArr)
+                    completedTestsList.removeAll {
+                        it.userID != USER.id
+                    }
+                }
+            }
+        } catch (exception: IOException) {
+            exception.printStackTrace()
         }
     }
 
-    fun getAllItems(): ArrayList<TaskEntity> {
+    fun getAllItems(): ArrayList<UserTaskEntity> {
         return completedTestsList
     }
 
@@ -39,15 +63,10 @@ class CompletedTestsAdapter : RecyclerView.Adapter<CompletedTestsAdapter.DataVie
     }
 
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(itemTask: TaskEntity) {
-            itemView.nameOfTask.text = itemTask.title
+        fun bind(itemTask: UserTaskEntity) {
+            itemView.nameOfTask.text = allTests.find { it.id == itemTask.id }?.title
             itemView.deadlineOfTask.text = itemTask.createdAt.toString()
-            itemView.beginTask.setOnClickListener {
-                val intent =
-                    Intent(itemView.context, TaskInfoActivity::class.java)
-                taskInfo = itemTask
-                itemView.context.startActivity(intent)
-            }
+            itemView.beginTask.text = "${if (itemTask.score.toString().equals("null")) 0 else itemTask.score}/10"
         }
     }
 

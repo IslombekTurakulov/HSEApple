@@ -83,13 +83,13 @@
                             android:id="@+id/isCurrentTestsEmptyImage"
                             android:layout_width="@dimen/_100sdp"
                             android:layout_height="@dimen/_100sdp"
-                            android:layout_marginTop="@dimen/_40sdp"
                             android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_40sdp"
                             android:layout_marginBottom="12dp"
-                            android:visibility="visible"
                             android:contentDescription="Empty events"
                             android:padding="@dimen/_10sdp"
-                            android:src="@drawable/app_logo" />
+                            android:src="@drawable/app_logo"
+                            android:visibility="visible" />
 
                         <TextView
                             android:id="@+id/isCurrentTestsEmptyText"
@@ -97,16 +97,17 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/futuramedium"
                             android:gravity="center"
-                            android:visibility="visible"
                             android:text="@string/no_current_tests"
                             android:textColor="@color/almostDark"
-                            android:textSize="@dimen/big_text" />
+                            android:textSize="@dimen/big_text"
+                            android:visibility="visible" />
 
                         <com.cooltechworks.views.shimmer.ShimmerRecyclerView
                             android:id="@+id/currentTestsRecyclerView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_7sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
                             android:layout_marginEnd="@dimen/_7sdp"
                             android:clipToPadding="false"
                             android:orientation="vertical"
@@ -153,13 +154,13 @@
                             android:id="@+id/isCompletedTestsEmptyImage"
                             android:layout_width="@dimen/_100sdp"
                             android:layout_height="@dimen/_100sdp"
-                            android:layout_marginTop="@dimen/_40sdp"
                             android:layout_gravity="center"
-                            android:visibility="visible"
+                            android:layout_marginTop="@dimen/_40sdp"
                             android:layout_marginBottom="12dp"
                             android:contentDescription="Empty completed tests"
                             android:padding="@dimen/_10sdp"
-                            android:src="@drawable/app_logo" />
+                            android:src="@drawable/app_logo"
+                            android:visibility="visible" />
 
                         <TextView
                             android:id="@+id/isCompletedTestsEmptyText"
@@ -167,22 +168,23 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/futuramedium"
                             android:gravity="center"
-                            android:visibility="visible"
                             android:text="@string/no_completed_tests"
                             android:textColor="@color/almostDark"
-                            android:textSize="@dimen/big_text" />
+                            android:textSize="@dimen/big_text"
+                            android:visibility="visible" />
 
                         <com.cooltechworks.views.shimmer.ShimmerRecyclerView
                             android:id="@+id/completedTestsRecyclerView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_7sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
                             android:layout_marginEnd="@dimen/_7sdp"
                             android:clipToPadding="false"
                             android:orientation="vertical"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:shimmer_demo_angle="20"
-                           app:shimmer_demo_child_count="10"
+                            app:shimmer_demo_child_count="10"
                             app:shimmer_demo_layout="@layout/layout_test"
                             app:shimmer_demo_layout_manager_type="linear_vertical"
                             app:spanCount="1"

@@ -8,9 +8,7 @@ import okhttp3.Request
 import okhttp3.RequestBody
 import java.util.concurrent.TimeUnit
 
-/**
- * Not used.
- */
+
 object OkHttpInstance {
 
     private var INSTANCE: OkHttpClient? = null
@@ -26,26 +24,10 @@ object OkHttpInstance {
             .build()
     }
 
-    fun getRequest(requestHttp: String?, token: String?): Request {
+    fun getRequest(requestHttp: String?, token: String) : Request {
         return Request.Builder()
             .url("${IP_ADDRESS}$requestHttp")
             .method("GET", null)
-            .addHeader(
-                "Authorization",
-                TEMP_TOKEN
-            )
-            .addHeader("Content-Type", "application/json")
-            // .addHeader("Cookie", "JSESSIONID=53530B6092B00A54239E5E86BAEE3EE6")
-            .build()
-    }
-
-
-    fun postRequest(requestHttp: String?, body: RequestBody?, token: String?): Request {
-        return Request.Builder()
-            .url(
-                "${IP_ADDRESS}$requestHttp"
-            )
-            .method("PUT", body)
             .addHeader(
                 "Authorization",
                 token
@@ -55,13 +37,29 @@ object OkHttpInstance {
             .build()
     }
 
-    fun putRequest(requestHttp: String?, body: RequestBody?, token: String?): Request {
+
+    fun postRequest(requestHttp: String?, body: RequestBody?, token: String): Request {
+        return Request.Builder()
+            .url(
+                "${IP_ADDRESS}$requestHttp"
+            )
+            .method("POST", body)
+            .addHeader(
+                "Authorization",
+                token
+            )
+            .addHeader("Content-Type", "application/json")
+            // .addHeader("Cookie", "JSESSIONID=53530B6092B00A54239E5E86BAEE3EE6")
+            .build()
+    }
+
+    fun putRequest(requestHttp: String?, body: RequestBody?, token: String): Request {
         return Request.Builder()
             .url("${IP_ADDRESS}$requestHttp")
             .method("PUT", body)
             .addHeader(
                 "Authorization",
-                TEMP_TOKEN
+                token
             )
             .addHeader("Content-Type", "application/json")
             // .addHeader("Cookie", "JSESSIONID=53530B6092B00A54239E5E86BAEE3EE6")

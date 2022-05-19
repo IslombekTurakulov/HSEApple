@@ -6,4 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".ui.activities.ListOfTasksActivity">
 
+    <include
+        android:id="@+id/listOfTasksToolBar"
+        layout="@layout/toolbar_available_courses"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_collapseMode="pin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
+
+    <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+        android:id="@+id/gradesRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?actionBarSize"
+        android:layout_marginStart="@dimen/_7sdp"
+        android:layout_marginEnd="@dimen/_7sdp"
+        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:isScrollContainer="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shimmer_demo_angle="20"
+        app:shimmer_demo_child_count="5"
+        app:shimmer_demo_layout="@layout/layout_test"
+        app:shimmer_demo_layout_manager_type="linear_vertical"
+        tools:listitem="@layout/component_grade" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

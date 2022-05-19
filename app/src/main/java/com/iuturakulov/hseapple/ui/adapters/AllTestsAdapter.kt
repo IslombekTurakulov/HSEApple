@@ -1,6 +1,5 @@
 package com.iuturakulov.hseapple.ui.adapters
 
-import android.content.Intent
 import android.os.StrictMode
 import android.view.LayoutInflater
 import android.view.View
@@ -9,40 +8,37 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.api.OkHttpInstance
-import com.iuturakulov.hseapple.model.TaskEntity
 import com.iuturakulov.hseapple.model.UserTaskEntity
-import com.iuturakulov.hseapple.ui.activities.TaskInfoActivity
 import com.iuturakulov.hseapple.utils.*
-import kotlinx.android.synthetic.main.component_event.view.*
 import kotlinx.android.synthetic.main.component_test.view.*
 import timber.log.Timber
 import java.io.IOException
-import java.util.*
 
-class CurrentTestsAdapter : RecyclerView.Adapter<CurrentTestsAdapter.DataViewHolder>() {
+class AllTestsAdapter : RecyclerView.Adapter<AllTestsAdapter.DataViewHolder>() {
 
-    private var news: ArrayList<TaskEntity> = arrayListOf()
+    private var completedTestsList: ArrayList<UserTaskEntity> = arrayListOf()
 
     private fun reloadItems() {
         try {
             val requestHttp =
-                "course/${if (SELECTION == CourseSelection.CHOSEN_SECOND) 1 else 2}/task?start=1"
+                "course/task/${if (SELECTION == CourseSelection.CHOSEN_SECOND) 1 else 2}?status=true&form=lab"
             val response = OkHttpInstance.getInstance().newCall(
                 OkHttpInstance.getRequest(
-                    requestHttp, ACCESS_TOKEN
+                    requestHttp, TEMP_TOKEN
                 )
             ).execute()
             Timber.d("Tests: ${response.isSuccessful}")
             if (response.isSuccessful) {
                 val tempArr =
-                    Gson().fromJson(response.body()?.string() ?: "", Array<TaskEntity>::class.java)
+                    Gson().fromJson(
+                        response.body()?.string() ?: "",
+                        Array<UserTaskEntity>::class.java
+                    )
                 if (!tempArr.isNullOrEmpty()) {
-                    news.clear()
-                    allTests.clear()
-                    allTests.addAll(tempArr)
-                    news.addAll(tempArr)
-                    news.removeAll {
-                        it.status
+                    completedTestsList.clear()
+                    completedTestsList.addAll(tempArr)
+                    completedTestsList.removeAll {
+                        it.userID != USER.id
                     }
                 }
             }
@@ -51,16 +47,8 @@ class CurrentTestsAdapter : RecyclerView.Adapter<CurrentTestsAdapter.DataViewHol
         }
     }
 
-    fun getAllItems(): ArrayList<TaskEntity> {
-        return news
-    }
-
-    fun setAllItems(list: ArrayList<UserTaskEntity>) {
-        news.removeAll {
-            list.find { it2 ->
-                it2.id == it.id
-            } != null
-        }
+    fun getAllItems(): ArrayList<UserTaskEntity> {
+        return completedTestsList
     }
 
     init {
@@ -74,15 +62,10 @@ class CurrentTestsAdapter : RecyclerView.Adapter<CurrentTestsAdapter.DataViewHol
     }
 
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(itemTask: TaskEntity) {
-            itemView.nameOfTask.text = itemTask.title
+        fun bind(itemTask: UserTaskEntity) {
+            itemView.nameOfTask.text = allTests.find { it.id == itemTask.id }?.title
             itemView.deadlineOfTask.text = itemTask.createdAt.toString()
-            itemView.beginTask.setOnClickListener {
-                val intent =
-                    Intent(itemView.context, TaskInfoActivity::class.java)
-                taskInfo = itemTask
-                itemView.context.startActivity(intent)
-            }
+            itemView.beginTask.text = "${if (itemTask.score.toString().equals("null")) 0 else itemTask.score}/10"
         }
     }
 
@@ -94,10 +77,10 @@ class CurrentTestsAdapter : RecyclerView.Adapter<CurrentTestsAdapter.DataViewHol
             )
         )
 
-    override fun getItemCount(): Int = news.size
+    override fun getItemCount(): Int = completedTestsList.size
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
-        holder.bind(news[position])
+        holder.bind(completedTestsList[position])
     }
 
 }
