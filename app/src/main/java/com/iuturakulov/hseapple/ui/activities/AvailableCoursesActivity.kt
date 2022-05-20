@@ -8,6 +8,8 @@ import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.model.Courses
 import com.iuturakulov.hseapple.ui.adapters.CoursesAdapter
 import com.iuturakulov.hseapple.ui.fragments.ProfileFragment
+import com.iuturakulov.hseapple.utils.USER_CHAT
+import com.iuturakulov.hseapple.utils.toast
 import kotlinx.android.synthetic.main.activity_available_courses.*
 import kotlinx.android.synthetic.main.toolbar_available_courses.*
 
@@ -17,6 +19,7 @@ class AvailableCoursesActivity : AppCompatActivity(R.layout.activity_available_c
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_available_courses)
+        toast("Success: ${USER_CHAT!!.role} ${USER_CHAT!!.name}")
         title = getString(R.string.available_courses)
         val list: ArrayList<Courses> = arrayListOf()
         list.add(Courses(resources.getString(R.string.second_course), ""))
