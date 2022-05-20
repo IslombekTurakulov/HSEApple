@@ -29,11 +29,11 @@
 
         <ImageView
             android:id="@+id/newsImageCreate"
-            android:layout_width="@dimen/_150sdp"
+            android:layout_width="@dimen/_200sdp"
             android:layout_height="@dimen/_150sdp"
             android:layout_marginTop="24dp"
             android:contentDescription="news image"
-            android:src="@drawable/app_logo"
+            android:src="@drawable/save_projects"
             app:civ_border_color="@color/white"
             app:civ_border_width="@dimen/_1sdp"
             app:layout_constraintEnd_toEndOf="parent"

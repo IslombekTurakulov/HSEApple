@@ -71,7 +71,7 @@ class NewsAdapter(
             itemView.newsTitleItem.text = itemNews.title
             itemView.newsDescriptionItem.text = itemNews.content
             if (itemNews.mediaLink.isNullOrEmpty()) {
-                itemView.imageNewsItem.setImageDrawable(itemView.context.getDrawable(R.drawable.good_night_img))
+                itemView.imageNewsItem.setImageDrawable(itemView.context.getDrawable(com.hse.core.R.drawable.settings))
             } else {
                 val bytes: ByteArray = Base64.getDecoder().decode(itemNews.mediaLink)
                 val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
@@ -90,9 +90,9 @@ class NewsAdapter(
             val input = itemView.context.contentResolver.openInputStream(
                 (Uri.Builder())
                     .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
-                    .authority(itemView.resources.getResourcePackageName(R.drawable.good_night_img))
-                    .appendPath(itemView.resources.getResourceTypeName(R.drawable.good_night_img))
-                    .appendPath(itemView.resources.getResourceEntryName(R.drawable.good_night_img))
+                    .authority(itemView.resources.getResourcePackageName(com.hse.core.R.drawable.settings))
+                    .appendPath(itemView.resources.getResourceTypeName(com.hse.core.R.drawable.settings))
+                    .appendPath(itemView.resources.getResourceEntryName(com.hse.core.R.drawable.settings))
                     .build()
             )
             val baos = ByteArrayOutputStream()

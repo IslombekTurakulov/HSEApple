@@ -33,7 +33,7 @@
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_100sdp"
         android:layout_marginBottom="12dp"
-        android:src="@drawable/app_logo"
+        android:src="@drawable/nodata"
         app:layout_constraintBottom_toTopOf="@+id/isRequestsEmptyText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

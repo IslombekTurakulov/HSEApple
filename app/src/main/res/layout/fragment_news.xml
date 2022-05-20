@@ -27,7 +27,7 @@
                 android:contentDescription="topAppBarImage"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"
-                app:srcCompat="@drawable/good_night_img" />
+                app:srcCompat="@drawable/feedback" />
 
             <include
                 layout="@layout/toolbar_create_news"
@@ -84,7 +84,7 @@
                             android:layout_height="@dimen/_100sdp"
                             android:layout_marginBottom="12dp"
                             android:contentDescription="Empty events"
-                            android:src="@drawable/app_logo"
+                            android:src="@drawable/nodata"
                             app:layout_constraintBottom_toTopOf="@+id/isEventsEmptyText"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.497"
@@ -167,7 +167,7 @@
                             android:layout_height="@dimen/_100sdp"
                             android:layout_marginBottom="12dp"
                             android:contentDescription="Empty events"
-                            android:src="@drawable/app_logo"
+                            android:src="@drawable/nodata"
                             app:layout_constraintBottom_toTopOf="@+id/isGradesEmptyText"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.497"

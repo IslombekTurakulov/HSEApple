@@ -2,7 +2,7 @@
 
     <style name="Theme.HSEApple" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/hse_dark_blue</item>
+        <item name="colorPrimary">#7CB342</item>
         <item name="colorPrimaryVariant">@color/greenDark</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
