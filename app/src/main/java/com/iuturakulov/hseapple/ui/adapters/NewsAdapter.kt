@@ -56,7 +56,7 @@ class NewsAdapter(
     }
 
     init {
-        val sdkInt = android.os.Build.VERSION.SDK_INT
+        val sdkInt = Build.VERSION.SDK_INT
         if (sdkInt > 8) {
             val policy: StrictMode.ThreadPolicy = StrictMode.ThreadPolicy.Builder()
                 .permitAll().build()

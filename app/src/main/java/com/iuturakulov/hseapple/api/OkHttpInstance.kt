@@ -15,7 +15,6 @@ object OkHttpInstance {
 
     fun getInstance(): OkHttpClient = INSTANCE ?: kotlin.run {
         OkHttpClient().newBuilder()
-            .retryOnConnectionFailure(true)
             .pingInterval(8, TimeUnit.SECONDS)
             .connectTimeout(4, TimeUnit.SECONDS)
             .readTimeout(7, TimeUnit.SECONDS)

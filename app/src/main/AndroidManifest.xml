@@ -13,7 +13,10 @@
         android:theme="@style/Theme.HSEApple"
         tools:replace="android:icon">
         <activity
-            android:name=".ListOfTasksActivity"
+            android:name=".ui.activities.AboutAppActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.ListOfTasksActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.TaskInfoActivity"

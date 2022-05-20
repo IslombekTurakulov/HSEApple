@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.hse.core.common.isVisible
+import com.hse.core.common.setVisible
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.api.OkHttpInstance
 import com.iuturakulov.hseapple.utils.*
@@ -54,16 +56,17 @@ class CreateTestsActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
                 tpd.isThemeDark = true
                 tpd.show(supportFragmentManager, "Timepickerdialog")
                 tpd.setOnDismissListener {
-                    dateTimeOfDeadline.text = "$datePicker $timePicker"
+                    // dateTimeOfDeadline.text = "$datePicker $timePicker"
                 }
             }
         }
-        create_task_button.setOnClickListener {
+        create_task_button.setOnLongClickListener {
             if (validateInputFields()) {
                 if (!dateTimeOfDeadline.text.isNullOrEmpty()) {
                     try {
                         createTest()
                         finish()
+                        return@setOnLongClickListener true
                     } catch (exception: UninitializedPropertyAccessException) {
                         exception.printStackTrace()
                     } catch (exception: NullPointerException) {
@@ -73,6 +76,7 @@ class CreateTestsActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListe
                     toast("Please select correct datetime!")
                 }
             }
+            return@setOnLongClickListener false
         }
     }
 

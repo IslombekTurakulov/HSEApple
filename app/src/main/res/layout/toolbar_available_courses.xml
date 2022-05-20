@@ -24,7 +24,7 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_20sdp"
             android:layout_alignTop="@id/back_arrow_tests"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/edit_things_layout"
@@ -32,12 +32,12 @@
 
             <TextView
                 android:id="@+id/available_courses_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:ellipsize="marquee"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="19dp"
                 android:fontFamily="@font/futuramedium"
-                android:maxWidth="150dp"
+                android:maxWidth="200dp"
                 android:singleLine="true"
                 android:textColor="@color/textColorWhite"
                 android:textSize="@dimen/big_text"

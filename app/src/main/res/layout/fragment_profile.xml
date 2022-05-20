@@ -252,13 +252,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/_20sdp"
+                android:layout_margin="@dimen/_30sdp"
                 android:gravity="center">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/hse_digital" />
+                    android:src="@drawable/hse_digital"
+                    app:tint="@color/white" />
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

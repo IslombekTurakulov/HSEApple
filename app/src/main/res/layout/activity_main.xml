@@ -23,7 +23,7 @@
     <me.ibrahimsn.lib.SmoothBottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_60sdp"
+        android:layout_height="@dimen/_50sdp"
         android:contentDescription="Bottom main bar"
         app:backgroundColor="@color/almostDark"
         app:corners="top_left|bottom_right"
@@ -37,7 +37,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu"
-        app:sideMargins="10dp"
+        app:sideMargins="@dimen/_10sdp"
         app:textColor="@color/white"
         app:textSize="@dimen/_8sdp" />
 

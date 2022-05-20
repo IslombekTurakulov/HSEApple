@@ -33,6 +33,7 @@ class CreateNewsActivity : AppCompatActivity(R.layout.activity_create_news) {
 
     private lateinit var cameraPermissions: Array<String>
     private lateinit var storagePermission: Array<String>
+    private var flag: Boolean = false
 
     private var imageUri: Uri = Uri.EMPTY
 
@@ -83,7 +84,7 @@ class CreateNewsActivity : AppCompatActivity(R.layout.activity_create_news) {
           "courseID": ${if (SELECTION == CourseSelection.CHOSEN_SECOND) 1 else 2},
           "title": "${createTextTitleNews.text.toString()}",
           "content": "${createTextDescNews.text.toString()}",
-          "mediaLink": "${if (!imageUri.path.isNullOrEmpty()) encodeUri(imageUri) else null}"
+          "mediaLink": "${if (!flag) encodeUri(imageUri) else null}"
         }"""
         )
         var responseGet: Response? = null
@@ -168,6 +169,7 @@ class CreateNewsActivity : AppCompatActivity(R.layout.activity_create_news) {
                 Activity.RESULT_OK -> {
                     val fileUri = data?.data!!
                     imageUri = fileUri
+                    flag = true
                     newsImageCreate.setImageURI(fileUri)
                 }
                 ImagePicker.RESULT_ERROR -> {

@@ -47,4 +47,7 @@
     <string name="status_assistant" >Ассистент</string>
     <string name="status_second_course">2 курс НИСа</string>
     <string name="status_third_course">3 курс НИСа</string>
+    <string name="version_app">Версия: 0.3.2</string>
+    <string name="privacy_policy">Политика конфиденциальности</string>
+    <string name="open_source_code">Исходный код</string>
 </resources>

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.StrictMode
-import android.widget.Toast
 import com.cometchat.pro.core.CometChat
 import com.cometchat.pro.exceptions.CometChatException
 import com.cometchat.pro.models.User
@@ -28,11 +27,11 @@ class LoginAuthActivity : BaseActivity() {
         BaseApplication.appComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_auth)
-      /*  USER = UserEntity(
-            id = 1,
-            fullName = "Туракулов Исломбек Улугбекович",
-            email = "iuturakulov@edu.hse.ru"
-        )*/
+        /*  USER = UserEntity(
+              id = 1,
+              fullName = "Туракулов Исломбек Улугбекович",
+              email = "iuturakulov@edu.hse.ru"
+          )*/
         authLogButton.setOnClickListener {
             authLogButton!!.isClickable = false
             // createUser()
@@ -68,21 +67,26 @@ class LoginAuthActivity : BaseActivity() {
                 if (response.isSuccessful) {
                     USER = Gson().fromJson(response.body()?.string() ?: "", UserEntity::class.java)
                     Timber.w(USER.toString())
+                    createUser()
                 } else {
                     toast("Oops... Auth failure")
                 }
             } catch (exception: IOException) {
                 exception.printStackTrace()
+                toast("Problems with server...")
             }
-            createUser()
         }
     }
 
     private fun createUser() {
         try {
-            val email = USER.email!!.split("@")[0]
-            loginToChat(email)
+            if (USER.email != null) {
+                val email = USER.email!!.split("@")[0]
+                loginToChat(email)
+            }
             // updateLoginUser()
+        } catch (exception: UninitializedPropertyAccessException) {
+            exception.printStackTrace()
         } catch (exception: NullPointerException) {
             exception.printStackTrace()
         }

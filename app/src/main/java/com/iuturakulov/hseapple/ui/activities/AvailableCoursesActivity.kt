@@ -19,7 +19,7 @@ class AvailableCoursesActivity : AppCompatActivity(R.layout.activity_available_c
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_available_courses)
-        toast("Success: ${USER_CHAT!!.role} ${USER_CHAT!!.name}")
+        toast("Success")
         title = getString(R.string.available_courses)
         val list: ArrayList<Courses> = arrayListOf()
         list.add(Courses(resources.getString(R.string.second_course), ""))

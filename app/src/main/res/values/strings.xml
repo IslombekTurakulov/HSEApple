@@ -50,4 +50,7 @@
     <string name="status_assistant" translatable="false">Assistant</string>
     <string name="status_second_course" translatable="false">2 SRC course</string>
     <string name="status_third_course" translatable="false">3 SRC course</string>
+    <string name="version_app" translatable="false">Version: 0.3.2</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="open_source_code">Open source code</string>
 </resources>

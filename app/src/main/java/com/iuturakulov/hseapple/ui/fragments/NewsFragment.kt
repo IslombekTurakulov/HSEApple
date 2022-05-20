@@ -29,15 +29,9 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         return inflater.inflate(R.layout.fragment_news, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        news_info.text = requireActivity().getString(R.string.news_menu_text)
-        if (!USER_CHAT?.role.equals("teacher")) {
-            create_event_layout.visibility = View.GONE
-        } else {
-            create_event_layout.visibility = View.VISIBLE
-        }
-        if (ACCESS_TOKEN.isNotBlank() && USER_CHAT != null) {
+    override fun onResume() {
+        super.onResume()
+        if (ACCESS_TOKEN.isNotBlank()) {
             try {
                 newsAdapter = NewsAdapter(APP_ACTIVITY.applicationContext)
                 completedTestsAdapter = CompletedTestsAdapter()
@@ -50,6 +44,16 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
             } catch (exception: NullPointerException) {
                 exception.printStackTrace()
             }
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        news_info.text = requireActivity().getString(R.string.news_menu_text)
+        if (!USER_CHAT?.role.equals("teacher")) {
+            create_event_layout.visibility = View.GONE
+        } else {
+            create_event_layout.visibility = View.VISIBLE
         }
         create_event_tool.setOnClickListener {
             showToast("Create event")

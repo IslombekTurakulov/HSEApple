@@ -73,7 +73,7 @@ class NewsInfoActivity : AppCompatActivity() {
         newsDescriptionItem.setText(postInfo.content)
         fieldOptionsInitializer(false)
         if (postInfo.mediaLink.isNullOrEmpty()) {
-            imageNewsItem.setImageDrawable(getDrawable(R.drawable.good_night_img))
+            imageNewsItem.setImageDrawable(getDrawable(com.hse.auth.R.drawable.settings))
         } else {
             val bytes: ByteArray = Base64.getDecoder().decode(postInfo.mediaLink)
             val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)

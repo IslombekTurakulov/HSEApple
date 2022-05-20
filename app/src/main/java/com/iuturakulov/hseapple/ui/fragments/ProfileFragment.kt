@@ -69,6 +69,14 @@ class ProfileFragment : Fragment() {
             intent.putExtra(Intent.EXTRA_TEXT, message)
             startActivity(Intent.createChooser(intent, "Choose an Email client :"))
         }
+        profileAboutBtn.setOnClickListener {
+            val startupIntent = Intent(requireContext(), AboutAppActivity::class.java)
+            startActivity(startupIntent)
+            requireActivity().overridePendingTransition(
+                android.R.anim.fade_in,
+                android.R.anim.fade_out
+            )
+        }
         profileCoursesBtn.setOnClickListener {
             val startupIntent = Intent(requireContext(), AvailableCoursesActivity::class.java)
             startupIntent.flags =

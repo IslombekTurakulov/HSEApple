@@ -28,7 +28,7 @@ class TaskInfoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_info)
-        fieldOptionsInitializer(true)
+        fieldOptionsInitializer(false)
         setListeners()
         initializeTopAppBar()
     }
@@ -80,7 +80,7 @@ class TaskInfoActivity : AppCompatActivity() {
             onBackPressed()
         }
         edit_test.setOnClickListener {
-            fieldOptionsInitializer(false)
+            fieldOptionsInitializer(true)
         }
         delete_test.setOnClickListener {
             val dialogClickListener: DialogInterface.OnClickListener =
@@ -110,7 +110,13 @@ class TaskInfoActivity : AppCompatActivity() {
         createTextDescTaskInfo.isFocusable = flag
         createTextTitleTaskInfo.isFocusableInTouchMode = flag
         createTextDescTaskInfo.isFocusableInTouchMode = flag
-        if (!flag) {
+        if (flag) {
+            deadlineTextInfo.visibility = View.VISIBLE
+            inputLinkLayout.visibility = View.VISIBLE
+            changeDateTimeDeadline.visibility = View.GONE
+            create_task_button.visibility = View.INVISIBLE
+            load_task_button.visibility = View.VISIBLE
+        } else {
             createTextTitleTaskInfo.tag = createTextTitleTaskInfo.keyListener
             createTextDescTaskInfo.tag = createTextDescTaskInfo.keyListener
             deadlineTextInfo.visibility = View.GONE
@@ -118,12 +124,6 @@ class TaskInfoActivity : AppCompatActivity() {
             create_task_button.visibility = View.VISIBLE
             load_task_button.visibility = View.INVISIBLE
             inputLinkLayout.visibility = View.GONE
-        } else {
-            deadlineTextInfo.visibility = View.VISIBLE
-            inputLinkLayout.visibility = View.VISIBLE
-            changeDateTimeDeadline.visibility = View.GONE
-            create_task_button.visibility = View.INVISIBLE
-            load_task_button.visibility = View.VISIBLE
         }
         createTextLayoutTitleTaskInfo.isCounterEnabled = flag
         createTextLayoutDescTaskInfo.isCounterEnabled = flag

@@ -31,6 +31,19 @@ class TestsFragment : Fragment(R.layout.fragment_tests) {
         return inflater.inflate(R.layout.fragment_tests, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        try {
+            initializeRecyclerViews()
+            initializeCurrentTests()
+            initializeCompletedTests()
+        } catch (exception: UninitializedPropertyAccessException) {
+            exception.printStackTrace()
+        } catch (exception: NullPointerException) {
+            exception.printStackTrace()
+        }
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,17 +53,6 @@ class TestsFragment : Fragment(R.layout.fragment_tests) {
             create_lab_task.visibility = View.VISIBLE
         }
         news_text_info.text = requireActivity().getString(R.string.tests_menu_text)
-        if (ACCESS_TOKEN.isNotBlank() && USER_CHAT != null) {
-            try {
-                initializeRecyclerViews()
-                initializeCurrentTests()
-                initializeCompletedTests()
-            } catch (exception: UninitializedPropertyAccessException) {
-                exception.printStackTrace()
-            } catch (exception: NullPointerException) {
-                exception.printStackTrace()
-            }
-        }
         create_lab_task.setOnClickListener {
             showToast("Lab task selected")
             val startupIntent =
@@ -61,9 +63,9 @@ class TestsFragment : Fragment(R.layout.fragment_tests) {
                 android.R.anim.fade_out
             )
             try {
-                initializeRecyclerViews()
-                initializeCurrentTests()
-                initializeCompletedTests()
+                    initializeRecyclerViews()
+                    initializeCurrentTests()
+                    initializeCompletedTests()
             } catch (exception: UninitializedPropertyAccessException) {
                 exception.printStackTrace()
             } catch (exception: NullPointerException) {
@@ -74,13 +76,14 @@ class TestsFragment : Fragment(R.layout.fragment_tests) {
 
     private fun initializeRecyclerViews() {
         currentTestsAdapter = CurrentTestsAdapter()
-        if (USER_CHAT?.role == "teacher" || USER_CHAT?.role == "assistant") {
-            completedTestsRecyclerView.adapter = AllTestsAdapter()
-        } else {
+      /*  if (USER_CHAT?.role == "teacher" || USER_CHAT?.role == "assistant") {
+            completedTestsRecyclerView.adapter = CompletedTestsAdapter()
+            currentTestsAdapter.setAllItems(completedTestsAdapter.getAllItems())
+        } else {*/
             completedTestsAdapter = CompletedTestsAdapter()
             currentTestsAdapter.setAllItems(completedTestsAdapter.getAllItems())
             completedTestsRecyclerView.adapter = completedTestsAdapter
-        }
+        //}
         currentTestsRecyclerView.adapter = currentTestsAdapter
     }
 
