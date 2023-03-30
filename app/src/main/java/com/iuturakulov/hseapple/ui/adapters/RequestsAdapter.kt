@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.api.OkHttpInstance
-import com.iuturakulov.hseapple.model.RequestEntity
+import com.iuturakulov.domain.entities.RequestEntity
 import com.iuturakulov.hseapple.utils.CourseSelection
 import com.iuturakulov.hseapple.utils.SELECTION
 import com.iuturakulov.hseapple.utils.TEMP_TOKEN
@@ -21,7 +21,7 @@ import java.io.IOException
 internal class RequestsAdapter(context: Context) :
     RecyclerView.Adapter<RequestsAdapter.ViewHolder?>() {
     private val context: Context
-    private lateinit var mItems: ArrayList<RequestEntity>
+    private lateinit var mItems: ArrayList<com.iuturakulov.domain.entities.RequestEntity>
 
     private fun reloadItems() {
         try {
@@ -38,7 +38,7 @@ internal class RequestsAdapter(context: Context) :
             if (response != null) {
                 val res = Gson().fromJson(
                     response.body()?.string() ?: "",
-                    Array<RequestEntity>::class.java
+                    Array<com.iuturakulov.domain.entities.RequestEntity>::class.java
                 )
                 if (!res.isNullOrEmpty()) {
                     mItems.addAll(
@@ -49,9 +49,9 @@ internal class RequestsAdapter(context: Context) :
         } catch (e: Exception) {
             Timber.e(e.message!!)
         }
-        mItems.add(RequestEntity(1, 1, 1, 1, false))
-        mItems.add(RequestEntity(2, 2, 1, 1, false))
-        mItems.add(RequestEntity(3, 3, 1, 1, false))
+        mItems.add(com.iuturakulov.domain.entities.RequestEntity(1, 1, 1, 1, false))
+        mItems.add(com.iuturakulov.domain.entities.RequestEntity(2, 2, 1, 1, false))
+        mItems.add(com.iuturakulov.domain.entities.RequestEntity(3, 3, 1, 1, false))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -90,7 +90,7 @@ internal class RequestsAdapter(context: Context) :
         return mItems.size
     }
 
-    fun addItem(item: RequestEntity, position: Int) {
+    fun addItem(item: com.iuturakulov.domain.entities.RequestEntity, position: Int) {
         try {
             mItems.add(position, item)
             notifyItemInserted(position)
@@ -105,8 +105,8 @@ internal class RequestsAdapter(context: Context) :
             itemView.findViewById<View>(R.id.descriptionOfPerson) as TextView
     }
 
-    fun removeItem(position: Int): RequestEntity? {
-        var item: RequestEntity? = null
+    fun removeItem(position: Int): com.iuturakulov.domain.entities.RequestEntity? {
+        var item: com.iuturakulov.domain.entities.RequestEntity? = null
         try {
             item = mItems[position]
             mItems.removeAt(position)
@@ -117,7 +117,7 @@ internal class RequestsAdapter(context: Context) :
         return item
     }
 
-    fun getAllItems(): ArrayList<RequestEntity> {
+    fun getAllItems(): ArrayList<com.iuturakulov.domain.entities.RequestEntity> {
         return mItems
     }
 

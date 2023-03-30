@@ -1,12 +1,12 @@
 package com.iuturakulov.hseapple.utils
 
-import com.iuturakulov.hseapple.model.PostEntity
-import com.iuturakulov.hseapple.model.RequestEntity
-import com.iuturakulov.hseapple.model.TaskEntity
-import com.iuturakulov.hseapple.model.UserEntity
+import com.iuturakulov.domain.entities.PostEntity
+import com.iuturakulov.domain.entities.RequestEntity
+import com.iuturakulov.domain.entities.TaskEntity
+import com.iuturakulov.domain.entities.UserEntity
 
-lateinit var arrayOfRequestCourses: ArrayList<RequestEntity>
-var allTests: ArrayList<TaskEntity> = arrayListOf()
-lateinit var USER: UserEntity
-lateinit var postInfo: PostEntity
-lateinit var taskInfo: TaskEntity
+lateinit var arrayOfRequestCourses: ArrayList<com.iuturakulov.domain.entities.RequestEntity>
+var allTests: ArrayList<com.iuturakulov.domain.entities.TaskEntity> = arrayListOf()
+lateinit var USER: com.iuturakulov.domain.entities.UserEntity
+lateinit var postInfo: com.iuturakulov.domain.entities.PostEntity
+lateinit var taskInfo: com.iuturakulov.domain.entities.TaskEntity

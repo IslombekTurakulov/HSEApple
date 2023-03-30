@@ -10,8 +10,8 @@ import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.api.OkHttpInstance
-import com.iuturakulov.hseapple.model.Courses
-import com.iuturakulov.hseapple.model.RequestEntity
+import com.iuturakulov.domain.entities.Courses
+import com.iuturakulov.domain.entities.RequestEntity
 import com.iuturakulov.hseapple.ui.activities.MainActivity
 import com.iuturakulov.hseapple.ui.adapters.CoursesAdapter.DataViewHolder
 import com.iuturakulov.hseapple.utils.CourseSelection
@@ -23,11 +23,11 @@ import okhttp3.Response
 import java.io.IOException
 
 class CoursesAdapter(
-    private var courses: ArrayList<Courses>
+    private var courses: ArrayList<com.iuturakulov.domain.entities.Courses>
 ) : RecyclerView.Adapter<DataViewHolder>() {
 
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(itemNews: Courses) {
+        fun bind(itemNews: com.iuturakulov.domain.entities.Courses) {
             itemView.nameOfCourseField.text = itemNews.nameOfCourse
             if (!itemNews.image.isNullOrEmpty()) {
                 Glide.with(itemView.courseImage.context)
@@ -39,7 +39,7 @@ class CoursesAdapter(
         }
     }
 
-    fun updateData(courses: ArrayList<Courses>?) {
+    fun updateData(courses: ArrayList<com.iuturakulov.domain.entities.Courses>?) {
         if (!courses.isNullOrEmpty()) {
             this.courses = courses
             notifyDataSetChanged()
@@ -58,7 +58,7 @@ class CoursesAdapter(
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
         holder.bind(courses[position])
-        val course: Courses = courses[position]
+        val course: com.iuturakulov.domain.entities.Courses = courses[position]
         val itemView: View = holder.itemView
         // initializePreRequests(course, itemView)
         holder.itemView.courseButton.setOnClickListener {
@@ -97,7 +97,7 @@ class CoursesAdapter(
     }
 
     private fun initializePreRequests(
-        position: Courses,
+        position: com.iuturakulov.domain.entities.Courses,
         holder: View
     ) {
         if (position.nameOfCourse == holder.resources.getString(R.string.second_course)) {
@@ -117,7 +117,7 @@ class CoursesAdapter(
         }
     }
 
-    private fun initializeButtons(courseId: Int): RequestEntity? {
+    private fun initializeButtons(courseId: Int): com.iuturakulov.domain.entities.RequestEntity? {
         var response: Response? = null
         try {
             response = OkHttpInstance.getInstance()
@@ -129,7 +129,7 @@ class CoursesAdapter(
         if (response != null) {
             return Gson().fromJson(
                 response.body()?.string() ?: "",
-                RequestEntity::class.java
+                com.iuturakulov.domain.entities.RequestEntity::class.java
             )
         }
         return null

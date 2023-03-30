@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.api.OkHttpInstance
-import com.iuturakulov.hseapple.model.RequestEntity
+import com.iuturakulov.domain.entities.RequestEntity
 import com.iuturakulov.hseapple.ui.adapters.RequestsAdapter
 import com.iuturakulov.hseapple.utils.TEMP_TOKEN
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
@@ -70,7 +70,7 @@ class RequestsActivity : AppCompatActivity() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 try {
                     val position = viewHolder.adapterPosition
-                    val item: RequestEntity? = requestsAdapter!!.removeItem(position)
+                    val item: com.iuturakulov.domain.entities.RequestEntity? = requestsAdapter!!.removeItem(position)
                     if (requestsAdapter!!.getAllItems().isNotEmpty()) {
                         isRequestsEmptyImage.visibility = View.INVISIBLE
                         isRequestsEmptyText.visibility = View.INVISIBLE
