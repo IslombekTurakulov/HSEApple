@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.api.OkHttpInstance
-import com.iuturakulov.hseapple.model.PostEntity
+import com.iuturakulov.domain.entities.PostEntity
 import com.iuturakulov.hseapple.ui.activities.NewsInfoActivity
 import com.iuturakulov.hseapple.utils.*
 import kotlinx.android.synthetic.main.component_event.view.*
@@ -67,8 +67,8 @@ class NewsAdapter(
 
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         @RequiresApi(Build.VERSION_CODES.O)
-        fun bind(itemNews: PostEntity) {
-            itemView.newsTitleItem.text = itemNews.title
+        fun bind(itemNews: com.iuturakulov.domain.entities.PostEntity) {
+            itemView.newsTitleItem.text = itemNews.content
             itemView.newsDescriptionItem.text = itemNews.content
             if (itemNews.mediaLink.isNullOrEmpty()) {
                 itemView.imageNewsItem.setImageDrawable(itemView.context.getDrawable(com.hse.core.R.drawable.settings))

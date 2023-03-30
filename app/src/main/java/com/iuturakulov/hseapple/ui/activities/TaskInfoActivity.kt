@@ -8,7 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.api.OkHttpInstance
-import com.iuturakulov.hseapple.model.TaskEntity
+import com.iuturakulov.domain.entities.TaskEntity
 import com.iuturakulov.hseapple.utils.*
 import kotlinx.android.synthetic.main.activity_task_info.*
 import kotlinx.android.synthetic.main.toolbar_create_tests.*
@@ -20,7 +20,7 @@ import java.io.IOException
 class TaskInfoActivity : AppCompatActivity() {
 
     companion object {
-        lateinit var taskEntity: TaskEntity
+        lateinit var taskEntity: com.iuturakulov.domain.entities.TaskEntity
     }
 
     private var editMode: Boolean = false

@@ -5,11 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.afollestad.materialdialogs.utils.MDUtil.ifNotZero
 import com.google.gson.Gson
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.api.OkHttpInstance
-import com.iuturakulov.hseapple.model.UserTaskEntity
+import com.iuturakulov.domain.entities.UserTaskEntity
 import com.iuturakulov.hseapple.utils.*
 import kotlinx.android.synthetic.main.component_test.view.*
 import timber.log.Timber
@@ -17,7 +16,7 @@ import java.io.IOException
 
 class CompletedTestsAdapter : RecyclerView.Adapter<CompletedTestsAdapter.DataViewHolder>() {
 
-    private var completedTestsList: ArrayList<UserTaskEntity> = arrayListOf()
+    private var completedTestsList: ArrayList<com.iuturakulov.domain.entities.UserTaskEntity> = arrayListOf()
 
     private fun reloadItems() {
         try {
@@ -33,7 +32,7 @@ class CompletedTestsAdapter : RecyclerView.Adapter<CompletedTestsAdapter.DataVie
                 val tempArr =
                     Gson().fromJson(
                         response.body()?.string() ?: "",
-                        Array<UserTaskEntity>::class.java
+                        Array<com.iuturakulov.domain.entities.UserTaskEntity>::class.java
                     )
                 if (!tempArr.isNullOrEmpty()) {
                     completedTestsList.clear()
@@ -48,7 +47,7 @@ class CompletedTestsAdapter : RecyclerView.Adapter<CompletedTestsAdapter.DataVie
         }
     }
 
-    fun getAllItems(): ArrayList<UserTaskEntity> {
+    fun getAllItems(): ArrayList<com.iuturakulov.domain.entities.UserTaskEntity> {
         return completedTestsList
     }
 
@@ -63,7 +62,7 @@ class CompletedTestsAdapter : RecyclerView.Adapter<CompletedTestsAdapter.DataVie
     }
 
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(itemTask: UserTaskEntity) {
+        fun bind(itemTask: com.iuturakulov.domain.entities.UserTaskEntity) {
             itemView.nameOfTask.text = allTests.find { it.id == itemTask.id }?.title
             itemView.deadlineOfTask.text = itemTask.createdAt.toString()
             itemView.beginTask.text = "${if (itemTask.score.toString().equals("null")) 0 else itemTask.score}/10"

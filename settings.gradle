@@ -1,3 +1,5 @@
 rootProject.name = "HSEApple"
 include ':app'
 include ':uikit-kotlin'
+include ':data'
+include ':domain'
