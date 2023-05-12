@@ -9,12 +9,12 @@ import com.cometchat.pro.exceptions.CometChatException
 import com.cometchat.pro.models.User
 import com.google.gson.Gson
 import com.hse.auth.AuthHelper
+import com.hse.auth.ui.models.UserEntity
 import com.hse.auth.utils.AuthConstants
 import com.hse.core.BaseApplication
 import com.hse.core.ui.BaseActivity
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.api.OkHttpInstance
-import com.iuturakulov.domain.entities.UserEntity
 import com.iuturakulov.hseapple.utils.*
 import kotlinx.android.synthetic.main.activity_login_auth.*
 import timber.log.Timber
@@ -65,7 +65,7 @@ class LoginAuthActivity : BaseActivity() {
                     .newCall(OkHttpInstance.getRequest("auth", ACCESS_TOKEN)).execute()
                 Timber.d("Login Auth: ${response.isSuccessful}")
                 if (response.isSuccessful) {
-                    USER = Gson().fromJson(response.body()?.string() ?: "", com.iuturakulov.domain.entities.UserEntity::class.java)
+                    USER = Gson().fromJson(response.body()?.string() ?: "", UserEntity::class.java)
                     Timber.w(USER.toString())
                     createUser()
                 } else {

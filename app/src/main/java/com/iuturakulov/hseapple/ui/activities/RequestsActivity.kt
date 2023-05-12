@@ -162,7 +162,7 @@ class RequestsActivity : AppCompatActivity() {
         val mediaType = MediaType.parse("application/json")
         val body = RequestBody.create(mediaType, "{\n  \"approved\": true\n}")
         for (item in items) {
-            val requestHttp = "request/${item.courseID}/${item.userID}"
+            val requestHttp = "request/${item.fromUser.id}/${item.toUser.id}"
             var response: Response? = null
             try {
                 response = OkHttpInstance.getInstance()

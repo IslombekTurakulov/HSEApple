@@ -21,7 +21,7 @@ import java.io.IOException
 internal class RequestsAdapter(context: Context) :
     RecyclerView.Adapter<RequestsAdapter.ViewHolder?>() {
     private val context: Context
-    private lateinit var mItems: ArrayList<com.iuturakulov.domain.entities.RequestEntity>
+    private lateinit var mItems: ArrayList<RequestEntity>
 
     private fun reloadItems() {
         try {
@@ -38,7 +38,7 @@ internal class RequestsAdapter(context: Context) :
             if (response != null) {
                 val res = Gson().fromJson(
                     response.body()?.string() ?: "",
-                    Array<com.iuturakulov.domain.entities.RequestEntity>::class.java
+                    Array<RequestEntity>::class.java
                 )
                 if (!res.isNullOrEmpty()) {
                     mItems.addAll(
@@ -49,9 +49,9 @@ internal class RequestsAdapter(context: Context) :
         } catch (e: Exception) {
             Timber.e(e.message!!)
         }
-        mItems.add(com.iuturakulov.domain.entities.RequestEntity(1, 1, 1, 1, false))
-        mItems.add(com.iuturakulov.domain.entities.RequestEntity(2, 2, 1, 1, false))
-        mItems.add(com.iuturakulov.domain.entities.RequestEntity(3, 3, 1, 1, false))
+//        mItems.add(RequestEntity(1, 1, 1, 1, false))
+//        mItems.add(RequestEntity(2, 2, 1, 1, false))
+//        mItems.add(RequestEntity(3, 3, 1, 1, false))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -69,10 +69,10 @@ internal class RequestsAdapter(context: Context) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         try {
             when {
-                mItems[position].userID.toString() == "1" -> {
+                mItems[position].id.toString() == "1" -> {
                     holder.nameOfPerson.text = "Иванов Иван Иванович"
                 }
-                mItems[position].userID.toString() == "2" -> {
+                mItems[position].id.toString() == "2" -> {
                     holder.nameOfPerson.text = "Жулин Артем Германович"
                 }
                 else -> {
@@ -80,7 +80,7 @@ internal class RequestsAdapter(context: Context) :
                 }
             }
             holder.descriptionOfPerson.text =
-                if (mItems[position].courseID == 1L) "SECOND COURSE, approved: ${mItems[position].approved}" else "THIRD COURSE, approved: ${mItems[position].approved}"
+                if (mItems[position].id == "1") "SECOND COURSE, approved: ${mItems[position].status.status}" else "THIRD COURSE, approved: ${mItems[position].status.status}"
         } catch (e: Exception) {
             Timber.e(e.message!!)
         }
@@ -90,7 +90,7 @@ internal class RequestsAdapter(context: Context) :
         return mItems.size
     }
 
-    fun addItem(item: com.iuturakulov.domain.entities.RequestEntity, position: Int) {
+    fun addItem(item: RequestEntity, position: Int) {
         try {
             mItems.add(position, item)
             notifyItemInserted(position)
@@ -105,8 +105,8 @@ internal class RequestsAdapter(context: Context) :
             itemView.findViewById<View>(R.id.descriptionOfPerson) as TextView
     }
 
-    fun removeItem(position: Int): com.iuturakulov.domain.entities.RequestEntity? {
-        var item: com.iuturakulov.domain.entities.RequestEntity? = null
+    fun removeItem(position: Int): RequestEntity? {
+        var item: RequestEntity? = null
         try {
             item = mItems[position]
             mItems.removeAt(position)
@@ -117,7 +117,7 @@ internal class RequestsAdapter(context: Context) :
         return item
     }
 
-    fun getAllItems(): ArrayList<com.iuturakulov.domain.entities.RequestEntity> {
+    fun getAllItems(): ArrayList<RequestEntity> {
         return mItems
     }
 

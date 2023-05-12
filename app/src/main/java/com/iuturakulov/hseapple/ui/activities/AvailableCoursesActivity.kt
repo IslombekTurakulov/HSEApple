@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import com.iuturakulov.hseapple.R
-import com.iuturakulov.domain.entities.Courses
 import com.iuturakulov.hseapple.ui.adapters.CoursesAdapter
 import com.iuturakulov.hseapple.ui.fragments.ProfileFragment
 import com.iuturakulov.hseapple.utils.toast
@@ -19,19 +18,19 @@ class AvailableCoursesActivity : AppCompatActivity(R.layout.activity_available_c
         setContentView(R.layout.activity_available_courses)
         toast("Success")
         title = getString(R.string.available_courses)
-        val list: ArrayList<com.iuturakulov.domain.entities.Courses> = arrayListOf()
-        list.add(
-            com.iuturakulov.domain.entities.Courses(
-                resources.getString(R.string.second_course),
-                ""
-            )
-        )
-        list.add(
-            com.iuturakulov.domain.entities.Courses(
-                resources.getString(R.string.third_course),
-                ""
-            )
-        )
+        val list: ArrayList<com.iuturakulov.domain.entities.CourseEntity> = arrayListOf()
+//        list.add(
+//            com.iuturakulov.domain.entities.Courses(
+//                resources.getString(R.string.second_course),
+//                ""
+//            )
+//        )
+//        list.add(
+//            com.iuturakulov.domain.entities.Courses(
+//                resources.getString(R.string.third_course),
+//                ""
+//            )
+//        )
         updateItems(list)
         available_courses_text.text = title
         profile_person_view.setOnClickListener {
@@ -41,8 +40,8 @@ class AvailableCoursesActivity : AppCompatActivity(R.layout.activity_available_c
         }
     }
 
-    private fun updateItems(list: ArrayList<com.iuturakulov.domain.entities.Courses>) {
-        val coursesAdapter = CoursesAdapter(list)
+    private fun updateItems(list: ArrayList<com.iuturakulov.domain.entities.CourseEntity>) {
+            val coursesAdapter = CoursesAdapter(list)
         coursesRecyclerView.adapter = coursesAdapter
         swipe_refresh_layout.setOnRefreshListener {
             coursesAdapter.updateData(list)
