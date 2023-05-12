@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
+import com.iuturakulov.domain.entities.PostEntity
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.api.OkHttpInstance
 import com.iuturakulov.domain.entities.TaskEntity
@@ -21,7 +22,7 @@ import java.util.*
 
 class CurrentTestsAdapter : RecyclerView.Adapter<CurrentTestsAdapter.DataViewHolder>() {
 
-    private var news: ArrayList<com.iuturakulov.domain.entities.TaskEntity> = arrayListOf()
+    private var news: ArrayList<TaskEntity> = arrayListOf()
 
     private fun reloadItems() {
         try {
@@ -35,14 +36,14 @@ class CurrentTestsAdapter : RecyclerView.Adapter<CurrentTestsAdapter.DataViewHol
             Timber.d("Tests: ${response.isSuccessful}")
             if (response.isSuccessful) {
                 val tempArr =
-                    Gson().fromJson(response.body()?.string() ?: "", Array<com.iuturakulov.domain.entities.TaskEntity>::class.java)
+                    Gson().fromJson(response.body()?.string() ?: "", Array<TaskEntity>::class.java)
                 if (!tempArr.isNullOrEmpty()) {
                     news.clear()
                     allTests.clear()
                     allTests.addAll(tempArr)
                     news.addAll(tempArr)
                     news.removeAll {
-                        it.status
+                        it.status.status
                     }
                 }
             }
@@ -51,11 +52,11 @@ class CurrentTestsAdapter : RecyclerView.Adapter<CurrentTestsAdapter.DataViewHol
         }
     }
 
-    fun getAllItems(): ArrayList<com.iuturakulov.domain.entities.TaskEntity> {
+    fun getAllItems(): ArrayList<TaskEntity> {
         return news
     }
 
-    fun setAllItems(list: ArrayList<com.iuturakulov.domain.entities.UserTaskEntity>) {
+    fun setAllItems(list: ArrayList<PostEntity>) {
         news.removeAll {
             list.find { it2 ->
                 it2.id == it.id
@@ -74,9 +75,9 @@ class CurrentTestsAdapter : RecyclerView.Adapter<CurrentTestsAdapter.DataViewHol
     }
 
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(itemTask: com.iuturakulov.domain.entities.TaskEntity) {
+        fun bind(itemTask: TaskEntity) {
             itemView.nameOfTask.text = itemTask.title
-            itemView.deadlineOfTask.text = itemTask.createdAt.toString()
+            itemView.deadlineOfTask.text = itemTask.dueDate.toString()
             itemView.beginTask.setOnClickListener {
                 val intent =
                     Intent(itemView.context, TaskInfoActivity::class.java)

@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
+import com.iuturakulov.domain.entities.CourseEntity
 import com.iuturakulov.hseapple.R
 import com.iuturakulov.hseapple.api.OkHttpInstance
 import com.iuturakulov.domain.entities.Courses
@@ -23,15 +24,15 @@ import okhttp3.Response
 import java.io.IOException
 
 class CoursesAdapter(
-    private var courses: ArrayList<com.iuturakulov.domain.entities.Courses>
+    private var courses: ArrayList<CourseEntity>
 ) : RecyclerView.Adapter<DataViewHolder>() {
 
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(itemNews: com.iuturakulov.domain.entities.Courses) {
-            itemView.nameOfCourseField.text = itemNews.nameOfCourse
-            if (!itemNews.image.isNullOrEmpty()) {
+        fun bind(itemNews: CourseEntity) {
+            itemView.nameOfCourseField.text = itemNews.title
+            if (!itemNews.description.isNullOrEmpty()) {
                 Glide.with(itemView.courseImage.context)
-                    .load(itemNews.image)
+                    .load(itemNews.description)
                     .into(itemView.courseImage)
             } else {
                 itemView.courseImage.setImageDrawable(itemView.context.getDrawable(R.drawable.app_logo))
@@ -39,7 +40,7 @@ class CoursesAdapter(
         }
     }
 
-    fun updateData(courses: ArrayList<com.iuturakulov.domain.entities.Courses>?) {
+    fun updateData(courses: ArrayList<com.iuturakulov.domain.entities.CourseEntity>?) {
         if (!courses.isNullOrEmpty()) {
             this.courses = courses
             notifyDataSetChanged()
@@ -58,12 +59,12 @@ class CoursesAdapter(
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
         holder.bind(courses[position])
-        val course: com.iuturakulov.domain.entities.Courses = courses[position]
+        val course: CourseEntity = courses[position]
         val itemView: View = holder.itemView
         // initializePreRequests(course, itemView)
         holder.itemView.courseButton.setOnClickListener {
             SELECTION =
-                if (courses[position].nameOfCourse == holder.itemView.resources.getString(R.string.second_course)) {
+                if (courses[position].title == holder.itemView.resources.getString(R.string.second_course)) {
                     CourseSelection.CHOSEN_SECOND
                 } else {
                     CourseSelection.CHOSEN_THIRD
@@ -97,19 +98,19 @@ class CoursesAdapter(
     }
 
     private fun initializePreRequests(
-        position: com.iuturakulov.domain.entities.Courses,
+        position: CourseEntity,
         holder: View
     ) {
-        if (position.nameOfCourse == holder.resources.getString(R.string.second_course)) {
+        if (position.title == holder.resources.getString(R.string.second_course)) {
             val secondCourse = initializeButtons(1)
-            if (secondCourse != null && secondCourse.approved == true) {
+            if (secondCourse != null && secondCourse.status.status) {
                 holder.courseButton.text =
                     holder.resources.getString(R.string.get_a_request_course)
             }
             arrayOfRequestCourses.add(secondCourse!!)
         } else {
             val thirdCourse = initializeButtons(2)
-            if (thirdCourse != null && thirdCourse.approved == true) {
+            if (thirdCourse != null && thirdCourse.status.status) {
                 holder.courseButton.text =
                     holder.resources.getString(R.string.get_a_request_course)
             }
@@ -117,7 +118,7 @@ class CoursesAdapter(
         }
     }
 
-    private fun initializeButtons(courseId: Int): com.iuturakulov.domain.entities.RequestEntity? {
+    private fun initializeButtons(courseId: Int): RequestEntity? {
         var response: Response? = null
         try {
             response = OkHttpInstance.getInstance()
@@ -129,7 +130,7 @@ class CoursesAdapter(
         if (response != null) {
             return Gson().fromJson(
                 response.body()?.string() ?: "",
-                com.iuturakulov.domain.entities.RequestEntity::class.java
+                RequestEntity::class.java
             )
         }
         return null

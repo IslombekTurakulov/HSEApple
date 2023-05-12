@@ -70,7 +70,7 @@ class TaskInfoActivity : AppCompatActivity() {
         tests_info.text = taskEntity.title
         createTextTitleTaskInfo.setText(taskEntity.title)
         createTextDescTaskInfo.setText(taskEntity.description)
-        dateTimeOfDeadline.text = taskEntity.deadline
+        dateTimeOfDeadline.text = taskEntity.dueDate.toString()
         if (USER_CHAT!!.role != "teacher") {
             edit_things_layout.visibility = View.GONE
         } else {

@@ -81,7 +81,7 @@ class TestsFragment : Fragment(R.layout.fragment_tests) {
             currentTestsAdapter.setAllItems(completedTestsAdapter.getAllItems())
         } else {*/
             completedTestsAdapter = CompletedTestsAdapter()
-            currentTestsAdapter.setAllItems(completedTestsAdapter.getAllItems())
+            // currentTestsAdapter.setAllItems(completedTestsAdapter.getAllItems())
             completedTestsRecyclerView.adapter = completedTestsAdapter
         //}
         currentTestsRecyclerView.adapter = currentTestsAdapter

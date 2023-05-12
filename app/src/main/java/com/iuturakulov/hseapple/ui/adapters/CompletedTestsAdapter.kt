@@ -38,7 +38,7 @@ class CompletedTestsAdapter : RecyclerView.Adapter<CompletedTestsAdapter.DataVie
                     completedTestsList.clear()
                     completedTestsList.addAll(tempArr)
                     completedTestsList.removeAll {
-                        it.userID != USER.id
+                        it.user.id != USER.id
                     }
                 }
             }
@@ -63,9 +63,9 @@ class CompletedTestsAdapter : RecyclerView.Adapter<CompletedTestsAdapter.DataVie
 
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(itemTask: com.iuturakulov.domain.entities.UserTaskEntity) {
-            itemView.nameOfTask.text = allTests.find { it.id == itemTask.id }?.title
-            itemView.deadlineOfTask.text = itemTask.createdAt.toString()
-            itemView.beginTask.text = "${if (itemTask.score.toString().equals("null")) 0 else itemTask.score}/10"
+            itemView.nameOfTask.text = allTests.find { it.id == itemTask.task.id }?.title
+            itemView.deadlineOfTask.text = itemTask.task.dueDate.toString()
+            itemView.beginTask.text = "${if (itemTask.task.title == "null") 0 else itemTask.task.title }/10"
         }
     }
 
